@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -307,15 +307,15 @@ var _default = { components: { Loading: Loading }, data: function data() {return
         that.addressList.push.apply(that.addressList, res.data);that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
         that.page = that.page + 1;});}, /**
                                          * 编辑地址
-                                         */editAddress: function editAddress(index) {this.$yrouter.push({ path: "/pages/user/address/AddAddress/main", query: { id: this.addressList[index].id } });}, /**
-                                                                                                                                                                                                        * 删除地址
-                                                                                                                                                                                                        */delAddress: function delAddress(index) {var that = this;var address = this.addressList[index];var id = address.id;(0, _user.getAddressRemove)(id).then(function () {that.$dialog.toast({ mes: "删除成功!", callback: function callback() {that.addressList.splice(index, 1);that.$set(that, "addressList", that.addressList);} });});}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               * 设置默认地址
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               */radioChange: function radioChange(id) {var _this = this;(0, _user.getAddressDefaultSet)(id).then(function (res) {_this.refresh();wx.showToast({ title: res.msg, icon: "none", duration: 2000 });});}, /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        * 新增地址
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        */addAddress: function addAddress() {this.$yrouter.push({ path: "/pages/user/address/AddAddress/main" });}, getAddress: function getAddress() {
+                                         */editAddress: function editAddress(index) {this.$yrouter.push({ path: "/pages/user/address/AddAddress/index", query: { id: this.addressList[index].id } });}, /**
+                                                                                                                                                                                                         * 删除地址
+                                                                                                                                                                                                         */delAddress: function delAddress(index) {var that = this;var address = this.addressList[index];var id = address.id;(0, _user.getAddressRemove)(id).then(function () {that.$dialog.toast({ mes: "删除成功!", callback: function callback() {that.addressList.splice(index, 1);that.$set(that, "addressList", that.addressList);} });});}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * 设置默认地址
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */radioChange: function radioChange(id) {var _this = this;(0, _user.getAddressDefaultSet)(id).then(function (res) {_this.refresh();uni.showToast({ title: res.msg, icon: "none", duration: 2000 });});}, /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          * 新增地址
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          */addAddress: function addAddress() {this.$yrouter.push({ path: "/pages/user/address/AddAddress/index" });}, getAddress: function getAddress() {
       // openAddress().then(userInfo => {
-      //   wx.showLoading({ title: "加载中" });
+      //   uni.showLoading({ title: "加载中" });
       //   postAddress({
       //     real_name: userInfo.userName,
       //     phone: userInfo.telNumber,
@@ -334,15 +334,16 @@ var _default = { components: { Loading: Loading }, data: function data() {return
       //       this.loadend = false;
       //       this.addressList = [];
       //       this.AddressList();
-      //       wx.hideLoading();
+      //       uni.hideLoading();
       //       this.$dialog.toast({ mes: "添加成功" });
       //     })
       //     .catch(err => {
-      //       wx.hideLoading();
+      //       uni.hideLoading();
       //       this.$dialog.error(err.msg || "添加失败");
       //     });
       // });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

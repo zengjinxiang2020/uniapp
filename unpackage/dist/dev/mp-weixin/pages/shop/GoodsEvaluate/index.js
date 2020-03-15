@@ -138,7 +138,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
 
 
 
@@ -327,19 +327,20 @@ var NAME = "GoodsEvaluate";var _default =
                   comment: expect }).
 
                 then(function () {
-                  wx.showToast({
+                  uni.showToast({
                     title: "评价成功",
                     icon: "success",
                     duration: 2000 });
 
                   _this.$yrouter.push({
-                    path: "/pages/order/OrderDetails/main",
+                    path: "/pages/order/OrderDetails/index",
                     query: { id: _this.orderCon.orderId } });
 
                 }).
                 catch(function (res) {
                   _this.$dialog.error(res.msg);
                 });case 10:case "end":return _context.stop();}}}, _callee, this, [[1, 6]]);}));function submit() {return _submit.apply(this, arguments);}return submit;}() } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

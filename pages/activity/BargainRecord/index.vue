@@ -75,13 +75,13 @@ export default {
   methods: {
     goDetail: function(id) {
       this.$yrouter.push({
-        path: "/pages/activity/DargainDetails/main",
+        path: "/pages/activity/DargainDetails/index",
         query: { id, partake: 0 }
       });
     },
     goList: function() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsBargain/main"
+        path: "/pages/activity/GoodsBargain/index"
       });
     },
     getBargainUserList: function() {
@@ -96,7 +96,7 @@ export default {
           that.loadingList = false;
         })
         .catch(res => {
-           wx.showToast({
+           uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000
@@ -107,7 +107,7 @@ export default {
       var that = this;
       getBargainUserCancel({ bargainId: bargainId })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "success",
             duration: 2000
@@ -119,7 +119,7 @@ export default {
           that.getBargainUserList();
         })
         .catch(res => {
-           wx.showToast({
+           uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000

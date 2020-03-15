@@ -238,7 +238,7 @@ export default {
           that.time_price = res.data.time;
         },
         error => {
-           wx.showToast({
+           uni.showToast({
                           title: error.msg,
                           icon: "none",
                           duration: 2000

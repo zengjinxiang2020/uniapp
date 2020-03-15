@@ -1,10 +1,7 @@
 <template>
   <div class="newsList" ref="container">
     <div class="list" v-for="(item, articleListIndex) in articleList" :key="articleListIndex">
-      <div
-        @click="$yrouter.push({ path: '/pages/shop/news/NewsDetail/index',query:{id:item.id }})"
-        class="item acea-row row-between-wrapper"
-      >
+      <div @click="goNewsDetail(item)" class="item acea-row row-between-wrapper">
         <div class="text acea-row row-column-between">
           <div class="name line2">{{ item.title }}</div>
           <div>{{ item.addTime }}</div>
@@ -26,7 +23,6 @@
   </div>
 </template>
 <script>
-
 import { getArticleList } from "@/api/public";
 
 export default {
@@ -73,6 +69,12 @@ export default {
     !this.loading && this.getArticleLists();
   },
   methods: {
+    goNewsDetail(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/news/NewsDetail/index",
+        query: { id: item.id }
+      });
+    },
     getArticleLists: function() {
       let that = this;
       if (that.loading) return; //阻止下次请求（false可以进行请求）；

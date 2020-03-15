@@ -100,16 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/CustomerService/index",
-        query: {
-          id: _vm.item.uid
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -174,7 +164,13 @@ var _user = __webpack_require__(/*! @/api/user */ 19); //
 //
 //
 //
-var _default = { name: "CustomerList", data: function data() {return { list: [] };}, methods: { getList: function getList() {var _this = this;(0, _user.serviceList)().then(function (res) {_this.list = res.data;});} },
+var _default = { name: "CustomerList", data: function data() {return { list: [] };}, methods: { goCustomerService: function goCustomerService(item) {this.$yrouter.push({ path: "/pages/user/CustomerService/index", query: { id: item.uid } });},
+    getList: function getList() {var _this = this;
+      (0, _user.serviceList)().then(function (res) {
+        _this.list = res.data;
+      });
+    } },
+
   mounted: function mounted() {
     this.getList();
   } };exports.default = _default;

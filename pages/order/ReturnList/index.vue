@@ -8,16 +8,10 @@
         class="item acea-row row-between-wrapper"
         v-for="(cart,cartInfoIndex) in order.cartInfo"
         :key="cartInfoIndex"
-        @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+        @click="goOrderDetails(order)"
       >
         <div class="pictrue">
-          <img
-            :src="cart.productInfo.image"
-            class="image"
-            @click.stop="
-              $yrouter.push({ path: '/pages/shop/GoodsCon/index',query: { id: cart.productInfo.id } })
-            "
-          />
+          <img :src="cart.productInfo.image" class="image" @click.stop="goGoodsCon(cart)" />
         </div>
         <div class="text">
           <div class="acea-row row-between-wrapper">
@@ -67,6 +61,18 @@ export default {
     };
   },
   methods: {
+    goGoodsCon(cart) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: cart.productInfo.id }
+      });
+    },
+    goOrderDetails(order) {
+      this.$yrouter.push({
+        path: "/pages/order/OrderDetails/index",
+        query: { id: order.orderId }
+      });
+    },
     getOrderList() {
       const { page, limit } = this;
       if (this.loading || this.loaded) return;
@@ -88,6 +94,6 @@ export default {
   },
   onReachBottom() {
     !this.loading && this.getOrderList();
-  },
+  }
 };
 </script>

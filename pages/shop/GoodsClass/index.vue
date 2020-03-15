@@ -32,7 +32,7 @@
               class="item acea-row row-column row-middle"
               v-for="(child, categoryIndex) in item.children"
               :key="categoryIndex"
-              @click="$yrouter.push({path: '/pages/shop/GoodsList/index',query: { id: child.id, title: child.cateName }})"
+              @click="goGoodsList(child)"
             >
               <div class="picture">
                 <img :src="child.pic" />
@@ -75,6 +75,12 @@ export default {
     this.loadCategoryData();
   },
   methods: {
+    goGoodsList(child) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsList/index",
+        query: { id: child.id, title: child.cateName }
+      });
+    },
     activeCateId(n) {
       let index = 0;
       n = parseInt(n);
@@ -101,7 +107,7 @@ export default {
       var val = trim(this.search);
       if (val) {
         this.$yrouter.push({
-          path: "/pages/shop/GoodsList/main",
+          path: "/pages/shop/GoodsList/index",
           query: { s: val }
         });
         setTimeout(() => (this.search = ""), 500);
@@ -115,11 +121,10 @@ export default {
     // document.removeEventListener("scroll", this.onScroll, false);
   }
 };
-
 </script>
 
 <style >
-  .productSort{
-    height:100%
-  }
+.productSort {
+  height: 100%;
+}
 </style>

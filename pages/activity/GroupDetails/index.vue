@@ -256,14 +256,14 @@ export default {
     groupRule: function(id) {
       var that = this;
       that.$yrouter.push({
-        path: "/pages/activity/GroupRule/main",
+        path: "/pages/activity/GroupRule/index",
         query: { id }
       });
     },
     goReply: function() {
       var that = this;
       that.$yrouter.push({
-        path: "/pages/shop/EvaluateList/main",
+        path: "/pages/shop/EvaluateList/index",
         query: { id: that.storeInfo.product_id }
       });
     },
@@ -311,7 +311,7 @@ export default {
         postCartAdd(data)
           .then(res => {
             that.$yrouter.push({
-              path: "/pages/order/OrderSubmission/main",
+              path: "/pages/order/OrderSubmission/index",
               query: { id: res.data.cartId }
             });
           })

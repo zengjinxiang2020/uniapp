@@ -39,10 +39,7 @@
             </div>
           </div>
           <div class="picTxt acea-row row-between-wrapper">
-            <div
-              class="pictrue"
-              @click="$yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:item.productId }})"
-            >
+            <div class="pictrue" @click="goGoodsCon(item)">
               <img :src="item.productInfo.attrInfo.image" v-if="item.productInfo.attrInfo" />
               <img :src="item.productInfo.image" v-else />
             </div>
@@ -101,7 +98,7 @@
         <div class="goodsList" :hidden="goodsHidden">
           <div v-for="(item, cartListinvalidIndex) in cartList.invalid" :key="cartListinvalidIndex">
             <div
-              @click="$yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:item.productId }})"
+              @click="goGoodsCon(item)"
               class="item acea-row row-between-wrapper"
               v-if="item.productInfo"
             >
@@ -134,7 +131,7 @@
     </div>
     <div style="height:2.1rem"></div>
     <div
-      :class="['footer acea-row row-between-wrapper',isIpx?'iphonex-footer':'']"
+      :class="['footer acea-row row-between-wrapper']"
       v-if="cartList.valid.length > 0"
     >
       <div>
@@ -240,6 +237,12 @@ export default {
     });
   },
   methods: {
+    goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.productId }
+      });
+    },
     getCartList: function() {
       let that = this;
       getCartList().then(res => {
@@ -341,7 +344,7 @@ export default {
       }
       console.log(id);
       this.$yrouter.push({
-        path: "/pages/order/OrderSubmission/main",
+        path: "/pages/order/OrderSubmission/index",
         query: { id: id.join(",") }
       });
     },
@@ -394,7 +397,7 @@ export default {
             this.getCartList();
           })
           .catch(error => {
-            wx.showToast({
+            uni.showToast({
               title: error.response.data.msg,
               icon: "none",
               duration: 2000

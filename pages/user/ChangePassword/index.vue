@@ -84,7 +84,7 @@ export default {
       } catch (e) {
         return validatorDefaultCatch(e);
       }
-      if (password !== password2) return  wx.showToast({
+      if (password !== password2) return  uni.showToast({
                           title: '两次密码不一致',
                           icon: "none",
                           duration: 2000
@@ -95,7 +95,7 @@ export default {
         password: that.password
       })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -104,7 +104,7 @@ export default {
           // that.$yrouter.push({ path: "/pages/user/Login/index" });
         })
         .catch(res => {
-           wx.showToast({
+           uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000
@@ -129,7 +129,7 @@ export default {
 
       registerVerify({ phone: yphone })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -137,7 +137,7 @@ export default {
           that.sendCode();
         })
         .catch(res => {
-           wx.showToast({
+           uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000

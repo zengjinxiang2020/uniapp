@@ -2982,7 +2982,7 @@ function _has(key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.dataFormat = dataFormat;exports.dataFormatT = dataFormatT;exports.trim = trim;exports.isType = isType;exports.isWeixin = isWeixin;exports.parseQuery = parseQuery;exports.getCurrentPageUrl = getCurrentPageUrl;exports.getCurrentPageUrlWithArgs = getCurrentPageUrlWithArgs;exports.parseUrl = parseUrl;exports.parseRoute = parseRoute;exports.push = push;exports.replace = replace;exports.go = go;exports.back = back;exports.switchTab = switchTab;exports.handleQrCode = handleQrCode;exports.PosterCanvas = exports._router = exports.login = exports.toAuthorization = exports.copyClipboard = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.dataFormat = dataFormat;exports.dataFormatT = dataFormatT;exports.trim = trim;exports.isType = isType;exports.isWeixin = isWeixin;exports.parseQuery = parseQuery;exports.getCurrentPageUrl = getCurrentPageUrl;exports.getCurrentPageUrlWithArgs = getCurrentPageUrlWithArgs;exports.parseUrl = parseUrl;exports.parseRoute = parseRoute;exports.push = push;exports.replace = replace;exports.go = go;exports.back = back;exports.switchTab = switchTab;exports.handleQrCode = handleQrCode;exports.PosterCanvas = exports._router = exports.login = exports.toAuthorization = exports.copyClipboard = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 
 
 var _user = __webpack_require__(/*! @/api/user */ 19);
@@ -3042,7 +3042,6 @@ function isType(arg, type) {
 }
 
 function isWeixin() {
-  // return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
   return false;
 }
 
@@ -3085,7 +3084,7 @@ var copyClipboard = function copyClipboard(data) {
   wx.setClipboardData({
     data: data,
     success: function success(res) {
-      wx.showToast({
+      uni.showToast({
         title: '复制成功',
         icon: 'success',
         duration: 2000 });
@@ -3096,8 +3095,8 @@ var copyClipboard = function copyClipboard(data) {
 
 
 var toAuthorization = function toAuthorization(msg) {
-  wx.hideLoading();
-  wx.showToast({
+  uni.hideLoading();
+  uni.showToast({
     title: msg,
     icon: 'none',
     duration: 2000 });
@@ -3115,86 +3114,107 @@ var toAuthorization = function toAuthorization(msg) {
 var login = function login(option) {
   console.log('调用登录');
   return new Promise(function (resolve, reject) {
-    wx.login({
+    // 获取当前环境的服务商
+    uni.getProvider({
+      service: 'oauth',
       success: function success(res) {
-        console.log('获取code');
-        var code = res.code;
-        _store.default.commit("UPDATE_WXCODE", res.code);
-        if (code) {
-          wx.getSetting({
-            success: function success(resCode) {
-              // * 验证授权
-              if (resCode.authSetting["scope.userInfo"]) {
-                wx.showLoading({
-                  title: "加载中" });
+        console.log(res.provider);
+        // 此处可以排除h5
+        if (res.provider) {
+          // 调用登录接口
+          uni.login({
+            provider: res.provider[0],
+            success: function success(loginRes) {
+              // 微信登录
+              console.log('获取code');
+              var code = loginRes.code;
+              _store.default.commit("UPDATE_WXCODE", loginRes.code);
 
-                wx.getUserInfo({
-                  success: function success(user) {
-                    (0, _user.wxappAuth)({
-                      encryptedData: user.encryptedData,
-                      iv: user.iv,
-                      code: code,
-                      spread: _cookie.default.get("spread") }).
-                    then(function (_ref)
+              console.log(JSON.stringify(loginRes));
+              // 检查授权， 检查用户信息授权
+              uni.authorize({
+                scope: 'scope.userInfo',
+                success: function success() {
+                  uni.getUserInfo({
+                    provider: res.provider[0],
+                    success: function success(user) {
+                      console.log(user);
+                      console.log('用户昵称为：' + user.userInfo.nickName);
+                      if (_vue.default.prototype.$deviceType == 'Weixin') {
+                        (0, _user.wxappAuth)({
+                          encryptedData: user.encryptedData,
+                          iv: user.iv,
+                          code: code,
+                          spread: _cookie.default.get("spread") }).
+                        then(function (_ref)
 
-                    {var data = _ref.data;
-                      resolve(res.data);
-                      wx.hideLoading();
-                      _store.default.commit("LOGIN", data.token, (0, _dayjs.default)(data.expires_time));
-                      (0, _user.getUser)().then(function (res) {
-                        _store.default.dispatch('changeUserInfo', {
-                          user: res.data });
+                        {var data = _ref.data;
+                          resolve(res.data);
+                          uni.hideLoading();
+                          _store.default.commit("LOGIN", data.token, (0, _dayjs.default)(data.expires_time));
+                          (0, _user.getUser)().then(function (res) {
+                            _store.default.dispatch('changeUserInfo', {
+                              user: res.data });
 
-                      });
-                      var pages = getCurrentPages(); //获取加载的页面
-                      var currentPage = pages[pages.length - 1]; //获取当前页面的对象
-                      var url = "/pages/launch/main?type=0";
-                      var query = {};
-                      if (currentPage) {
-                        if (currentPage.route != 'pages/Loading/index' && currentPage.route !=
-                        'pages/user/Login/index') {
-                          url = currentPage.route;
-                        }
-                        if (currentPage.route == 'pages/user/Login/index') {var _currentPage$options =
+                          });
+                          var pages = getCurrentPages(); //获取加载的页面
+                          var currentPage = pages[pages.length - 1]; //获取当前页面的对象
+                          var url = "/pages/home/index";
+                          var query = {};
+                          if (currentPage) {
+                            if (currentPage.route != 'pages/Loading/index' && currentPage.route !=
+                            'pages/user/Login/index') {
+                              url = currentPage.route;
+                            }
+                            if (currentPage.route == 'pages/user/Login/index') {var _currentPage$options =
 
 
 
-                          currentPage.options,redirect = _currentPage$options.redirect,querys = _objectWithoutProperties(_currentPage$options, ["redirect"]);
-                          url = redirect;
-                          query = _objectSpread({}, querys);
+                              currentPage.options,redirect = _currentPage$options.redirect,querys = _objectWithoutProperties(_currentPage$options, ["redirect"]);
+                              url = redirect;
+                              query = _objectSpread({}, querys);
 
-                        }
+                            }
+                          }
+                          switchTab({
+                            path: url,
+                            query: query });
+
+                        }).catch(function (error) {
+                          reject();
+                          option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
+                        });
                       }
-                      replace({
-                        path: url,
-                        query: query });
 
-                    }).catch(function (error) {
+
+                    },
+                    fail: function fail() {
+                      // 获取用户信息失败
                       reject();
                       option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
-                    });
-                  },
-                  fail: function fail(error) {
-                    reject();
-                    option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
-                  } });
+                    } });
 
-              } else {
-                _store.default.commit("UPDATE_AUTHORIZATION", false);
-                reject();
-                option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
-              }
+                },
+                fail: function fail() {
+                  // 获取用户信息失败
+                  reject();
+                  option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
+                } });
+
+            },
+            fail: function fail() {
+              // 调用登录接口失败
+              reject();
+              option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
             } });
 
-        } else {
-          reject();
-          option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
         }
       },
-      fail: function fail(error) {
+      fail: function fail() {
         reject();
         option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试');
       } });
+
 
   });
 };exports.login = login;
@@ -3383,7 +3403,7 @@ var getImageInfo = function getImageInfo(images) {
     * 
     */
 var PosterCanvas = function PosterCanvas(store, successCallBack) {
-  wx.showLoading({
+  uni.showLoading({
     title: '海报生成中',
     mask: true });
 
@@ -3426,7 +3446,7 @@ var PosterCanvas = function PosterCanvas(store, successCallBack) {
         destWidth: WIDTH,
         destHeight: HEIGHT,
         success: function success(res) {
-          wx.hideLoading();
+          uni.hideLoading();
           successCallBack && successCallBack(res.tempFilePath);
         },
         fail: function fail(error) {
@@ -3440,7 +3460,7 @@ var PosterCanvas = function PosterCanvas(store, successCallBack) {
   // wx.getImageInfo({
   //   src: store.image,
   //   fail: function (res) {
-  //     wx.showToast({
+  //     uni.showToast({
   //       title: '海报生成失败',
   //       icon: "none",
   //       duration: 2000
@@ -10917,7 +10937,7 @@ stringify;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.validatorDefaultCatch = validatorDefaultCatch;exports.default = void 0; // import {
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.validatorDefaultCatch = validatorDefaultCatch;exports.default = void 0; // import {
 //   Confirm as confirm,
 //   Alert as alert,
 //   Toast as toast,
@@ -10930,7 +10950,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.validatorD
 
 var dialog = {
   confirm: function confirm(options) {
-    wx.showModal({
+    uni.showModal({
       title: '提示',
       content: options.mes,
       success: function success() {
@@ -10946,12 +10966,12 @@ var dialog = {
   // notify,
   loading: {
     open: function open() {
-      wx.showLoading({
+      uni.showLoading({
         title: '加载中' });
 
     },
     close: function close() {
-      wx.hideLoading();
+      uni.hideLoading();
     } } };
 
 
@@ -10976,7 +10996,7 @@ var dialog = {
 
 dialog.message = function () {var mes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "操作失败";var obj = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return new Promise(function (resolve) {
-    wx.showToast({
+    uni.showToast({
       title: mes,
       icon: "none",
       duration: 2000,
@@ -10988,7 +11008,7 @@ dialog.message = function () {var mes = arguments.length > 0 && arguments[0] !==
 };
 
 dialog.toast = function (options) {
-  wx.showToast({
+  uni.showToast({
     title: options.mes,
     icon: "none",
     duration: 2000,
@@ -10999,7 +11019,7 @@ dialog.toast = function (options) {
 };
 
 dialog.error = function (mes) {
-  wx.showToast({
+  uni.showToast({
     title: mes,
     icon: "none",
     duration: 2000 });
@@ -11011,7 +11031,7 @@ dialog.validateError = function () {
 };
 
 function validatorDefaultCatch(err) {var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "message";
-  wx.showToast({
+  uni.showToast({
     title: err.errors[0].message,
     icon: 'none',
     duration: 2000 });
@@ -11020,6 +11040,7 @@ function validatorDefaultCatch(err) {var type = arguments.length > 1 && argument
 }var _default =
 
 dialog;exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -12713,9 +12734,9 @@ var substr = 'ab'.substr(-1) === 'b'
 /***/ }),
 
 /***/ 32:
-/*!***********************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/base.css ***!
-  \***********************************************************************/
+/*!************************************************************************!*\
+  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/base.less ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12724,9 +12745,9 @@ var substr = 'ab'.substr(-1) === 'b'
 /***/ }),
 
 /***/ 33:
-/*!************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/reset.css ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/reset.less ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12735,9 +12756,9 @@ var substr = 'ab'.substr(-1) === 'b'
 /***/ }),
 
 /***/ 34:
-/*!************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/style.css ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/style.less ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12753,7 +12774,7 @@ var substr = 'ab'.substr(-1) === 'b'
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.weappPay = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} // 支付模块
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.weappPay = void 0;function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;} // 支付模块
 var weappPay = function weappPay(option) {
   return new Promise(function (resolve, reject) {
     // 吊起微信支付
@@ -12761,18 +12782,19 @@ var weappPay = function weappPay(option) {
     option, {
       timeStamp: option.timeStamp + '',
       success: function success(_success) {
-        wx.showToast({
+        uni.showToast({
           title: '支付成功', icon: 'success', duration: 2000 });
 
         resolve(_success);
       },
       fail: function fail(error) {
-        wx.showToast({ title: '支付失败', icon: 'none', duration: 2000 });
+        uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });
         reject(error);
       } }));
 
   });
 };exports.weappPay = weappPay;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -12924,26 +12946,26 @@ function orderVerific(verify_code, is_confirm) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.cancelOrderHandle = cancelOrderHandle;exports.takeOrderHandle = takeOrderHandle;exports.delOrderHandle = delOrderHandle;exports.payOrderHandle = payOrderHandle;var _order = __webpack_require__(/*! @/api/order */ 352);
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.cancelOrderHandle = cancelOrderHandle;exports.takeOrderHandle = takeOrderHandle;exports.delOrderHandle = delOrderHandle;exports.payOrderHandle = payOrderHandle;var _order = __webpack_require__(/*! @/api/order */ 352);
 var _dialog = _interopRequireDefault(__webpack_require__(/*! @/utils/dialog */ 26));
 var _wechat = __webpack_require__(/*! @/libs/wechat */ 343);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 function cancelOrderHandle(orderId) {
   return new Promise(function (resolve, reject) {
-    wx.showModal({
+    uni.showModal({
       title: '提示',
       content: '确认取消该订单?',
       success: function success(res) {
         if (res.confirm) {
           (0, _order.cancelOrder)(orderId).
           then(function (res) {
-            wx.showToast({
+            uni.showToast({
               title: '取消成功', icon: 'success', duration: 2000 });
 
             resolve(res);
           }).
           catch(function (err) {
-            wx.showToast({
+            uni.showToast({
               title: '取消失败', icon: 'none', duration: 2000 });
 
             reject(err);
@@ -12959,13 +12981,13 @@ function takeOrderHandle(orderId) {
   return new Promise(function (resolve, reject) {
     (0, _order.takeOrder)(orderId).
     then(function (res) {
-      wx.showToast({
+      uni.showToast({
         title: '收货成功', icon: 'success', duration: 2000 });
 
       resolve(res);
     }).
     catch(function (err) {
-      wx.showToast({
+      uni.showToast({
         title: '收货失败', icon: 'none', duration: 2000 });
 
       reject(err);
@@ -12980,13 +13002,13 @@ function delOrderHandle(orderId) {
       opts: function opts() {
         (0, _order.delOrder)(orderId).
         then(function (res) {
-          wx.showToast({
+          uni.showToast({
             title: '删除成功', icon: 'success', duration: 2000 });
 
           resolve(res);
         }).
         catch(function (err) {
-          wx.showToast({
+          uni.showToast({
             title: '删除失败', icon: 'none', duration: 2000 });
 
           reject(err);
@@ -12998,11 +13020,11 @@ function delOrderHandle(orderId) {
 
 function payOrderHandle(orderId, type, from) {
   return new Promise(function (resolve, reject) {
-    wx.showLoading({ title: '加载中' });
+    uni.showLoading({ title: '加载中' });
     (0, _order.payOrder)(orderId, type, from).
     then(function (res) {
       var data = res.data;
-      wx.hideLoading();
+      uni.hideLoading();
       switch (data.status) {
         case "WECHAT_H5_PAY":
           location.replace(data.result.jsConfig.mweb_url);
@@ -13016,7 +13038,7 @@ function payOrderHandle(orderId, type, from) {
           reject(data);
           break;
         case "SUCCESS":
-          wx.showToast({ title: res.msg, icon: 'none', duration: 2000 });
+          uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
           resolve(data);
           break;
         case "WECHAT_PAY":
@@ -13026,11 +13048,12 @@ function payOrderHandle(orderId, type, from) {
 
     }).
     catch(function (err) {
-      wx.hideLoading();
+      uni.hideLoading();
       _dialog.default.toast({ mes: "订单支付失败" });
     });
   });
 }
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
@@ -15228,7 +15251,7 @@ attrs;exports.default = _default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/Loading/index": { "navigationBarTitleText": "Loading", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/authorization/index": { "navigationBarTitleText": "authorization", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Login/index": { "navigationBarTitleText": "Login", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Register/index": { "navigationBarTitleText": "Register", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/RetrievePassword/index": { "navigationBarTitleText": "RetrievePassword", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/launch/index": { "navigationBarTitleText": "launch", "usingComponents": { "home": "/pages/home/index", "goods-class": "/pages/shop/GoodsClass/index", "shopping-cart": "/pages/shop/ShoppingCart/index", "user": "/pages/user/User/index", "footer-components": "/components/Footer" }, "usingAutoImportComponents": {} }, "pages/home/index": { "navigationBarTitleText": "home", "usingComponents": { "good-list": "/components/GoodList", "promotion-good": "/components/PromotionGood", "coupon-window": "/components/CouponWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodSearch/index": { "navigationBarTitleText": "GoodSearch", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsClass/index": { "navigationBarTitleText": "GoodsClass", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/ShoppingCart/index": { "navigationBarTitleText": "ShoppingCart", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsList/index": { "navigationBarTitleText": "GoodsList", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/NotDefined/index": { "navigationBarTitleText": "NotDefined", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/User/index": { "navigationBarTitleText": "User", "usingComponents": { "switch-window": "/components/SwitchWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCollection/index": { "navigationBarTitleText": "GoodsCollection", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/news/NewsDetail/index": { "navigationBarTitleText": "NewsDetail", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/news/NewsList/index": { "navigationBarTitleText": "NewsList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/EvaluateList/index": { "navigationBarTitleText": "EvaluateList", "usingComponents": { "user-evaluation": "/components/UserEvaluation", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsEvaluate/index": { "navigationBarTitleText": "GoodsEvaluate", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsPromotion/index": { "navigationBarTitleText": "GoodsPromotion", "usingComponents": { "promotion-good": "/components/PromotionGood" }, "usingAutoImportComponents": {} }, "pages/shop/HotNewGoods/index": { "navigationBarTitleText": "HotNewGoods", "usingComponents": { "good-list": "/components/GoodList" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCon/index": { "navigationBarTitleText": "GoodsCon", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "user-evaluation": "/components/UserEvaluation", "coupon-pop": "/components/CouponPop", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster", "share-info": "/components/ShareInfo" }, "usingAutoImportComponents": {} }, "pages/user/BindingPhone/index": { "navigationBarTitleText": "BindingPhone", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/address/AddAddress/index": { "navigationBarTitleText": "AddAddress", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserAccount/index": { "navigationBarTitleText": "UserAccount", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/address/AddressManagement/index": { "navigationBarTitleText": "AddressManagement", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/Poster/index": { "navigationBarTitleText": "promotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/Sign/index": { "navigationBarTitleText": "signIn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/SignRecord/index": { "navigationBarTitleText": "SignRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashAudit/index": { "navigationBarTitleText": "CashAudit", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterOrder/index": { "navigationBarTitleText": "PromoterOrder", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterList/index": { "navigationBarTitleText": "PromoterList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserPromotion/index": { "navigationBarTitleText": "UserPromotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserBill/index": { "navigationBarTitleText": "UserBill", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashRecord/index": { "navigationBarTitleText": "CashRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CommissionDetails/index": { "navigationBarTitleText": "CommissionDetails", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/signIn/Integral/index": { "navigationBarTitleText": "Integral", "usingComponents": { "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/user/UserVip/index": { "navigationBarTitleText": "UserVip", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/PersonalData/index": { "navigationBarTitleText": "PersonalData", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/coupon/UserCoupon/index": { "navigationBarTitleText": "UserCoupon", "usingComponents": { "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/coupon/GetCoupon/index": { "navigationBarTitleText": "GetCoupon", "usingComponents": { "loading": "/components/Loading", "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserCash/index": { "navigationBarTitleText": "UserCash", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/CustomerList/index": { "navigationBarTitleText": "CustomerList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Recharge/index": { "navigationBarTitleText": "Recharge", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/MyOrder/index": { "navigationBarTitleText": "MyOrder", "usingComponents": { "loading": "/components/Loading", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/Logistics/index": { "navigationBarTitleText": "Logistics", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/order/OrderDetails/index": { "navigationBarTitleText": "OrderDetails", "usingComponents": { "order-goods": "/components/OrderGoods", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/OrderSubmission/index": { "navigationBarTitleText": "OrderSubmission", "usingComponents": { "order-goods": "/components/OrderGoods", "coupon-list-window": "/components/CouponListWindow", "address-window": "/components/AddressWindow" }, "usingAutoImportComponents": {} }, "pages/order/PaymentStatus/index": { "navigationBarTitleText": "PaymentStatus", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/GoodsReturn/index": { "navigationBarTitleText": "GoodsReturn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/ReturnList/index": { "navigationBarTitleText": "ReturnList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderIndex/index": { "navigationBarTitleText": "OrderIndex", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrderList/index": { "navigationBarTitleText": "AdminOrderList", "usingComponents": { "price-change": "/components/PriceChange", "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/GoodsDeliver/index": { "navigationBarTitleText": "GoodsDeliver", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrder/index": { "navigationBarTitleText": "AdminOrder", "usingComponents": { "price-change": "/components/PriceChange", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/Statistics/index": { "navigationBarTitleText": "Statistics", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderCancellation/index": { "navigationBarTitleText": "OrderCancellation", "usingComponents": { "write-off": "/components/WriteOff" }, "usingAutoImportComponents": {} }, "pages/activity/Poster/index": { "navigationBarTitleText": "Poster", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/DargainDetails/index": { "navigationBarTitleText": "DargainDetails", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsBargain/index": { "navigationBarTitleText": "GoodsBargain", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/BargainRecord/index": { "navigationBarTitleText": "BargainRecord", "usingComponents": { "count-down": "/components/CountDown", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsGroup/index": { "navigationBarTitleText": "GoodsGroup", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GroupDetails/index": { "navigationBarTitleText": "GroupDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "user-evaluation": "/components/UserEvaluation", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} }, "pages/activity/GroupRule/index": { "navigationBarTitleText": "GroupRule", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsSeckill/index": { "navigationBarTitleText": "GoodsSeckill", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/SeckillDetails/index": { "navigationBarTitleText": "SeckillDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/Loading/index": { "navigationBarTitleText": "Loading", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/authorization/index": { "navigationBarTitleText": "authorization", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Login/index": { "navigationBarTitleText": "Login", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Register/index": { "navigationBarTitleText": "Register", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/RetrievePassword/index": { "navigationBarTitleText": "RetrievePassword", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/launch/index": { "navigationBarTitleText": "launch", "usingComponents": { "home": "/pages/home/index", "goods-class": "/pages/shop/GoodsClass/index", "shopping-cart": "/pages/shop/ShoppingCart/index", "user": "/pages/user/User/index", "footer-components": "/components/Footer" }, "usingAutoImportComponents": {} }, "pages/home/index": { "navigationBarTitleText": "home", "usingComponents": { "good-list": "/components/GoodList", "promotion-good": "/components/PromotionGood", "coupon-window": "/components/CouponWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodSearch/index": { "navigationBarTitleText": "GoodSearch", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsClass/index": { "navigationBarTitleText": "GoodsClass", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/ShoppingCart/index": { "navigationBarTitleText": "ShoppingCart", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsList/index": { "navigationBarTitleText": "GoodsList", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/NotDefined/index": { "navigationBarTitleText": "NotDefined", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/User/index": { "navigationBarTitleText": "User", "usingComponents": { "switch-window": "/components/SwitchWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCollection/index": { "navigationBarTitleText": "GoodsCollection", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/news/NewsDetail/index": { "navigationBarTitleText": "NewsDetail", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/news/NewsList/index": { "navigationBarTitleText": "NewsList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/EvaluateList/index": { "navigationBarTitleText": "EvaluateList", "usingComponents": { "user-evaluation": "/components/UserEvaluation", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsEvaluate/index": { "navigationBarTitleText": "GoodsEvaluate", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsPromotion/index": { "navigationBarTitleText": "GoodsPromotion", "usingComponents": { "promotion-good": "/components/PromotionGood" }, "usingAutoImportComponents": {} }, "pages/shop/HotNewGoods/index": { "navigationBarTitleText": "HotNewGoods", "usingComponents": { "good-list": "/components/GoodList" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCon/index": { "navigationBarTitleText": "GoodsCon", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "user-evaluation": "/components/UserEvaluation", "coupon-pop": "/components/CouponPop", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster", "share-info": "/components/ShareInfo" }, "usingAutoImportComponents": {} }, "pages/user/BindingPhone/index": { "navigationBarTitleText": "BindingPhone", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/address/AddAddress/index": { "navigationBarTitleText": "AddAddress", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserAccount/index": { "navigationBarTitleText": "UserAccount", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/address/AddressManagement/index": { "navigationBarTitleText": "AddressManagement", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/Poster/index": { "navigationBarTitleText": "promotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/Sign/index": { "navigationBarTitleText": "signIn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/SignRecord/index": { "navigationBarTitleText": "SignRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashAudit/index": { "navigationBarTitleText": "CashAudit", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterOrder/index": { "navigationBarTitleText": "PromoterOrder", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterList/index": { "navigationBarTitleText": "PromoterList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserPromotion/index": { "navigationBarTitleText": "UserPromotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserBill/index": { "navigationBarTitleText": "UserBill", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashRecord/index": { "navigationBarTitleText": "CashRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CommissionDetails/index": { "navigationBarTitleText": "CommissionDetails", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/signIn/Integral/index": { "navigationBarTitleText": "Integral", "usingComponents": { "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/user/UserVip/index": { "navigationBarTitleText": "UserVip", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/PersonalData/index": { "navigationBarTitleText": "PersonalData", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/coupon/UserCoupon/index": { "navigationBarTitleText": "UserCoupon", "usingComponents": { "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/coupon/GetCoupon/index": { "navigationBarTitleText": "GetCoupon", "usingComponents": { "loading": "/components/Loading", "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserCash/index": { "navigationBarTitleText": "UserCash", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/CustomerList/index": { "navigationBarTitleText": "CustomerList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Recharge/index": { "navigationBarTitleText": "Recharge", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/MyOrder/index": { "navigationBarTitleText": "MyOrder", "usingComponents": { "loading": "/components/Loading", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/Logistics/index": { "navigationBarTitleText": "Logistics", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/order/OrderDetails/index": { "navigationBarTitleText": "OrderDetails", "usingComponents": { "order-goods": "/components/OrderGoods", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/OrderSubmission/index": { "navigationBarTitleText": "OrderSubmission", "usingComponents": { "order-goods": "/components/OrderGoods", "coupon-list-window": "/components/CouponListWindow", "address-window": "/components/AddressWindow" }, "usingAutoImportComponents": {} }, "pages/order/PaymentStatus/index": { "navigationBarTitleText": "PaymentStatus", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/GoodsReturn/index": { "navigationBarTitleText": "GoodsReturn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/ReturnList/index": { "navigationBarTitleText": "ReturnList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderIndex/index": { "navigationBarTitleText": "OrderIndex", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrderList/index": { "navigationBarTitleText": "AdminOrderList", "usingComponents": { "price-change": "/components/PriceChange", "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/GoodsDeliver/index": { "navigationBarTitleText": "GoodsDeliver", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrder/index": { "navigationBarTitleText": "AdminOrder", "usingComponents": { "price-change": "/components/PriceChange", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/Statistics/index": { "navigationBarTitleText": "Statistics", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderCancellation/index": { "navigationBarTitleText": "OrderCancellation", "usingComponents": { "write-off": "/components/WriteOff" }, "usingAutoImportComponents": {} }, "pages/activity/Poster/index": { "navigationBarTitleText": "Poster", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/DargainDetails/index": { "navigationBarTitleText": "DargainDetails", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsBargain/index": { "navigationBarTitleText": "GoodsBargain", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/BargainRecord/index": { "navigationBarTitleText": "BargainRecord", "usingComponents": { "count-down": "/components/CountDown", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsGroup/index": { "navigationBarTitleText": "GoodsGroup", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GroupDetails/index": { "navigationBarTitleText": "GroupDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "user-evaluation": "/components/UserEvaluation", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} }, "pages/activity/GroupRule/index": { "navigationBarTitleText": "GroupRule", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsSeckill/index": { "navigationBarTitleText": "GoodsSeckill", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/SeckillDetails/index": { "navigationBarTitleText": "SeckillDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} }, "pages/11111/11111": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 

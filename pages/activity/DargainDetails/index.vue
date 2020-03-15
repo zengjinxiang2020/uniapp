@@ -248,7 +248,7 @@ export default {
       ) {
         that.bargainPartake = that.userInfo.uid;
         // that.$yrouter.push({
-        //   path: "/pages/activity/DargainDetails/main",
+        //   path: "/pages/activity/DargainDetails/index",
         //   query: { id: that.bargainId, partake: that.bargainPartake }
         // });
       } else {
@@ -274,7 +274,7 @@ export default {
       postCartAdd(data)
         .then(res => {
           that.$yrouter.push({
-            path: "/pages/order/OrderSubmission/main",
+            path: "/pages/order/OrderSubmission/index",
             query: { id: res.data.cartId }
           });
         })
@@ -286,13 +286,13 @@ export default {
       var that = this;
       that.getBargainShare(that.bargainId);
       this.$yrouter.push({
-        path: "/pages/activity/Poster/main",
+        path: "/pages/activity/Poster/index",
         query: { id: that.bargainId, type: 2 }
       });
     },
     goList: function() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsBargain/main"
+        path: "/pages/activity/GoodsBargain/index"
       });
     },
     //砍价分享
@@ -317,7 +317,7 @@ export default {
           that.getBargainHelpCount();
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -333,7 +333,7 @@ export default {
           that.getBargainHelp();
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -347,7 +347,7 @@ export default {
         that.surplusPrice === 0 &&
         that.bargainPartake !== that.userInfo.uid
       ) {
-        return wx.showToast({
+        return uni.showToast({
           title: "好友已经砍价成功",
           icon: "success",
           duration: 2000
@@ -372,7 +372,7 @@ export default {
           that.getBargainHelpPrice();
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -399,7 +399,7 @@ export default {
           }
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -425,7 +425,7 @@ export default {
           that.bargainHelpList.push.apply(that.bargainHelpList, res.data);
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -441,7 +441,7 @@ export default {
         .then(() => {})
         .catch(() => {
           // that.$yrouter.push({
-          //   path: "/pages/activity/DargainDetails/main",
+          //   path: "/pages/activity/DargainDetails/index",
           //   query: { id: that.bargainId, partake: that.userInfo.uid }
           // });
         });
@@ -463,7 +463,7 @@ export default {
         .catch(() => {
           that.bargainPartake = that.userInfo.uid;
           // that.$yrouter.push({
-          //   path: "/pages/activity/DargainDetails/main",
+          //   path: "/pages/activity/DargainDetails/index",
           //   query: { id: that.bargainId, partake: that.userInfo.uid }
           // });
         });
@@ -479,7 +479,7 @@ export default {
           that.getBargainHelpList();
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -492,7 +492,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      path: `/pages/activity/DargainDetails/main/?id=${
+      path: `/pages/activity/DargainDetails/index/?id=${
         this.$yroute.query.id
       }&partake=${this.userInfo.uid}`
     };

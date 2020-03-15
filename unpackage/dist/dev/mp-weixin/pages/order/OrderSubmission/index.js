@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -501,7 +501,7 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
         var data = res.data;
         if (data.status === "EXTEND_ORDER") {
           _this.$yrouter.replace({
-            path: "/pages/order/OrderDetails/main",
+            path: "/pages/order/OrderDetails/index",
             query: { id: data.result.orderId } });
 
         } else {
@@ -577,7 +577,7 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
         }
       }
 
-      wx.showLoading({ title: "生成订单中" });
+      uni.showLoading({ title: "生成订单中" });
       (0, _order.createOrder)(this.orderGroupInfo.orderKey, {
         realName: this.contacts,
         phone: this.contactsTel,
@@ -594,7 +594,7 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
         shippingType: parseInt(shipping_type) + 1 }).
 
       then(function (res) {
-        wx.hideLoading();
+        uni.hideLoading();
         var data = res.data;
         switch (data.status) {
           case "ORDER_EXIST":
@@ -603,24 +603,24 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
           case "PAY_ERROR":
             _this3.$dialog.toast({ mes: res.msg });
             _this3.$yrouter.replace({
-              path: "/pages/order/OrderDetails/main",
+              path: "/pages/order/OrderDetails/index",
               query: { id: data.result.orderId } });
 
             break;
           case "SUCCESS":
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000 });
 
             _this3.$yrouter.replace({
-              path: "/pages/order/OrderDetails/main",
+              path: "/pages/order/OrderDetails/index",
               query: { id: data.result.orderId } });
 
             break;
           case "WECHAT_H5_PAY":
             _this3.$yrouter.replace({
-              path: "/pages/order/OrderDetails/main",
+              path: "/pages/order/OrderDetails/index",
               query: { id: data.result.orderId } });
 
             setTimeout(function () {
@@ -630,7 +630,7 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
           case "WECHAT_PAY":
             (0, _wechat.weappPay)(data.result.jsConfig).then(function (res) {
               _this3.$yrouter.replace({
-                path: "/pages/order/OrderDetails/main",
+                path: "/pages/order/OrderDetails/index",
                 query: { id: data.result.orderId } });
 
             });
@@ -638,16 +638,17 @@ _isWeixin = (0, _utils.isWeixin)();var _default =
           // 下面为原先微信支付方式，
           // pay(data.result.jsConfig).finally(() => {
           //   this.$yrouter.replace({
-          //     path: "/pages/order/OrderDetails/main" ,query: { id: data.result.orderId}
+          //     path: "/pages/order/OrderDetails/index" ,query: { id: data.result.orderId}
           //   });
           // });
         }
       }).
       catch(function (err) {
-        wx.hideLoading();
+        uni.hideLoading();
         _this3.$dialog.error(err.response.data.msg || "创建订单失败");
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

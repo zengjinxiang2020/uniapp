@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -208,13 +208,13 @@ var _activity = __webpack_require__(/*! @/api/activity */ 443);var CountDown = f
   methods: {
     goDetail: function goDetail(id) {
       this.$yrouter.push({
-        path: "/pages/activity/DargainDetails/main",
+        path: "/pages/activity/DargainDetails/index",
         query: { id: id, partake: 0 } });
 
     },
     goList: function goList() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsBargain/main" });
+        path: "/pages/activity/GoodsBargain/index" });
 
     },
     getBargainUserList: function getBargainUserList() {
@@ -229,7 +229,7 @@ var _activity = __webpack_require__(/*! @/api/activity */ 443);var CountDown = f
         that.loadingList = false;
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -240,7 +240,7 @@ var _activity = __webpack_require__(/*! @/api/activity */ 443);var CountDown = f
       var that = this;
       (0, _activity.getBargainUserCancel)({ bargainId: bargainId }).
       then(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "success",
           duration: 2000 });
@@ -252,13 +252,14 @@ var _activity = __webpack_require__(/*! @/api/activity */ 443);var CountDown = f
         that.getBargainUserList();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
 
       });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

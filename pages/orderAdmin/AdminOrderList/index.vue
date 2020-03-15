@@ -65,11 +65,7 @@
               v-if="item.pay_type === 'offline' && item.paid === 0"
               @click="offlinePay(item)"
             >确认付款</div>
-            <div
-              class="bnt"
-              v-if="where.status == 1"
-              @click="$yrouter.push({path:'/pages/orderAdmin/GoodsDeliver/index',query: { id:item.orderId }})"
-            >去发货</div>
+            <div class="bnt" v-if="where.status == 1" @click="goGoodsDeliver(item)">去发货</div>
           </div>
         </div>
       </div>
@@ -144,6 +140,12 @@ export default {
     !that.loading && that.getIndex();
   },
   methods: {
+    goGoodsDeliver(item) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/GoodsDeliver/index",
+        query: { id: item.orderId }
+      });
+    },
     more: function(index) {
       if (this.current === index) this.current = "";
       else this.current = index;
@@ -179,7 +181,7 @@ export default {
         setAdminOrderPrice(data).then(
           function() {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: "改价成功",
               icon: "success",
               duration: 2000
@@ -188,7 +190,7 @@ export default {
           },
           function() {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: "改价失败",
               icon: "none",
               duration: 2000
@@ -211,7 +213,7 @@ export default {
         setOrderRefund(data).then(
           res => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -220,7 +222,7 @@ export default {
           },
           err => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -239,7 +241,7 @@ export default {
         setAdminOrderRemark(data).then(
           res => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -248,7 +250,7 @@ export default {
           },
           err => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -277,7 +279,7 @@ export default {
           that.where.page = that.where.page + 1;
         },
         err => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -293,14 +295,14 @@ export default {
     },
     toDetail: function(item) {
       this.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrder/main",
+        path: "/pages/orderAdmin/AdminOrder/index",
         query: { oid: item.orderId }
       });
     },
     offlinePay: function(item) {
       setOfflinePay({ order_id: item.order_id }).then(
         res => {
-          this.$wx.showToast({ title: res.msg, icon: "none", duration: 2000 });
+          this.$uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
           this.init();
         },
         error => {

@@ -104,68 +104,11 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      return _vm.$yrouter.push("/pages/shop/GoodSearch/index")
-    }
-
-    _vm.e1 = function($event) {
       _vm.item.url ? _vm.$yrouter.push("/" + _vm.item.url) : ""
     }
 
-    _vm.e2 = function($event) {
-      _vm.item.wxapp_url ? _vm.$yrouter.push(_vm.item.wxapp_url) : ""
-    }
-
-    _vm.e3 = function($event) {
-      return _vm.$yrouter.push(_vm.item.wxapp_url)
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 2
-        }
-      })
-    }
-
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-
-    _vm.e6 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 1
-        }
-      })
-    }
-
-    _vm.e7 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 3
-        }
-      })
-    }
-
-    _vm.e8 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-
-    _vm.e9 = function($event) {
-      return _vm.$yrouter.push("/pages/shop/GoodsPromotion/index")
+    _vm.e1 = function($event) {
+      _vm.item.uniapp_url ? _vm.$yrouter.push(_vm.item.uniapp_url) : ""
     }
   }
 
@@ -211,16 +154,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -495,6 +428,27 @@ var HAS_COUPON_WINDOW = "has_coupon_window";var _default =
     });
   },
   methods: {
+    goGoodSearch: function goGoodSearch() {
+      this.$yrouter.push("/pages/shop/GoodSearch/index");
+    },
+    goWxappUrl: function goWxappUrl(item) {
+      this.$yrouter.push(item.uniapp_url);
+    },
+    goHotNewGoods: function goHotNewGoods(type) {
+      this.$yrouter.push({
+        path: "/pages/shop/HotNewGoods/index",
+        query: { type: type } });
+
+    },
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.id } });
+
+    },
+    goGoodsPromotion: function goGoodsPromotion() {
+      this.$yrouter.push("/pages/shop/GoodsPromotion/index");
+    },
     setOpenShare: function setOpenShare() {} } };exports.default = _default;
 
 /***/ }),

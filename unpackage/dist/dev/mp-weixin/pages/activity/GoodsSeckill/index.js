@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -301,7 +301,7 @@ var CountDown = function CountDown() {return __webpack_require__.e(/*! import() 
       loadingList: false, //当前接口是否请求完成 false 完成 true 未完成
       page: 1, //页码
       limit: 5, //数量
-      title: [] };}, mounted: function mounted() {this.mountedStart();}, onReachBottom: function onReachBottom() {!this.loadingList && this.getSeckillList();}, methods: { mountedStart: function mountedStart() {var that = this;wx.showLoading();(0, _activity.getSeckillConfig)().then(function (res) {that.$set(that, "headerImg", res.data.lovely);that.$set(that, "timeList", res.data.seckillTime);that.$set(that, "active", res.data.seckillTimeIndex);var title = [];title = res.data.seckillTime.map(function (item, index) {return { name: "div", attrs: { class: "timeItem" }, children: [{ name: "div", attrs: { class: "time" }, children: [{ type: "text", text: item.time }] }, { name: "div", attrs: { class: "state" }, children: [{ type: "text", text: item.state }] }] };});that.$set(that, "title", title);that.datatime = that.timeList[that.active].stop;that.getSeckillList();that.$nextTick(function () {that.sticky = true;wx.hideLoading();});});}, setTime: function setTime(event) {var that = this;
+      title: [] };}, mounted: function mounted() {this.mountedStart();}, onReachBottom: function onReachBottom() {!this.loadingList && this.getSeckillList();}, methods: { mountedStart: function mountedStart() {var that = this;uni.showLoading();(0, _activity.getSeckillConfig)().then(function (res) {that.$set(that, "headerImg", res.data.lovely);that.$set(that, "timeList", res.data.seckillTime);that.$set(that, "active", res.data.seckillTimeIndex);var title = [];title = res.data.seckillTime.map(function (item, index) {return { name: "div", attrs: { class: "timeItem" }, children: [{ name: "div", attrs: { class: "time" }, children: [{ type: "text", text: item.time }] }, { name: "div", attrs: { class: "state" }, children: [{ type: "text", text: item.state }] }] };});that.$set(that, "title", title);that.datatime = that.timeList[that.active].stop;that.getSeckillList();that.$nextTick(function () {that.sticky = true;uni.hideLoading();});});}, setTime: function setTime(event) {var that = this;
       that.active = event.mp.detail.index;
       that.datatime = that.timeList[that.active].stop;
       that.getSeckillList();
@@ -315,17 +315,18 @@ var CountDown = function CountDown() {return __webpack_require__.e(/*! import() 
         that.status = res.data.length < that.limit;
         that.seckillList.push.apply(that.seckillList, res.data);
         that.page++;
-        wx.hideLoading();
+        uni.hideLoading();
       });
     },
     goDetail: function goDetail(id) {
       var that = this;
       var time = that.timeList[that.active].stop;
       this.$yrouter.push({
-        path: "/pages/activity/SeckillDetails/main",
+        path: "/pages/activity/SeckillDetails/index",
         query: { id: id, time: time } });
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

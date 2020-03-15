@@ -107,7 +107,7 @@ var render = function() {
 
     _vm.e1 = function($event) {
       return _vm.$yrouter.push({
-        path: "/pages/order/GoodsReturn/index",
+        path: "/pages/order/Logistics/index",
         query: {
           id: _vm.orderInfo.orderId
         }
@@ -128,24 +128,6 @@ var render = function() {
         path: "/pages/order/Logistics/index",
         query: {
           id: _vm.orderInfo.orderId
-        }
-      })
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/Logistics/index",
-        query: {
-          id: _vm.orderInfo.orderId
-        }
-      })
-    }
-
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/activity/GroupRule/index",
-        query: {
-          id: _vm.orderInfo.pinkId
         }
       })
     }
@@ -183,7 +165,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -797,7 +789,7 @@ var NAME = "OrderDetails";var _default =
         _this4.setOfflinePayStatus(_this4.orderInfo.offlinePayStatus);
       }).
       catch(function (err) {
-        wx.showToast({
+        uni.showToast({
           title: err.response.data.msg,
           icon: "none",
           duration: 2000 });
@@ -808,6 +800,7 @@ var NAME = "OrderDetails";var _default =
                 that = this;_context.next = 3;return (
                   (0, _order2.payOrderHandle)(this.orderInfo.orderId, type, that.from));case 3:
                 that.getDetail();case 4:case "end":return _context.stop();}}}, _callee, this);}));function toPay(_x) {return _toPay.apply(this, arguments);}return toPay;}() } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

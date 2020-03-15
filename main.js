@@ -12,9 +12,9 @@ import cookie from "@/utils/store/cookie";
 import "@/assets/iconfont/iconfont.css";
 // import "@/assets/js/media_750";
 // import "vue-ydui/dist/ydui.base.css";
-import "@/assets/css/base.css";
-import "@/assets/css/reset.css";
-import "@/assets/css/style.css";
+import "@/assets/css/base.less";
+import "@/assets/css/reset.less";
+import "@/assets/css/style.less";
 
 import {
 	parseRoute,
@@ -76,17 +76,27 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 	}
 })
 
-Object.defineProperty(Vue.prototype, '$VUE_APP_RESOURCES_URL', {
-	get() {
-		return VUE_APP_RESOURCES_URL
-	}
-})
+Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
+Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 
-Object.defineProperty(Vue.prototype, '$VUE_APP_API_URL', {
-	get() {
-		return VUE_APP_API_URL
-	}
-})
+// #ifdef APP-PLUS
+// App平台编译的代码
+Vue.prototype.$deviceType = 'App'
+Vue.prototype.$platform = uni.getSystemInfoSync().platform
+// #endif
 
+// #ifndef H5
+// H5编译的代码
+Vue.prototype.$deviceType = 'H5'
+// #endif
+
+// #ifdef MP-WEIXIN
+// 微信小程序编译的代码
+Vue.prototype.$deviceType = 'Weixin'
+// #endif
+
+if(wx){
+	Vue.prototype.$deviceType = 'Weixin'
+}
 
 app.$mount()

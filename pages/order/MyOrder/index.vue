@@ -48,9 +48,7 @@
           </div>
           <div class="font-color-red">{{ getStatus(order) }}</div>
         </div>
-        <div
-          @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
-        >
+        <div @click="goOrderDetails(order)">
           <div
             class="item-info acea-row row-between row-top"
             v-for="(cart,cartInfoIndex) in order.cartInfo"
@@ -118,13 +116,13 @@
             <div class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</div>
             <div
               class="bnt bg-color-red"
-              @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+              @click="goOrderDetails(order)"
             >立即付款</div>
           </template>
           <template v-if="order._status._type == 1 || order._status._type == 9">
             <div
               class="bnt bg-color-red"
-              @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+              @click="goOrderDetails(order)"
             >查看详情</div>
           </template>
           <template v-if="order._status._type == 2">
@@ -148,13 +146,13 @@
             <!--</div>-->
             <div
               class="bnt bg-color-red"
-              @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+              @click="goOrderDetails(order)"
             >去评价</div>
           </template>
           <template v-if="order._status._type === 4">
             <div
               class="bnt bg-color-red"
-              @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+              @click="goOrderDetails(order)"
             >查看订单</div>
           </template>
         </div>
@@ -233,6 +231,12 @@ export default {
     type() {}
   },
   methods: {
+    goOrderDetails(order) {
+      this.$yrouter.push({
+        path: "/pages/order/OrderDetails/index",
+        query: { id: order.orderId }
+      });
+    },
     dataFormat,
     setOfflinePayStatus: function(status) {
       var that = this;
@@ -263,7 +267,7 @@ export default {
       this.page = 1;
       this.loaded = false;
       this.loading = false;
-      this.getOrderList(); 
+      this.getOrderList();
     },
     getOrderList() {
       if (this.loading || this.loaded) return;

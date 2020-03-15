@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
 
 
 
@@ -254,7 +254,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
         that.delivery = res.data;
       },
       function (error) {
-        wx.showToast({
+        uni.showToast({
           title: error.msg,
           icon: "none",
           duration: 2000 });
@@ -269,7 +269,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
         that.logistics = res.data;
       },
       function (error) {
-        wx.showToast({
+        uni.showToast({
           title: error.msg,
           icon: "none",
           duration: 2000 });
@@ -318,7 +318,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
       var that = this;
       (0, _admin.setAdminOrderDelivery)(item).then(
       function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -326,7 +326,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
         that.$yrouter.go(-1);
       },
       function (error) {
-        wx.showToast({
+        uni.showToast({
           title: error.msg,
           icon: "none",
           duration: 2000 });
@@ -334,6 +334,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
       });
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

@@ -69,7 +69,7 @@ export default {
     },
     goDetail: function(id) {
       this.$yrouter.push({
-        path: "/pages/activity/DargainDetails/main",
+        path: "/pages/activity/DargainDetails/index",
         query: { id, partake: 0 }
       });
     }

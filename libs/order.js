@@ -4,20 +4,20 @@ import { weappPay } from "@/libs/wechat";
 
 export function cancelOrderHandle(orderId) {
   return new Promise((resolve, reject) => {
-    wx.showModal({
+    uni.showModal({
       title: '提示',
       content: '确认取消该订单?',
       success(res) {
         if (res.confirm) {
           cancelOrder(orderId)
             .then(res => {
-              wx.showToast({
+              uni.showToast({
                 title: '取消成功', icon: 'success', duration: 2000
               });
               resolve(res);
             })
             .catch(err => {
-              wx.showToast({
+              uni.showToast({
                 title: '取消失败', icon: 'none', duration: 2000
               });
               reject(err);
@@ -33,13 +33,13 @@ export function takeOrderHandle(orderId) {
   return new Promise((resolve, reject) => {
     takeOrder(orderId)
       .then(res => {
-        wx.showToast({
+        uni.showToast({
           title: '收货成功', icon: 'success', duration: 2000
         });
         resolve(res);
       })
       .catch(err => {
-        wx.showToast({
+        uni.showToast({
           title: '收货失败', icon: 'none', duration: 2000
         });
         reject(err);
@@ -54,13 +54,13 @@ export function delOrderHandle(orderId) {
       opts() {
         delOrder(orderId)
           .then(res => {
-            wx.showToast({
+            uni.showToast({
               title: '删除成功', icon: 'success', duration: 2000
             });
             resolve(res);
           })
           .catch(err => {
-            wx.showToast({
+            uni.showToast({
               title: '删除失败', icon: 'none', duration: 2000
             });
             reject(err);
@@ -72,11 +72,11 @@ export function delOrderHandle(orderId) {
 
 export function payOrderHandle(orderId, type, from) {
   return new Promise((resolve, reject) => {
-    wx.showLoading({ title: '加载中' })
+    uni.showLoading({ title: '加载中' })
     payOrder(orderId, type, from)
       .then(res => {
         const data = res.data;
-        wx.hideLoading()
+        uni.hideLoading()
         switch (data.status) {
           case "WECHAT_H5_PAY":
             location.replace(data.result.jsConfig.mweb_url);
@@ -90,7 +90,7 @@ export function payOrderHandle(orderId, type, from) {
             reject(data);
             break;
           case "SUCCESS":
-            wx.showToast({ title: res.msg, icon: 'none', duration: 2000 });
+            uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
             resolve(data);
             break;
           case "WECHAT_PAY":
@@ -100,7 +100,7 @@ export function payOrderHandle(orderId, type, from) {
         }
       })
       .catch(err => {
-        wx.hideLoading()
+        uni.hideLoading()
         dialog.toast({ mes: "订单支付失败" });
       });
   });

@@ -366,7 +366,7 @@ export default {
         const data = res.data;
         if (data.status === "EXTEND_ORDER") {
           this.$yrouter.replace({
-            path: "/pages/order/OrderDetails/main",
+            path: "/pages/order/OrderDetails/index",
             query: { id: data.result.orderId }
           });
         } else {
@@ -442,7 +442,7 @@ export default {
         }
       }
 
-      wx.showLoading({ title: "生成订单中" });
+      uni.showLoading({ title: "生成订单中" });
       createOrder(this.orderGroupInfo.orderKey, {
         realName: this.contacts,
         phone: this.contactsTel,
@@ -459,7 +459,7 @@ export default {
         shippingType: parseInt(shipping_type) + 1
       })
         .then(res => {
-          wx.hideLoading();
+          uni.hideLoading();
           const data = res.data;
           switch (data.status) {
             case "ORDER_EXIST":
@@ -468,24 +468,24 @@ export default {
             case "PAY_ERROR":
               this.$dialog.toast({ mes: res.msg });
               this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/main",
+                path: "/pages/order/OrderDetails/index",
                 query: { id: data.result.orderId }
               });
               break;
             case "SUCCESS":
-              wx.showToast({
+              uni.showToast({
                 title: res.msg,
                 icon: "none",
                 duration: 2000
               });
               this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/main",
+                path: "/pages/order/OrderDetails/index",
                 query: { id: data.result.orderId }
               });
               break;
             case "WECHAT_H5_PAY":
               this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/main",
+                path: "/pages/order/OrderDetails/index",
                 query: { id: data.result.orderId }
               });
               setTimeout(() => {
@@ -495,7 +495,7 @@ export default {
             case "WECHAT_PAY":
               weappPay(data.result.jsConfig).then(res => {
                 this.$yrouter.replace({
-                  path: "/pages/order/OrderDetails/main",
+                  path: "/pages/order/OrderDetails/index",
                   query: { id: data.result.orderId }
                 });
               });
@@ -503,13 +503,13 @@ export default {
             // 下面为原先微信支付方式，
             // pay(data.result.jsConfig).finally(() => {
             //   this.$yrouter.replace({
-            //     path: "/pages/order/OrderDetails/main" ,query: { id: data.result.orderId}
+            //     path: "/pages/order/OrderDetails/index" ,query: { id: data.result.orderId}
             //   });
             // });
           }
         })
         .catch(err => {
-          wx.hideLoading();
+          uni.hideLoading();
           this.$dialog.error(err.response.data.msg || "创建订单失败");
         });
     }

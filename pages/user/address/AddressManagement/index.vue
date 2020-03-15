@@ -140,7 +140,7 @@ export default {
      */
     editAddress: function(index) {
       this.$yrouter.push({
-        path: "/pages/user/address/AddAddress/main",
+        path: "/pages/user/address/AddAddress/index",
         query: { id: this.addressList[index].id }
       });
     },
@@ -167,7 +167,7 @@ export default {
     radioChange: function(id) {
       getAddressDefaultSet(id).then(res => {
         this.refresh();
-        wx.showToast({ title: res.msg, icon: "none", duration: 2000 });
+        uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
       });
     },
     /**
@@ -175,12 +175,12 @@ export default {
      */
     addAddress: function() {
       this.$yrouter.push({
-        path: "/pages/user/address/AddAddress/main"
+        path: "/pages/user/address/AddAddress/index"
       });
     },
     getAddress() {
       // openAddress().then(userInfo => {
-      //   wx.showLoading({ title: "加载中" });
+      //   uni.showLoading({ title: "加载中" });
       //   postAddress({
       //     real_name: userInfo.userName,
       //     phone: userInfo.telNumber,
@@ -199,11 +199,11 @@ export default {
       //       this.loadend = false;
       //       this.addressList = [];
       //       this.AddressList();
-      //       wx.hideLoading();
+      //       uni.hideLoading();
       //       this.$dialog.toast({ mes: "添加成功" });
       //     })
       //     .catch(err => {
-      //       wx.hideLoading();
+      //       uni.hideLoading();
       //       this.$dialog.error(err.msg || "添加失败");
       //     });
       // });

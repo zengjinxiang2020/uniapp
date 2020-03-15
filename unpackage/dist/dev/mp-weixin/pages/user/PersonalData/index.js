@@ -131,35 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -358,36 +330,26 @@ var _dayjs = _interopRequireDefault(__webpack_require__(/*! dayjs */ 24));functi
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = { name: "PersonalData", components: {// VueCoreImageUpload
-  }, data: function data() {return { url: "".concat(_config.VUE_APP_API_URL, "/upload/image"), headers: { Authorization: "Bearer " + this.$store.state.token }, avatar: "", isWeixin: false, currentAccounts: 0, switchUserInfo: [], userIndex: 0 };}, watch: { $yroute: function $yroute(n) {if (n.name === "PersonalData") this.$store.dispatch("USERINFO", true);} }, computed: (0, _vuex.mapGetters)(["userInfo"]), mounted: function mounted() {this.avatar = this.userInfo.avatar;this.isWeixin = (0, _utils.isWeixin)();this.getUserInfo();}, methods: { switchAccounts: function switchAccounts(index) {var that = this;this.userIndex = index;var userInfo = this.switchUserInfo[this.userIndex];if (this.switchUserInfo.length <= 1) return true;if (userInfo === undefined) return this.$dialog.toast({ mes: "切换的账号不存在" });if (userInfo.user_type === "h5") {(0, _user.switchH5Login)().then(function (_ref) {var data = _ref.data;wx.hideLoading();var expires_time = (0, _dayjs.default)(data.expires_time);_store.default.commit("LOGIN", data.token, expires_time);that.$emit("changeswitch", false);location.reload();}).catch(function (err) {wx.hideLoading();return that.$dialog.toast({ mes: err });});} else {_cookie.default.set("loginType", "wechat", 60);wx.hideLoading();this.$store.commit("LOGOUT");this.$emit("changeswitch", false);}}, getUserInfo: function getUserInfo() {var _this = this;var that = this;(0, _user.getUser)().then(function (res) {var switchUserInfo = res.data.switchUserInfo;for (var i = 0; i < switchUserInfo.length; i++) {if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;if (!that.isWeixin && switchUserInfo[i].user_type != "h5" && switchUserInfo[i].phone === "") switchUserInfo.splice(i, 1);}that.$set(_this, "switchUserInfo", switchUserInfo);});}, imageuploaded: function imageuploaded(res) {if (res.status !== 200) return this.$dialog.error(res.msg || "上传图片失败");if (this.switchUserInfo[this.userIndex] === undefined) return;this.$set(this.switchUserInfo[this.userIndex], "avatar", res.data.url);}, submit: function submit() {var _this2 = this;var userInfo = this.switchUserInfo[this.userIndex];(0, _user.postUserEdit)({ nickname: (0, _utils.trim)(this.userInfo.nickname), avatar: userInfo.avatar }).then(function (res) {_this2.$store.dispatch("USERINFO", true);_this2.$wx.showToast({ title: res.msg, icon: "none", duration: 2000 });_this2.$yrouter.back();}, function (error) {_this2.$dialog.error(error.msg);});}, logout: function logout() {var _this3 = this;this.$dialog.confirm({ mes: "确认退出登录?", opts: function opts() {(0, _user.getLogout)().then(function (res) {_this3.$store.commit("LOGOUT");clearAuthStatus();location.href = location.origin;}).catch(function (err) {});} });} } };exports.default = _default;
+  }, data: function data() {return { url: "".concat(_config.VUE_APP_API_URL, "/upload/image"), headers: { Authorization: "Bearer " + this.$store.state.token }, avatar: "", isWeixin: false, currentAccounts: 0, switchUserInfo: [], userIndex: 0 };}, watch: { $yroute: function $yroute(n) {if (n.name === "PersonalData") this.$store.dispatch("USERINFO", true);} }, computed: (0, _vuex.mapGetters)(["userInfo"]), mounted: function mounted() {this.avatar = this.userInfo.avatar;this.isWeixin = (0, _utils.isWeixin)();this.getUserInfo();}, methods: { goChangePassword: function goChangePassword() {this.$yrouter.push("/pages/user/ChangePassword/index");}, switchAccounts: function switchAccounts(index) {var that = this;this.userIndex = index;var userInfo = this.switchUserInfo[this.userIndex];if (this.switchUserInfo.length <= 1) return true;if (userInfo === undefined) return this.$dialog.toast({ mes: "切换的账号不存在" });if (userInfo.user_type === "h5") {(0, _user.switchH5Login)().then(function (_ref) {var data = _ref.data;uni.hideLoading();var expires_time = (0, _dayjs.default)(data.expires_time);_store.default.commit("LOGIN", data.token, expires_time);that.$emit("changeswitch", false);location.reload();}).catch(function (err) {uni.hideLoading();return that.$dialog.toast({ mes: err });});} else {_cookie.default.set("loginType", "wechat", 60);uni.hideLoading();this.$store.commit("LOGOUT");this.$emit("changeswitch", false);}}, getUserInfo: function getUserInfo() {var _this = this;var that = this;(0, _user.getUser)().then(function (res) {var switchUserInfo = res.data.switchUserInfo;for (var i = 0; i < switchUserInfo.length; i++) {if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;if (!that.isWeixin && switchUserInfo[i].user_type != "h5" && switchUserInfo[i].phone === "") switchUserInfo.splice(i, 1);}that.$set(_this, "switchUserInfo", switchUserInfo);});}, imageuploaded: function imageuploaded(res) {if (res.status !== 200) return this.$dialog.error(res.msg || "上传图片失败");if (this.switchUserInfo[this.userIndex] === undefined) return;this.$set(this.switchUserInfo[this.userIndex], "avatar", res.data.url);}, submit: function submit() {var _this2 = this;var userInfo = this.switchUserInfo[this.userIndex];(0, _user.postUserEdit)({ nickname: (0, _utils.trim)(this.userInfo.nickname), avatar: userInfo.avatar }).then(function (res) {_this2.$store.dispatch("USERINFO", true);_this2.$uni.showToast({ title: res.msg, icon: "none", duration: 2000 });_this2.$yrouter.back();}, function (error) {_this2.$dialog.error(error.msg);
+      });
+
+    },
+    logout: function logout() {var _this3 = this;
+      this.$dialog.confirm({
+        mes: "确认退出登录?",
+        opts: function opts() {
+          (0, _user.getLogout)().
+          then(function (res) {
+            _this3.$store.commit("LOGOUT");
+            clearAuthStatus();
+            location.href = location.origin;
+          }).
+          catch(function (err) {});
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

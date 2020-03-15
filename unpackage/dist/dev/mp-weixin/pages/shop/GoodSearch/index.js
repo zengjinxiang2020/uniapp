@@ -206,7 +206,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18); //
 // import Recommend from "@/components/Recommend";
 var _default = { name: "GoodSearch", components: {// Recommend,
     // GoodList
-  }, props: {}, data: function data() {return { keywords: [], search: "" };}, mounted: function mounted() {this.getData();}, methods: { submit: function submit() {var search = (0, _utils.trim)(this.search) || "";if (!search) return;this.toSearch(search);}, toSearch: function toSearch(s) {this.$yrouter.push({ path: "/pages/shop/GoodsList/main", query: { s: s } });}, getData: function getData() {var _this = this;(0, _store.getSearchKeyword)().then(function (res) {_this.keywords = res.data;});} } };exports.default = _default;
+  }, props: {}, data: function data() {return { keywords: [], search: "" };}, mounted: function mounted() {this.getData();}, methods: { submit: function submit() {var search = (0, _utils.trim)(this.search) || "";if (!search) return;this.toSearch(search);}, toSearch: function toSearch(s) {this.$yrouter.push({ path: "/pages/shop/GoodsList/index", query: { s: s } });}, getData: function getData() {var _this = this;(0, _store.getSearchKeyword)().then(function (res) {_this.keywords = res.data;});} } };exports.default = _default;
 
 /***/ }),
 

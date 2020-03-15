@@ -81,25 +81,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.productId
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.productId
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -133,10 +114,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -375,6 +353,12 @@ var CHECKED_IDS = "cart_checked";var _default =
 
   },
   methods: {
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.productId } });
+
+    },
     getCartList: function getCartList() {var _this = this;
       var that = this;
       (0, _store.getCartList)().then(function (res) {
@@ -476,7 +460,7 @@ var CHECKED_IDS = "cart_checked";var _default =
       }
       console.log(id);
       this.$yrouter.push({
-        path: "/pages/order/OrderSubmission/main",
+        path: "/pages/order/OrderSubmission/index",
         query: { id: id.join(",") } });
 
     },
@@ -529,7 +513,7 @@ var CHECKED_IDS = "cart_checked";var _default =
           _this2.getCartList();
         }).
         catch(function (error) {
-          wx.showToast({
+          uni.showToast({
             title: error.response.data.msg,
             icon: "none",
             duration: 2000 });
@@ -615,6 +599,7 @@ var CHECKED_IDS = "cart_checked";var _default =
       }
       that.countmoney = carmoney;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

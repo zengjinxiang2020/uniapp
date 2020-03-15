@@ -187,13 +187,13 @@ export default {
         comment: expect
       })
         .then(() => {
-          wx.showToast({
+          uni.showToast({
             title: "评价成功",
             icon: "success",
             duration: 2000
           });
           this.$yrouter.push({
-            path: "/pages/order/OrderDetails/main",
+            path: "/pages/order/OrderDetails/index",
             query: { id: this.orderCon.orderId }
           });
         })

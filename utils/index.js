@@ -1,4 +1,4 @@
-// import Vue from 'vue'
+import Vue from 'vue'
 // import MpvueRouterPatch from 'mpvue-router-patch'
 // Vue.use(MpvueRouterPatch)
 import {
@@ -58,7 +58,6 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	// return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
 	return false
 }
 
@@ -101,7 +100,7 @@ export const copyClipboard = (data) => {
 	wx.setClipboardData({
 		data: data,
 		success: (res) => {
-			wx.showToast({
+			uni.showToast({
 				title: '复制成功',
 				icon: 'success',
 				duration: 2000
@@ -112,8 +111,8 @@ export const copyClipboard = (data) => {
 
 
 export const toAuthorization = (msg) => {
-	wx.hideLoading();
-	wx.showToast({
+	uni.hideLoading();
+	uni.showToast({
 		title: msg,
 		icon: 'none',
 		duration: 2000
@@ -131,87 +130,108 @@ export const toAuthorization = (msg) => {
 export const login = (option) => {
 	console.log('调用登录')
 	return new Promise((resolve, reject) => {
-		wx.login({
-			success: res => {
-				console.log('获取code')
-				let code = res.code;
-				store.commit("UPDATE_WXCODE", res.code);
-				if (code) {
-					wx.getSetting({
-						success: resCode => {
-							// * 验证授权
-							if (resCode.authSetting["scope.userInfo"]) {
-								wx.showLoading({
-									title: "加载中"
-								});
-								wx.getUserInfo({
-									success: user => {
-										wxappAuth({
-											encryptedData: user.encryptedData,
-											iv: user.iv,
-											code: code,
-											spread: cookie.get("spread")
-										}).then(({
-											data
-										}) => {
-											resolve(res.data)
-											wx.hideLoading();
-											store.commit("LOGIN", data.token, dayjs(data.expires_time));
-											getUser().then(res => {
-												store.dispatch('changeUserInfo', {
-													user: res.data
-												})
-											});
-											var pages = getCurrentPages() //获取加载的页面
-											var currentPage = pages[pages.length - 1] //获取当前页面的对象
-											let url = "/pages/launch/main?type=0"
-											let query = {}
-											if (currentPage) {
-												if (currentPage.route != 'pages/Loading/index' && currentPage.route !=
-													'pages/user/Login/index') {
-													url = currentPage.route
-												}
-												if (currentPage.route == 'pages/user/Login/index') {
-													const {
-														redirect,
-														...querys
-													} = currentPage.options
-													url = redirect
-													query = { ...querys
+		// 获取当前环境的服务商
+		uni.getProvider({
+			service: 'oauth',
+			success: function(res) {
+				console.log(res.provider)
+				// 此处可以排除h5
+				if (res.provider) {
+					// 调用登录接口
+					uni.login({
+						provider: res.provider[0],
+						success: function(loginRes) {
+							// 微信登录
+							console.log('获取code')
+							let code = loginRes.code;
+							store.commit("UPDATE_WXCODE", loginRes.code);
+
+							console.log(JSON.stringify(loginRes));
+							// 检查授权， 检查用户信息授权
+							uni.authorize({
+								scope: 'scope.userInfo',
+								success() {
+									uni.getUserInfo({
+										provider: res.provider[0],
+										success: function(user) {
+											console.log(user)
+											console.log('用户昵称为：' + user.userInfo.nickName);
+											if (Vue.prototype.$deviceType == 'Weixin') {
+												wxappAuth({
+													encryptedData: user.encryptedData,
+													iv: user.iv,
+													code: code,
+													spread: cookie.get("spread")
+												}).then(({
+													data
+												}) => {
+													resolve(res.data)
+													uni.hideLoading();
+													store.commit("LOGIN", data.token, dayjs(data.expires_time));
+													getUser().then(res => {
+														store.dispatch('changeUserInfo', {
+															user: res.data
+														})
+													});
+													var pages = getCurrentPages() //获取加载的页面
+													var currentPage = pages[pages.length - 1] //获取当前页面的对象
+													let url = "/pages/home/index"
+													let query = {}
+													if (currentPage) {
+														if (currentPage.route != 'pages/Loading/index' && currentPage.route !=
+															'pages/user/Login/index') {
+															url = currentPage.route
+														}
+														if (currentPage.route == 'pages/user/Login/index') {
+															const {
+																redirect,
+																...querys
+															} = currentPage.options
+															url = redirect
+															query = { ...querys
+															}
+														}
 													}
-												}
+													switchTab({
+														path: url,
+														query
+													});
+												}).catch(error => {
+													reject()
+													option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
+												});
 											}
-											replace({
-												path: url,
-												query
-											});
-										}).catch(error => {
+
+
+										},
+										fail() {
+											// 获取用户信息失败
 											reject()
 											option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-										});
-									},
-									fail: error => {
-										reject()
-										option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-									}
-								});
-							} else {
-								store.commit("UPDATE_AUTHORIZATION", false);
-								reject()
-								option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-							}
+										}
+									});
+								},
+								fail() {
+									// 获取用户信息失败
+									reject()
+									option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
+								}
+							})
+						},
+						fail() {
+							// 调用登录接口失败
+							reject()
+							option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
 						}
 					});
-				} else {
-					reject()
-					option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
 				}
 			},
-			fail: error => {
+			fail() {
 				reject()
 				option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
 			}
 		});
+
 	})
 }
 
@@ -399,7 +419,7 @@ const getImageInfo = (images) => {
  * 
  */
 export const PosterCanvas = (store, successCallBack) => {
-	wx.showLoading({
+	uni.showLoading({
 		title: '海报生成中',
 		mask: true
 	});
@@ -442,7 +462,7 @@ export const PosterCanvas = (store, successCallBack) => {
 				destWidth: WIDTH,
 				destHeight: HEIGHT,
 				success: function(res) {
-					wx.hideLoading();
+					uni.hideLoading();
 					successCallBack && successCallBack(res.tempFilePath);
 				},
 				fail: function(error) {
@@ -456,7 +476,7 @@ export const PosterCanvas = (store, successCallBack) => {
 	// wx.getImageInfo({
 	//   src: store.image,
 	//   fail: function (res) {
-	//     wx.showToast({
+	//     uni.showToast({
 	//       title: '海报生成失败',
 	//       icon: "none",
 	//       duration: 2000

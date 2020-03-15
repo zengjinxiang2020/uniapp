@@ -121,7 +121,7 @@ export default {
           that.delivery = res.data;
         },
         error => {
-          wx.showToast({
+          uni.showToast({
             title: error.msg,
             icon: "none",
             duration: 2000
@@ -136,7 +136,7 @@ export default {
           that.logistics = res.data;
         },
         error => {
-          wx.showToast({
+          uni.showToast({
             title: error.msg,
             icon: "none",
             duration: 2000
@@ -185,7 +185,7 @@ export default {
       let that = this;
       setAdminOrderDelivery(item).then(
         res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -193,7 +193,7 @@ export default {
           that.$yrouter.go(-1);
         },
         error => {
-          wx.showToast({
+          uni.showToast({
             title: error.msg,
             icon: "none",
             duration: 2000

@@ -116,7 +116,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -307,7 +307,8 @@ var _dayjs = _interopRequireDefault(__webpack_require__(/*! dayjs */ 24));functi
 //
 //
 var _default = { name: "SwitchWindow", props: { switchActive: { type: Boolean, default: false }, login_type: { type: String, default: "" } }, data: function data() {return {};}, mounted: function mounted() {}, methods: { switchClose: function switchClose() {this.$emit("changeswitch", false); //$emit():注册事件；
-    }, switchH5: function switchH5() {var _this = this;var that = this;wx.showLoading({ title: '正在切换中' });if (that.login_type === "h5") {_cookie.default.set("loginType", "wechat", 60);wx.hideLoading();this.$store.commit("LOGOUT");this.$emit("changeswitch", false);location.reload();} else {(0, _user.switchH5Login)().then(function (_ref) {var data = _ref.data;wx.hideLoading();var expires_time = (0, _dayjs.default)(data.expires_time);_store.default.commit("LOGIN", data.token, expires_time);_this.$emit("changeswitch", false);location.reload();}).catch(function (err) {wx.hideLoading();return that.$dialog.toast({ mes: err });});}} } };exports.default = _default;
+    }, switchH5: function switchH5() {var _this = this;var that = this;uni.showLoading({ title: '正在切换中' });if (that.login_type === "h5") {_cookie.default.set("loginType", "wechat", 60);uni.hideLoading();this.$store.commit("LOGOUT");this.$emit("changeswitch", false);location.reload();} else {(0, _user.switchH5Login)().then(function (_ref) {var data = _ref.data;uni.hideLoading();var expires_time = (0, _dayjs.default)(data.expires_time);_store.default.commit("LOGIN", data.token, expires_time);_this.$emit("changeswitch", false);location.reload();}).catch(function (err) {uni.hideLoading();return that.$dialog.toast({ mes: err });});}} } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

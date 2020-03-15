@@ -59,7 +59,7 @@ export default {
       this.toSearch(search);
     },
     toSearch(s) {
-      this.$yrouter.push({ path: "/pages/shop/GoodsList/main", query: { s } });
+      this.$yrouter.push({ path: "/pages/shop/GoodsList/index", query: { s } });
     },
     getData() {
       getSearchKeyword().then(res => {

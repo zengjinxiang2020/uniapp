@@ -9,7 +9,7 @@
       >
     </div>
 
-    <div class="btn" @click="$yrouter.replace({ path: '/' })">
+    <div class="btn" @click="homeGo()">
       返回首页
     </div>
   </div>
@@ -17,7 +17,12 @@
 
 <script>
 export default {
-  name: "NotDefined"
+  name: "NotDefined",
+  methods: {
+    homeGo() {
+			this.$yrouter.switchTab('/pages/home/index');
+		},
+  },
 };
 </script>
 

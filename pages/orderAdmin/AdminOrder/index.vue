@@ -134,11 +134,7 @@
         v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0"
         @click="offlinePay"
       >确认付款</div>
-      <div
-        class="bnt delivery"
-        v-if="types == 1"
-        @click="$yrouter.push({path:'/pages/orderAdmin/GoodsDeliver/index',query: { id : orderInfo.orderId}})"
-      >去发货</div>
+      <div class="bnt delivery" v-if="types == 1" @click="goGoodsDeliver(orderInfo)">去发货</div>
     </div>
     <PriceChange
       :change="change"
@@ -198,6 +194,12 @@ export default {
     this.getIndex();
   },
   methods: {
+    goGoodsDeliver(orderInfo) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/GoodsDeliver/index",
+        query: { id: orderInfo.orderId }
+      });
+    },
     copyClipboard,
     more: function() {
       this.order = !this.order;
@@ -219,7 +221,7 @@ export default {
           that.payType = res.data._status._payType;
         },
         err => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -249,7 +251,7 @@ export default {
         setAdminOrderPrice(data).then(
           function() {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: "改价成功",
               icon: "success",
               duration: 2000
@@ -258,7 +260,7 @@ export default {
           },
           function() {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: "改价失败",
               icon: "none",
               duration: 2000
@@ -281,7 +283,7 @@ export default {
         setOrderRefund(data).then(
           res => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -290,7 +292,7 @@ export default {
           },
           err => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -310,7 +312,7 @@ export default {
         setAdminOrderRemark(data).then(
           res => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -319,7 +321,7 @@ export default {
           },
           err => {
             that.change = false;
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
@@ -331,7 +333,7 @@ export default {
     offlinePay: function() {
       setOfflinePay({ order_id: this.orderInfo.order_id }).then(
         res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -339,7 +341,7 @@ export default {
           this.getIndex();
         },
         err => {
-          wx.showToast({
+          uni.showToast({
             title: err.msg,
             icon: "none",
             duration: 2000

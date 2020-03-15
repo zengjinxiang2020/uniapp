@@ -98,16 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/GoodsDeliver/index",
-        query: {
-          id: _vm.item.orderId
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -141,11 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
 
 
 
@@ -287,6 +273,12 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
     !that.loading && that.getIndex();
   },
   methods: {
+    goGoodsDeliver: function goGoodsDeliver(item) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/GoodsDeliver/index",
+        query: { id: item.orderId } });
+
+    },
     more: function more(index) {
       if (this.current === index) this.current = "";else
       this.current = index;
@@ -322,7 +314,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 (0, _admin.setAdminOrderPrice)(data).then(
                 function () {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: "改价成功",
                     icon: "success",
                     duration: 2000 });
@@ -331,7 +323,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 },
                 function () {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: "改价失败",
                     icon: "none",
                     duration: 2000 });
@@ -354,7 +346,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 (0, _admin.setOrderRefund)(data).then(
                 function (res) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -363,7 +355,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 },
                 function (err) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -382,7 +374,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 (0, _admin.setAdminOrderRemark)(data).then(
                 function (res) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -391,7 +383,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
                 },
                 function (err) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -420,7 +412,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
         that.where.page = that.where.page + 1;
       },
       function (err) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -436,14 +428,14 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
     },
     toDetail: function toDetail(item) {
       this.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrder/main",
+        path: "/pages/orderAdmin/AdminOrder/index",
         query: { oid: item.orderId } });
 
     },
     offlinePay: function offlinePay(item) {var _this = this;
       (0, _admin.setOfflinePay)({ order_id: item.order_id }).then(
       function (res) {
-        _this.$wx.showToast({ title: res.msg, icon: "none", duration: 2000 });
+        _this.$uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
         _this.init();
       },
       function (error) {
@@ -451,6 +443,7 @@ var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);function _interopReq
       });
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

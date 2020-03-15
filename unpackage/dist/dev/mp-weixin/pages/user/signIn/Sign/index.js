@@ -100,15 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push("/pages/user/signIn/SignRecord/index")
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push("/pages/user/signIn/SignRecord/index")
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -143,9 +134,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
 
 
 
@@ -362,10 +350,7 @@ var _bc = __webpack_require__(/*! @/utils/bc */ 105); //
 //
 //
 //
-//
-//
-//
-var _default = { name: "Sign", components: {}, props: {}, data: function data() {return { userInfo: {}, integral: 0, signCount: [], sign_index: 0, signSystemList: [], signList: [], page: 1, limit: 3, active: false, day: "" };}, mounted: function mounted() {this.signUser();this.signConfig();this.getSignList();}, methods: { // js给数字补0；num：需要补0的数字，length：长度（补到多少位）；
+var _default = { name: "Sign", components: {}, props: {}, data: function data() {return { userInfo: {}, integral: 0, signCount: [], sign_index: 0, signSystemList: [], signList: [], page: 1, limit: 3, active: false, day: "" };}, mounted: function mounted() {this.signUser();this.signConfig();this.getSignList();}, methods: { goSignRecord: function goSignRecord() {this.$yrouter.push("/pages/user/signIn/SignRecord/index");}, // js给数字补0；num：需要补0的数字，length：长度（补到多少位）；
     PrefixInteger: function PrefixInteger(num, length) {return (Array(length).join("0") + num).slice(-length).split("");}, //数字转中文
     Rp: function Rp(n) {var cnum = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];var s = "";n = "" + n; // 数字转为字符串
       for (var i = 0; i < n.length; i++) {s += cnum[parseInt(n.charAt(i))];}return s;}, // 获取用户信息

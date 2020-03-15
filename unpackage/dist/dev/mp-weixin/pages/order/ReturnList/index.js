@@ -98,26 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      $event.stopPropagation()
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.cart.productInfo.id
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -152,12 +132,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
 
 
 
@@ -246,13 +220,14 @@ var _order = __webpack_require__(/*! @/api/order */ 352); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: "ReturnList", components: { Loading: Loading }, data: function data() {return { orderList: [], page: 1, limit: 20, loading: false, loaded: false };}, methods: { getOrderList: function getOrderList() {var _this = this;var page = this.page,limit = this.limit;if (this.loading || this.loaded) return;this.loading = true;(0, _order.getOrderList)({ page: page, limit: limit, type: -3 }).then(function (res) {_this.orderList = _this.orderList.concat(res.data);_this.loading = false;_this.loaded = res.data.length < limit;_this.page++;});} }, mounted: function mounted() {this.getOrderList();}, onReachBottom: function onReachBottom() {!this.loading && this.getOrderList();} };exports.default = _default;
+var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: "ReturnList", components: { Loading: Loading }, data: function data() {return { orderList: [], page: 1, limit: 20, loading: false, loaded: false };}, methods: { goGoodsCon: function goGoodsCon(cart) {this.$yrouter.push({ path: "/pages/shop/GoodsCon/index", query: { id: cart.productInfo.id } });}, goOrderDetails: function goOrderDetails(order) {this.$yrouter.push({ path: "/pages/order/OrderDetails/index", query: { id: order.orderId } });}, getOrderList: function getOrderList() {var _this = this;var page = this.page,limit = this.limit;if (this.loading || this.loaded) return;this.loading = true;(0, _order.getOrderList)({ page: page, limit: limit, type: -3 }).then(function (res) {_this.orderList = _this.orderList.concat(res.data);_this.loading = false;_this.loaded = res.data.length < limit;_this.page++;});} },
+
+  mounted: function mounted() {
+    this.getOrderList();
+  },
+  onReachBottom: function onReachBottom() {
+    !this.loading && this.getOrderList();
+  } };exports.default = _default;
 
 /***/ })
 

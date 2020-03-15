@@ -101,7 +101,7 @@ export default {
         refund_reason_wap_explain
       })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "success",
             duration: 2000

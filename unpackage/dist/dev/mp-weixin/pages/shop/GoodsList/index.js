@@ -100,16 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -313,6 +303,12 @@ var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash.debounce */ 
     this.nows = fals;
   },
   methods: {
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.id } });
+
+    },
     updateTitle: function updateTitle() {
       // document.title = this.title || this.$yroute.meta.title;
     },
@@ -355,7 +351,7 @@ var _lodash = _interopRequireDefault(__webpack_require__(/*! lodash.debounce */ 
       var that = this;
       switch (index) {
         case 0:
-          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/main" });
+          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/index" });
         case 1:
           if (that.price === 0) that.price = 1;else
           if (that.price === 1) that.price = 2;else

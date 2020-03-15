@@ -6,13 +6,13 @@ export const weappPay = (option) => {
       ...option,
       timeStamp: option.timeStamp + '',
       success: (success) => {
-        wx.showToast({
+        uni.showToast({
           title: '支付成功', icon: 'success', duration: 2000
         });
         resolve(success)
       },
       fail: (error) => {
-        wx.showToast({ title: '支付失败', icon: 'none', duration: 2000 });
+        uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });
         reject(error)
       }
     })

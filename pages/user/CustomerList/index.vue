@@ -4,7 +4,7 @@
       class="item acea-row row-between-wrapper"
       v-for="item in list"
       :key="item.id"
-      @click="$yrouter.push({path:'/pages/user/CustomerService/index',query:{id:item.uid}})"
+      @click="goCustomerService(item)"
     >
       <div class="pictrue">
         <img :src="item.avatar" />
@@ -24,6 +24,12 @@ export default {
     };
   },
   methods: {
+    goCustomerService(item) {
+      this.$yrouter.push({
+        path: "/pages/user/CustomerService/index",
+        query: { id: item.uid }
+      });
+    },
     getList() {
       serviceList().then(res => {
         this.list = res.data;

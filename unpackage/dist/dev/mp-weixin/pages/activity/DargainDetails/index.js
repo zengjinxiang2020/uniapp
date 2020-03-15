@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -383,7 +383,7 @@ var NAME = "DargainDetails";var _default =
       {
         that.bargainPartake = that.userInfo.uid;
         // that.$yrouter.push({
-        //   path: "/pages/activity/DargainDetails/main",
+        //   path: "/pages/activity/DargainDetails/index",
         //   query: { id: that.bargainId, partake: that.bargainPartake }
         // });
       } else {
@@ -409,7 +409,7 @@ var NAME = "DargainDetails";var _default =
       (0, _store.postCartAdd)(data).
       then(function (res) {
         that.$yrouter.push({
-          path: "/pages/order/OrderSubmission/main",
+          path: "/pages/order/OrderSubmission/index",
           query: { id: res.data.cartId } });
 
       }).
@@ -421,13 +421,13 @@ var NAME = "DargainDetails";var _default =
       var that = this;
       that.getBargainShare(that.bargainId);
       this.$yrouter.push({
-        path: "/pages/activity/Poster/main",
+        path: "/pages/activity/Poster/index",
         query: { id: that.bargainId, type: 2 } });
 
     },
     goList: function goList() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsBargain/main" });
+        path: "/pages/activity/GoodsBargain/index" });
 
     },
     //砍价分享
@@ -452,7 +452,7 @@ var NAME = "DargainDetails";var _default =
         that.getBargainHelpCount();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -468,7 +468,7 @@ var NAME = "DargainDetails";var _default =
         that.getBargainHelp();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -482,7 +482,7 @@ var NAME = "DargainDetails";var _default =
       that.surplusPrice === 0 &&
       that.bargainPartake !== that.userInfo.uid)
       {
-        return wx.showToast({
+        return uni.showToast({
           title: "好友已经砍价成功",
           icon: "success",
           duration: 2000 });
@@ -507,7 +507,7 @@ var NAME = "DargainDetails";var _default =
         that.getBargainHelpPrice();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -534,7 +534,7 @@ var NAME = "DargainDetails";var _default =
 
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -560,7 +560,7 @@ var NAME = "DargainDetails";var _default =
         that.bargainHelpList.push.apply(that.bargainHelpList, res.data);
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -576,7 +576,7 @@ var NAME = "DargainDetails";var _default =
       then(function () {}).
       catch(function () {
         // that.$yrouter.push({
-        //   path: "/pages/activity/DargainDetails/main",
+        //   path: "/pages/activity/DargainDetails/index",
         //   query: { id: that.bargainId, partake: that.userInfo.uid }
         // });
       });
@@ -598,7 +598,7 @@ var NAME = "DargainDetails";var _default =
       catch(function () {
         that.bargainPartake = that.userInfo.uid;
         // that.$yrouter.push({
-        //   path: "/pages/activity/DargainDetails/main",
+        //   path: "/pages/activity/DargainDetails/index",
         //   query: { id: that.bargainId, partake: that.userInfo.uid }
         // });
       });
@@ -614,7 +614,7 @@ var NAME = "DargainDetails";var _default =
         that.getBargainHelpList();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -627,11 +627,12 @@ var NAME = "DargainDetails";var _default =
 
   onShareAppMessage: function onShareAppMessage() {
     return {
-      path: "/pages/activity/DargainDetails/main/?id=".concat(
+      path: "/pages/activity/DargainDetails/index/?id=".concat(
       this.$yroute.query.id, "&partake=").concat(
       this.userInfo.uid) };
 
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

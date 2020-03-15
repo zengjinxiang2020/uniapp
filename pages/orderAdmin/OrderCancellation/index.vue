@@ -94,7 +94,7 @@ export default {
         .then(res => {
           this.iShidden = true;
           this.verify_code = "";
-          this.$wx.showToast({                 title: res.msg, icon: 'none', duration: 2000               });
+          this.$uni.showToast({                 title: res.msg, icon: 'none', duration: 2000               });
         })
         .catch(res => {
           this.$dialog.error(res.msg);
@@ -105,15 +105,15 @@ export default {
       if (!this.verify_code) return this.$dialog.error("请输入核销码");
       if (!ref.test(this.verify_code))
         return this.$dialog.error("请输入正确的核销码");
-      wx.showLoading({ title: "查询中" });
+      uni.showLoading({ title: "查询中" });
       orderVerific(this.verify_code, 0)
         .then(res => {
-          wx.hideLoading();
+          uni.hideLoading();
           this.orderInfo = res.data;
           this.iShidden = false;
         })
         .catch(() => {
-          wx.hideLoading();
+          uni.hideLoading();
         });
     },
     openQRCode: function() {
@@ -127,7 +127,7 @@ export default {
       //       that.verify_code = res.resultStr;
       //       that.storeCancellation();
       //     } else {
-      //        wx.showToast({
+      //        uni.showToast({
       //                     title: '没有扫描到什么！',
       //                     icon: "none",
       //                     duration: 2000
@@ -145,7 +145,7 @@ export default {
       //         },
       //         fail: function(res) {
       //           if (res.errMsg == "scanQRCode:permission denied") {
-      //              wx.showToast({
+      //              uni.showToast({
       //                     title: '没有权限',
       //                     icon: "none",
       //                     duration: 2000

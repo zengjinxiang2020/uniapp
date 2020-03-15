@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -229,7 +229,7 @@ var NAME = "OrderCancellation";var _default =
       then(function (res) {
         _this.iShidden = true;
         _this.verify_code = "";
-        _this.$wx.showToast({ title: res.msg, icon: 'none', duration: 2000 });
+        _this.$uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
       }).
       catch(function (res) {
         _this.$dialog.error(res.msg);
@@ -240,15 +240,15 @@ var NAME = "OrderCancellation";var _default =
       if (!this.verify_code) return this.$dialog.error("请输入核销码");
       if (!ref.test(this.verify_code))
       return this.$dialog.error("请输入正确的核销码");
-      wx.showLoading({ title: "查询中" });
+      uni.showLoading({ title: "查询中" });
       (0, _order.orderVerific)(this.verify_code, 0).
       then(function (res) {
-        wx.hideLoading();
+        uni.hideLoading();
         _this2.orderInfo = res.data;
         _this2.iShidden = false;
       }).
       catch(function () {
-        wx.hideLoading();
+        uni.hideLoading();
       });
     },
     openQRCode: function openQRCode() {
@@ -262,7 +262,7 @@ var NAME = "OrderCancellation";var _default =
       //       that.verify_code = res.resultStr;
       //       that.storeCancellation();
       //     } else {
-      //        wx.showToast({
+      //        uni.showToast({
       //                     title: '没有扫描到什么！',
       //                     icon: "none",
       //                     duration: 2000
@@ -280,7 +280,7 @@ var NAME = "OrderCancellation";var _default =
       //         },
       //         fail: function(res) {
       //           if (res.errMsg == "scanQRCode:permission denied") {
-      //              wx.showToast({
+      //              uni.showToast({
       //                     title: '没有权限',
       //                     icon: "none",
       //                     duration: 2000
@@ -291,6 +291,7 @@ var NAME = "OrderCancellation";var _default =
       //     }
       //   });
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

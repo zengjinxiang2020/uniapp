@@ -76,23 +76,23 @@ export default {
                       step: 1
                     })
                       .then(res => {
-                        wx.showToast({
+                        uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000
                         });
                         that.$yrouter.replace({
-                          path: "/pages/user/PersonalData/main"
+                          path: "/pages/user/PersonalData/index"
                         });
                       })
                       .catch(res => {
-                        wx.showToast({
+                        uni.showToast({
                           title: res.msg,
                           icon: "none",
                           duration: 2000
                         });
                         that.$yrouter.replace({
-                          path: "/pages/user/PersonalData/main"
+                          path: "/pages/user/PersonalData/index"
                         });
                       });
                   }
@@ -101,29 +101,29 @@ export default {
                   txt: "取消",
                   color: false,
                   callback: () => {
-                    wx.showToast({
+                    uni.showToast({
                       title: "已取消绑定",
                       icon: "none",
                       duration: 2000
                     });
                     that.$yrouter.replace({
-                      path: "/pages/user/PersonalData/main"
+                      path: "/pages/user/PersonalData/index"
                     });
                   }
                 }
               ]
             });
           } else {
-            wx.showToast({
+            uni.showToast({
               title: res.msg,
               icon: "none",
               duration: 2000
             });
-            that.$yrouter.replace({ path: "/pages/user/PersonalData/main" });
+            that.$yrouter.replace({ path: "/pages/user/PersonalData/index" });
           }
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -148,7 +148,7 @@ export default {
 
       registerVerify({ phone: phone })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -156,7 +156,7 @@ export default {
           that.sendCode();
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000

@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -181,18 +181,18 @@ var _utils = __webpack_require__(/*! @/utils */ 18);var _data$computed$onShow;fu
       //   });
       // } else {
       //   this.$yrouter.replace({
-      //     path: "/pages/launch/main",
+      //     path: "/pages/launch/index",
       //     query: { type: 0 }
       //   });
       // }
       this.CHANGE_TABTAR(0);
       this.$yrouter.replace({
-        path: "/pages/launch/main",
+        path: "/pages/home/index",
         query: { type: 0 } });
 
     },
     getUserInfo: function getUserInfo(data) {
-      wx.showLoading({
+      uni.showLoading({
         title: "登录中" });
 
       (0, _utils.login)();
@@ -200,6 +200,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);var _data$computed$onShow;fu
 
 {}), _defineProperty(_data$computed$onShow, "mounted", function mounted()
 {}), _data$computed$onShow);exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

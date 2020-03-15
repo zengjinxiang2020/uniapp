@@ -11,7 +11,7 @@
 
 const dialog = {
 	confirm: (options) => {
-		wx.showModal({
+		uni.showModal({
 			title: '提示',
 			content: options.mes,
 			success() {
@@ -27,12 +27,12 @@ const dialog = {
 	// notify,
 	loading: {
 		open: () => {
-			wx.showLoading({
+			uni.showLoading({
 				title: '加载中'
 			})
 		},
 		close: () => {
-			wx.hideLoading()
+			uni.hideLoading()
 		}
 	}
 };
@@ -57,7 +57,7 @@ const dialog = {
 
 dialog.message = (mes = "操作失败", obj = {}) => {
 	return new Promise(function(resolve) {
-		wx.showToast({
+		uni.showToast({
 			title: mes,
 			icon: "none",
 			duration: 2000,
@@ -69,7 +69,7 @@ dialog.message = (mes = "操作失败", obj = {}) => {
 };
 
 dialog.toast = (options) => {
-	wx.showToast({
+	uni.showToast({
 		title: options.mes,
 		icon: "none",
 		duration: 2000,
@@ -80,7 +80,7 @@ dialog.toast = (options) => {
 };
 
 dialog.error = (mes) => {
-	wx.showToast({
+	uni.showToast({
 		title: mes,
 		icon: "none",
 		duration: 2000
@@ -92,7 +92,7 @@ dialog.validateError = (...args) => {
 };
 
 export function validatorDefaultCatch(err, type = "message") {
-	wx.showToast({
+	uni.showToast({
 		title: err.errors[0].message,
 		icon: 'none',
 		duration: 2000

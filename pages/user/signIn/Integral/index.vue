@@ -5,18 +5,18 @@
       <div>{{ info.integral }}</div>
       <div class="line"></div>
       <!--<div class="nav acea-row">-->
-        <!--<div class="item">-->
-          <!--<div class="num">{{ info.sum_integral }}</div>-->
-          <!--<div>累计积分</div>-->
-        <!--</div>-->
-        <!--<div class="item">-->
-          <!--<div class="num">{{ info.deduction_integral }}</div>-->
-          <!--<div>累计消费</div>-->
-        <!--</div>-->
-        <!--<div class="item">-->
-          <!--<div class="num">{{ info.today_integral }}</div>-->
-          <!--<div>今日获得</div>-->
-        <!--</div>-->
+      <!--<div class="item">-->
+      <!--<div class="num">{{ info.sum_integral }}</div>-->
+      <!--<div>累计积分</div>-->
+      <!--</div>-->
+      <!--<div class="item">-->
+      <!--<div class="num">{{ info.deduction_integral }}</div>-->
+      <!--<div>累计消费</div>-->
+      <!--</div>-->
+      <!--<div class="item">-->
+      <!--<div class="num">{{ info.today_integral }}</div>-->
+      <!--<div>今日获得</div>-->
+      <!--</div>-->
       <!--</div>-->
     </div>
     <div class="wrapper">
@@ -28,13 +28,14 @@
           :key="navListIndex"
           @click="nav(navListIndex)"
         >
-          <span class="iconfont" :class="item.icon"></span>{{ item.name }}
+          <span class="iconfont" :class="item.icon"></span>
+          {{ item.name }}
         </div>
       </div>
       <div class="list" :hidden="current !== 0">
         <!--<div class="tip acea-row row-middle">-->
-          <!--<span class="iconfont icon-shuoming"></span-->
-          <!--&gt;提示：积分数值的高低会直接影响您的会员等级-->
+        <!--<span class="iconfont icon-shuoming"></span-->
+        <!--&gt;提示：积分数值的高低会直接影响您的会员等级-->
         <!--</div>-->
         <div
           class="item acea-row row-between-wrapper"
@@ -43,28 +44,28 @@
         >
           <div>
             <div class="state">{{ item.title }}</div>
-            <div><data-format :data="item.addTime"></data-format></div>
+            <div>
+              <data-format :data="item.addTime"></data-format>
+            </div>
           </div>
           <div class="num" v-if="item.pm == 1">+{{ item.number }}</div>
-          <div class="num font-color-red" v-if="item.pm == 0">
-            -{{ item.number }}
-          </div>
+          <div class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</div>
         </div>
       </div>
       <!--<div class="list2" :hidden="current !== 1">-->
-        <!--<div class="item acea-row row-between-wrapper" @click="$yrouter.switchTab('/pages/home/index')">-->
-          <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
-          <!--<div class="name">购买商品可获得积分奖励</div>-->
-          <!--<div class="earn">赚积分</div>-->
-        <!--</div>-->
-        <!--<div-->
-          <!--class="item acea-row row-between-wrapper"-->
-          <!--@click="$yrouter.push('/pages/user/signIn/Sign/index')"-->
-        <!--&gt;-->
-          <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
-          <!--<div class="name">每日签到可获得积分奖励</div>-->
-          <!--<div class="earn">赚积分</div>-->
-        <!--</div>-->
+      <!--<div class="item acea-row row-between-wrapper" @click="goHome()">-->
+      <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
+      <!--<div class="name">购买商品可获得积分奖励</div>-->
+      <!--<div class="earn">赚积分</div>-->
+      <!--</div>-->
+      <!--<div-->
+      <!--class="item acea-row row-between-wrapper"-->
+      <!--@click="goSignIn()"-->
+      <!--&gt;-->
+      <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
+      <!--<div class="name">每日签到可获得积分奖励</div>-->
+      <!--<div class="earn">赚积分</div>-->
+      <!--</div>-->
       <!--</div>-->
     </div>
     <Loading :loaded="loaded" :loading="loading"></Loading>
@@ -107,10 +108,16 @@ export default {
     this.getIntegral();
     this.getInfo();
   },
-    onReachBottom() {
+  onReachBottom() {
     !this.loading && this.getInfo();
   },
   methods: {
+    goSignIn() {
+      this.$yrouter.push("/pages/user/signIn/Sign/index");
+    },
+    goHome() {
+      this.$yrouter.switchTab("/pages/home/index");
+    },
     nav: function(index) {
       this.current = index;
     },
@@ -146,7 +153,6 @@ export default {
 };
 </script>
 <style>
- 
-  .list{
-  }
+.list {
+}
 </style>

@@ -110,15 +110,6 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
       $event.stopPropagation()
       return _vm.$yrouter.push({
         path: "/pages/shop/GoodsCon/index",
@@ -128,7 +119,7 @@ var render = function() {
       })
     }
 
-    _vm.e2 = function($event) {
+    _vm.e1 = function($event) {
       $event.stopPropagation()
       return _vm.$yrouter.push({
         path: "/pages/activity/GroupDetails/index",
@@ -138,7 +129,7 @@ var render = function() {
       })
     }
 
-    _vm.e3 = function($event) {
+    _vm.e2 = function($event) {
       $event.stopPropagation()
       return _vm.$yrouter.push({
         path: "/pages/activity/DargainDetails/index",
@@ -148,7 +139,7 @@ var render = function() {
       })
     }
 
-    _vm.e4 = function($event) {
+    _vm.e3 = function($event) {
       $event.stopPropagation()
       return _vm.$yrouter.push({
         path: "/pages/activity/SeckillDetails/index",
@@ -158,45 +149,9 @@ var render = function() {
       })
     }
 
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e6 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e7 = function($event) {
+    _vm.e4 = function($event) {
       return _vm.$yrouter.push({
         path: "/pages/order/Logistics/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e8 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
-        query: {
-          id: _vm.order.orderId
-        }
-      })
-    }
-
-    _vm.e9 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
         query: {
           id: _vm.order.orderId
         }
@@ -246,8 +201,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
 
 
 
@@ -596,9 +549,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18); //
 //
 //
 //
-//
-//
-var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var Payment = function Payment() {return __webpack_require__.e(/*! import() | components/Payment */ "components/Payment").then(__webpack_require__.bind(null, /*! @/components/Payment */ 587));};var DataFormat = function DataFormat() {return __webpack_require__.e(/*! import() | components/DataFormat */ "components/DataFormat").then(__webpack_require__.bind(null, /*! @/components/DataFormat */ 577));};var STATUS = ["待付款", "待发货", "待收货", "待评价", "已完成", "", "", "", "", "待付款"];var NAME = "MyOrder";var _default = { name: NAME, data: function data() {return { offlinePayStatus: 2, orderData: {}, type: "", page: 1, limit: 20, loaded: false, loading: false, orderList: [], pay: false, payType: ["yue", "weixin"], from: (0, _utils.isWeixin)() ? "weixin" : "weixinh5" };}, components: { Loading: Loading, Payment: Payment, DataFormat: DataFormat }, computed: (0, _vuex.mapGetters)(["userInfo"]), watch: { $yroute: function $yroute(n) {if (n.name === NAME) {var type = parseInt(this.$yroute.query.type) || 0;if (this.type !== type) {this.changeType(type);}this.getOrderData();}}, type: function type() {} }, methods: { dataFormat: _utils.dataFormat, setOfflinePayStatus: function setOfflinePayStatus(status) {var that = this;that.offlinePayStatus = status;if (status === 1) {if (that.payType.indexOf("offline") < 0) {that.payType.push("offline");}}}, getOrderData: function getOrderData() {var _this = this;(0, _order.getOrderData)().then(function (res) {_this.orderData = res.data;});}, takeOrder: function takeOrder(order) {var _this2 = this;(0, _order2.takeOrderHandle)(order.orderId).finally(function () {_this2.reload();_this2.getOrderData();});}, reload: function reload() {this.changeType(this.type);}, changeType: function changeType(type) {this.type = type;this.orderList = [];this.page = 1;this.loaded = false;this.loading = false;this.getOrderList();}, getOrderList: function getOrderList() {var _this3 = this;if (this.loading || this.loaded) return;this.loading = true;var page = this.page,limit = this.limit,type = this.type;(0, _order.getOrderList)({ page: page, limit: limit, type: type }).then(function (res) {_this3.orderList = _this3.orderList.concat(res.data);_this3.page++;_this3.loaded = res.data.length < _this3.limit;_this3.loading = false;});}, getStatus: function getStatus(order) {return STATUS[order._status._type];}, cancelOrder: function cancelOrder(order) {var _this4 = this;(0, _order2.cancelOrderHandle)(order.orderId).then(function () {_this4.getOrderData();_this4.orderList.splice(_this4.orderList.indexOf(order), 1);}).catch(function () {_this4.reload();});}, paymentTap: function paymentTap(order) {var _this5 = this;var that = this;if (!(order.combinationId > 0 || order.bargainId > 0 || order.seckillId > 0)) {that.setOfflinePayStatus(order.offlinePayStatus);}this.pay = true;this.toPay = function (type) {(0, _order2.payOrderHandle)(order.orderId, type, that.from).then(function () {var type = parseInt(_this5.$yroute.query.type) || 0;that.changeType(type);that.getOrderData();}).catch(function () {var type = parseInt(that.$yroute.query.type) || 0;that.changeType(type);that.getOrderData();});};}, toPay: function toPay() {} }, mounted: function mounted() {this.type = parseInt(this.$yroute.query.type) || 0;this.getOrderData();this.getOrderList();}, onReachBottom: function onReachBottom() {!this.loading && this.getOrderList();} };exports.default = _default;
+var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var Payment = function Payment() {return __webpack_require__.e(/*! import() | components/Payment */ "components/Payment").then(__webpack_require__.bind(null, /*! @/components/Payment */ 587));};var DataFormat = function DataFormat() {return __webpack_require__.e(/*! import() | components/DataFormat */ "components/DataFormat").then(__webpack_require__.bind(null, /*! @/components/DataFormat */ 577));};var STATUS = ["待付款", "待发货", "待收货", "待评价", "已完成", "", "", "", "", "待付款"];var NAME = "MyOrder";var _default = { name: NAME, data: function data() {return { offlinePayStatus: 2, orderData: {}, type: "", page: 1, limit: 20, loaded: false, loading: false, orderList: [], pay: false, payType: ["yue", "weixin"], from: (0, _utils.isWeixin)() ? "weixin" : "weixinh5" };}, components: { Loading: Loading, Payment: Payment, DataFormat: DataFormat }, computed: (0, _vuex.mapGetters)(["userInfo"]), watch: { $yroute: function $yroute(n) {if (n.name === NAME) {var type = parseInt(this.$yroute.query.type) || 0;if (this.type !== type) {this.changeType(type);}this.getOrderData();}}, type: function type() {} }, methods: { goOrderDetails: function goOrderDetails(order) {this.$yrouter.push({ path: "/pages/order/OrderDetails/index", query: { id: order.orderId } });}, dataFormat: _utils.dataFormat, setOfflinePayStatus: function setOfflinePayStatus(status) {var that = this;that.offlinePayStatus = status;if (status === 1) {if (that.payType.indexOf("offline") < 0) {that.payType.push("offline");}}}, getOrderData: function getOrderData() {var _this = this;(0, _order.getOrderData)().then(function (res) {_this.orderData = res.data;});}, takeOrder: function takeOrder(order) {var _this2 = this;(0, _order2.takeOrderHandle)(order.orderId).finally(function () {_this2.reload();_this2.getOrderData();});}, reload: function reload() {this.changeType(this.type);}, changeType: function changeType(type) {this.type = type;this.orderList = [];this.page = 1;this.loaded = false;this.loading = false;this.getOrderList();}, getOrderList: function getOrderList() {var _this3 = this;if (this.loading || this.loaded) return;this.loading = true;var page = this.page,limit = this.limit,type = this.type;(0, _order.getOrderList)({ page: page, limit: limit, type: type }).then(function (res) {_this3.orderList = _this3.orderList.concat(res.data);_this3.page++;_this3.loaded = res.data.length < _this3.limit;_this3.loading = false;});}, getStatus: function getStatus(order) {return STATUS[order._status._type];}, cancelOrder: function cancelOrder(order) {var _this4 = this;(0, _order2.cancelOrderHandle)(order.orderId).then(function () {_this4.getOrderData();_this4.orderList.splice(_this4.orderList.indexOf(order), 1);}).catch(function () {_this4.reload();});}, paymentTap: function paymentTap(order) {var _this5 = this;var that = this;if (!(order.combinationId > 0 || order.bargainId > 0 || order.seckillId > 0)) {that.setOfflinePayStatus(order.offlinePayStatus);}this.pay = true;this.toPay = function (type) {(0, _order2.payOrderHandle)(order.orderId, type, that.from).then(function () {var type = parseInt(_this5.$yroute.query.type) || 0;that.changeType(type);that.getOrderData();}).catch(function () {var type = parseInt(that.$yroute.query.type) || 0;that.changeType(type);that.getOrderData();});};}, toPay: function toPay() {} }, mounted: function mounted() {this.type = parseInt(this.$yroute.query.type) || 0;this.getOrderData();this.getOrderList();}, onReachBottom: function onReachBottom() {!this.loading && this.getOrderList();} };exports.default = _default;
 
 /***/ }),
 

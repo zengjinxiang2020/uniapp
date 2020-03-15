@@ -119,24 +119,24 @@ export default {
     },
     switchH5() {
       let that = this;
-      wx.showLoading({title: '正在切换中'})
+      uni.showLoading({title: '正在切换中'})
       if (that.login_type === "h5") {
         cookie.set("loginType", "wechat", 60);
-        wx.hideLoading()
+        uni.hideLoading()
         this.$store.commit("LOGOUT");
         this.$emit("changeswitch", false);
         location.reload();
       } else {
         switchH5Login()
           .then(({ data }) => {
-            wx.hideLoading()
+            uni.hideLoading()
             const expires_time = dayjs(data.expires_time);
             store.commit("LOGIN", data.token, expires_time);
             this.$emit("changeswitch", false);
             location.reload();
           })
           .catch(err => {
-            wx.hideLoading()
+            uni.hideLoading()
             return that.$dialog.toast({ mes: err });
           });
       }

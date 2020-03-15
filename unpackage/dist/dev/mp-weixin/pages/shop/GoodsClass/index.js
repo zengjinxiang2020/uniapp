@@ -100,17 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsList/index",
-        query: {
-          id: _vm.child.id,
-          title: _vm.child.cateName
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -244,10 +233,16 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
 //
 //
 var _default = { name: "GoodsClass", components: {}, props: {}, data: function data() {return { category: [], navActive: 0, search: "", lock: false };}, watch: { "$yroute.query.id": function $yrouteQueryId(n) {if (n) {this.activeCateId(n);}} }, mounted: function mounted() {// document.addEventListener("scroll", this.onScroll, false);
-    this.loadCategoryData();}, methods: { activeCateId: function activeCateId(n) {var index = 0;n = parseInt(n);if (!n) return;this.category.forEach(function (cate, i) {if (cate.id === n) index = i;});if (index !== this.navActive) {this.asideTap(index);}}, loadCategoryData: function loadCategoryData() {var _this = this;(0, _store.getCategory)().then(function (res) {_this.category = res.data;_this.$nextTick(function () {if (_this.$yroute.query.id) {_this.activeCateId(_this.$yroute.query.id);}});});}, submitForm: function submitForm() {var _this2 = this;var val = (0, _utils.trim)(this.search);
+    this.loadCategoryData();}, methods: { goGoodsList: function goGoodsList(child) {this.$yrouter.push({ path: "/pages/shop/GoodsList/index", query: { id: child.id, title: child.cateName } });}, activeCateId: function activeCateId(n) {var index = 0;n = parseInt(n);if (!n) return;this.category.forEach(function (cate, i) {if (cate.id === n) index = i;});if (index !== this.navActive) {this.asideTap(index);}}, loadCategoryData: function loadCategoryData() {var _this = this;(0, _store.getCategory)().then(function (res) {_this.category = res.data;_this.$nextTick(function () {if (_this.$yroute.query.id) {_this.activeCateId(_this.$yroute.query.id);
+          }
+        });
+      });
+    },
+    submitForm: function submitForm() {var _this2 = this;
+      var val = (0, _utils.trim)(this.search);
       if (val) {
         this.$yrouter.push({
-          path: "/pages/shop/GoodsList/main",
+          path: "/pages/shop/GoodsList/index",
           query: { s: val } });
 
         setTimeout(function () {return _this2.search = "";}, 500);

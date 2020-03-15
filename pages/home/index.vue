@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="header acea-row row-center-wrapper">
-      <div @click="$yrouter.push('/pages/shop/GoodSearch/index')" class="search acea-row row-middle">
+      <div @click="goGoodSearch()" class="search acea-row row-middle">
         <span class="iconfont icon-xiazai5"></span>搜索商品
       </div>
     </div>
@@ -17,7 +17,7 @@
       </swiper>
     </div>
     <div class="news acea-row row-between-wrapper">
-      <div class="pictrue">
+      <div class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
         <img :src="$VUE_APP_RESOURCES_URL+'/images/news.png'" />
       </div>
       <div class="swiper-no-swiping new-banner">
@@ -32,7 +32,7 @@
           <block v-for="(item, rollIndex) in roll" :key="rollIndex">
             <swiper-item class="swiper-slide">
               <div
-                @click="item.wxapp_url?$yrouter.push(item.wxapp_url) : ''"
+                @click="item.uniapp_url?$yrouter.push(item.uniapp_url) : ''"
                 class="swiper-item acea-row row-between-wrapper"
               >
                 <div class="text acea-row row-between-wrapper">
@@ -48,7 +48,7 @@
     </div>
     <div class="nav acea-row">
       <div
-        @click="$yrouter.push(item.wxapp_url)"
+        @click="goWxappUrl(item)"
         class="item"
         v-for="(item, menusIndex) in menus"
         :key="menusIndex"
@@ -65,10 +65,7 @@
         <div class="text">
           <div class="name line1">热门榜单</div>
         </div>
-        <div
-          @click="$yrouter.push({ path: '/pages/shop/HotNewGoods/index',query:{type:2} })"
-          class="more"
-        >
+        <div @click="goHotNewGoods()" class="more">
           更多
           <span class="iconfont icon-jiantou"></span>
         </div>
@@ -77,13 +74,13 @@
         <scroll-view scroll-y="false" scroll-x="true">
           <div class="newProductsScroll">
             <div
-              @click="$yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:item.id} })"
+              @click="goGoodsCon(item)"
               class="newProductsItem"
               v-for="(item, likeInfoIndex) in likeInfo"
               :key="likeInfoIndex"
             >
               <div class="img-box">
-                <img :src="item.image"  />
+                <img :src="item.image" />
               </div>
               <div class="pro-info line1">{{ item.storeName }}</div>
               <div class="money font-color-red">￥{{ item.price }}</div>
@@ -97,10 +94,7 @@
         <div class="text">
           <div class="name line1">精品推荐</div>
         </div>
-        <div
-          @click="$yrouter.push({ path: '/pages/shop/HotNewGoods/index',query:{type:1} })"
-          class="more"
-        >
+        <div @click="goHotNewGoods(1)" class="more">
           更多
           <span class="iconfont icon-jiantou"></span>
         </div>
@@ -116,10 +110,7 @@
             <span class="new font-color-red">NEW~</span>
           </div>
         </div>
-        <div
-          @click="$yrouter.push({ path: '/pages/shop/HotNewGoods/index',query:{type:3} })"
-          class="more"
-        >
+        <div @click="goHotNewGoods(3)" class="more">
           更多
           <span class="iconfont icon-jiantou"></span>
         </div>
@@ -128,13 +119,13 @@
         <scroll-view scroll-y="false" scroll-x="true">
           <div class="newProductsScroll">
             <div
-              @click="$yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:item.id} })"
+              @click="goGoodsCon(item)"
               class="newProductsItem"
               v-for="(item, firstListIndex) in firstList"
               :key="firstListIndex"
             >
               <div class="img-box">
-                <img :src="item.image"  />
+                <img :src="item.image" />
               </div>
               <div class="pro-info line1">{{ item.storeName }}</div>
               <div class="money font-color-red">￥{{ item.price }}</div>
@@ -148,20 +139,19 @@
         <div class="text">
           <div class="name line1">促销单品</div>
         </div>
-        <div @click="$yrouter.push('/pages/shop/GoodsPromotion/index')" class="more">
+        <div @click="goGoodsPromotion()" class="more">
           更多
           <span class="iconfont icon-jiantou"></span>
         </div>
       </div>
     </div>
-    <Promotion-good :benefit="benefit"></Promotion-good>
+    <PromotionGood :benefit="benefit"></PromotionGood>
     <Coupon-window
       :coupon-list="couponList"
       v-if="showCoupon"
       @checked="couponClose"
       @close="couponClose"
     ></Coupon-window>
-    <div style="height:3rem;"></div>
   </div>
 </template>
 <script>
@@ -283,6 +273,27 @@ export default {
     });
   },
   methods: {
+    goGoodSearch() {
+      this.$yrouter.push("/pages/shop/GoodSearch/index");
+    },
+    goWxappUrl(item) {
+      this.$yrouter.push(item.uniapp_url);
+    },
+    goHotNewGoods(type) {
+      this.$yrouter.push({
+        path: "/pages/shop/HotNewGoods/index",
+        query: { type }
+      });
+    },
+    goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.id }
+      });
+    },
+    goGoodsPromotion() {
+      this.$yrouter.push("/pages/shop/GoodsPromotion/index");
+    },
     setOpenShare: function() {}
   }
 };

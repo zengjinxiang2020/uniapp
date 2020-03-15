@@ -189,7 +189,7 @@ var _user = __webpack_require__(/*! @/api/user */ 19); //
 //
 //
 //
-var _default = { name: "AddressWindow", props: { value: Boolean, checked: Number }, data: function data() {return { addressList: [], current: 0, cartId: 0, pinkId: 0, couponId: 0 };}, mounted: function mounted() {}, methods: { getAddressList: function getAddressList() {var that = this;(0, _user.getAddressList)().then(function (res) {that.addressList = res.data;});}, closeAddress: function closeAddress() {this.$emit("input", false);}, goAddressPages: function goAddressPages() {this.$yrouter.push({ path: "/pages/user/address/AddAddress/main" });this.$emit("redirect");}, tapAddress: function tapAddress(index) {this.$emit("checked", this.addressList[index]);this.$emit("input", false);} } };exports.default = _default;
+var _default = { name: "AddressWindow", props: { value: Boolean, checked: Number }, data: function data() {return { addressList: [], current: 0, cartId: 0, pinkId: 0, couponId: 0 };}, mounted: function mounted() {}, methods: { getAddressList: function getAddressList() {var that = this;(0, _user.getAddressList)().then(function (res) {that.addressList = res.data;});}, closeAddress: function closeAddress() {this.$emit("input", false);}, goAddressPages: function goAddressPages() {this.$yrouter.push({ path: "/pages/user/address/AddAddress/index" });this.$emit("redirect");}, tapAddress: function tapAddress(index) {this.$emit("checked", this.addressList[index]);this.$emit("input", false);} } };exports.default = _default;
 
 /***/ })
 

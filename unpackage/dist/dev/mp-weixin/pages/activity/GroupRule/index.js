@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -281,7 +281,7 @@ var NAME = "GroupRule";var _default =
       (0, _store.postCartAdd)(data).
       then(function (res) {
         that.$yrouter.push({
-          path: "/pages/order/OrderSubmission/main",
+          path: "/pages/order/OrderSubmission/index",
           query: { id: res.data.cartId, pinkid: that.pinkId } });
 
       }).
@@ -292,27 +292,27 @@ var NAME = "GroupRule";var _default =
     goPoster: function goPoster() {
       var that = this;
       this.$yrouter.push({
-        path: "/pages/activity/Poster/main",
+        path: "/pages/activity/Poster/index",
         query: { id: that.pinkId, type: 1 } });
 
     },
     goOrder: function goOrder() {
       var that = this;
       this.$yrouter.push({
-        path: "/pages/order/OrderDetails/main",
+        path: "/pages/order/OrderDetails/index",
         query: { id: that.currentPinkOrder } });
 
     },
     //拼团列表
     goList: function goList() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsGroup/main" });
+        path: "/pages/activity/GoodsGroup/index" });
 
     },
     //拼团详情
     goDetail: function goDetail(id) {
       this.$yrouter.push({
-        path: "/pages/activity/GroupDetails/main",
+        path: "/pages/activity/GroupDetails/index",
         query: { id: id } });
 
     },
@@ -335,14 +335,14 @@ var NAME = "GroupRule";var _default =
       var that = this;
       (0, _activity.getCombinationRemove)({ id: that.pinkId, cid: that.storeCombination.id }).
       then(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
 
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -352,6 +352,7 @@ var NAME = "GroupRule";var _default =
     lookAll: function lookAll() {
       this.iShidden = !this.iShidden;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

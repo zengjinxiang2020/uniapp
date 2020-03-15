@@ -31,25 +31,25 @@ export default {
           name: "首页",
           icon1: "icon-shouye-xianxing",
           icon2: "icon-shouye",
-          url: "/pages/home/main"
+          url: "/pages/home/index"
         },
         {
           name: "分类",
           icon1: "icon-yingyongchengxu-xianxing",
           icon2: "icon-yingyongchengxu",
-          url: "/pages/shop/GoodsClass/main"
+          url: "/pages/shop/GoodsClass/index"
         },
         {
           name: "购物车",
           icon1: "icon-caigou-xianxing",
           icon2: "icon-caigou",
-          url: "/pages/shop/ShoppingCart/main"
+          url: "/pages/shop/ShoppingCart/index"
         },
         {
           name: "我的",
           icon1: "icon-yonghu-xianxing",
           icon2: "icon-yonghu",
-          url: "/pages/user/User/main"
+          url: "/pages/user/User/index"
         }
       ],
       isIpx: false

@@ -65,7 +65,7 @@ export default {
       this.$emit("input", false);
     },
     goAddressPages: function() {
-      this.$yrouter.push({ path: "/pages/user/address/AddAddress/main" });
+      this.$yrouter.push({ path: "/pages/user/address/AddAddress/index" });
       this.$emit("redirect");
     },
     tapAddress: function(index) {

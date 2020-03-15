@@ -48,7 +48,7 @@ export default {
           that.status = false;
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
@@ -64,7 +64,7 @@ export default {
           that.status = false;
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000

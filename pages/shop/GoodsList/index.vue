@@ -40,7 +40,7 @@
       ref="container"
     >
       <div
-        @click="$yrouter.push({path: '/pages/shop/GoodsCon/index',query:{id:item.id}})"
+        @click="goGoodsCon(item)"
         class="item"
         :class="Switch === true ? '' : 'on'"
         v-for="(item, productListIndex) in productList"
@@ -168,6 +168,12 @@ export default {
     this.nows = fals;
   },
   methods: {
+    goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.id }
+      });
+    },
     updateTitle() {
       // document.title = this.title || this.$yroute.meta.title;
     },
@@ -210,7 +216,7 @@ export default {
       let that = this;
       switch (index) {
         case 0:
-          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/main" });
+          return that.$yrouter.push({ path: "/pages/shop/GoodsClass/index" });
         case 1:
           if (that.price === 0) that.price = 1;
           else if (that.price === 1) that.price = 2;

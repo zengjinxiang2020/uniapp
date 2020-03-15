@@ -98,16 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/news/NewsDetail/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -166,10 +156,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
 var _public = __webpack_require__(/*! @/api/public */ 88); //
 //
 //
@@ -194,10 +180,10 @@ var _public = __webpack_require__(/*! @/api/public */ 88); //
 //
 //
 //
-//
-//
-//
-var _default = { name: "NewsList", components: {}, props: {}, data: function data() {return { page: 1, limit: 20, loadTitle: "", loading: false, loadend: false, imgUrls: [], navLsit: [], articleList: [], active: 0, cid: 0, swiperNew: { pagination: { el: ".swiper-pagination", clickable: true }, autoplay: { disableOnInteraction: false, delay: 2000 }, loop: true,
+var _default = { name: "NewsList", components: {}, props: {}, data: function data() {return { page: 1, limit: 20, loadTitle: "", loading: false, loadend: false, imgUrls: [], navLsit: [], articleList: [], active: 0, cid: 0, swiperNew: { pagination: { el: ".swiper-pagination", clickable: true }, autoplay: { disableOnInteraction: false,
+          delay: 2000 },
+
+        loop: true,
         speed: 1000,
         observer: true,
         observeParents: true } };
@@ -216,6 +202,12 @@ var _default = { name: "NewsList", components: {}, props: {}, data: function dat
     !this.loading && this.getArticleLists();
   },
   methods: {
+    goNewsDetail: function goNewsDetail(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/news/NewsDetail/index",
+        query: { id: item.id } });
+
+    },
     getArticleLists: function getArticleLists() {
       var that = this;
       if (that.loading) return; //阻止下次请求（false可以进行请求）；

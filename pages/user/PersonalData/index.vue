@@ -76,41 +76,13 @@
           <input type="text" v-else value="未绑定" disabled class="id" />
         </div>
       </div>
-      <!--<div v-if="!userInfo.phone">-->
-      <!--<div-->
-      <!--@click="$yrouter.push('/pages/user/BindingPhone/index')"-->
-      <!--class="item acea-row row-between-wrapper"-->
-      <!--&gt;-->
-      <!--<div>绑定手机号</div>-->
-      <!--<div class="input">-->
-      <!--点击绑定手机号<span class="iconfont icon-xiangyou"></span>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div class="item acea-row row-between-wrapper" v-else-if="userInfo.phone">-->
-      <!--<div>手机号码</div>-->
-      <!--<div class="input acea-row row-between-wrapper">-->
-      <!--<div class="input acea-row row-between-wrapper">-->
-      <!--<input-->
-      <!--type="text"-->
-      <!--:value="userInfo.phone"-->
-      <!--disabled-->
-      <!--class="id"-->
-      <!--/><span class="iconfont icon-suozi"></span>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--<div v-if="userInfo.phone && userInfo.user_type === 'h5'">-->
-      <!--<div-->
-      <!--@click="$yrouter.push('/pages/user/ChangePassword/index')"-->
-      <!--class="item acea-row row-between-wrapper"-->
-      <!--&gt;-->
-      <!--<div>密码</div>-->
-      <!--<div class="input">-->
-      <!--点击修改密码<span class="iconfont icon-xiangyou"></span>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
+      <div class="item acea-row row-between-wrapper" @click="goChangePassword()">
+        <div>密码</div>
+        <div class="input acea-row row-between-wrapper">
+          <span>点击修改密码</span>
+          <span class="iconfont icon-suozi"></span>
+        </div>
+      </div>
     </div>
     <!--<div class="modifyBnt bg-color-red" @click="submit">保存修改</div>-->
     <!-- <div
@@ -161,6 +133,9 @@ export default {
     this.getUserInfo();
   },
   methods: {
+    goChangePassword() {
+      this.$yrouter.push("/pages/user/ChangePassword/index");
+    },
     switchAccounts: function(index) {
       let that = this;
       this.userIndex = index;
@@ -171,19 +146,19 @@ export default {
       if (userInfo.user_type === "h5") {
         switchH5Login()
           .then(({ data }) => {
-            wx.hideLoading();
+            uni.hideLoading();
             const expires_time = dayjs(data.expires_time);
             store.commit("LOGIN", data.token, expires_time);
             that.$emit("changeswitch", false);
             location.reload();
           })
           .catch(err => {
-            wx.hideLoading();
+            uni.hideLoading();
             return that.$dialog.toast({ mes: err });
           });
       } else {
         cookie.set("loginType", "wechat", 60);
-        wx.hideLoading();
+        uni.hideLoading();
         this.$store.commit("LOGOUT");
         this.$emit("changeswitch", false);
       }
@@ -219,7 +194,7 @@ export default {
       }).then(
         res => {
           this.$store.dispatch("USERINFO", true);
-          this.$wx.showToast({ title: res.msg, icon: "none", duration: 2000 });
+          this.$uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
           this.$yrouter.back();
         },
         error => {

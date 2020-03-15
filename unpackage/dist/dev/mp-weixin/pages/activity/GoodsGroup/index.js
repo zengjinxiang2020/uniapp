@@ -227,7 +227,7 @@ var Loading = function Loading() {return __webpack_require__.e(/*! import() | co
       page: 1, //页码
       limit: 20, //数量
       loadingList: false };}, mounted: function mounted() {// document.querySelector('body').setAttribute('style', 'background-color:#73CBB6');
-    this.getCombinationList();}, onReachBottom: function onReachBottom() {!this.loadingList && this.getCombinationList();}, methods: { getCombinationList: function getCombinationList() {var that = this;if (that.loading) return;if (that.status) return;(0, _activity.getCombinationList)({ page: that.page, limit: that.limit }).then(function (res) {that.status = res.data.length < that.limit;that.combinationList.push.apply(that.combinationList, res.data);that.page++;that.loading = false;});}, link: function link(id) {this.$yrouter.push({ path: "/pages/activity/GroupDetails/main", query: { id: id } });} } };exports.default = _default;
+    this.getCombinationList();}, onReachBottom: function onReachBottom() {!this.loadingList && this.getCombinationList();}, methods: { getCombinationList: function getCombinationList() {var that = this;if (that.loading) return;if (that.status) return;(0, _activity.getCombinationList)({ page: that.page, limit: that.limit }).then(function (res) {that.status = res.data.length < that.limit;that.combinationList.push.apply(that.combinationList, res.data);that.page++;that.loading = false;});}, link: function link(id) {this.$yrouter.push({ path: "/pages/activity/GroupDetails/index", query: { id: id } });} } };exports.default = _default;
 
 /***/ })
 

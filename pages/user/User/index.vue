@@ -13,13 +13,8 @@
               {{ userInfo.vipName }}
             </div>
           </div>
-          <div
-            @click="$yrouter.push('/pages/user/PersonalData/index')"
-            class="id"
-            v-if="userInfo.phone"
-          >
-            ID：{{ userInfo.uid || 0
-            }}
+          <div @click="goPersonalData()" class="id" v-if="userInfo.phone">
+            ID：{{ userInfo.uid || 0}}
             <span class="iconfont icon-bianji1"></span>
           </div>
           <button
@@ -32,30 +27,27 @@
           </button>
         </div>
       </div>
-      <span
-        class="iconfont icon-shezhi"
-        @click="$yrouter.push({ path: '/pages/user/PersonalData/index' })"
-      ></span>
+      <span class="iconfont icon-shezhi" @click="goPersonalData()"></span>
     </div>
     <div class="wrapper">
       <div class="nav acea-row row-middle">
-        <div @click="$yrouter.push({ path: '/pages/user/UserAccount/index' })" class="item">
+        <div @click="goUserAccount()" class="item">
           <div>我的余额</div>
           <div class="num">{{ userInfo.nowMoney || 0 }}</div>
         </div>
         <div
-          @click="$yrouter.push('/pages/user/promotion/UserPromotion/index')"
+          @click="goUserPromotion()"
           class="item"
           v-if="userInfo.isPromoter === 1 || userInfo.statu === 2"
         >
           <div>当前佣金</div>
           <div class="num">{{ userInfo.brokeragePrice || 0 }}</div>
         </div>
-        <div @click="$yrouter.push('/pages/user/signIn/Integral/index')" class="item" v-else>
+        <div @click="goIntegral()" class="item" v-else>
           <div>当前积分</div>
           <div class="num">{{ userInfo.integral || 0 }}</div>
         </div>
-        <div @click="$yrouter.push('/pages/user/coupon/UserCoupon/index')" class="item">
+        <div @click="goUserCoupon()" class="item">
           <div>优惠券</div>
           <div class="num">{{ userInfo.couponCount || 0 }}</div>
         </div>
@@ -63,16 +55,13 @@
       <div class="myOrder">
         <div class="title acea-row row-between-wrapper">
           <div>我的订单</div>
-          <div @click="$yrouter.push('/pages/order/MyOrder/index')" class="allOrder">
+          <div @click="goMyOrder()" class="allOrder">
             全部订单
             <span class="iconfont icon-jiantou"></span>
           </div>
         </div>
         <div class="orderState acea-row row-middle">
-          <div
-            @click="$yrouter.push({ path: '/pages/order/MyOrder/index',query:{type:0}})"
-            class="item"
-          >
+          <div @click="goMyOrder(0)" class="item">
             <div class="pictrue">
               <img :src="$VUE_APP_RESOURCES_URL + '/images/dfk.png'" />
               <span
@@ -82,10 +71,7 @@
             </div>
             <div>待付款</div>
           </div>
-          <div
-            @click="$yrouter.push({ path: '/pages/order/MyOrder/index',query:{type:1} })"
-            class="item"
-          >
+          <div @click="goMyOrder(1)" class="item">
             <div class="pictrue">
               <img :src="$VUE_APP_RESOURCES_URL+'/images/dfh.png'" />
               <span
@@ -95,10 +81,7 @@
             </div>
             <div>待发货</div>
           </div>
-          <div
-            @click="$yrouter.push({ path: '/pages/order/MyOrder/index',query:{type:2}})"
-            class="item"
-          >
+          <div @click="goMyOrder(2)" class="item">
             <div class="pictrue">
               <img :src="$VUE_APP_RESOURCES_URL+'/images/dsh.png'" />
               <span
@@ -108,10 +91,7 @@
             </div>
             <div>待收货</div>
           </div>
-          <div
-            @click="$yrouter.push({ path: '/pages/order/MyOrder/index',query:{type:3} })"
-            class="item"
-          >
+          <div @click="goMyOrder(3)" class="item">
             <div class="pictrue">
               <img :src="$VUE_APP_RESOURCES_URL+'/images/dpj.png'" />
               <span
@@ -121,7 +101,7 @@
             </div>
             <div>待评价</div>
           </div>
-          <div @click="$yrouter.push('/pages/order/ReturnList/index')" class="item">
+          <div @click="goReturnList()" class="item">
             <div class="pictrue">
               <img :src="$VUE_APP_RESOURCES_URL+'/images/sh.png'" />
               <span
@@ -194,16 +174,40 @@ export default {
     }
   },
   mounted: function() {
-    console.log('这个是个人中心')
+    console.log("这个是个人中心");
     this.User();
     this.MenuUser();
     this.isWeixin = isWeixin();
   },
   methods: {
+    goReturnList() {
+      this.$yrouter.push("/pages/order/ReturnList/index");
+    },
+    goMyOrder(type) {
+      this.$yrouter.push({
+        path: "/pages/order/MyOrder/index",
+        query: { type }
+      });
+    },
+    goUserCoupon() {
+      this.$yrouter.push("/pages/user/coupon/UserCoupon/index");
+    },
+    goIntegral() {
+      this.$yrouter.push("/pages/user/signIn/Integral/index");
+    },
+    goUserPromotion() {
+      this.$yrouter.push("/pages/user/promotion/UserPromotion/index");
+    },
+    goUserAccount() {
+      this.$yrouter.push({ path: "/pages/user/UserAccount/index" });
+    },
+    goPersonalData() {
+      this.$yrouter.push("/pages/user/PersonalData/index");
+    },
     getPhoneNumber: function(e) {
       console.log(e.mp.detail);
       if (e.mp.detail.errMsg == "getPhoneNumber:ok") {
-        wx.showLoading({ title: "绑定中" });
+        uni.showLoading({ title: "绑定中" });
         wx.login({
           success: loginRes => {
             bindingPhone({
@@ -213,15 +217,15 @@ export default {
             })
               .then(res => {
                 this.User();
-                wx.hideLoading();
-                wx.showToast({
+                uni.hideLoading();
+                uni.showToast({
                   title: res.msg,
                   icon: "success",
                   duration: 2000
                 });
               })
               .catch(error => {
-                wx.showToast({
+                uni.showToast({
                   title: error.msg || error.response.data.msg,
                   icon: "none",
                   duration: 2000
@@ -230,7 +234,7 @@ export default {
           }
         });
       } else {
-        wx.showToast({
+        uni.showToast({
           title: "已拒绝授权",
           icon: "none",
           duration: 2000
@@ -254,9 +258,9 @@ export default {
       });
     },
     goPages: function(index) {
-      let url = this.MyMenus[index].wxapp_url;
+      let url = this.MyMenus[index].uniapp_url;
       if (
-        url === "/pages/user/promotion/UserPromotion/main" &&
+        url === "/pages/user/promotion/UserPromotion/index" &&
         this.userInfo.statu === 1
       ) {
         if (!this.userInfo.isPromoter)
@@ -264,13 +268,13 @@ export default {
       }
 
       if (
-        url === "/pages/orderAdmin/OrderIndex/main" &&
+        url === "/pages/orderAdmin/OrderIndex/index" &&
         !this.userInfo.adminid
       ) {
         return this.$dialog.toast({ mes: "您还不是管理员！！" });
       }
 
-      this.$yrouter.push({ path: this.MyMenus[index].wxapp_url });
+      this.$yrouter.push({ path: this.MyMenus[index].uniapp_url });
     }
   },
   onShow() {
@@ -282,7 +286,6 @@ export default {
 </script>
 
 <style>
-
 .footer-line-height {
   height: 1rem;
 }

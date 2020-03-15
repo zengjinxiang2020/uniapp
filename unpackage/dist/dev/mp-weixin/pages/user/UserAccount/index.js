@@ -98,25 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/UserBill/index",
-        query: {
-          id: 0
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/UserBill/index",
-        query: {
-          id: 1
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -214,6 +195,9 @@ var _user = __webpack_require__(/*! @/api/user */ 19);var Recommend = function R
     this.getActivity();
   },
   methods: {
+    goUserBill: function goUserBill(id) {
+      this.$yrouter.push({ path: "/pages/user/UserBill/index", query: { id: id } });
+    },
     getIndex: function getIndex() {
       var that = this;
       (0, _user.getBalance)().then(

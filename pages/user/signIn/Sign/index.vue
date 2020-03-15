@@ -13,10 +13,7 @@
             </div>
           </div>
         </div>
-        <div
-          @click="$yrouter.push('/pages/user/signIn/SignRecord/index')"
-          class="right acea-row row-middle"
-        >
+        <div @click="goSignRecord()" class="right acea-row row-middle">
           <div class="iconfont icon-caidan"></div>
           <div>明细</div>
         </div>
@@ -78,7 +75,7 @@
           <div class="num font-color-red">+{{ item.number }}</div>
         </div>
         <div
-          @click="$yrouter.push('/pages/user/signIn/SignRecord/index')"
+          @click="goSignRecord()"
           class="Loads acea-row row-center-wrapper"
           v-if="signList.length > 0"
         >
@@ -139,6 +136,9 @@ export default {
     this.getSignList();
   },
   methods: {
+    goSignRecord() {
+      this.$yrouter.push("/pages/user/signIn/SignRecord/index");
+    },
     // js给数字补0；num：需要补0的数字，length：长度（补到多少位）；
     PrefixInteger: function(num, length) {
       return (Array(length).join("0") + num).slice(-length).split("");

@@ -163,7 +163,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
   data: function data() {
     return {};
   },
-  mounted: function mounted() {
+  mounted: function mounted() {var _this = this;
     var url = (0, _utils.handleQrCode)();
     // 判断是否是分销
     if (url) {
@@ -175,12 +175,12 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
         _cookie.default.set('spread', urlSpread || 0);
       }
     }
-    this.toLaunch();
-    // login({
-    // 	fail: () => {
-    // 		this.toLaunch();
-    // 	}
-    // });
+    // this.toLaunch();
+    (0, _utils.login)({
+      fail: function fail() {
+        _this.toLaunch();
+      } });
+
   },
   methods: _objectSpread({},
   (0, _vuex.mapActions)(['changeAuthorization', 'changeUserInfo']), {

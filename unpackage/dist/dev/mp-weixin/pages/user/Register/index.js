@@ -100,14 +100,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   var m0 = __webpack_require__(/*! @/assets/images/logo.png */ 56)
 
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        name: "Login"
-      })
-    }
-  }
-
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -150,10 +142,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
 
 
 
@@ -256,11 +244,7 @@ var _SendVerifyCode = _interopRequireDefault(__webpack_require__(/*! @/mixins/Se
 //
 //
 //
-//
-//
-//
-//
-var _default = { name: "Register", mixins: [_SendVerifyCode.default], methods: { code: function code() {this.sendCode();} } };exports.default = _default;
+var _default = { name: "Register", mixins: [_SendVerifyCode.default], methods: { code: function code() {this.sendCode();}, goLogin: function goLogin() {this.$yrouter.push({ path: "/pages/user/Login/index" });} } };exports.default = _default;
 
 /***/ })
 

@@ -270,10 +270,7 @@
         <div class="bnt bg-color-red" @click="pay = true">立即付款</div>
       </template>
       <template v-if="status.type == 1">
-        <div
-          class="bnt cancel"
-          @click="$yrouter.push({ path: '/pages/order/GoodsReturn/index',query:{id:orderInfo.orderId } })"
-        >申请退款</div>
+        <div class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请退款</div>
       </template>
       <template v-if="status.type == 2">
         <div
@@ -302,12 +299,7 @@
         >查看物流</div>
       </template>
       <template v-if="status.type == 6">
-        <div
-          class="bnt bg-color-red"
-          @click="
-            $yrouter.push({ path: '/pages/activity/GroupRule/index',query:{id:orderInfo.pinkId} })
-          "
-        >查看拼团</div>
+        <div class="bnt bg-color-red" @click="goGroupRule(orderInfo)">查看拼团</div>
       </template>
     </div>
     <Payment v-model="pay" :types="payType" @checked="toPay" :balance="userInfo.nowMoney"></Payment>
@@ -322,6 +314,24 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    goGoodsReturn(orderInfo) {
+      this.$yrouter.push({
+        path: "/pages/order/GoodsReturn/index",
+        query: { id: orderInfo.orderId }
+      });
+    },
+    goGroupRule(orderInfo) {
+      this.$yrouter.push({
+        path: "/pages/activity/GroupRule/index",
+        query: { id: orderInfo.pinkId }
+      });
+    }
+  }
+};
+</script>
 <style scoped>
 .geoPage {
   position: fixed;
@@ -612,7 +622,7 @@ export default {
           this.setOfflinePayStatus(this.orderInfo.offlinePayStatus);
         })
         .catch(err => {
-          wx.showToast({
+          uni.showToast({
             title: err.response.data.msg,
             icon: "none",
             duration: 2000

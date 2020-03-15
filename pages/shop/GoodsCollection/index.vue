@@ -2,10 +2,10 @@
   <div ref="container">
     <div class="collectionGoods" v-if="collectProductList.length > 0">
       <div
-        @click="$yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:item.pid} })"
         class="item acea-row row-between-wrapper"
         v-for="(item, collectProductListIndex) in collectProductList"
         :key="collectProductListIndex"
+        @click="goGoodsCon(item)"
       >
         <div class="pictrue">
           <img :src="item.image" />
@@ -60,6 +60,12 @@ export default {
     !this.loading && this.get_user_collect_product();
   },
   methods: {
+    goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.pid }
+      });
+    },
     get_user_collect_product: function() {
       let that = this;
       if (that.loading) return; //阻止下次请求（false可以进行请求）；

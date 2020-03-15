@@ -100,20 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/EvaluateList/index",
-        query: {
-          id: _vm.id
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push("/pages/shop/ShoppingCart/index")
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -147,180 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -590,6 +403,18 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
     this.productCon();
   },
   methods: {
+    goShoppingCart: function goShoppingCart() {
+      this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");
+    },
+    goCustomerList: function goCustomerList() {
+      this.$yrouter.push({ path: "/pages/user/CustomerList/index" });
+    },
+    goEvaluateList: function goEvaluateList(id) {
+      this.$yrouter.push({
+        path: "/pages/shop/EvaluateList/index",
+        query: { id: id } });
+
+    },
     showChang: function showChang() {
       if ((0, _utils.isWeixin)()) {
         var config = {
@@ -669,7 +494,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
         that.getCartCount();
       }).
       catch(function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -893,7 +718,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
         that.attr.cartAttr = false;
         if (news) {
           that.$yrouter.push({
-            path: "/pages/order/OrderSubmission/main",
+            path: "/pages/order/OrderSubmission/index",
             query: { id: res.data.cartId } });
 
         } else {
@@ -907,7 +732,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
       }).
       catch(function (error) {
         that.isOpen = false;
-        wx.showToast({
+        uni.showToast({
           title: error.response.data.msg,
           icon: "none",
           duration: 2000 });
@@ -945,6 +770,7 @@ var _vuex = __webpack_require__(/*! vuex */ 16);function _objectSpread(target) {
     listenerActionClose: function listenerActionClose() {
       this.posters = false;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

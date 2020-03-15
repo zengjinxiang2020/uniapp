@@ -22,9 +22,9 @@ var _cookie = _interopRequireDefault(__webpack_require__(/*! @/utils/store/cooki
 __webpack_require__(/*! @/assets/iconfont/iconfont.css */ 31);
 
 
-__webpack_require__(/*! @/assets/css/base.css */ 32);
-__webpack_require__(/*! @/assets/css/reset.css */ 33);
-__webpack_require__(/*! @/assets/css/style.css */ 34);
+__webpack_require__(/*! @/assets/css/base.less */ 32);
+__webpack_require__(/*! @/assets/css/reset.less */ 33);
+__webpack_require__(/*! @/assets/css/style.less */ 34);
 
 var _utils = __webpack_require__(/*! @/utils */ 18);
 
@@ -86,18 +86,28 @@ Object.defineProperty(_vue.default.prototype, '$yroute', {
   } });
 
 
-Object.defineProperty(_vue.default.prototype, '$VUE_APP_RESOURCES_URL', {
-  get: function get() {
-    return _config.VUE_APP_RESOURCES_URL;
-  } });
+_vue.default.prototype.$VUE_APP_RESOURCES_URL = _config.VUE_APP_RESOURCES_URL;
+_vue.default.prototype.$VUE_APP_API_URL = _config.VUE_APP_API_URL;
 
 
-Object.defineProperty(_vue.default.prototype, '$VUE_APP_API_URL', {
-  get: function get() {
-    return _config.VUE_APP_API_URL;
-  } });
 
 
+
+
+
+
+// H5编译的代码
+_vue.default.prototype.$deviceType = 'H5';
+
+
+
+// 微信小程序编译的代码
+_vue.default.prototype.$deviceType = 'Weixin';
+
+
+if (wx) {
+  _vue.default.prototype.$deviceType = 'Weixin';
+}
 
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))

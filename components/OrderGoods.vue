@@ -19,7 +19,7 @@
           <div
             class="evaluate"
             v-if="evaluate == 3"
-            @click="$yrouter.push({ path: '/pages/shop/GoodsEvaluate/index',query:{id:cart.unique} })"
+			@click="routerGo(cart)"
           >评价</div>
         </div>
       </div>
@@ -40,6 +40,10 @@ export default {
     return {};
   },
   mounted: function() {},
-  methods: {}
+  methods: {
+	  routerGo(item) {
+	  	this.$yrouter.push({ path: '/pages/shop/GoodsEvaluate/index',query:{id:cart.unique} });
+	  },
+  }
 };
 </script>

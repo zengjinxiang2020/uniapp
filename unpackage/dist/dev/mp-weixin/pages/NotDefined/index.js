@@ -100,13 +100,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.replace({
-        path: "/"
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -159,7 +152,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 var _default =
 {
-  name: "NotDefined" };exports.default = _default;
+  name: "NotDefined",
+  methods: {
+    homeGo: function homeGo() {
+      this.$yrouter.switchTab('/pages/home/index');
+    } } };exports.default = _default;
 
 /***/ }),
 

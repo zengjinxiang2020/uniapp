@@ -213,7 +213,7 @@ var _default = { name: "GoodsBargain", components: {}, props: {}, data: function
       loading: false, //当前接口是否请求完成 false 完成 true 未完成
       page: 1, //页码
       limit: 20 //数量
-    };}, mounted: function mounted() {this.getBargainList();}, methods: { getBargainList: function getBargainList() {var that = this;if (that.loading) return;if (that.status) return;that.loading = true;(0, _activity.getBargainList)({ page: that.page, limit: that.limit }).then(function (res) {that.status = res.data.length < that.limit;that.bargainLis.push.apply(that.bargainLis, res.data);that.page++;that.loading = false;});}, goDetail: function goDetail(id) {this.$yrouter.push({ path: "/pages/activity/DargainDetails/main", query: { id: id, partake: 0 } });} } };exports.default = _default;
+    };}, mounted: function mounted() {this.getBargainList();}, methods: { getBargainList: function getBargainList() {var that = this;if (that.loading) return;if (that.status) return;that.loading = true;(0, _activity.getBargainList)({ page: that.page, limit: that.limit }).then(function (res) {that.status = res.data.length < that.limit;that.bargainLis.push.apply(that.bargainLis, res.data);that.page++;that.loading = false;});}, goDetail: function goDetail(id) {this.$yrouter.push({ path: "/pages/activity/DargainDetails/index", query: { id: id, partake: 0 } });} } };exports.default = _default;
 
 /***/ })
 

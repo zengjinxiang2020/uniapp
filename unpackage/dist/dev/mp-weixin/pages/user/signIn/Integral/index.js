@@ -206,6 +206,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 var _user = __webpack_require__(/*! @/api/user */ 19); //
 //
 //
@@ -278,8 +279,11 @@ var _user = __webpack_require__(/*! @/api/user */ 19); //
 //
 //
 //
+//
 var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var DataFormat = function DataFormat() {return __webpack_require__.e(/*! import() | components/DataFormat */ "components/DataFormat").then(__webpack_require__.bind(null, /*! @/components/DataFormat */ 577));};var _default = { name: "Integral", components: { Loading: Loading, DataFormat: DataFormat }, props: {}, data: function data() {return { navList: [{ name: "分值明细", icon: "icon-mingxi" // { name: "分值提升", icon: "icon-tishengfenzhi" }
-      }], current: 0, where: { page: 1, limit: 15 }, data: { sign: 1, integral: 1, all: 1 }, list: [], info: [], loaded: false, loading: false };}, mounted: function mounted() {this.getIntegral();this.getInfo();}, onReachBottom: function onReachBottom() {!this.loading && this.getInfo();}, methods: { nav: function nav(index) {this.current = index;}, getInfo: function getInfo() {var that = this;if (that.loaded == true || that.loading == true) return;that.loading = true;(0, _user.getIntegralList)(that.where).then(function (res) {that.loading = false;that.loaded = res.data.length < that.where.limit;that.loadTitle = that.loaded ? "人家是有底线的" : "上拉加载更多";that.where.page = that.where.page + 1;that.list.push.apply(that.list, res.data);}, function (err) {that.$dialog.message(err.msg);});}, getIntegral: function getIntegral() {var that = this;(0, _user.postSignUser)(that.data).then(function (res) {that.info = res.data;}, function (err) {that.$dialog.message(err.msg);});} } };exports.default = _default;
+      }], current: 0, where: { page: 1, limit: 15 }, data: { sign: 1, integral: 1, all: 1 }, list: [], info: [], loaded: false, loading: false };}, mounted: function mounted() {this.getIntegral();this.getInfo();}, onReachBottom: function onReachBottom() {!this.loading && this.getInfo();}, methods: { goSignIn: function goSignIn() {this.$yrouter.push("/pages/user/signIn/Sign/index");}, goHome: function goHome() {this.$yrouter.switchTab("/pages/home/index");}, nav: function nav(index) {this.current = index;}, getInfo: function getInfo() {var that = this;if (that.loaded == true || that.loading == true) return;that.loading = true;(0, _user.getIntegralList)(that.where).then(function (res) {that.loading = false;that.loaded = res.data.length < that.where.limit;that.loadTitle = that.loaded ? "人家是有底线的" : "上拉加载更多";that.where.page = that.where.page + 1;that.list.push.apply(that.list, res.data);}, function (err) {that.$dialog.message(err.msg);});}, getIntegral: function getIntegral() {var that = this;(0, _user.postSignUser)(that.data).then(function (res) {that.info = res.data;}, function (err) {that.$dialog.message(err.msg);});
+
+    } } };exports.default = _default;
 
 /***/ }),
 

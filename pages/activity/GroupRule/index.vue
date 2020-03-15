@@ -148,7 +148,7 @@ export default {
       postCartAdd(data)
         .then(res => {
           that.$yrouter.push({
-            path: "/pages/order/OrderSubmission/main",
+            path: "/pages/order/OrderSubmission/index",
             query: { id: res.data.cartId, pinkid: that.pinkId }
           });
         })
@@ -159,27 +159,27 @@ export default {
     goPoster: function() {
       var that = this;
       this.$yrouter.push({
-        path: "/pages/activity/Poster/main",
+        path: "/pages/activity/Poster/index",
         query: { id: that.pinkId, type: 1 }
       });
     },
     goOrder: function() {
       var that = this;
       this.$yrouter.push({
-        path: "/pages/order/OrderDetails/main",
+        path: "/pages/order/OrderDetails/index",
         query: { id: that.currentPinkOrder }
       });
     },
     //拼团列表
     goList: function() {
       this.$yrouter.push({
-        path: "/pages/activity/GoodsGroup/main"
+        path: "/pages/activity/GoodsGroup/index"
       });
     },
     //拼团详情
     goDetail: function(id) {
       this.$yrouter.push({
-        path: "/pages/activity/GroupDetails/main",
+        path: "/pages/activity/GroupDetails/index",
         query: { id }
       });
     },
@@ -202,14 +202,14 @@ export default {
       var that = this;
       getCombinationRemove({ id: that.pinkId, cid: that.storeCombination.id })
         .then(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000
           });
         })
         .catch(res => {
-          wx.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000

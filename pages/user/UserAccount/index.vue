@@ -18,13 +18,13 @@
         </div>
       </div>
       <div class="nav acea-row row-middle">
-        <div class="item" @click="$yrouter.push({path:'/pages/user/UserBill/index',query:{id:0}})">
+        <div class="item" @click="goUserBill(0)">
           <div class="pictrue">
             <img :src="$VUE_APP_RESOURCES_URL+'/images/record1.png'" />
           </div>
           <div>账单记录</div>
         </div>
-        <div class="item" @click="$yrouter.push({path:'/pages/user/UserBill/index',query:{id:1}})">
+        <div class="item" @click="goUserBill(1)">
           <div class="pictrue">
             <img :src="$VUE_APP_RESOURCES_URL+'/images/record2.png'" />
           </div>
@@ -62,6 +62,9 @@ export default {
     this.getActivity();
   },
   methods: {
+    goUserBill(id) {
+      this.$yrouter.push({ path: "/pages/user/UserBill/index", query: { id } });
+    },
     getIndex: function() {
       let that = this;
       getBalance().then(

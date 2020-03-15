@@ -84,7 +84,7 @@ export default {
     },
     link: function(id) {
       this.$yrouter.push({
-        path: "/pages/activity/GroupDetails/main",
+        path: "/pages/activity/GroupDetails/index",
         query: { id }
       });
     }

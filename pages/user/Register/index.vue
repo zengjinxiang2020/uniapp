@@ -11,7 +11,7 @@
         <div class="item">
           <div>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-phone_"></use>
+              <use xlink:href="#icon-phone_" />
             </svg>
             <input type="text" placeholder="输入手机号码" />
           </div>
@@ -19,7 +19,7 @@
         <div class="item">
           <div class="align-left">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-code_1"></use>
+              <use xlink:href="#icon-code_1" />
             </svg>
             <input type="text" placeholder="填写验证码" class="codeIput" />
             <button
@@ -27,15 +27,13 @@
               :disabled="disabled"
               :class="disabled === true ? 'on' : ''"
               @click="code"
-            >
-              {{ text }}
-            </button>
+            >{{ text }}</button>
           </div>
         </div>
         <div class="item">
           <div>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-code_"></use>
+              <use xlink:href="#icon-code_" />
             </svg>
             <input type="text" placeholder="填写您的登录密码" />
           </div>
@@ -44,9 +42,7 @@
       <div class="logon">注册</div>
       <div class="tip">
         已有账号?
-        <span @click="$yrouter.push({ name: 'Login' })" class="font-color-red"
-          >立即登录</span
-        >
+        <span @click="goLogin()" class="font-color-red">立即登录</span>
       </div>
     </div>
     <div class="bottom"></div>
@@ -62,6 +58,9 @@ export default {
   methods: {
     code: function() {
       this.sendCode();
+    },
+    goLogin() {
+      this.$yrouter.push({ path: "/pages/user/Login/index" });
     }
   }
 };

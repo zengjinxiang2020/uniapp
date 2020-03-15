@@ -115,7 +115,7 @@ export default {
   methods: {
     mountedStart: function() {
       var that = this;
-      wx.showLoading();
+      uni.showLoading();
       getSeckillConfig().then(res => {
         that.$set(that, "headerImg", res.data.lovely);
         that.$set(that, "timeList", res.data.seckillTime);
@@ -161,7 +161,7 @@ export default {
         that.getSeckillList();
         that.$nextTick(function() {
           that.sticky = true;
-          wx.hideLoading();
+          uni.hideLoading();
         });
       });
     },
@@ -180,14 +180,14 @@ export default {
         that.status = res.data.length < that.limit;
         that.seckillList.push.apply(that.seckillList, res.data);
         that.page++;
-        wx.hideLoading();
+        uni.hideLoading();
       });
     },
     goDetail: function(id) {
       var that = this;
       var time = that.timeList[that.active].stop;
       this.$yrouter.push({
-        path: "/pages/activity/SeckillDetails/main",
+        path: "/pages/activity/SeckillDetails/index",
         query: { id, time }
       });
     }

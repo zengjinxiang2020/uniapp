@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
 
 
 
@@ -209,23 +209,23 @@ var _user = __webpack_require__(/*! @/api/user */ 19);function _interopRequireDe
                             step: 1 }).
 
                           then(function (res) {
-                            wx.showToast({
+                            uni.showToast({
                               title: res.msg,
                               icon: "none",
                               duration: 2000 });
 
                             that.$yrouter.replace({
-                              path: "/pages/user/PersonalData/main" });
+                              path: "/pages/user/PersonalData/index" });
 
                           }).
                           catch(function (res) {
-                            wx.showToast({
+                            uni.showToast({
                               title: res.msg,
                               icon: "none",
                               duration: 2000 });
 
                             that.$yrouter.replace({
-                              path: "/pages/user/PersonalData/main" });
+                              path: "/pages/user/PersonalData/index" });
 
                           });
                         } },
@@ -234,29 +234,29 @@ var _user = __webpack_require__(/*! @/api/user */ 19);function _interopRequireDe
                         txt: "取消",
                         color: false,
                         callback: function callback() {
-                          wx.showToast({
+                          uni.showToast({
                             title: "已取消绑定",
                             icon: "none",
                             duration: 2000 });
 
                           that.$yrouter.replace({
-                            path: "/pages/user/PersonalData/main" });
+                            path: "/pages/user/PersonalData/index" });
 
                         } }] });
 
 
 
                   } else {
-                    wx.showToast({
+                    uni.showToast({
                       title: res.msg,
                       icon: "none",
                       duration: 2000 });
 
-                    that.$yrouter.replace({ path: "/pages/user/PersonalData/main" });
+                    that.$yrouter.replace({ path: "/pages/user/PersonalData/index" });
                   }
                 }).
                 catch(function (res) {
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -281,7 +281,7 @@ var _user = __webpack_require__(/*! @/api/user */ 19);function _interopRequireDe
 
                 (0, _user.registerVerify)({ phone: phone }).
                 then(function (res) {
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -289,12 +289,13 @@ var _user = __webpack_require__(/*! @/api/user */ 19);function _interopRequireDe
                   that.sendCode();
                 }).
                 catch(function (res) {
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
 
                 });case 11:case "end":return _context2.stop();}}}, _callee2, this, [[2, 7]]);}));function code() {return _code.apply(this, arguments);}return code;}() } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

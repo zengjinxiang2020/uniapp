@@ -46,18 +46,18 @@ export default {
       //   });
       // } else {
       //   this.$yrouter.replace({
-      //     path: "/pages/launch/main",
+      //     path: "/pages/launch/index",
       //     query: { type: 0 }
       //   });
       // }
       this.CHANGE_TABTAR(0);
       this.$yrouter.replace({
-        path: "/pages/launch/main",
+        path: "/pages/home/index",
         query: { type: 0 }
       });
     },
     getUserInfo(data) {
-      wx.showLoading({
+      uni.showLoading({
         title: "登录中"
       });
       login();

@@ -98,16 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/GoodsDeliver/index",
-        query: {
-          id: _vm.orderInfo.orderId
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -141,11 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 59));
 
 
 
@@ -341,6 +327,12 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
     this.getIndex();
   },
   methods: {
+    goGoodsDeliver: function goGoodsDeliver(orderInfo) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/GoodsDeliver/index",
+        query: { id: orderInfo.orderId } });
+
+    },
     copyClipboard: _utils.copyClipboard,
     more: function more() {
       this.order = !this.order;
@@ -362,7 +354,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
         that.payType = res.data._status._payType;
       },
       function (err) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -392,7 +384,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 (0, _admin.setAdminOrderPrice)(data).then(
                 function () {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: "改价成功",
                     icon: "success",
                     duration: 2000 });
@@ -401,7 +393,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 },
                 function () {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: "改价失败",
                     icon: "none",
                     duration: 2000 });
@@ -424,7 +416,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 (0, _admin.setOrderRefund)(data).then(
                 function (res) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -433,7 +425,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 },
                 function (err) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -453,7 +445,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 (0, _admin.setAdminOrderRemark)(data).then(
                 function (res) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -462,7 +454,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
                 },
                 function (err) {
                   that.change = false;
-                  wx.showToast({
+                  uni.showToast({
                     title: res.msg,
                     icon: "none",
                     duration: 2000 });
@@ -474,7 +466,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
     offlinePay: function offlinePay() {var _this = this;
       (0, _admin.setOfflinePay)({ order_id: this.orderInfo.order_id }).then(
       function (res) {
-        wx.showToast({
+        uni.showToast({
           title: res.msg,
           icon: "none",
           duration: 2000 });
@@ -482,7 +474,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
         _this.getIndex();
       },
       function (err) {
-        wx.showToast({
+        uni.showToast({
           title: err.msg,
           icon: "none",
           duration: 2000 });
@@ -490,6 +482,7 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
       });
 
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 

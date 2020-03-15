@@ -81,16 +81,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -144,25 +134,21 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-var _default2 =
+var _default =
 {
-  name: "PromotionGood",
-  props: {
-    benefit: {
-      type: Array,
-      default: function _default() {return [];} } },
-
-
+  name: 'PromotionGood',
+  props: ['benefit'],
   data: function data() {
     return {};
-  } };exports.default = _default2;
+  },
+  methods: {
+    routerGo: function routerGo(item) {
+      this.$yrouter.push({ path: '/pages/shop/GoodsCon/index', query: { id: item.id } });
+    } },
+
+  mounted: function mounted() {
+    console.log(this, 999);
+  } };exports.default = _default;
 
 /***/ })
 

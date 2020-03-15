@@ -276,68 +276,11 @@ var render = function() {
 
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
-      return _vm.$yrouter.push("/pages/shop/GoodSearch/index")
-    }
-
-    _vm.e1 = function($event) {
       _vm.item.url ? _vm.$yrouter.push("/" + _vm.item.url) : ""
     }
 
-    _vm.e2 = function($event) {
-      _vm.item.wxapp_url ? _vm.$yrouter.push(_vm.item.wxapp_url) : ""
-    }
-
-    _vm.e3 = function($event) {
-      return _vm.$yrouter.push(_vm.item.wxapp_url)
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 2
-        }
-      })
-    }
-
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-
-    _vm.e6 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 1
-        }
-      })
-    }
-
-    _vm.e7 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/HotNewGoods/index",
-        query: {
-          type: 3
-        }
-      })
-    }
-
-    _vm.e8 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-
-    _vm.e9 = function($event) {
-      return _vm.$yrouter.push("/pages/shop/GoodsPromotion/index")
+    _vm.e1 = function($event) {
+      _vm.item.uniapp_url ? _vm.$yrouter.push(_vm.item.uniapp_url) : ""
     }
   }
 
@@ -382,16 +325,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -666,6 +599,27 @@ var HAS_COUPON_WINDOW = "has_coupon_window";var _default =
     });
   },
   methods: {
+    goGoodSearch: function goGoodSearch() {
+      this.$yrouter.push("/pages/shop/GoodSearch/index");
+    },
+    goWxappUrl: function goWxappUrl(item) {
+      this.$yrouter.push(item.uniapp_url);
+    },
+    goHotNewGoods: function goHotNewGoods(type) {
+      this.$yrouter.push({
+        path: "/pages/shop/HotNewGoods/index",
+        query: { type: type } });
+
+    },
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.id } });
+
+    },
+    goGoodsPromotion: function goGoodsPromotion() {
+      this.$yrouter.push("/pages/shop/GoodsPromotion/index");
+    },
     setOpenShare: function setOpenShare() {} } };exports.default = _default;
 
 /***/ }),
@@ -776,17 +730,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsList/index",
-        query: {
-          id: _vm.child.id,
-          title: _vm.child.cateName
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -918,10 +861,16 @@ var _utils = __webpack_require__(/*! @/utils */ 18);function _interopRequireDefa
 //
 //
 var _default = { name: "GoodsClass", components: {}, props: {}, data: function data() {return { category: [], navActive: 0, search: "", lock: false };}, watch: { "$yroute.query.id": function $yrouteQueryId(n) {if (n) {this.activeCateId(n);}} }, mounted: function mounted() {// document.addEventListener("scroll", this.onScroll, false);
-    this.loadCategoryData();}, methods: { activeCateId: function activeCateId(n) {var index = 0;n = parseInt(n);if (!n) return;this.category.forEach(function (cate, i) {if (cate.id === n) index = i;});if (index !== this.navActive) {this.asideTap(index);}}, loadCategoryData: function loadCategoryData() {var _this = this;(0, _store.getCategory)().then(function (res) {_this.category = res.data;_this.$nextTick(function () {if (_this.$yroute.query.id) {_this.activeCateId(_this.$yroute.query.id);}});});}, submitForm: function submitForm() {var _this2 = this;var val = (0, _utils.trim)(this.search);
+    this.loadCategoryData();}, methods: { goGoodsList: function goGoodsList(child) {this.$yrouter.push({ path: "/pages/shop/GoodsList/index", query: { id: child.id, title: child.cateName } });}, activeCateId: function activeCateId(n) {var index = 0;n = parseInt(n);if (!n) return;this.category.forEach(function (cate, i) {if (cate.id === n) index = i;});if (index !== this.navActive) {this.asideTap(index);}}, loadCategoryData: function loadCategoryData() {var _this = this;(0, _store.getCategory)().then(function (res) {_this.category = res.data;_this.$nextTick(function () {if (_this.$yroute.query.id) {_this.activeCateId(_this.$yroute.query.id);
+          }
+        });
+      });
+    },
+    submitForm: function submitForm() {var _this2 = this;
+      var val = (0, _utils.trim)(this.search);
       if (val) {
         this.$yrouter.push({
-          path: "/pages/shop/GoodsList/main",
+          path: "/pages/shop/GoodsList/index",
           query: { s: val } });
 
         setTimeout(function () {return _this2.search = "";}, 500);
@@ -1042,25 +991,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.productId
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.productId
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -1092,10 +1022,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -1334,6 +1261,12 @@ var CHECKED_IDS = "cart_checked";var _default =
 
   },
   methods: {
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.productId } });
+
+    },
     getCartList: function getCartList() {var _this = this;
       var that = this;
       (0, _store.getCartList)().then(function (res) {
@@ -1435,7 +1368,7 @@ var CHECKED_IDS = "cart_checked";var _default =
       }
       console.log(id);
       this.$yrouter.push({
-        path: "/pages/order/OrderSubmission/main",
+        path: "/pages/order/OrderSubmission/index",
         query: { id: id.join(",") } });
 
     },
@@ -1488,7 +1421,7 @@ var CHECKED_IDS = "cart_checked";var _default =
           _this2.getCartList();
         }).
         catch(function (error) {
-          wx.showToast({
+          uni.showToast({
             title: error.response.data.msg,
             icon: "none",
             duration: 2000 });
@@ -1574,6 +1507,7 @@ var CHECKED_IDS = "cart_checked";var _default =
       }
       that.countmoney = carmoney;
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 105 */,
@@ -1658,79 +1592,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push("/pages/user/PersonalData/index")
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/PersonalData/index"
-      })
-    }
-
-    _vm.e2 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/UserAccount/index"
-      })
-    }
-
-    _vm.e3 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/UserPromotion/index")
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push("/pages/user/signIn/Integral/index")
-    }
-
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push("/pages/user/coupon/UserCoupon/index")
-    }
-
-    _vm.e6 = function($event) {
-      return _vm.$yrouter.push("/pages/order/MyOrder/index")
-    }
-
-    _vm.e7 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/MyOrder/index",
-        query: {
-          type: 0
-        }
-      })
-    }
-
-    _vm.e8 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/MyOrder/index",
-        query: {
-          type: 1
-        }
-      })
-    }
-
-    _vm.e9 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/MyOrder/index",
-        query: {
-          type: 2
-        }
-      })
-    }
-
-    _vm.e10 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/order/MyOrder/index",
-        query: {
-          type: 3
-        }
-      })
-    }
-
-    _vm.e11 = function($event) {
-      return _vm.$yrouter.push("/pages/order/ReturnList/index")
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -1762,27 +1623,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -2078,27 +1919,8 @@ var _vuex = __webpack_require__(/*! vuex */ 16); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var SwitchWindow = function SwitchWindow() {return __webpack_require__.e(/*! import() | components/SwitchWindow */ "components/SwitchWindow").then(__webpack_require__.bind(null, /*! @/components/SwitchWindow */ 536));};var NAME = "User";var _default = { name: NAME, components: { SwitchWindow: SwitchWindow }, props: {}, data: function data() {return { userInfo: {}, MyMenus: [], orderStatusNum: {}, switchActive: false, isWeixin: false };}, computed: (0, _vuex.mapGetters)(["wxCode"]), watch: { $yroute: function $yroute(n) {if (n.name === NAME) this.User();} }, mounted: function mounted() {console.log('这个是个人中心');this.User();this.MenuUser();this.isWeixin = (0, _utils.isWeixin)();}, methods: { getPhoneNumber: function getPhoneNumber(e) {var _this = this;console.log(e.mp.detail);if (e.mp.detail.errMsg == "getPhoneNumber:ok") {wx.showLoading({ title: "绑定中" });wx.login({ success: function success(loginRes) {(0, _user.bindingPhone)({ code: loginRes.code, encryptedData: e.mp.detail.encryptedData, iv: e.mp.detail.iv }).then(function (res) {_this.User();wx.hideLoading();wx.showToast({ title: res.msg, icon: "success", duration: 2000 });}).catch(function (error) {wx.showToast({ title: error.msg || error.response.data.msg, icon: "none", duration: 2000 });});} });} else {wx.showToast({ title: "已拒绝授权", icon: "none", duration: 2000 });}}, changeswitch: function changeswitch(data) {this.switchActive = data;}, User: function User() {var that = this;(0, _user.getUser)().then(function (res) {that.userInfo = res.data;that.orderStatusNum = res.data.orderStatusNum;});}, MenuUser: function MenuUser() {var that = this;(0, _user.getMenuUser)().then(function (res) {that.MyMenus = res.data.routine_my_menus;});}, goPages: function goPages(index) {var url = this.MyMenus[index].wxapp_url;if (url === "/pages/user/promotion/UserPromotion/main" && this.userInfo.statu === 1) {if (!this.userInfo.isPromoter) return this.$dialog.toast({ mes: "您还没有推广权限！！" });}if (url === "/pages/orderAdmin/OrderIndex/main" && !this.userInfo.adminid) {return this.$dialog.toast({ mes: "您还不是管理员！！" });}this.$yrouter.push({ path: this.MyMenus[index].wxapp_url });} }, onShow: function onShow() {this.User();this.MenuUser();this.isWeixin = (0, _utils.isWeixin)();} };exports.default = _default;
+var SwitchWindow = function SwitchWindow() {return __webpack_require__.e(/*! import() | components/SwitchWindow */ "components/SwitchWindow").then(__webpack_require__.bind(null, /*! @/components/SwitchWindow */ 536));};var NAME = "User";var _default = { name: NAME, components: { SwitchWindow: SwitchWindow }, props: {}, data: function data() {return { userInfo: {}, MyMenus: [], orderStatusNum: {}, switchActive: false, isWeixin: false };}, computed: (0, _vuex.mapGetters)(["wxCode"]), watch: { $yroute: function $yroute(n) {if (n.name === NAME) this.User();} }, mounted: function mounted() {console.log("这个是个人中心");this.User();this.MenuUser();this.isWeixin = (0, _utils.isWeixin)();}, methods: { goReturnList: function goReturnList() {this.$yrouter.push("/pages/order/ReturnList/index");}, goMyOrder: function goMyOrder(type) {this.$yrouter.push({ path: "/pages/order/MyOrder/index", query: { type: type } });}, goUserCoupon: function goUserCoupon() {this.$yrouter.push("/pages/user/coupon/UserCoupon/index");}, goIntegral: function goIntegral() {this.$yrouter.push("/pages/user/signIn/Integral/index");}, goUserPromotion: function goUserPromotion() {this.$yrouter.push("/pages/user/promotion/UserPromotion/index");}, goUserAccount: function goUserAccount() {this.$yrouter.push({ path: "/pages/user/UserAccount/index" });}, goPersonalData: function goPersonalData() {this.$yrouter.push("/pages/user/PersonalData/index");}, getPhoneNumber: function getPhoneNumber(e) {var _this = this;console.log(e.mp.detail);if (e.mp.detail.errMsg == "getPhoneNumber:ok") {uni.showLoading({ title: "绑定中" });wx.login({ success: function success(loginRes) {(0, _user.bindingPhone)({ code: loginRes.code, encryptedData: e.mp.detail.encryptedData, iv: e.mp.detail.iv }).then(function (res) {_this.User();uni.hideLoading();uni.showToast({ title: res.msg, icon: "success", duration: 2000 });}).catch(function (error) {uni.showToast({ title: error.msg || error.response.data.msg, icon: "none", duration: 2000 });});} });} else {uni.showToast({ title: "已拒绝授权", icon: "none", duration: 2000 });}}, changeswitch: function changeswitch(data) {this.switchActive = data;}, User: function User() {var that = this;(0, _user.getUser)().then(function (res) {that.userInfo = res.data;that.orderStatusNum = res.data.orderStatusNum;});}, MenuUser: function MenuUser() {var that = this;(0, _user.getMenuUser)().then(function (res) {that.MyMenus = res.data.routine_my_menus;});}, goPages: function goPages(index) {var url = this.MyMenus[index].uniapp_url;if (url === "/pages/user/promotion/UserPromotion/index" && this.userInfo.statu === 1) {if (!this.userInfo.isPromoter) return this.$dialog.toast({ mes: "您还没有推广权限！！" });}if (url === "/pages/orderAdmin/OrderIndex/index" && !this.userInfo.adminid) {return this.$dialog.toast({ mes: "您还不是管理员！！" });}this.$yrouter.push({ path: this.MyMenus[index].uniapp_url });} }, onShow: function onShow() {this.User();this.MenuUser();this.isWeixin = (0, _utils.isWeixin)();} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 111 */

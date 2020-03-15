@@ -102,13 +102,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/user/CustomerList/index"
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -267,6 +260,9 @@ var NAME = "SeckillDetails";var _default =
     this.mountedStart();
   },
   methods: {
+    routerGo: function routerGo(item) {
+      this.$yrouter.push({ path: '/pages/user/CustomerList/index' });
+    },
     mountedStart: function mountedStart() {
       var that = this;
       var id = that.$yroute.query.id;
@@ -351,7 +347,7 @@ var NAME = "SeckillDetails";var _default =
         then(function (res) {
           console.log(res);
           that.$yrouter.push({
-            path: "/pages/order/OrderSubmission/main",
+            path: "/pages/order/OrderSubmission/index",
             query: { id: res.data.cartId } });
 
         }).

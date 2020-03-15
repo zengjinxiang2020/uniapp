@@ -98,112 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrderList/index",
-        query: {
-          types: 0
-        }
-      })
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrderList/index",
-        query: {
-          types: 1
-        }
-      })
-    }
-
-    _vm.e2 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrderList/index",
-        query: {
-          types: 2
-        }
-      })
-    }
-
-    _vm.e3 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrderList/index",
-        query: {
-          types: 3
-        }
-      })
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/AdminOrderList/index",
-        query: {
-          types: 3
-        }
-      })
-    }
-
-    _vm.e5 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "price",
-          time: "today"
-        }
-      })
-    }
-
-    _vm.e6 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "price",
-          time: "yesterday"
-        }
-      })
-    }
-
-    _vm.e7 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "price",
-          time: "month"
-        }
-      })
-    }
-
-    _vm.e8 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "order",
-          time: "today"
-        }
-      })
-    }
-
-    _vm.e9 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "order",
-          time: "yesterday"
-        }
-      })
-    }
-
-    _vm.e10 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/orderAdmin/Statistics/index",
-        query: {
-          type: "order",
-          time: "month"
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -238,39 +132,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -429,40 +290,7 @@ var _admin = __webpack_require__(/*! @/api/admin */ 402); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: "OrderIndex", components: { Loading: Loading }, props: {}, data: function data() {return { census: { orderCount: {}, orderTimeCount: {} }, list: [], where: { page: 1, limit: 15 }, loaded: false, loading: false };}, mounted: function mounted() {this.getIndex();this.getList();}, onReachBottom: function onReachBottom() {!this.loading && this.getList();}, methods: { getIndex: function getIndex() {var that = this;(0, _admin.getStatisticsInfo)().then(function (res) {that.census = res.data;that.census.unpaidCount = that.census.orderCount.unpaidCount;}, function (err) {that.$dialog.message(err.msg);});}, getList: function getList() {var that = this;if (that.loading || that.loaded) return;that.loading = true;(0, _admin.getStatisticsMonth)(that.where).then(function (res) {that.loading = false;that.loaded = res.data.length < that.where.limit;that.list.push.apply(that.list, res.data);that.where.page = that.where.page + 1;}, function (error) {that.$dialog.message(error.msg);}, 300);} } };exports.default = _default;
+var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: "OrderIndex", components: { Loading: Loading }, props: {}, data: function data() {return { census: { orderCount: {}, orderTimeCount: {} }, list: [], where: { page: 1, limit: 15 }, loaded: false, loading: false };}, mounted: function mounted() {this.getIndex();this.getList();}, onReachBottom: function onReachBottom() {!this.loading && this.getList();}, methods: { goStatistics: function goStatistics(query) {this.$yrouter.push({ path: "/pages/orderAdmin/Statistics/index", query: query });}, goAdminOrderList: function goAdminOrderList(types) {this.$yrouter.push({ path: "/pages/orderAdmin/AdminOrderList/index", query: { types: types } });}, getIndex: function getIndex() {var that = this;(0, _admin.getStatisticsInfo)().then(function (res) {that.census = res.data;that.census.unpaidCount = that.census.orderCount.unpaidCount;}, function (err) {that.$dialog.message(err.msg);});}, getList: function getList() {var that = this;if (that.loading || that.loaded) return;that.loading = true;(0, _admin.getStatisticsMonth)(that.where).then(function (res) {that.loading = false;that.loaded = res.data.length < that.where.limit;that.list.push.apply(that.list, res.data);that.where.page = that.where.page + 1;}, function (error) {that.$dialog.message(error.msg);}, 300);} } };exports.default = _default;
 
 /***/ })
 

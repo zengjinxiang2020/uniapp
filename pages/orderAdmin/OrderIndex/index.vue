@@ -1,38 +1,23 @@
 <template>
   <div class="order-index" ref="container">
     <div class="header acea-row">
-      <div
-        class="item"
-        @click="$yrouter.push({path:'/pages/orderAdmin/AdminOrderList/index',query:{types:0}})"
-      >
+      <div class="item" @click="goAdminOrderList(0)">
         <div class="num">{{ census.orderCount.unpaidCount }}</div>
         <div>待付款</div>
       </div>
-      <div
-        class="item"
-        @click="$yrouter.push({path:'/pages/orderAdmin/AdminOrderList/index',query:{types:1}})"
-      >
+      <div class="item" @click="goAdminOrderList(1)">
         <div class="num">{{ census.orderCount.unshippedCount }}</div>
         <div>待发货</div>
       </div>
-      <div
-        class="item"
-        @click="$yrouter.push({path:'/pages/orderAdmin/AdminOrderList/index',query:{types:2}})"
-      >
+      <div class="item" @click="goAdminOrderList(2)">
         <div class="num">{{ census.orderCount.receivedCount }}</div>
         <div>待收货</div>
       </div>
-      <div
-        class="item"
-        @click="$yrouter.push({path:'/pages/orderAdmin/AdminOrderList/index',query:{types:3}})"
-      >
+      <div class="item" @click="goAdminOrderList(3)">
         <div class="num">{{ census.orderCount.evaluatedCount }}</div>
         <div>待评价</div>
       </div>
-      <div
-        class="item"
-        @click="$yrouter.push({path:'/pages/orderAdmin/AdminOrderList/index',query:{types:3}})"
-      >
+      <div class="item" @click="goAdminOrderList(3)">
         <div class="num">{{ census.orderCount.refundCount }}</div>
         <div>退款</div>
       </div>
@@ -42,45 +27,27 @@
         <span class="iconfont icon-shujutongji"></span>数据统计
       </div>
       <div class="list acea-row">
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'price',time:'today'}})"
-        >
+        <div class="item" @click="goStatistics({type:'price',time:'today'})">
           <div class="num">{{ census.orderTimeCount.todayPrice }}</div>
           <div>今日成交额</div>
         </div>
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'price',time:'yesterday'}})"
-        >
+        <div class="item" @click="goStatistics({type:'price',time:'yesterday'})">
           <div class="num">{{ census.orderTimeCount.proPrice }}</div>
           <div>昨日成交额</div>
         </div>
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'price',time:'month'}})"
-        >
+        <div class="item" @click="goStatistics({type:'price',time:'month'})">
           <div class="num">{{ census.orderTimeCount.monthPrice }}</div>
           <div>本月成交额</div>
         </div>
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'order',time:'today'}})"
-        >
+        <div class="item" @click="goStatistics({type:'order',time:'today'})">
           <div class="num">{{ census.orderTimeCount.todayCount }}</div>
           <div>今日订单数</div>
         </div>
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'order',time:'yesterday'}})"
-        >
+        <div class="item" @click="goStatistics({type:'order',time:'yesterday'})">
           <div class="num">{{ census.orderTimeCount.proCount }}</div>
           <div>昨日订单数</div>
         </div>
-        <div
-          class="item"
-          @click="$yrouter.push({path:'/pages/orderAdmin/Statistics/index',query:{type:'order',time:'month'}})"
-        >
+        <div class="item" @click="goStatistics({type:'order',time:'month'})">
           <div class="num">{{ census.orderTimeCount.monthCount }}</div>
           <div>本月订单数</div>
         </div>
@@ -142,6 +109,18 @@ export default {
     !this.loading && this.getList();
   },
   methods: {
+    goStatistics(query) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/Statistics/index",
+        query
+      });
+    },
+    goAdminOrderList(types) {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/AdminOrderList/index",
+        query: { types }
+      });
+    },
     getIndex: function() {
       var that = this;
       getStatisticsInfo().then(

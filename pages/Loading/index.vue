@@ -30,12 +30,12 @@ export default {
 				cookie.set('spread', urlSpread || 0);
 			}
 		}
-		this.toLaunch();
-		// login({
-		// 	fail: () => {
-		// 		this.toLaunch();
-		// 	}
-		// });
+		// this.toLaunch();
+		login({
+			fail: () => {
+				this.toLaunch();
+			}
+		});
 	},
 	methods: {
 		...mapActions(['changeAuthorization', 'changeUserInfo']),

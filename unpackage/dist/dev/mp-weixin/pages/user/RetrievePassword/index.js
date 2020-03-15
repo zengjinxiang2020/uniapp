@@ -100,14 +100,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   var m0 = __webpack_require__(/*! @/assets/images/logo.png */ 56)
 
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        name: "Login"
-      })
-    }
-  }
-
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -200,19 +192,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _SendVerifyCode = _interopRequireDefault(__webpack_require__(/*! @/mixins/SendVerifyCode */ 62));
 var _user = __webpack_require__(/*! @/api/user */ 19);
 var _dialog = __webpack_require__(/*! @/utils/dialog */ 26);
@@ -229,6 +208,9 @@ var _validate = _interopRequireWildcard(__webpack_require__(/*! @/utils/validate
   },
   mixins: [_SendVerifyCode.default],
   methods: {
+    goLogin: function goLogin() {
+      this.$yrouter.push({ path: "/pages/user/Login/index" });
+    },
     registerReset: function () {var _registerReset2 = _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, account, captcha, password;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 that = this;
                 account = that.account, captcha = that.captcha, password = that.password;_context.prev = 2;_context.next = 5;return (

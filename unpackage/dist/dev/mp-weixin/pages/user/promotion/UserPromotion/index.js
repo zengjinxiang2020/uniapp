@@ -98,27 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/CashRecord/index")
-    }
-
-    _vm.e1 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/Poster/index")
-    }
-
-    _vm.e2 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/PromoterList/index")
-    }
-
-    _vm.e3 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/CommissionDetails/index")
-    }
-
-    _vm.e4 = function($event) {
-      return _vm.$yrouter.push("/pages/user/promotion/PromoterOrder/index")
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -153,18 +132,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -251,19 +218,11 @@ var _user = __webpack_require__(/*! @/api/user */ 19); //
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default = { name: "UserPromotion", components: {}, props: {}, data: function data() {return { Info: { lastDayCount: 0, extractCount: 0, commissionCount: 0 } };}, mounted: function mounted() {this.getInfo();}, methods: { getInfo: function getInfo() {var that = this;(0, _user.getSpreadInfo)().then(function (res) {that.Info = res.data;}, function (err) {that.$dialog.message(err.msg);});}, toCash: function toCash() {this.$yrouter.push({ path: "/pages/user/promotion/UserCash/main" });} } };exports.default = _default;
+var _default = { name: "UserPromotion", components: {}, props: {}, data: function data() {return { Info: { lastDayCount: 0, extractCount: 0, commissionCount: 0 } };}, mounted: function mounted() {this.getInfo();}, methods: { goPoster: function goPoster() {this.$yrouter.push("/pages/user/promotion/Poster/index");}, goCashRecord: function goCashRecord() {this.$yrouter.push("/pages/user/promotion/CashRecord/index");}, goPromoterList: function goPromoterList() {this.$yrouter.push("/pages/user/promotion/PromoterList/index");}, goCommissionDetails: function goCommissionDetails() {this.$yrouter.push("/pages/user/promotion/CommissionDetails/index");}, goPromoterOrder: function goPromoterOrder() {this.$yrouter.push("/pages/user/promotion/PromoterOrder/index");}, getInfo: function getInfo() {var that = this;(0, _user.getSpreadInfo)().then(function (res) {that.Info = res.data;}, function (err) {that.$dialog.message(err.msg);});
+    },
+    toCash: function toCash() {
+      this.$yrouter.push({ path: "/pages/user/promotion/UserCash/index" });
+    } } };exports.default = _default;
 
 /***/ })
 

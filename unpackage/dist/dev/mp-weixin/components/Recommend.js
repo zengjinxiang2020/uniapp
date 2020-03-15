@@ -81,16 +81,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.id
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -150,8 +140,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
 var _store = __webpack_require__(/*! @/api/store */ 97); //
 //
 //
@@ -177,11 +165,14 @@ var _store = __webpack_require__(/*! @/api/store */ 97); //
 //
 //
 //
-//
-//
-var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: "Recommend", props: {}, components: { Loading: Loading }, data: function data() {return { hostProduct: [], page: 1, limit: 20, loadTitle: "", loading: false, loadend: false };}, mounted: function mounted() {this.hostProducts();}, methods: { hostProducts: function hostProducts() {var that = this;if (that.loading) return; //阻止下次请求（false可以进行请求）；
+var Loading = function Loading() {return __webpack_require__.e(/*! import() | components/Loading */ "components/Loading").then(__webpack_require__.bind(null, /*! @/components/Loading */ 494));};var _default = { name: 'Recommend', props: {}, components: { Loading: Loading }, data: function data() {return { hostProduct: [], page: 1, limit: 20, loadTitle: '', loading: false, loadend: false };}, mounted: function mounted() {this.hostProducts();}, methods: { routerGo: function routerGo(item) {this.$yrouter.push({ path: '/pages/shop/GoodsCon/index', query: { id: item.id } });}, hostProducts: function hostProducts() {
+      var that = this;
+      if (that.loading) return; //阻止下次请求（false可以进行请求）；
       if (that.loadend) return; //阻止结束当前请求（false可以进行请求）；
-      that.loading = true;(0, _store.getHostProducts)(that.page, that.limit).then(function (res) {that.loading = false; //apply();js将一个数组插入另一个数组;
+      that.loading = true;
+      (0, _store.getHostProducts)(that.page, that.limit).then(function (res) {
+        that.loading = false;
+        //apply();js将一个数组插入另一个数组;
         that.hostProduct.push.apply(that.hostProduct, res.data);
         that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
         that.page = that.page + 1;

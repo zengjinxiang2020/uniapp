@@ -393,14 +393,14 @@ var NAME = "GroupDetails";var _default =
     groupRule: function groupRule(id) {
       var that = this;
       that.$yrouter.push({
-        path: "/pages/activity/GroupRule/main",
+        path: "/pages/activity/GroupRule/index",
         query: { id: id } });
 
     },
     goReply: function goReply() {
       var that = this;
       that.$yrouter.push({
-        path: "/pages/shop/EvaluateList/main",
+        path: "/pages/shop/EvaluateList/index",
         query: { id: that.storeInfo.product_id } });
 
     },
@@ -448,7 +448,7 @@ var NAME = "GroupDetails";var _default =
         (0, _store.postCartAdd)(data).
         then(function (res) {
           that.$yrouter.push({
-            path: "/pages/order/OrderSubmission/main",
+            path: "/pages/order/OrderSubmission/index",
             query: { id: res.data.cartId } });
 
         }).

@@ -98,16 +98,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      return _vm.$yrouter.push({
-        path: "/pages/shop/GoodsCon/index",
-        query: {
-          id: _vm.item.pid
-        }
-      })
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -203,6 +193,12 @@ var _user = __webpack_require__(/*! @/api/user */ 19);var Recommend = function R
     !this.loading && this.get_user_collect_product();
   },
   methods: {
+    goGoodsCon: function goGoodsCon(item) {
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: item.pid } });
+
+    },
     get_user_collect_product: function get_user_collect_product() {
       var that = this;
       if (that.loading) return; //阻止下次请求（false可以进行请求）；
