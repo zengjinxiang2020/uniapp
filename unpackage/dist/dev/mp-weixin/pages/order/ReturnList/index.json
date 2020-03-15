@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "ReturnList",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

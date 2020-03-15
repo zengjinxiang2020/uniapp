@@ -1,0 +1,94 @@
+<template>
+  <div class="page">
+    <div :class="tabtarIndex==0?'page':''" v-show="tabtarIndex==0">
+      <home></home>
+    </div>
+    <div :class="tabtarIndex==1?'page':''" v-show="tabtarIndex==1">
+      <goods-class></goods-class>
+    </div>
+    <div :class="tabtarIndex==2?'page':''" v-if="tabtarIndex==2">
+      <shopping-cart></shopping-cart>
+    </div>
+    <div :class="tabtarIndex==3?'page':''" v-if="tabtarIndex==3">
+      <user></user>
+    </div>
+    <footer-components></footer-components>
+  </div>
+</template>
+
+<script>
+import Home from "@/pages/home/index";
+import GoodsClass from "@/pages/shop/GoodsClass/index";
+import ShoppingCart from "@/pages/shop/ShoppingCart/index";
+import User from "@/pages/user/User/index";
+import FooterComponents from "@/components/Footer";
+import { mapState, mapMutations, mapActions } from "vuex";
+
+
+export default {
+  name: "Launch",
+  data() {
+    return {
+      history: [],
+    };
+  },
+  components: {
+    Home,
+    GoodsClass,
+    ShoppingCart,
+    User,
+    FooterComponents
+  },
+  computed: {
+    ...mapState(["tabtarIndex"])
+  },
+  methods: {
+    ...mapActions(["changeTabtar"])
+  },
+  mounted() {
+    let type = this.$yroute.query.type;
+    console.log(2222)
+    if (type) {
+      this.changeTabtar(type);
+    }
+	
+    // if (!this.tabtarIndex) {
+    //   this.changeTabtar(0);
+    // }
+  },
+  onHide() {
+    console.log("清除状态");
+    // this.changeTabtar(0);
+  }
+};
+</script>
+
+<style scoped>
+.lottie-bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
+#lottie {
+  width: 35%;
+  display: block;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  margin: auto;
+}
+
+.iphonex {
+  height: 68rpx;
+}
+</style>

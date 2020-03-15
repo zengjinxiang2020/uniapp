@@ -1,0 +1,16 @@
+
+.coupon-list-window .iconfont.data-v-2d379072 {
+  font-size: 0.4rem;
+}
+.couponNo.data-v-2d379072 {
+  font-size: 0.3rem;
+  font-weight: bold;
+  color: #fff;
+  width: 6.9rem;
+  height: 0.86rem;
+  border-radius: 0.43rem;
+  text-align: center;
+  line-height: 0.86rem;
+  margin: 0.6rem auto;
+}
+

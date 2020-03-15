@@ -1,0 +1,87 @@
+
+#iframe.data-v-7f3dfb48 {
+  display: none;
+}
+.recharge.data-v-7f3dfb48 {
+  width: 7.03rem;
+  padding: 0.5rem 0.63rem 0.45rem;
+  background-color: #fff;
+  margin: 0.2rem auto 0 auto;
+  border-radius: 0.1rem;
+}
+.recharge .nav.data-v-7f3dfb48 {
+  height: 0.75rem;
+  line-height: 0.75rem;
+  padding: 0 1rem;
+}
+.recharge .nav .item.data-v-7f3dfb48 {
+  font-size: 0.3rem;
+  color: #333;
+}
+.recharge .nav .item.on.data-v-7f3dfb48 {
+  font-weight: bold;
+  border-bottom: 0.04rem solid #e83323;
+}
+.recharge .info-wrapper.data-v-7f3dfb48 {
+  text-align: center;
+}
+.recharge .info-wrapper .money.data-v-7f3dfb48 {
+  margin-top: 0.6rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 1px dashed #ddd;
+}
+.recharge .info-wrapper .money ._span.data-v-7f3dfb48 {
+  font-size: 0.56rem;
+  color: #333;
+  font-weight: bold;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48 {
+  display: inline-block;
+  width: 3rem;
+  font-size: 0.84rem;
+  text-align: center;
+  color: #282828;
+  font-weight: bold;
+  padding-right: 0.7rem;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48::-webkit-input-placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48::placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48::-webkit-input-placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48:-moz-placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48::-moz-placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .money input.data-v-7f3dfb48:-ms-input-placeholder {
+  color: #ddd;
+}
+.recharge .info-wrapper .tips.data-v-7f3dfb48 {
+  font-size: 0.26rem;
+  color: #888;
+  margin: 0.25rem auto 0 auto;
+  line-height: 1.5;
+  padding: 0 0.3rem;
+}
+.recharge .info-wrapper .tips ._span.data-v-7f3dfb48 {
+  color: #ef4a49;
+}
+.recharge .info-wrapper .pay-btn.data-v-7f3dfb48 {
+  display: block;
+  width: 5.5rem;
+  height: 0.86rem;
+  margin: 0.5rem auto 0 auto;
+  line-height: 0.86rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 0.5rem;
+  font-size: 0.3rem;
+  font-weight: bold;
+}
+

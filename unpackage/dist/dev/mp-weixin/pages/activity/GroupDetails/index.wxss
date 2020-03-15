@@ -1,0 +1,17 @@
+
+.noscroll.data-v-77b998a0 {
+  height: 100%;
+  overflow: hidden;
+}
+.product-con .footer-group .bnt.data-v-77b998a0 {
+  width: 43%;
+}
+.product-con .footer-group .bnt.bg-color-violet.data-v-77b998a0 {
+  background-color: #fa8013;
+}
+
+
+.product-con .wrapper.data-v-77b998a0 {
+  padding-bottom: 0.26rem;
+}
+

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "AdminOrder",
+  "usingComponents": {
+    "price-change": "/components/PriceChange",
+    "data-format": "/components/DataFormat"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "GoodsList",
+  "usingComponents": {
+    "recommend": "/components/Recommend",
+    "loading": "/components/Loading"
+  }
+}

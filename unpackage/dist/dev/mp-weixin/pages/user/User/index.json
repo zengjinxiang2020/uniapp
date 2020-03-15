@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "User",
+  "usingComponents": {
+    "switch-window": "/components/SwitchWindow"
+  }
+}

@@ -1,0 +1,93 @@
+<template>
+  <div class="return-list" ref="container">
+    <div class="goodWrapper" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
+      <div class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></div>
+      <div class="iconfont icon-yituikuan" v-if="order._status._type === -2"></div>
+      <div class="orderNum">订单号：{{ order.orderId }}</div>
+      <div
+        class="item acea-row row-between-wrapper"
+        v-for="(cart,cartInfoIndex) in order.cartInfo"
+        :key="cartInfoIndex"
+        @click="$yrouter.push({ path: '/pages/order/OrderDetails/index',query:{id:order.orderId} })"
+      >
+        <div class="pictrue">
+          <img
+            :src="cart.productInfo.image"
+            class="image"
+            @click.stop="
+              $yrouter.push({ path: '/pages/shop/GoodsCon/index',query: { id: cart.productInfo.id } })
+            "
+          />
+        </div>
+        <div class="text">
+          <div class="acea-row row-between-wrapper">
+            <div class="name line1">{{ cart.productInfo.storeName }}</div>
+            <div class="num">x {{ cart.cartNum }}</div>
+          </div>
+          <div
+            class="attr line1"
+            v-if="cart.productInfo.attrInfo"
+          >{{ cart.productInfo.attrInfo.suk }}</div>
+          <div class="attr line1" v-else>{{ cart.productInfo.storeName }}</div>
+          <div class="money">￥{{ cart.productInfo.price }}</div>
+        </div>
+      </div>
+      <div class="totalSum">
+        共{{ order.cartInfo.length || 0 }}件商品，总金额
+        <span
+          class="font-color-red price"
+        >￥{{ order.payPrice }}</span>
+      </div>
+    </div>
+    <div class="noCart" v-if="orderList.length === 0 && page > 1">
+      <div class="pictrue">
+        <img :src="$VUE_APP_RESOURCES_URL+'/images/noOrder.png'" />
+      </div>
+    </div>
+    <Loading :loaded="loaded" :loading="loading"></Loading>
+  </div>
+</template>
+
+<script>
+import { getOrderList } from "@/api/order";
+import Loading from "@/components/Loading";
+
+export default {
+  name: "ReturnList",
+  components: {
+    Loading
+  },
+  data() {
+    return {
+      orderList: [],
+      page: 1,
+      limit: 20,
+      loading: false,
+      loaded: false
+    };
+  },
+  methods: {
+    getOrderList() {
+      const { page, limit } = this;
+      if (this.loading || this.loaded) return;
+      this.loading = true;
+      getOrderList({
+        page,
+        limit,
+        type: -3
+      }).then(res => {
+        this.orderList = this.orderList.concat(res.data);
+        this.loading = false;
+        this.loaded = res.data.length < limit;
+        this.page++;
+      });
+    }
+  },
+  mounted() {
+    this.getOrderList();
+  },
+  onReachBottom() {
+    !this.loading && this.getOrderList();
+  },
+};
+</script>

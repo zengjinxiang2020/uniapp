@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "CashRecord",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

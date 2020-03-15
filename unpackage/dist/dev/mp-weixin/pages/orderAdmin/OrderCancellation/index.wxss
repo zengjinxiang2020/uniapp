@@ -1,0 +1,51 @@
+
+.OrderCancellation .header.data-v-9addf1c8 {
+  background: url("https://h5.dayouqiantu.cn/static/images/writeOffBg.jpg") no-repeat;
+  width: 100%;
+  height: 3rem;
+  background-size: 100% 100%;
+}
+.OrderCancellation .whiteBg.data-v-9addf1c8 {
+  width: 6.9rem;
+  background-color: #fff;
+  margin: -0.93rem auto 0 auto;
+  padding-top: 0.8rem;
+  border-radius: 0.06rem 0.06rem 0 0;
+}
+.OrderCancellation .whiteBg .input.data-v-9addf1c8 {
+  width: 5.8rem;
+  margin: 0 auto;
+  border-bottom: 0.01rem solid #eee;
+}
+.OrderCancellation .whiteBg .input input.data-v-9addf1c8 {
+  padding-bottom: 0.25rem;
+  font-size: 0.6rem;
+  color: #282828;
+  width: 100%;
+  text-align: center;
+}
+.OrderCancellation .whiteBg .bnt.data-v-9addf1c8 {
+  font-size: 0.32rem;
+  color: #fff;
+  width: 5.8rem;
+  height: 0.86rem;
+  border-radius: 0.43rem;
+  background-image: -webkit-linear-gradient(left, #f67a38 0%, #f11b09 100%);
+  background-image: linear-gradient(to right, #f67a38 0%, #f11b09 100%);
+  background-image: -webkit-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
+  background-image: -moz-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
+  text-align: center;
+  line-height: 0.86rem;
+  margin: 0.55rem auto 0 auto;
+}
+.OrderCancellation .scan.data-v-9addf1c8 {
+  width: 3rem;
+  height: 3rem;
+  margin: 1.1rem auto 0 auto;
+}
+.OrderCancellation .scan ._img.data-v-9addf1c8 {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+

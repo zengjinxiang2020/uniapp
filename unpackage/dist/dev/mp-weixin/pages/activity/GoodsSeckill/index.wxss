@@ -1,0 +1,27 @@
+
+.timeItem.data-v-7a1ed156 {
+  font-size: 0.22rem;
+  color: #282828;
+  width: 100%;
+  text-align: center;
+  padding: 0.11rem 0;
+  height: 0.96rem;
+  background-color: #efc58f;
+}
+.timeItem .time.data-v-7a1ed156 {
+  font-size: 0.32rem;
+  font-weight: bold;
+  height: 0.37rem;
+  line-height: 0.37rem;
+}
+.timeItem .state.data-v-7a1ed156 {
+  height: 0.37rem;
+  line-height: 0.37rem;
+}
+.activity.data-v-7a1ed156 {
+  color: #333;
+}
+.flash-sale .list .item .grab.data-v-7a1ed156 {
+  background-color: #999;
+}
+

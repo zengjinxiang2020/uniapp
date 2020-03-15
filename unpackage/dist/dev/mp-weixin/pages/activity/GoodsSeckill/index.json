@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "GoodsSeckill",
+  "usingComponents": {
+    "count-down": "/components/CountDown"
+  }
+}

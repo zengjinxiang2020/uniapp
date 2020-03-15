@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "Integral",
+  "usingComponents": {
+    "loading": "/components/Loading",
+    "data-format": "/components/DataFormat"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "PromoterOrder",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

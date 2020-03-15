@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "UserVip",
+  "usingComponents": {
+    "recommend": "/components/Recommend"
+  }
+}

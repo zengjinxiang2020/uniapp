@@ -1,0 +1,78 @@
+
+.index.data-v-63128198 {
+  background-color: #fff;
+}
+.swiper-item.data-v-63128198 {
+  height: 100%;
+}
+
+
+.productSort{
+  height:100%
+}
+
+
+.footer-line-height {
+  height: 1rem;
+}
+.order-status-num {
+  min-width: 0.33rem;
+  background-color: #fff;
+  color: #73cbb6;
+  border-radius: 15px;
+  position: absolute;
+  right: -0.14rem;
+  top: -0.15rem;
+  font-size: 0.2rem;
+  padding: 0 0.08rem;
+  border: 1px solid #73cbb6;
+}
+.pictrue {
+  position: relative;
+}
+.switch-h5 {
+  margin-left: 0.2rem;
+}
+.binding {
+  margin-top: 0.1rem;
+  display: inline-block;
+  padding: 0.05rem 0.2rem;
+  background-color: #ca1f10;
+  border-radius: 50px;
+  font-size: 0.22rem;
+  line-height: 1.5;
+  border: 1px solid #e8695e;
+  color: #ffffff;
+}
+
+
+.lottie-bg.data-v-c8fad028 {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: -webkit-flex;
+  display: -webkit-box;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-justify-content: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+#lottie.data-v-c8fad028 {
+  width: 35%;
+  display: block;
+  overflow: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+  margin: auto;
+}
+.iphonex.data-v-c8fad028 {
+  height: 68rpx;
+}
+

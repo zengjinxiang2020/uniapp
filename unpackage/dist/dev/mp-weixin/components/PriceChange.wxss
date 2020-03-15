@@ -1,0 +1,11 @@
+
+.priceChange .listChange textarea.data-v-2ecbe86a {
+  border: 1px solid #eee;
+  width: 100%;
+  height: 2rem;
+  margin-top: 0.5rem;
+  border-radius: 0.1rem;
+  color: #333;
+  padding: 0.2rem;
+}
+

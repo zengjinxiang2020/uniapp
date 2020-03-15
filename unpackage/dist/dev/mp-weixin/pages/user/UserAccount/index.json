@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "UserAccount",
+  "usingComponents": {
+    "recommend": "/components/Recommend"
+  }
+}

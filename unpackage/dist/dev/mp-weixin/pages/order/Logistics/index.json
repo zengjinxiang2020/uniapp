@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "Logistics",
+  "usingComponents": {
+    "recommend": "/components/Recommend"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "BargainRecord",
+  "usingComponents": {
+    "count-down": "/components/CountDown",
+    "loading": "/components/Loading"
+  }
+}

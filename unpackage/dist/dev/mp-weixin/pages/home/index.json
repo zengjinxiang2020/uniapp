@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "home",
+  "usingComponents": {
+    "good-list": "/components/GoodList",
+    "promotion-good": "/components/PromotionGood",
+    "coupon-window": "/components/CouponWindow"
+  }
+}

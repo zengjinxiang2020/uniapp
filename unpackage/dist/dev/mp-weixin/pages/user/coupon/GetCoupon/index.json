@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "GetCoupon",
+  "usingComponents": {
+    "loading": "/components/Loading",
+    "data-format-t": "/components/DataFormatT"
+  }
+}

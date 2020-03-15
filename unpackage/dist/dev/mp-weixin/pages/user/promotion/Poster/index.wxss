@@ -1,0 +1,15 @@
+
+.distribution-posters.data-v-3adb245a {
+  height: 100%;
+}
+.banenr.data-v-3adb245a {
+  height: 100%;
+}
+.banner swiper.data-v-3adb245a {
+  height: 100%;
+}
+.banner .slide-image.data-v-3adb245a {
+  width: 100%;
+  height: auto;
+}
+

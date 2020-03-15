@@ -1,0 +1,16 @@
+
+.poster-first.data-v-44c7db1f {
+  overscroll-behavior: contain;
+}
+.mask-share.data-v-44c7db1f {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+}
+.mask-share ._img.data-v-44c7db1f {
+  width: 100%;
+}
+

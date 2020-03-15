@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "Statistics",
+  "usingComponents": {
+    "loading": "/components/Loading"
+  }
+}

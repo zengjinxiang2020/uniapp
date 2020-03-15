@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "SeckillDetails",
+  "usingComponents": {
+    "product-con-swiper": "/components/ProductConSwiper",
+    "count-down": "/components/CountDown",
+    "product-window": "/components/ProductWindow",
+    "store-poster": "/components/StorePoster"
+  }
+}

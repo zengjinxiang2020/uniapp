@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "EvaluateList",
+  "usingComponents": {
+    "user-evaluation": "/components/UserEvaluation",
+    "loading": "/components/Loading"
+  }
+}

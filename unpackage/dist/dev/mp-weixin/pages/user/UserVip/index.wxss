@@ -1,0 +1,8 @@
+
+.banner swiper {
+  height: 328rpx;
+}
+.swiper-slide {
+  margin: 0 auto;
+}
+

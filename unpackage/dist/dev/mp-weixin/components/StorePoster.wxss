@@ -1,0 +1,91 @@
+
+.poster-first.data-v-7af6ef00 {
+  overscroll-behavior: contain;
+}
+.poster-pop.data-v-7af6ef00 {
+  width: 4.5rem;
+  height: 8rem;
+  position: fixed;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  z-index: 99;
+  top: 50%;
+  margin-top: -4.6rem;
+}
+.poster-pop .canvas.data-v-7af6ef00 {
+  background-color: #ffffff;
+  height: 8rem;
+}
+.poster-pop .poster-image.data-v-7af6ef00 {
+  width: 100%;
+  height: auto;
+}
+.poster-pop .canvas .image.data-v-7af6ef00 {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: block;
+}
+.poster-pop .canvas .text.data-v-7af6ef00 {
+  text-align: center;
+  color: #000000;
+  margin-top: 0.32rem;
+}
+.poster-pop .canvas .text.black.data-v-7af6ef00 {
+  height: 0.68rem;
+}
+.poster-pop .canvas .text.rad.data-v-7af6ef00 {
+  color: #ff0000;
+}
+.poster-pop .canvas .code.data-v-7af6ef00 {
+  height: 1.4rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+}
+.poster-pop .canvas .code .code-img.data-v-7af6ef00 {
+  width: 33%;
+  padding: 0.06rem;
+}
+.poster-pop .canvas .code .code-img ._img.data-v-7af6ef00 {
+  width: 100%;
+}
+.poster-pop .canvas .code .code-text.data-v-7af6ef00 {
+  width: 60%;
+  font-size: 0.12rem;
+  line-height: 1.64rem;
+}
+.poster-pop .close.data-v-7af6ef00 {
+  width: 0.46rem;
+  height: 0.75rem;
+  position: fixed;
+  right: 0;
+  top: -0.73rem;
+  display: block;
+}
+.poster-pop .save-poster.data-v-7af6ef00 {
+  background-color: #df2d0a;
+  font-size: 0.22rem;
+  color: #fff;
+  text-align: center;
+  height: 0.76rem;
+  line-height: 0.76rem;
+  width: 100%;
+  margin-top: -0.04rem;
+}
+.poster-pop .keep.data-v-7af6ef00 {
+  color: #fff;
+  text-align: center;
+  font-size: 0.25rem;
+  margin-top: 0.1rem;
+}
+.mask.data-v-7af6ef00 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 9;
+}
+

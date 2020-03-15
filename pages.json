@@ -1,0 +1,431 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/Loading/index",
+			"style": {
+				"navigationBarTitleText": "Loading"
+			}
+		},
+		{
+			"path": "pages/authorization/index",
+			"style": {
+				"navigationBarTitleText": "authorization"
+			}
+		},
+		{
+			"path": "pages/user/Login/index",
+			"style": {
+				"navigationBarTitleText": "Login"
+			}
+		},
+		{
+			"path": "pages/user/Register/index",
+			"style": {
+				"navigationBarTitleText": "Register"
+			}
+		},
+		{
+			"path": "pages/user/RetrievePassword/index",
+			"style": {
+				"navigationBarTitleText": "RetrievePassword"
+			}
+		},
+		{
+			"path": "pages/launch/index",
+			"style": {
+				"navigationBarTitleText": "launch"
+			}
+		},
+		{
+			"path": "pages/home/index",
+			"style": {
+				"navigationBarTitleText": "home"
+			}
+		},
+		{
+			"path": "pages/shop/GoodSearch/index",
+			"style": {
+				"navigationBarTitleText": "GoodSearch"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsClass/index",
+			"style": {
+				"navigationBarTitleText": "GoodsClass"
+			}
+		},
+		{
+			"path": "pages/shop/ShoppingCart/index",
+			"style": {
+				"navigationBarTitleText": "ShoppingCart"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsList/index",
+			"style": {
+				"navigationBarTitleText": "GoodsList"
+			}
+		},
+		{
+			"path": "pages/NotDefined/index",
+			"style": {
+				"navigationBarTitleText": "NotDefined"
+			}
+		},
+		{
+			"path": "pages/user/User/index",
+			"style": {
+				"navigationBarTitleText": "User"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsCollection/index",
+			"style": {
+				"navigationBarTitleText": "GoodsCollection"
+			}
+		},
+		{
+			"path": "pages/shop/news/NewsDetail/index",
+			"style": {
+				"navigationBarTitleText": "NewsDetail"
+			}
+		},
+		{
+			"path": "pages/shop/news/NewsList/index",
+			"style": {
+				"navigationBarTitleText": "NewsList"
+			}
+		},
+		{
+			"path": "pages/shop/EvaluateList/index",
+			"style": {
+				"navigationBarTitleText": "EvaluateList"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsEvaluate/index",
+			"style": {
+				"navigationBarTitleText": "GoodsEvaluate"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsPromotion/index",
+			"style": {
+				"navigationBarTitleText": "GoodsPromotion"
+			}
+		},
+		{
+			"path": "pages/shop/HotNewGoods/index",
+			"style": {
+				"navigationBarTitleText": "HotNewGoods"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsCon/index",
+			"style": {
+				"navigationBarTitleText": "GoodsCon"
+			}
+		},
+		{
+			"path": "pages/user/BindingPhone/index",
+			"style": {
+				"navigationBarTitleText": "BindingPhone"
+			}
+		},
+		{
+			"path": "pages/user/address/AddAddress/index",
+			"style": {
+				"navigationBarTitleText": "AddAddress"
+			}
+		},
+		{
+			"path": "pages/user/UserAccount/index",
+			"style": {
+				"navigationBarTitleText": "UserAccount"
+			}
+		},
+		{
+			"path": "pages/user/address/AddressManagement/index",
+			"style": {
+				"navigationBarTitleText": "AddressManagement"
+			}
+		},
+		{
+			"path": "pages/user/promotion/Poster/index",
+			"style": {
+				"navigationBarTitleText": "promotion"
+			}
+		},
+		{
+			"path": "pages/user/signIn/Sign/index",
+			"style": {
+				"navigationBarTitleText": "signIn"
+			}
+		},
+		{
+			"path": "pages/user/signIn/SignRecord/index",
+			"style": {
+				"navigationBarTitleText": "SignRecord"
+			}
+		},
+		{
+			"path": "pages/user/promotion/CashAudit/index",
+			"style": {
+				"navigationBarTitleText": "CashAudit"
+			}
+		},
+		{
+			"path": "pages/user/promotion/PromoterOrder/index",
+			"style": {
+				"navigationBarTitleText": "PromoterOrder"
+			}
+		},
+		{
+			"path": "pages/user/promotion/PromoterList/index",
+			"style": {
+				"navigationBarTitleText": "PromoterList"
+			}
+		},
+		{
+			"path": "pages/user/promotion/UserPromotion/index",
+			"style": {
+				"navigationBarTitleText": "UserPromotion"
+			}
+		},
+		{
+			"path": "pages/user/UserBill/index",
+			"style": {
+				"navigationBarTitleText": "UserBill"
+			}
+		},
+		{
+			"path": "pages/user/promotion/CashRecord/index",
+			"style": {
+				"navigationBarTitleText": "CashRecord"
+			}
+		},
+		{
+			"path": "pages/user/promotion/CommissionDetails/index",
+			"style": {
+				"navigationBarTitleText": "CommissionDetails"
+			}
+		},
+		{
+			"path": "pages/user/signIn/Integral/index",
+			"style": {
+				"navigationBarTitleText": "Integral"
+			}
+		},
+		{
+			"path": "pages/user/UserVip/index",
+			"style": {
+				"navigationBarTitleText": "UserVip"
+			}
+		},
+		{
+			"path": "pages/user/PersonalData/index",
+			"style": {
+				"navigationBarTitleText": "PersonalData"
+			}
+		},
+		{
+			"path": "pages/user/coupon/UserCoupon/index",
+			"style": {
+				"navigationBarTitleText": "UserCoupon"
+			}
+		},
+		{
+			"path": "pages/user/coupon/GetCoupon/index",
+			"style": {
+				"navigationBarTitleText": "GetCoupon"
+			}
+		},
+		{
+			"path": "pages/user/promotion/UserCash/index",
+			"style": {
+				"navigationBarTitleText": "UserCash"
+			}
+		},
+		{
+			"path": "pages/user/CustomerList/index",
+			"style": {
+				"navigationBarTitleText": "CustomerList"
+			}
+		},
+		{
+			"path": "pages/user/Recharge/index",
+			"style": {
+				"navigationBarTitleText": "Recharge"
+			}
+		},
+		{
+			"path": "pages/order/MyOrder/index",
+			"style": {
+				"navigationBarTitleText": "MyOrder"
+			}
+		},
+		{
+			"path": "pages/order/Logistics/index",
+			"style": {
+				"navigationBarTitleText": "Logistics"
+			}
+		},
+		{
+			"path": "pages/order/OrderDetails/index",
+			"style": {
+				"navigationBarTitleText": "OrderDetails"
+			}
+		},
+		{
+			"path": "pages/order/OrderSubmission/index",
+			"style": {
+				"navigationBarTitleText": "OrderSubmission"
+			}
+		},
+		{
+			"path": "pages/order/PaymentStatus/index",
+			"style": {
+				"navigationBarTitleText": "PaymentStatus"
+			}
+		},
+		{
+			"path": "pages/order/GoodsReturn/index",
+			"style": {
+				"navigationBarTitleText": "GoodsReturn"
+			}
+		},
+		{
+			"path": "pages/order/ReturnList/index",
+			"style": {
+				"navigationBarTitleText": "ReturnList"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/OrderIndex/index",
+			"style": {
+				"navigationBarTitleText": "OrderIndex"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/AdminOrderList/index",
+			"style": {
+				"navigationBarTitleText": "AdminOrderList"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/GoodsDeliver/index",
+			"style": {
+				"navigationBarTitleText": "GoodsDeliver"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/AdminOrder/index",
+			"style": {
+				"navigationBarTitleText": "AdminOrder"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/Statistics/index",
+			"style": {
+				"navigationBarTitleText": "Statistics"
+			}
+		},
+		{
+			"path": "pages/orderAdmin/OrderCancellation/index",
+			"style": {
+				"navigationBarTitleText": "OrderCancellation"
+			}
+		},
+		{
+			"path": "pages/activity/Poster/index",
+			"style": {
+				"navigationBarTitleText": "Poster"
+			}
+		},
+		{
+			"path": "pages/activity/DargainDetails/index",
+			"style": {
+				"navigationBarTitleText": "DargainDetails"
+			}
+		},
+		{
+			"path": "pages/activity/GoodsBargain/index",
+			"style": {
+				"navigationBarTitleText": "GoodsBargain"
+			}
+		},
+		{
+			"path": "pages/activity/BargainRecord/index",
+			"style": {
+				"navigationBarTitleText": "BargainRecord"
+			}
+		},
+		{
+			"path": "pages/activity/GoodsGroup/index",
+			"style": {
+				"navigationBarTitleText": "GoodsGroup"
+			}
+		},
+		{
+			"path": "pages/activity/GroupDetails/index",
+			"style": {
+				"navigationBarTitleText": "GroupDetails"
+			}
+		},
+		{
+			"path": "pages/activity/GroupRule/index",
+			"style": {
+				"navigationBarTitleText": "GroupRule"
+			}
+		},
+		{
+			"path": "pages/activity/GoodsSeckill/index",
+			"style": {
+				"navigationBarTitleText": "GoodsSeckill"
+			}
+		},
+		{
+			"path": "pages/activity/SeckillDetails/index",
+			"style": {
+				"navigationBarTitleText": "SeckillDetails"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	        "color": "#282828",
+	        "selectedColor": "#73CBB6",
+	        "borderStyle": "black",
+	        "backgroundColor": "#ffffff",
+	        "height": "50px",
+	        "fontSize": "10px",
+	        "iconWidth": "24px",
+	        "spacing": "3px",
+	        "list": [{
+	            "pagePath": "pages/home/index",
+	            "iconPath": "static/icon-home.png",
+	            "selectedIconPath": "static/icon-home-hot.png",
+	            "text": "首页"
+	        }, {
+	            "pagePath": "pages/shop/GoodsClass/index",
+	            "iconPath": "static/icon-class.png",
+	            "selectedIconPath": "static/icon-class-hot.png",
+	            "text": "分类"
+	        }, {
+	            "pagePath": "pages/shop/ShoppingCart/index",
+	            "iconPath": "static/icon-cart.png",
+	            "selectedIconPath": "static/icon-cart-hot.png",
+	            "text": "购物车"
+	        }, {
+	            "pagePath": "pages/user/User/index",
+	            "iconPath": "static/icon-user.png",
+	            "selectedIconPath": "static/icon-user-hot.png",
+	            "text": "我的"
+	        }]
+	    }
+}
