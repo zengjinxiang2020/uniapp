@@ -1,8 +1,8 @@
 
-.poster-first.data-v-7af6ef00 {
+.poster-first.data-v-a985099e {
   overscroll-behavior: contain;
 }
-.poster-pop.data-v-7af6ef00 {
+.poster-pop.data-v-a985099e {
   width: 4.5rem;
   height: 8rem;
   position: fixed;
@@ -13,49 +13,49 @@
   top: 50%;
   margin-top: -4.6rem;
 }
-.poster-pop .canvas.data-v-7af6ef00 {
+.poster-pop .canvas.data-v-a985099e {
   background-color: #ffffff;
   height: 8rem;
 }
-.poster-pop .poster-image.data-v-7af6ef00 {
+.poster-pop .poster-image.data-v-a985099e {
   width: 100%;
   height: auto;
 }
-.poster-pop .canvas .image.data-v-7af6ef00 {
+.poster-pop .canvas .image.data-v-a985099e {
   width: 4.5rem;
   height: 4.5rem;
   display: block;
 }
-.poster-pop .canvas .text.data-v-7af6ef00 {
+.poster-pop .canvas .text.data-v-a985099e {
   text-align: center;
   color: #000000;
   margin-top: 0.32rem;
 }
-.poster-pop .canvas .text.black.data-v-7af6ef00 {
+.poster-pop .canvas .text.black.data-v-a985099e {
   height: 0.68rem;
 }
-.poster-pop .canvas .text.rad.data-v-7af6ef00 {
+.poster-pop .canvas .text.rad.data-v-a985099e {
   color: #ff0000;
 }
-.poster-pop .canvas .code.data-v-7af6ef00 {
+.poster-pop .canvas .code.data-v-a985099e {
   height: 1.4rem;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
 }
-.poster-pop .canvas .code .code-img.data-v-7af6ef00 {
+.poster-pop .canvas .code .code-img.data-v-a985099e {
   width: 33%;
   padding: 0.06rem;
 }
-.poster-pop .canvas .code .code-img ._img.data-v-7af6ef00 {
+.poster-pop .canvas .code .code-img image.data-v-a985099e{
   width: 100%;
 }
-.poster-pop .canvas .code .code-text.data-v-7af6ef00 {
+.poster-pop .canvas .code .code-text.data-v-a985099e {
   width: 60%;
   font-size: 0.12rem;
   line-height: 1.64rem;
 }
-.poster-pop .close.data-v-7af6ef00 {
+.poster-pop .close.data-v-a985099e {
   width: 0.46rem;
   height: 0.75rem;
   position: fixed;
@@ -63,7 +63,7 @@
   top: -0.73rem;
   display: block;
 }
-.poster-pop .save-poster.data-v-7af6ef00 {
+.poster-pop .save-poster.data-v-a985099e {
   background-color: #df2d0a;
   font-size: 0.22rem;
   color: #fff;
@@ -73,13 +73,13 @@
   width: 100%;
   margin-top: -0.04rem;
 }
-.poster-pop .keep.data-v-7af6ef00 {
+.poster-pop .keep.data-v-a985099e {
   color: #fff;
   text-align: center;
   font-size: 0.25rem;
   margin-top: 0.1rem;
 }
-.mask.data-v-7af6ef00 {
+.mask.data-v-a985099e {
   position: fixed;
   top: 0;
   left: 0;

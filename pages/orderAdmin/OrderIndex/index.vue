@@ -1,81 +1,81 @@
 <template>
-  <div class="order-index" ref="container">
-    <div class="header acea-row">
-      <div class="item" @click="goAdminOrderList(0)">
-        <div class="num">{{ census.orderCount.unpaidCount }}</div>
-        <div>待付款</div>
-      </div>
-      <div class="item" @click="goAdminOrderList(1)">
-        <div class="num">{{ census.orderCount.unshippedCount }}</div>
-        <div>待发货</div>
-      </div>
-      <div class="item" @click="goAdminOrderList(2)">
-        <div class="num">{{ census.orderCount.receivedCount }}</div>
-        <div>待收货</div>
-      </div>
-      <div class="item" @click="goAdminOrderList(3)">
-        <div class="num">{{ census.orderCount.evaluatedCount }}</div>
-        <div>待评价</div>
-      </div>
-      <div class="item" @click="goAdminOrderList(3)">
-        <div class="num">{{ census.orderCount.refundCount }}</div>
-        <div>退款</div>
-      </div>
-    </div>
-    <div class="wrapper">
-      <div class="title">
-        <span class="iconfont icon-shujutongji"></span>数据统计
-      </div>
-      <div class="list acea-row">
-        <div class="item" @click="goStatistics({type:'price',time:'today'})">
-          <div class="num">{{ census.orderTimeCount.todayPrice }}</div>
-          <div>今日成交额</div>
-        </div>
-        <div class="item" @click="goStatistics({type:'price',time:'yesterday'})">
-          <div class="num">{{ census.orderTimeCount.proPrice }}</div>
-          <div>昨日成交额</div>
-        </div>
-        <div class="item" @click="goStatistics({type:'price',time:'month'})">
-          <div class="num">{{ census.orderTimeCount.monthPrice }}</div>
-          <div>本月成交额</div>
-        </div>
-        <div class="item" @click="goStatistics({type:'order',time:'today'})">
-          <div class="num">{{ census.orderTimeCount.todayCount }}</div>
-          <div>今日订单数</div>
-        </div>
-        <div class="item" @click="goStatistics({type:'order',time:'yesterday'})">
-          <div class="num">{{ census.orderTimeCount.proCount }}</div>
-          <div>昨日订单数</div>
-        </div>
-        <div class="item" @click="goStatistics({type:'order',time:'month'})">
-          <div class="num">{{ census.orderTimeCount.monthCount }}</div>
-          <div>本月订单数</div>
-        </div>
-      </div>
-    </div>
-    <div class="public-wrapper">
-      <div class="title">
-        <span class="iconfont icon-xiangxishuju"></span>详细数据
-      </div>
-      <div class="nav acea-row row-between-wrapper">
-        <div class="data">日期</div>
-        <div class="browse">订单数</div>
-        <div class="turnover">成交额</div>
-      </div>
-      <div class="conter">
-        <div
+  <view class="order-index" ref="container">
+    <view class="header acea-row">
+      <view class="item" @click="goAdminOrderList(0)">
+        <view class="num">{{ census.orderCount.unpaidCount }}</view>
+        <view>待付款</view>
+      </view>
+      <view class="item" @click="goAdminOrderList(1)">
+        <view class="num">{{ census.orderCount.unshippedCount }}</view>
+        <view>待发货</view>
+      </view>
+      <view class="item" @click="goAdminOrderList(2)">
+        <view class="num">{{ census.orderCount.receivedCount }}</view>
+        <view>待收货</view>
+      </view>
+      <view class="item" @click="goAdminOrderList(3)">
+        <view class="num">{{ census.orderCount.evaluatedCount }}</view>
+        <view>待评价</view>
+      </view>
+      <view class="item" @click="goAdminOrderList(3)">
+        <view class="num">{{ census.orderCount.refundCount }}</view>
+        <view>退款</view>
+      </view>
+    </view>
+    <view class="wrapper">
+      <view class="title">
+        <text class="iconfont icon-shujutongji"></text>数据统计
+      </view>
+      <view class="list acea-row">
+        <view class="item" @click="goStatistics({type:'price',time:'today'})">
+          <view class="num">{{ census.orderTimeCount.todayPrice }}</view>
+          <view>今日成交额</view>
+        </view>
+        <view class="item" @click="goStatistics({type:'price',time:'yesterday'})">
+          <view class="num">{{ census.orderTimeCount.proPrice }}</view>
+          <view>昨日成交额</view>
+        </view>
+        <view class="item" @click="goStatistics({type:'price',time:'month'})">
+          <view class="num">{{ census.orderTimeCount.monthPrice }}</view>
+          <view>本月成交额</view>
+        </view>
+        <view class="item" @click="goStatistics({type:'order',time:'today'})">
+          <view class="num">{{ census.orderTimeCount.todayCount }}</view>
+          <view>今日订单数</view>
+        </view>
+        <view class="item" @click="goStatistics({type:'order',time:'yesterday'})">
+          <view class="num">{{ census.orderTimeCount.proCount }}</view>
+          <view>昨日订单数</view>
+        </view>
+        <view class="item" @click="goStatistics({type:'order',time:'month'})">
+          <view class="num">{{ census.orderTimeCount.monthCount }}</view>
+          <view>本月订单数</view>
+        </view>
+      </view>
+    </view>
+    <view class="public-wrapper">
+      <view class="title">
+        <text class="iconfont icon-xiangxishuju"></text>详细数据
+      </view>
+      <view class="nav acea-row row-between-wrapper">
+        <view class="data">日期</view>
+        <view class="browse">订单数</view>
+        <view class="turnover">成交额</view>
+      </view>
+      <view class="conter">
+        <view
           class="item acea-row row-between-wrapper"
           v-for="(item, orderListIndex) in list"
           :key="orderListIndex"
         >
-          <div class="data">{{ item.time }}</div>
-          <div class="browse">{{ item.count }}</div>
-          <div class="turnover">{{ item.price }}</div>
-        </div>
-      </div>
-    </div>
+          <view class="data">{{ item.time }}</view>
+          <view class="browse">{{ item.count }}</view>
+          <view class="turnover">{{ item.price }}</view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import { getStatisticsInfo, getStatisticsMonth } from "@/api/admin";
@@ -129,7 +129,11 @@ export default {
           that.census.unpaidCount = that.census.orderCount.unpaidCount;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },
@@ -144,8 +148,12 @@ export default {
           that.list.push.apply(that.list, res.data);
           that.where.page = that.where.page + 1;
         },
-        error => {
-          that.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         },
         300
       );

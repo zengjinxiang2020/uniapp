@@ -1,30 +1,30 @@
 <template>
-  <div
+  <view
     class="address-management"
     :class="addressList.length < 1 && page > 1 ? 'on' : ''"
     ref="container"
   >
-    <div class="line" v-if="addressList.length > 0">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
-    </div>
-    <div class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
-      <div class="address">
-        <div class="consignee">
+    <view class="line" v-if="addressList.length > 0">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
+    </view>
+    <view class="item" v-for="(item, addressListIndex) in addressList" :key="addressListIndex">
+      <view class="address">
+        <view class="consignee">
           收货人：{{ item.realName }}
-          <span class="phone">{{ item.phone }}</span>
-        </div>
-        <div>
+          <text class="phone">{{ item.phone }}</text>
+        </view>
+        <view>
           收货地址：{{ item.province }}{{ item.city }}{{ item.district
           }}{{ item.detail }}
-        </div>
-      </div>
-      <div class="operation acea-row row-between-wrapper">
-        <div class="select-btn">
-          <div class="checkbox-wrapper">
+        </view>
+      </view>
+      <view class="operation acea-row row-between-wrapper">
+        <view class="select-btn">
+          <view class="checkbox-wrapper">
             <checkbox-group @change="radioChange(item.id)">
               <label class="well-check">
                 <checkbox value :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
-                <span class="default">设为默认</span>
+                <text class="default">设为默认</text>
               </label>
             </checkbox-group>
             <!-- <label class="well-check">
@@ -36,39 +36,39 @@
                 @click="radioChange(addressListIndex)"
               />
               <i class="icon"></i>
-              <span class="default">设为默认</span>
+              <text class="default">设为默认</text>
             </label>-->
-          </div>
-        </div>
-        <div class="acea-row row-middle">
-          <div @click="editAddress(addressListIndex)">
-            <span class="iconfont icon-bianji"></span>编辑
-          </div>
-          <div @click="delAddress(addressListIndex)">
-            <span class="iconfont icon-shanchu"></span>删除
-          </div>
-        </div>
-      </div>
-    </div>
+          </view>
+        </view>
+        <view class="acea-row row-middle">
+          <view @click="editAddress(addressListIndex)">
+            <text class="iconfont icon-bianji"></text>编辑
+          </view>
+          <view @click="delAddress(addressListIndex)">
+            <text class="iconfont icon-shanchu"></text>删除
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loadend" :loading="loading"></Loading>
-    <div class="noCommodity" v-if="addressList.length < 1 && page > 1">
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noAddress.png'" class="image" />
-      </div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="footer acea-row row-between-wrapper">
-      <div class="addressBnt bg-color-red" v-if="isWechat" @click="addAddress">
-        <span class="iconfont icon-tianjiadizhi"></span>添加新地址
-      </div>
-      <div class="addressBnt on bg-color-red" v-else @click="addAddress">
-        <span class="iconfont icon-tianjiadizhi"></span>添加新地址
-      </div>
-      <!--<div class="addressBnt wxbnt" v-if="isWechat" @click="getAddress">-->
-      <!--<span class="iconfont icon-weixin2"></span>导入微信地址-->
-      <!--</div>-->
-    </div>
-  </div>
+    <view class="noCommodity" v-if="addressList.length < 1 && page > 1">
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noAddress.png'" class="image" />
+      </view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="footer acea-row row-between-wrapper">
+      <view class="addressBnt bg-color-red" v-if="isWechat" @click="addAddress">
+        <text class="iconfont icon-tianjiadizhi"></text>添加新地址
+      </view>
+      <view class="addressBnt on bg-color-red" v-else @click="addAddress">
+        <text class="iconfont icon-tianjiadizhi"></text>添加新地址
+      </view>
+      <!--<view class="addressBnt wxbnt" v-if="isWechat" @click="getAddress">-->
+      <!--<text class="iconfont icon-weixin2"></text>导入微信地址-->
+      <!--</view>-->
+    </view>
+  </view>
 </template>
 <style scoped>
 .address-management.on {
@@ -108,7 +108,7 @@ export default {
   onReachBottom() {
     !this.loading && this.AddressList();
   },
-  onShow:function(){
+  onShow: function() {
     this.refresh();
   },
   methods: {
@@ -152,9 +152,11 @@ export default {
       let address = this.addressList[index];
       let id = address.id;
       getAddressRemove(id).then(function() {
-        that.$dialog.toast({
-          mes: "删除成功!",
-          callback: () => {
+        uni.showToast({
+          title: "删除成功!",
+          icon:"success",
+          duration: 2000,
+          complete: () => {
             that.addressList.splice(index, 1);
             that.$set(that, "addressList", that.addressList);
           }
@@ -200,11 +202,19 @@ export default {
       //       this.addressList = [];
       //       this.AddressList();
       //       uni.hideLoading();
-      //       this.$dialog.toast({ mes: "添加成功" });
+      // uni.showToast({
+      // 											title: "添加成功",
+      // 											icon: 'success',
+      // 											duration: 2000
+      // 										});
       //     })
       //     .catch(err => {
       //       uni.hideLoading();
-      //       this.$dialog.error(err.msg || "添加失败");
+      // uni.showToast({
+      // 	title: err.msg || err.response.data.msg,
+      // 	icon: 'none',
+      // 	duration: 2000
+      // });
       //     });
       // });
     }

@@ -1,11 +1,11 @@
 <template>
-	<div class="home" :style="{ top: top + 'px' }" style="position:fixed;" id="right-nav" @touchmove="touchmove($event)">
-		<div class="homeCon bg-color-red1" :class="homeActive === true ? 'on' : ''">
-			<div @click="homeGo()" class="iconfont icon-shouye-xianxing " style="color: green;"></div>
-			<div @click="shoppingCartGo()" class="iconfont icon-caigou-xianxing" style="color: green;"></div>
-			<!--<div @click="userGo()" class="iconfont icon-yonghu1"></div>-->
-		</div>
-	</div>
+	<view class="home" :style="{ top: top + 'px' }" style="position:fixed;" id="right-nav" @touchmove="touchmove($event)">
+		<view class="homeCon bg-color-red1" :class="homeActive === true ? 'on' : ''">
+			<view @click="homeGo()" class="iconfont icon-shouye-xianxing " style="color: green;"></view>
+			<view @click="shoppingCartGo()" class="iconfont icon-caigou-xianxing" style="color: green;"></view>
+			<!--<view @click="userGo()" class="iconfont icon-yonghu1"></view>-->
+		</view>
+	</view>
 </template>
 <script>
 import { mapGetters } from 'vuex';

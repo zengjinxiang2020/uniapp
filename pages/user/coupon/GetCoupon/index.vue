@@ -1,39 +1,39 @@
 <template>
-  <div ref="container">
-    <div class="coupon-list" v-if="couponsList.length > 0">
-      <div
+  <view ref="container">
+    <view class="coupon-list" v-if="couponsList.length > 0">
+      <view
         class="item acea-row row-center-wrapper"
         v-for="(item, couponsListIndex) in couponsList"
         :key="couponsListIndex"
       >
-        <div class="money" :class="item.isUse ? 'moneyGray' : ''">
+        <view class="money" :class="item.isUse ? 'moneyGray' : ''">
           ￥
-          <span class="num">{{ item.couponPrice }}</span>
-        </div>
-        <div class="text">
-          <div class="condition line1">购物满{{ item.useMinPrice }}元可用</div>
-          <div class="data acea-row row-between-wrapper">
-            <div v-if="item.endTime !== 0">
+          <text class="num">{{ item.couponPrice }}</text>
+        </view>
+        <view class="text">
+          <view class="condition line1">购物满{{ item.useMinPrice }}元可用</view>
+          <view class="data acea-row row-between-wrapper">
+            <view v-if="item.endTime !== 0">
               <data-format-t :data="item.startTime"></data-format-t>-
               <data-format-t :data="item.endTime"></data-format-t>
-            </div>
-            <div v-else>不限时</div>
-            <div class="bnt gray" v-if="item.isUse === true">已领取</div>
-            <div class="bnt gray" v-else-if="item.isUse === 2">已领完</div>
-            <div class="bnt bg-color-red" v-else @click="getCoupon(item.id, couponsListIndex)">立即领取</div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </view>
+            <view v-else>不限时</view>
+            <view class="bnt gray" v-if="item.isUse === true">已领取</view>
+            <view class="bnt gray" v-else-if="item.isUse === 2">已领完</view>
+            <view class="bnt bg-color-red" v-else @click="getCoupon(item.id, couponsListIndex)">立即领取</view>
+          </view>
+        </view>
+      </view>
+    </view>
 
     <Loading :loaded="loadend" :loading="loading"></Loading>
     <!--暂无优惠券-->
-    <div class="noCommodity" v-if="couponsList.length === 0 && page > 1">
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
-      </div>
-    </div>
-  </div>
+    <view class="noCommodity" v-if="couponsList.length === 0 && page > 1">
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { getCoupon, getCouponReceive } from "@/api/user";
@@ -68,10 +68,18 @@ export default {
       getCouponReceive(id)
         .then(function(res) {
           list[index].isUse = true;
-          that.$dialog.toast({ mes: "领取成功" });
+          uni.showToast({
+            title: "领取成功",
+            icon: "success",
+            duration: 2000
+          });
         })
-        .catch(function(res) {
-          that.$dialog.toast({ mes: res.response.data.msg });
+        .catch(function(err) {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     getUseCoupons: function() {

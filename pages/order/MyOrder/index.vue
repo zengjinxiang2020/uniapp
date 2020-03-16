@@ -1,60 +1,60 @@
 <template>
-  <div class="my-order" ref="container">
-    <div class="header bg-color-red">
-      <div class="picTxt acea-row row-between-wrapper">
-        <div class="text">
-          <div class="name">订单信息</div>
-          <div>
+  <view class="my-order" ref="container">
+    <view class="header bg-color-red">
+      <view class="picTxt acea-row row-between-wrapper">
+        <view class="text">
+          <view class="name">订单信息</view>
+          <view>
             累计订单：{{ orderData.orderCount || 0 }} 总消费：￥{{
             orderData.sumPrice || 0
             }}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="nav acea-row row-around">
-      <div class="item" :class="{ on: type === 0 }" @click="changeType(0)">
-        <div>待付款</div>
-        <div class="num">{{ orderData.unpaidCount || 0 }}</div>
-      </div>
-      <div class="item" :class="{ on: type === 1 }" @click="changeType(1)">
-        <div>待发货</div>
-        <div class="num">{{ orderData.unshippedCount || 0 }}</div>
-      </div>
-      <div class="item" :class="{ on: type === 2 }" @click="changeType(2)">
-        <div>待收货</div>
-        <div class="num">{{ orderData.receivedCount || 0 }}</div>
-      </div>
-      <div class="item" :class="{ on: type === 3 }" @click="changeType(3)">
-        <div>待评价</div>
-        <div class="num">{{ orderData.evaluatedCount || 0 }}</div>
-      </div>
-      <div class="item" :class="{ on: type === 4 }" @click="changeType(4)">
-        <div>已完成</div>
-        <div class="num">{{ orderData.completeCount || 0 }}</div>
-      </div>
-    </div>
-    <div class="list">
-      <div class="item" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
-        <div class="title acea-row row-between-wrapper">
-          <div class="acea-row row-middle">
-            <span
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="nav acea-row row-around">
+      <view class="item" :class="{ on: type === 0 }" @click="changeType(0)">
+        <view>待付款</view>
+        <view class="num">{{ orderData.unpaidCount || 0 }}</view>
+      </view>
+      <view class="item" :class="{ on: type === 1 }" @click="changeType(1)">
+        <view>待发货</view>
+        <view class="num">{{ orderData.unshippedCount || 0 }}</view>
+      </view>
+      <view class="item" :class="{ on: type === 2 }" @click="changeType(2)">
+        <view>待收货</view>
+        <view class="num">{{ orderData.receivedCount || 0 }}</view>
+      </view>
+      <view class="item" :class="{ on: type === 3 }" @click="changeType(3)">
+        <view>待评价</view>
+        <view class="num">{{ orderData.evaluatedCount || 0 }}</view>
+      </view>
+      <view class="item" :class="{ on: type === 4 }" @click="changeType(4)">
+        <view>已完成</view>
+        <view class="num">{{ orderData.completeCount || 0 }}</view>
+      </view>
+    </view>
+    <view class="list">
+      <view class="item" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
+        <view class="title acea-row row-between-wrapper">
+          <view class="acea-row row-middle">
+            <text
               class="sign cart-color acea-row row-center-wrapper"
               v-if="order.combinationId > 0"
-            >拼团</span>
-            <span class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</span>
-            <span class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</span>
+            >拼团</text>
+            <text class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</text>
+            <text class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</text>
             <data-format :data="order.addTime"></data-format>
-          </div>
-          <div class="font-color-red">{{ getStatus(order) }}</div>
-        </div>
-        <div @click="goOrderDetails(order)">
-          <div
+          </view>
+          <view class="font-color-red">{{ getStatus(order) }}</view>
+        </view>
+        <view @click="goOrderDetails(order)">
+          <view
             class="item-info acea-row row-between row-top"
             v-for="(cart,cartInfoIndex) in order.cartInfo"
             :key="cartInfoIndex"
           >
-            <div class="pictrue">
+            <view class="pictrue">
               <img
                 :src="cart.productInfo.image"
                 @click.stop="
@@ -89,53 +89,53 @@
                 "
                 v-else-if="cart.seckillId > 0"
               />
-            </div>
-            <div class="text acea-row row-between">
-              <div class="name line2">{{ cart.productInfo.storeName }}</div>
-              <div class="money">
-                <div>
+            </view>
+            <view class="text acea-row row-between">
+              <view class="name line2">{{ cart.productInfo.storeName }}</view>
+              <view class="money">
+                <view>
                   ￥{{
                   cart.productInfo.attrInfo
                   ? cart.productInfo.attrInfo.price
                   : cart.productInfo.price
                   }}
-                </div>
-                <div>x{{ cart.cartNum }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="totalPrice">
+                </view>
+                <view>x{{ cart.cartNum }}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="totalPrice">
           共{{ order.cartInfo.length || 0 }}件商品，总金额
-          <span
+          <text
             class="money font-color-red"
-          >￥{{ order.payPrice }}</span>
-        </div>
-        <div class="bottom acea-row row-right row-middle">
+          >￥{{ order.payPrice }}</text>
+        </view>
+        <view class="bottom acea-row row-right row-middle">
           <template v-if="order._status._type == 0">
-            <div class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</div>
-            <div
+            <view class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</view>
+            <view
               class="bnt bg-color-red"
               @click="goOrderDetails(order)"
-            >立即付款</div>
+            >立即付款</view>
           </template>
           <template v-if="order._status._type == 1 || order._status._type == 9">
-            <div
+            <view
               class="bnt bg-color-red"
               @click="goOrderDetails(order)"
-            >查看详情</div>
+            >查看详情</view>
           </template>
           <template v-if="order._status._type == 2">
-            <div
+            <view
               class="bnt default"
               @click="
             $yrouter.push({ path: '/pages/order/Logistics/index',query:{id:order.orderId}})
             "
-            >查看物流</div>
-            <div class="bnt bg-color-red" @click="takeOrder(order)">确认收货</div>
+            >查看物流</view>
+            <view class="bnt bg-color-red" @click="takeOrder(order)">确认收货</view>
           </template>
           <template v-if="order._status._type == 3">
-            <!--<div-->
+            <!--<view-->
             <!--class="bnt default"-->
             <!--@click="-->
             <!--$yrouter.push({ path: '/pages/order/Logistics/index',query:{id:order.orderId}})-->
@@ -143,29 +143,29 @@
             <!--v-if="order.deliveryType == 'express'"-->
             <!--&gt;-->
             <!--查看物流-->
-            <!--</div>-->
-            <div
+            <!--</view>-->
+            <view
               class="bnt bg-color-red"
               @click="goOrderDetails(order)"
-            >去评价</div>
+            >去评价</view>
           </template>
           <template v-if="order._status._type === 4">
-            <div
+            <view
               class="bnt bg-color-red"
               @click="goOrderDetails(order)"
-            >查看订单</div>
+            >查看订单</view>
           </template>
-        </div>
-      </div>
-    </div>
-    <div class="noCart" v-if="orderList.length === 0 && page > 1">
-      <div class="pictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noOrder.png'" />
-      </div>
-    </div>
+        </view>
+      </view>
+    </view>
+    <view class="noCart" v-if="orderList.length === 0 && page > 1">
+      <view class="pictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noOrder.png'" />
+      </view>
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
     <Payment v-model="pay" :types="payType" @checked="toPay" :balance="userInfo.nowMoney"></Payment>
-  </div>
+  </view>
 </template>
 <script>
 import { getOrderData, getOrderList } from "@/api/order";
@@ -344,7 +344,7 @@ export default {
   margin: 0.7rem auto 0.5rem auto;
 }
 
-.noCart .pictrue img {
+.noCart .pictrue image{
   width: 100%;
   height: 100%;
 }

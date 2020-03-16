@@ -1,82 +1,78 @@
 <template>
-  <div class="member-center">
-    <div class="header">
-      <div class="slider-banner banner">
+  <view class="member-center">
+    <view class="header">
+      <view class="slider-banner banner">
         <swiper indicatorDots="true" @change="swiperChange">
           <block v-for="(item, vipListIndex) in vipList" :key="vipListIndex">
             <swiper-item>
-              <div class="swiper-slide" :style="{ backgroundImage: 'url(' + item.image + ')' }">
-                <!--            <img :src="item.icon" />-->
-                <div class="name">{{ item.name }}</div>
-                <div class="discount">
+              <view class="swiper-slide" :style="{ backgroundImage: 'url(' + item.image + ')' }">
+                <!--            <image :src="item.icon" />-->
+                <view class="name">{{ item.name }}</view>
+                <view class="discount">
                   可享受商品折扣: {{ item.discount / 10 }}折
-                  <span class="iconfont icon-zhekou"></span>
-                </div>
-                <div class="nav acea-row" v-if="item.grade == grade">
-                  <div class="item" v-for="(val, indexn) in vipComplete" :key="indexn">
-                    <div class="num">{{ val.newNumber }}</div>
-                    <div>{{ val.realName }}</div>
-                  </div>
-                </div>
-                <div class="lock" v-if="item.grade > grade">
-                  <span class="iconfont icon-quanxianguanlisuozi"></span>该会员等级尚未解锁
-                </div>
-                <div class="lock" v-if="item.grade < grade">
-                  <span class="iconfont icon-xuanzhong1"></span>已解锁更高等级
-                </div>
-              </div>
+                  <text class="iconfont icon-zhekou"></text>
+                </view>
+                <view class="nav acea-row" v-if="item.grade == grade">
+                  <view class="item" v-for="(val, indexn) in vipComplete" :key="indexn">
+                    <view class="num">{{ val.newNumber }}</view>
+                    <view>{{ val.realName }}</view>
+                  </view>
+                </view>
+                <view class="lock" v-if="item.grade > grade">
+                  <text class="iconfont icon-quanxianguanlisuozi"></text>该会员等级尚未解锁
+                </view>
+                <view class="lock" v-if="item.grade < grade">
+                  <text class="iconfont icon-xuanzhong1"></text>已解锁更高等级
+                </view>
+              </view>
             </swiper-item>
           </block>
         </swiper>
-      </div>
-    </div>
-    <div class="wrapper">
-      <div class="title acea-row row-between-wrapper">
-        <div>
-          <span class="iconfont icon-jingyanzhi"></span>会员升级要求
-        </div>
-        <div class="num">
-          <span class="current">{{ taskCount }}</span>
+      </view>
+    </view>
+    <view class="wrapper">
+      <view class="title acea-row row-between-wrapper">
+        <view>
+          <text class="iconfont icon-jingyanzhi"></text>会员升级要求
+        </view>
+        <view class="num">
+          <text class="current">{{ taskCount }}</text>
           /{{ vipRequire.length }}
-        </div>
-      </div>
-      <div class="list">
-        <div class="item" v-for="(item, vipCompleteIndex) in vipComplete" :key="vipCompleteIndex">
-          <div class="top acea-row row-between-wrapper">
-            <div class="name">
+        </view>
+      </view>
+      <view class="list">
+        <view class="item" v-for="(item, vipCompleteIndex) in vipComplete" :key="vipCompleteIndex">
+          <view class="top acea-row row-between-wrapper">
+            <view class="name">
               {{ item.name
               }}
-              <span
-                class="iconfont icon-wenti"
-                v-if="item.illustrate"
-                @click="showGrow(item)"
-              ></span>
-            </div>
-            <div>{{ item.finish ? "已满足条件" : "未满足条件" }}</div>
-          </div>
-          <div class="cu-progress">
-            <div class="bg-red" :style="{ width: item.speed + '%' }"></div>
-          </div>
-          <div class="experience acea-row row-between-wrapper">
-            <div>{{ item.taskTypeTitle }}</div>
-            <div>
-              <span class="num">{{ item.newNumber }}</span>
+              <text class="iconfont icon-wenti" v-if="item.illustrate" @click="showGrow(item)"></text>
+            </view>
+            <view>{{ item.finish ? "已满足条件" : "未满足条件" }}</view>
+          </view>
+          <view class="cu-progress">
+            <view class="bg-red" :style="{ width: item.speed + '%' }"></view>
+          </view>
+          <view class="experience acea-row row-between-wrapper">
+            <view>{{ item.taskTypeTitle }}</view>
+            <view>
+              <text class="num">{{ item.newNumber }}</text>
               /{{ item.number }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Recommend></Recommend>
-    <div class="growthValue" :class="growthValue === false ? 'on' : ''">
-      <div class="pictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/value.jpg'" />
-        <span class="iconfont icon-guanbi3" @click="growthTap"></span>
-      </div>
-      <div class="conter">{{ illustrate }}</div>
-    </div>
-    <div class="mask" :hidden="growthValue" @click="growthTap"></div>
-  </div>
+    <view class="growthValue" :class="growthValue === false ? 'on' : ''">
+      <view class="pictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/value.jpg'" />
+        <text class="iconfont icon-guanbi3" @click="growthTap"></text>
+      </view>
+      <view class="conter">{{ illustrate }}</view>
+    </view>
+    <view class="mask" :hidden="growthValue" @click="growthTap"></view>
+  </view>
 </template>
 <script>
 // import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -168,7 +164,11 @@ export default {
           that.taskCount = res.data.task.reachCount;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
@@ -181,7 +181,11 @@ export default {
           that.taskCount = res.data.reach_count;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },

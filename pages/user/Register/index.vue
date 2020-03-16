@@ -1,23 +1,23 @@
 <template>
-  <div class="register absolute">
-    <div class="shading">
-      <div class="pictrue acea-row row-center-wrapper">
-        <img src="@/assets/images/logo.png" />
-      </div>
-    </div>
-    <div class="whiteBg">
-      <div class="title">注册账号</div>
-      <div class="list">
-        <div class="item">
-          <div>
+  <view class="register absolute">
+    <view class="shading">
+      <view class="pictrue acea-row row-center-wrapper">
+        <image src="@/assets/images/logo.png" />
+      </view>
+    </view>
+    <view class="whiteBg">
+      <view class="title">注册账号</view>
+      <view class="list">
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-phone_" />
             </svg>
             <input type="text" placeholder="输入手机号码" />
-          </div>
-        </div>
-        <div class="item">
-          <div class="align-left">
+          </view>
+        </view>
+        <view class="item">
+          <view class="align-left">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_1" />
             </svg>
@@ -28,25 +28,25 @@
               :class="disabled === true ? 'on' : ''"
               @click="code"
             >{{ text }}</button>
-          </div>
-        </div>
-        <div class="item">
-          <div>
+          </view>
+        </view>
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_" />
             </svg>
             <input type="text" placeholder="填写您的登录密码" />
-          </div>
-        </div>
-      </div>
-      <div class="logon">注册</div>
-      <div class="tip">
+          </view>
+        </view>
+      </view>
+      <view class="logon">注册</view>
+      <view class="tip">
         已有账号?
-        <span @click="goLogin()" class="font-color-red">立即登录</span>
-      </div>
-    </div>
-    <div class="bottom"></div>
-  </div>
+        <text @click="goLogin()" class="font-color-red">立即登录</text>
+      </view>
+    </view>
+    <view class="bottom"></view>
+  </view>
 </template>
 
 <script>

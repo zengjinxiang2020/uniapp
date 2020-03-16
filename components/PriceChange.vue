@@ -1,70 +1,70 @@
 <template>
-  <div>
-    <div class="priceChange" :class="change === true ? 'on' : ''">
-      <div class="priceTitle">
-        <span v-if="status==0">
-          <span v-if="orderInfo.refundStatus == 1">立即退款</span>
-          <span v-if="orderInfo.refundStatus != 1">一键改价</span>
-        </span>
-        <span v-if="status!=0">订单备注</span>
-        <span class="iconfont icon-guanbi" @click="close"></span>
-      </div>
-      <div class="listChange" v-if="status == 0">
-        <div class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
-          <div>商品总价(¥)</div>
-          <div class="money">
+  <view>
+    <view class="priceChange" :class="change === true ? 'on' : ''">
+      <view class="priceTitle">
+        <text v-if="status==0">
+          <text v-if="orderInfo.refundStatus == 1">立即退款</text>
+          <text v-if="orderInfo.refundStatus != 1">一键改价</text>
+        </text>
+        <text v-if="status!=0">订单备注</text>
+        <text class="iconfont icon-guanbi" @click="close"></text>
+      </view>
+      <view class="listChange" v-if="status == 0">
+        <view class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
+          <view>商品总价(¥)</view>
+          <view class="money">
             {{ orderInfo.totalPrice }}
-            <span class="iconfont icon-suozi"></span>
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
-          <div>原始邮费(¥)</div>
-          <div class="money">
+            <text class="iconfont icon-suozi"></text>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
+          <view>原始邮费(¥)</view>
+          <view class="money">
             {{ orderInfo.payPostage }}
-            <span class="iconfont icon-suozi"></span>
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
-          <div>实际支付(¥)</div>
-          <div class="money">
+            <text class="iconfont icon-suozi"></text>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 0">
+          <view>实际支付(¥)</view>
+          <view class="money">
             <input
               type="text"
               v-model="price"
               :class="focus === true ? 'on' : ''"
               @focus="priceChange"
             />
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 1">
-          <div>实际支付(¥)</div>
-          <div class="money">
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 1">
+          <view>实际支付(¥)</view>
+          <view class="money">
             {{ orderInfo.payPrice }}
-            <span class="iconfont icon-suozi"></span>
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 1">
-          <div>退款金额(¥)</div>
-          <div class="money">
+            <text class="iconfont icon-suozi"></text>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper" v-if="orderInfo.refundStatus === 1">
+          <view>退款金额(¥)</view>
+          <view class="money">
             <input
               type="text"
               v-model="refund_price"
               :class="focus === true ? 'on' : ''"
               @focus="priceChange"
             />
-          </div>
-        </div>
-      </div>
-      <div class="listChange" v-else>
+          </view>
+        </view>
+      </view>
+      <view class="listChange" v-else>
         <textarea
           :placeholder="'请填写备注信息...'"
           v-model="remark"
         ></textarea>
-      </div>
-      <div class="modify" @click="save">{{ orderInfo.refundStatus === 0 ? "立即修改" : "确认退款" }}</div>
-      <div class="modify1" @click="refuse" v-if="orderInfo.refundStatus === 1">拒绝退款</div>
-    </div>
-    <div class="mask" @touchmove.prevent v-show="change === true"></div>
-  </div>
+      </view>
+      <view class="modify" @click="save">{{ orderInfo.refundStatus === 0 ? "立即修改" : "确认退款" }}</view>
+      <view class="modify1" @click="refuse" v-if="orderInfo.refundStatus === 1">拒绝退款</view>
+    </view>
+    <view class="mask" @touchmove.prevent v-show="change === true"></view>
+  </view>
 </template>
 <style scoped>
 .priceChange .listChange textarea {

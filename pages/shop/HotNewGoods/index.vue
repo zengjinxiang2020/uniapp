@@ -1,14 +1,14 @@
 <template>
-  <div class="quality-recommend">
-    <div class="title acea-row row-center-wrapper">
-      <div class="line"></div>
-      <div class="name">
-        <span class="iconfont" :class="icon"></span>{{ name }}
-      </div>
-      <div class="line"></div>
-    </div>
+  <view class="quality-recommend">
+    <view class="title acea-row row-center-wrapper">
+      <view class="line"></view>
+      <view class="name">
+        <text class="iconfont" :class="icon"></text>{{ name }}
+      </view>
+      <view class="line"></view>
+    </view>
     <GoodList :good-list="goodsList" :is-sort="false"></GoodList>
-  </div>
+  </view>
 </template>
 <script>
 
@@ -71,8 +71,12 @@ export default {
           that.imgUrls = res.data.banner;
           that.goodsList = res.data.list;
         })
-        .catch(function(res) {
-          this.$dialog.toast({ mes: res.msg });
+        .catch((err)=> {
+			uni.showToast({
+							title: err.msg || err.response.data.msg,
+							icon: 'none',
+							duration: 2000
+						});
         });
     }
   }

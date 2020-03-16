@@ -1,17 +1,17 @@
 <template>
-  <div class="newsDetail">
-    <div class="title">{{ articleInfo.title }}</div>
-    <div class="list acea-row row-middle">
-      <div class="label cart-color line1">新闻专区</div>
-      <div class="item">
-        <span class="iconfont icon-shenhezhong"></span>{{ articleInfo.addTime }}
-      </div>
-      <div class="item">
-        <span class="iconfont icon-liulan"></span>{{ articleInfo.visit }}
-      </div>
-    </div>
-    <div class="conter" v-html="articleInfo.content"></div>
-  </div>
+  <view class="newsDetail">
+    <view class="title">{{ articleInfo.title }}</view>
+    <view class="list acea-row row-middle">
+      <view class="label cart-color line1">新闻专区</view>
+      <view class="item">
+        <text class="iconfont icon-shenhezhong"></text>{{ articleInfo.addTime }}
+      </view>
+      <view class="item">
+        <text class="iconfont icon-liulan"></text>{{ articleInfo.visit }}
+      </view>
+    </view>
+    <view class="conter" v-html="articleInfo.content"></view>
+  </view>
 </template>
 <style scoped>
 .newsDetail .picTxt {
@@ -26,7 +26,7 @@
   width: 2rem;
   height: 2rem;
 }
-.newsDetail .picTxt .pictrue img {
+.newsDetail .picTxt .pictrue image{
   width: 100%;
   height: 100%;
   border-radius: 0.2rem 0 0 0.2rem;

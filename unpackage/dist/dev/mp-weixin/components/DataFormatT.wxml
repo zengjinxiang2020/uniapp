@@ -1,1 +1,1 @@
-<label class="_span">{{time}}</label>
+<text>{{time}}</text>

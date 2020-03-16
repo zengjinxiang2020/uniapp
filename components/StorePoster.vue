@@ -1,43 +1,43 @@
 <template>
-  <div v-if="posterImageStatus" class="poster-first">
+  <view v-if="posterImageStatus" class="poster-first">
     <canvas style="width:747px;height:1326px" canvas-id="myCanvas"></canvas>
-    <!-- <div class="poster-pop" v-show="!canvasStatus">
+    <!-- <view class="poster-pop" v-show="!canvasStatus">
       <img
         :src="$VUE_APP_RESOURCES_URL+'/images/poster-close.png'"
         class="close"
         @click="posterImageClose"
       />
-      <div class="canvas" ref="poster">
-        <img class="image" :src="posterData.image" alt="商品图片" />
-        <div class="text black">
-          <span v-text="posterData.title"></span>
-        </div>
-        <div class="text rad">
-          <span v-text="'￥' + posterData.price"></span>
-        </div>
-        <div class="code">
-          <div class="code-img">
-            <img :src="posterData.code" show-menu-by-longpress mode="widthFix" alt="二维码" />
-          </div>
-          <div class="code-text">
-            <span>长按识别二维码 立即购买</span>
-          </div>
-        </div>
-      </div>
-      <div class="save-poster" @click="savePosterPath">生成图片</div>
-    </div> -->
-    <div class="poster-pop" v-show="canvasStatus">
+      <view class="canvas" ref="poster">
+        <image class="image" :src="posterData.image" alt="商品图片" />
+        <view class="text black">
+          <text v-text="posterData.title"></text>
+        </view>
+        <view class="text rad">
+          <text v-text="'￥' + posterData.price"></text>
+        </view>
+        <view class="code">
+          <view class="code-img">
+            <image :src="posterData.code" show-menu-by-longpress mode="widthFix" alt="二维码" />
+          </view>
+          <view class="code-text">
+            <text>长按识别二维码 立即购买</text>
+          </view>
+        </view>
+      </view>
+      <view class="save-poster" @click="savePosterPath">生成图片</view>
+    </view> -->
+    <view class="poster-pop" v-show="canvasStatus">
       <img
         :src="$VUE_APP_RESOURCES_URL+'/images/poster-close.png'"
         class="close"
         @click="posterImageClose"
         mode="widthFix"
       />
-      <img :src="posterImage" alt="tp" class="poster-image" show-menu-by-longpress mode="widthFix" />
-      <div class="keep">长按图片可以保存到手机</div>
-    </div>
-    <div class="mask"></div>
-  </div>
+      <image :src="posterImage" alt="tp" class="poster-image" show-menu-by-longpress mode="widthFix" />
+      <view class="keep">长按图片可以保存到手机</view>
+    </view>
+    <view class="mask"></view>
+  </view>
 </template>
 <style scoped>
 .poster-first {
@@ -85,7 +85,7 @@
   width: 33%;
   padding: 0.06rem;
 }
-.poster-pop .canvas .code .code-img img {
+.poster-pop .canvas .code .code-img image{
   width: 100%;
 }
 .poster-pop .canvas .code .code-text {

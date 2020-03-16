@@ -1,44 +1,44 @@
 <template>
-  <div class="statistical-page" ref="container">
-    <div class="navs">
-      <div class="list">
-        <div class="item" :class="time == 'today' ? 'on' : ''" @click="setTime('today')">今天</div>
-        <div class="item" :class="time == 'yesterday' ? 'on' : ''" @click="setTime('yesterday')">昨天</div>
-        <div class="item" :class="time == 'seven' ? 'on' : ''" @click="setTime('seven')">最近7天</div>
-        <div class="item" :class="time == 'month' ? 'on' : ''" @click="setTime('month')">本月</div>
-      </div>
-    </div>
-    <div class="wrapper">
-      <div class="title">{{ title }}{{ this.where.type == 1 ? "营业额（元）" : "订单量（份）" }}</div>
-      <div class="money">{{ time_price }}</div>
-    </div>
-    <!-- <div class="chart">
-      <div class="company">{{ where.type === 1 ? "单位（元）" : "单位（份）" }}</div>
+  <view class="statistical-page" ref="container">
+    <view class="navs">
+      <view class="list">
+        <view class="item" :class="time == 'today' ? 'on' : ''" @click="setTime('today')">今天</view>
+        <view class="item" :class="time == 'yesterday' ? 'on' : ''" @click="setTime('yesterday')">昨天</view>
+        <view class="item" :class="time == 'seven' ? 'on' : ''" @click="setTime('seven')">最近7天</view>
+        <view class="item" :class="time == 'month' ? 'on' : ''" @click="setTime('month')">本月</view>
+      </view>
+    </view>
+    <view class="wrapper">
+      <view class="title">{{ title }}{{ this.where.type == 1 ? "营业额（元）" : "订单量（份）" }}</view>
+      <view class="money">{{ time_price }}</view>
+    </view>
+    <!-- <view class="chart">
+      <view class="company">{{ where.type === 1 ? "单位（元）" : "单位（份）" }}</view>
       <ECharts :options="polar"></ECharts>
-    </div> -->
-    <div class="public-wrapper">
-      <div class="title">
-        <span class="iconfont icon-xiangxishuju"></span>详细数据
-      </div>
-      <div class="nav acea-row row-between-wrapper">
-        <div class="data">日期</div>
-        <div class="browse">订单量</div>
-        <div class="turnover">成交额</div>
-      </div>
-      <div class="conter">
-        <div
+    </view> -->
+    <view class="public-wrapper">
+      <view class="title">
+        <text class="iconfont icon-xiangxishuju"></text>详细数据
+      </view>
+      <view class="nav acea-row row-between-wrapper">
+        <view class="data">日期</view>
+        <view class="browse">订单量</view>
+        <view class="turnover">成交额</view>
+      </view>
+      <view class="conter">
+        <view
           class="item acea-row row-between-wrapper"
           v-for="(item, statisticalIndex) in list"
           :key="statisticalIndex"
         >
-          <div class="data">{{ item.time }}</div>
-          <div class="browse">{{ item.count }}</div>
-          <div class="turnover">{{ item.price }}</div>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="calendar-wrapper" :class="current === true ? 'on' : ''">
-      <div class="calendar">
+          <view class="data">{{ item.time }}</view>
+          <view class="browse">{{ item.count }}</view>
+          <view class="turnover">{{ item.price }}</view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class="calendar-wrapper" :class="current === true ? 'on' : ''">
+      <view class="calendar">
         <Calendar
           :clean="clean"
           :lunar="lunar"
@@ -57,11 +57,11 @@
           :begin="[1992, 5, 20]"
           :end="[2049, 5, 20]"
         />
-      </div>
-    </div> -->
-    <div class="mask" @touchmove.prevent v-show="current === true" @click="close"></div>
+      </view>
+    </view> -->
+    <view class="mask" @touchmove.prevent v-show="current === true" @click="close"></view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 // import ECharts from "vue-echarts";
@@ -398,8 +398,12 @@ export default {
           that.list.push.apply(that.list, res.data);
           that.filter.page = that.filter.page + 1;
         },
-        error => {
-          that.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     }

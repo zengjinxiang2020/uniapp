@@ -1,10 +1,10 @@
 <template>
-  <div class="ChangePassword">
-    <div class="list">
-      <div class="item">
+  <view class="ChangePassword">
+    <view class="list">
+      <view class="item">
         <input type="number" placeholder="填写手机号码" v-model="phone" />
-      </div>
-      <div class="item acea-row row-between-wrapper">
+      </view>
+      <view class="item acea-row row-between-wrapper">
         <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
         <button
           class="code font-color-red"
@@ -12,10 +12,10 @@
           :class="disabled === true ? 'on' : ''"
           @click="code"
         >{{ text }}</button>
-      </div>
-    </div>
-    <div class="confirmBnt bg-color-red" @click="confirm">确认绑定</div>
-  </div>
+      </view>
+    </view>
+    <view class="confirmBnt bg-color-red" @click="confirm">确认绑定</view>
+  </view>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -63,55 +63,47 @@ export default {
       })
         .then(res => {
           if (res.data !== undefined && res.data.is_bind) {
-            that.$dialog.confirm({
-              mes: res.msg,
-              opts: [
-                {
-                  txt: "确认绑定",
-                  color: false,
-                  callback: () => {
-                    bindingPhone({
-                      phone: this.phone,
-                      captcha: this.captcha,
-                      step: 1
-                    })
-                      .then(res => {
-                        uni.showToast({
-                          title: res.msg,
-                          icon: "none",
-                          duration: 2000
-                        });
-                        that.$yrouter.replace({
-                          path: "/pages/user/PersonalData/index"
-                        });
-                      })
-                      .catch(res => {
-                        uni.showToast({
-                          title: res.msg,
-                          icon: "none",
-                          duration: 2000
-                        });
-                        that.$yrouter.replace({
-                          path: "/pages/user/PersonalData/index"
-                        });
+            uni.showModal({
+              title: "提示",
+              content: "确认绑定?",
+              success: function(res) {
+                if (res.confirm) {
+                  bindingPhone({
+                    phone: this.phone,
+                    captcha: this.captcha,
+                    step: 1
+                  })
+                    .then(res => {
+                      uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 2000
                       });
-                  }
-                },
-                {
-                  txt: "取消",
-                  color: false,
-                  callback: () => {
-                    uni.showToast({
-                      title: "已取消绑定",
-                      icon: "none",
-                      duration: 2000
+                      that.$yrouter.replace({
+                        path: "/pages/user/PersonalData/index"
+                      });
+                    })
+                    .catch(res => {
+                      uni.showToast({
+                        title: res.msg,
+                        icon: "none",
+                        duration: 2000
+                      });
+                      that.$yrouter.replace({
+                        path: "/pages/user/PersonalData/index"
+                      });
                     });
-                    that.$yrouter.replace({
-                      path: "/pages/user/PersonalData/index"
-                    });
-                  }
+                } else if (res.cancel) {
+                  uni.showToast({
+                    title: "已取消绑定",
+                    icon: "none",
+                    duration: 2000
+                  });
+                  that.$yrouter.replace({
+                    path: "/pages/user/PersonalData/index"
+                  });
                 }
-              ]
+              }
             });
           } else {
             uni.showToast({
@@ -168,5 +160,4 @@ export default {
 </script>
 
 <style lang="">
-
 </style>

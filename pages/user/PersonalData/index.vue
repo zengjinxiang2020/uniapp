@@ -1,16 +1,16 @@
 <template>
-  <div class="personal-data">
-    <div class="wrapper">
-      <div class="title">管理我的账号</div>
-      <div class="wrapList">
-        <div
+  <view class="personal-data">
+    <view class="wrapper">
+      <view class="title">管理我的账号</view>
+      <view class="wrapList">
+        <view
           class="item acea-row row-between-wrapper"
           :class="item.uid === userInfo.uid ? 'on' : ''"
           v-for="(item, switchUserInfoIndex) in switchUserInfo"
           :key="switchUserInfoIndex"
         >
-          <div class="picTxt acea-row row-between-wrapper">
-            <div class="pictrue">
+          <view class="picTxt acea-row row-between-wrapper">
+            <view class="pictrue">
               <!-- <VueCoreImageUpload
                 class="btn btn-primary"
                 :crop="false"
@@ -25,74 +25,74 @@
                 ref="upImg"
                 v-if="item.uid === userInfo.uid"
               >
-                <div class="pictrue">
-                  <img :src="item.avatar" />
-                </div>
+                <view class="pictrue">
+                  <image :src="item.avatar" />
+                </view>
               </VueCoreImageUpload>-->
-              <!-- <div class="pictrue" v-else>
-                <img :src="item.avatar" />
-              </div>-->
+              <!-- <view class="pictrue" v-else>
+                <image :src="item.avatar" />
+              </view>-->
               <img
                 :src="$VUE_APP_RESOURCES_URL+'/images/alter.png'"
                 class="alter"
                 v-if="item.uid === userInfo.uid"
               />
-            </div>
-            <div class="text">
-              <div class="name line1">{{ item.nickname }}</div>
-              <div class="phone">绑定手机号：{{ item.phone }}</div>
-            </div>
-          </div>
-          <div
+            </view>
+            <view class="text">
+              <view class="name line1">{{ item.nickname }}</view>
+              <view class="phone">绑定手机号：{{ item.phone }}</view>
+            </view>
+          </view>
+          <view
             class="currentBnt acea-row row-center-wrapper font-color-red"
             v-if="item.uid === userInfo.uid"
-          >当前账号</div>
-          <div
+          >当前账号</view>
+          <view
             class="bnt font-color-red acea-row row-center-wrapper"
             v-else
             @click="switchAccounts(index)"
-          >使用账号</div>
-        </div>
-      </div>
-    </div>
-    <div class="list">
-      <div class="item acea-row row-between-wrapper">
-        <div>昵称</div>
-        <div class="input">
+          >使用账号</view>
+        </view>
+      </view>
+    </view>
+    <view class="list">
+      <view class="item acea-row row-between-wrapper">
+        <view>昵称</view>
+        <view class="input">
           <input type="text" v-model="userInfo.nickname" />
-        </div>
-      </div>
-      <div class="item acea-row row-between-wrapper">
-        <div>ID号</div>
-        <div class="input acea-row row-between-wrapper">
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view>ID号</view>
+        <view class="input acea-row row-between-wrapper">
           <input type="text" :value="userInfo.uid" disabled class="id" />
-          <span class="iconfont icon-suozi"></span>
-        </div>
-      </div>
-      <div class="item acea-row row-between-wrapper">
-        <div>手机号</div>
-        <div class="input">
+          <text class="iconfont icon-suozi"></text>
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view>手机号</view>
+        <view class="input">
           <input type="text" v-if="userInfo.phone" v-model="userInfo.phone" />
           <input type="text" v-else value="未绑定" disabled class="id" />
-        </div>
-      </div>
-      <div class="item acea-row row-between-wrapper" @click="goChangePassword()">
-        <div>密码</div>
-        <div class="input acea-row row-between-wrapper">
-          <span>点击修改密码</span>
-          <span class="iconfont icon-suozi"></span>
-        </div>
-      </div>
-    </div>
-    <!--<div class="modifyBnt bg-color-red" @click="submit">保存修改</div>-->
-    <!-- <div
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper" @click="goChangePassword()">
+        <view>密码</view>
+        <view class="input acea-row row-between-wrapper">
+          <text>点击修改密码</text>
+          <text class="iconfont icon-suozi"></text>
+        </view>
+      </view>
+    </view>
+    <!--<view class="modifyBnt bg-color-red" @click="submit">保存修改</view>-->
+    <!-- <view
       class="logOut cart-color acea-row row-center-wrapper"
       @click="logout"
       v-if="!isWeixin"
     >
       退出登录
-    </div>-->
-  </div>
+    </view>-->
+  </view>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -141,8 +141,14 @@ export default {
       this.userIndex = index;
       let userInfo = this.switchUserInfo[this.userIndex];
       if (this.switchUserInfo.length <= 1) return true;
-      if (userInfo === undefined)
-        return this.$dialog.toast({ mes: "切换的账号不存在" });
+      if (userInfo === undefined) {
+        uni.showToast({
+          title: "切换的账号不存在",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
       if (userInfo.user_type === "h5") {
         switchH5Login()
           .then(({ data }) => {
@@ -154,7 +160,11 @@ export default {
           })
           .catch(err => {
             uni.hideLoading();
-            return that.$dialog.toast({ mes: err });
+            uni.showToast({
+              title: err.msg || err.response.data.msg,
+              icon: "none",
+              duration: 2000
+            });
           });
       } else {
         cookie.set("loginType", "wechat", 60);
@@ -180,8 +190,14 @@ export default {
       });
     },
     imageuploaded(res) {
-      if (res.status !== 200)
-        return this.$dialog.error(res.msg || "上传图片失败");
+      if (res.status !== 200) {
+        uni.showToast({
+          title: res.msg || res.response.data.msg,
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
       if (this.switchUserInfo[this.userIndex] === undefined) return;
       this.$set(this.switchUserInfo[this.userIndex], "avatar", res.data.url);
     },
@@ -194,25 +210,38 @@ export default {
       }).then(
         res => {
           this.$store.dispatch("USERINFO", true);
-          this.$uni.showToast({ title: res.msg, icon: "none", duration: 2000 });
+          this.$uni.showToast({
+            title: res.msg,
+            icon: "none",
+            duration: 2000
+          });
           this.$yrouter.back();
         },
-        error => {
-          this.$dialog.error(error.msg);
+        err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
     logout: function() {
-      this.$dialog.confirm({
-        mes: "确认退出登录?",
-        opts: () => {
-          getLogout()
-            .then(res => {
-              this.$store.commit("LOGOUT");
-              clearAuthStatus();
-              location.href = location.origin;
-            })
-            .catch(err => {});
+      uni.showModal({
+        title: "提示",
+        content: "确认退出登录?",
+        success: function(res) {
+          if (res.confirm) {
+            getLogout()
+              .then(res => {
+                this.$store.commit("LOGOUT");
+                clearAuthStatus();
+                location.href = location.origin;
+              })
+              .catch(err => {});
+          } else if (res.cancel) {
+            console.log("用户点击取消");
+          }
         }
       });
     }

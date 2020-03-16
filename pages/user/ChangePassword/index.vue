@@ -1,17 +1,17 @@
 <template>
-  <div class="ChangePassword">
-    <div class="phone">
+  <view class="ChangePassword">
+    <view class="phone">
       当前手机号:
       <input type="text" v-model="phone" disabled />
-    </div>
-    <div class="list">
-      <div class="item">
+    </view>
+    <view class="list">
+      <view class="item">
         <input type="password" placeholder="设置新密码" v-model="password" />
-      </div>
-      <div class="item">
+      </view>
+      <view class="item">
         <input type="password" placeholder="确认新密码" v-model="password2" />
-      </div>
-      <div class="item acea-row row-between-wrapper">
+      </view>
+      <view class="item acea-row row-between-wrapper">
         <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
         <button
           class="code font-color-red"
@@ -19,10 +19,10 @@
           :class="disabled === true ? 'on' : ''"
           @click="code"
         >{{ text }}</button>
-      </div>
-    </div>
-    <div class="confirmBnt bg-color-red" @click="confirm">确认修改</div>
-  </div>
+      </view>
+    </view>
+    <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
+  </view>
 </template>
 <style scoped>
 .ChangePassword .phone input {

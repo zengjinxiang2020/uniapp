@@ -1,138 +1,134 @@
 <template>
-  <div :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']">
+  <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']">
     <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper>
-    <div class="wrapper">
-      <div class="share acea-row row-between row-bottom">
-        <div class="money font-color-red">
-          ￥
-          <span class="num">{{ storeInfo.price }}</span>
-          <span
+    <view class="wrapper">
+      <view class="share acea-row row-between row-bottom">
+        <view class="money font-color-red">
+          <text>￥</text>
+          <text class="num">{{ storeInfo.price }}</text>
+          <text
             class="vip-money"
             v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
-          >￥{{ storeInfo.vipPrice }}</span>
-          <img
+          >￥{{ storeInfo.vipPrice }}</text>
+          <image
             :src="$VUE_APP_RESOURCES_URL+'/images/vip.png'"
             class="image"
             v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
           />
-        </div>
-        <div class="iconfont icon-fenxiang" @click="listenerActionSheet"></div>
-      </div>
-      <div class="introduce">{{ storeInfo.storeName }}</div>
-      <div class="label acea-row row-between-wrapper">
-        <div>原价:￥{{ storeInfo.otPrice }}</div>
-        <div>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</div>
-        <div>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</div>
-      </div>
-      <div class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
-        <div class="hide line1 acea-row">
-          优惠券：
-          <div
+        </view>
+        <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
+      </view>
+      <view class="introduce">{{ storeInfo.storeName }}</view>
+      <view class="label acea-row row-between-wrapper">
+        <text>原价:￥{{ storeInfo.otPrice }}</text>
+        <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
+        <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+      </view>
+      <view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
+        <text class="hide line1 acea-row">
+          <text>优惠券：</text>
+          <text
             class="activity"
             v-for="(item, couponListEq) in couponList"
             :key="couponListEq"
-          >满{{ item.use_min_price }}减{{ item.coupon_price }}</div>
-        </div>
-        <div class="iconfont icon-jiantou"></div>
-      </div>
-    </div>
-    <div class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
-      <div>
-        {{ attrTxt }}：
-        <span class="atterTxt">{{ attrValue }}</span>
-      </div>
-      <div class="iconfont icon-jiantou"></div>
-    </div>
-    <div class="store-info" v-if="system_store.id !== undefined">
-      <div class="title">门店信息</div>
-      <div class="info acea-row row-between-wrapper">
-        <div class="picTxt acea-row row-between-wrapper">
-          <div class="pictrue">
-            <img :src="system_store.image" />
-          </div>
-          <div class="text">
-            <div class="name line1">{{ system_store.name }}</div>
-            <div class="address acea-row row-middle" @click="showChang">
-              <span class="addressTxt line1">
-                {{
-                system_store._detailed_address
-                }}
-              </span>
-              <span class="iconfont icon-youjian"></span>
-            </div>
-          </div>
-        </div>
+          >满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
+        </text>
+        <view class="iconfont icon-jiantou"></view>
+      </view>
+    </view>
+    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
+      <view>
+        <text>{{ attrTxt }}：</text>
+        <text class="atterTxt">{{ attrValue }}</text>
+      </view>
+      <view class="iconfont icon-jiantou"></view>
+    </view>
+    <view class="store-info" v-if="system_store.id !== undefined">
+      <text class="title">门店信息</text>
+      <view class="info acea-row row-between-wrapper">
+        <view class="picTxt acea-row row-between-wrapper">
+          <view class="pictrue">
+            <image :src="system_store.image" />
+          </view>
+          <view class="text">
+            <view class="name line1">{{ system_store.name }}</view>
+            <view class="address acea-row row-middle" @click="showChang">
+              <text class="addressTxt line1">{{system_store._detailed_address}}</text>
+              <text class="iconfont icon-youjian"></text>
+            </view>
+          </view>
+        </view>
         <!-- <a class="iconfont icon-dadianhua01 font-color-red" :href="'tel:' + system_store.phone"></a> -->
-      </div>
-    </div>
-    <div class="userEvaluation" v-if="replyCount">
-      <div class="title acea-row row-between-wrapper">
-        <div>用户评价({{ replyCount }})</div>
-        <div @click="goEvaluateList(id)" class="praise">
-          <span class="font-color-red">{{ replyChance }}%</span>好评率
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
+      </view>
+    </view>
+    <view class="userEvaluation" v-if="replyCount">
+      <view class="title acea-row row-between-wrapper">
+        <view>用户评价({{ replyCount }})</view>
+        <text @click="goEvaluateList(id)" class="praise">
+          <text class="font-color-red">{{ replyChance }}%</text>好评率
+          <text class="iconfont icon-jiantou"></text>
+        </text>
+      </view>
       <user-evaluation :reply="reply"></user-evaluation>
-    </div>
-    <div class="superior">
-      <div class="title acea-row row-center-wrapper">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
-        <div class="titleTxt">优品推荐</div>
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
-      </div>
+    </view>
+    <view class="superior">
+      <view class="title acea-row row-center-wrapper">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
+        <text class="titleTxt">优品推荐</text>
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
+      </view>
       <template>
-        <div class="slider-banner banner">
+        <view class="slider-banner banner">
           <swiper :options="swiperRecommend" v-if="goodList.length > 0">
             <swiper-slide v-for="(item, eq2) in goodList" :key="eq2">
-              <div class="list acea-row row-middle">
-                <div class="item" v-for="val in item.list" :key="val.image">
-                  <div class="pictrue">
-                    <img :src="val.image" />
-                  </div>
-                  <div class="name line1">{{ val.store_name }}}</div>
-                  <div class="money font-color-red">¥{{ val.price }}</div>
-                </div>
-              </div>
+              <view class="list acea-row row-middle">
+                <view class="item" v-for="val in item.list" :key="val.image">
+                  <view class="pictrue">
+                    <image :src="val.image" />
+                  </view>
+                  <view class="name line1">{{ val.store_name }}}</view>
+                  <view class="money font-color-red">¥{{ val.price }}</view>
+                </view>
+              </view>
             </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
+            <view class="swiper-pagination" slot="pagination"></view>
           </swiper>
-        </div>
+        </view>
       </template>
-    </div>
-    <div class="product-intro">
-      <div class="title">产品介绍</div>
-      <div class="conter" v-html="storeInfo.description"></div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="footer acea-row row-between-wrapper">
-      <!--<div class="item" @click="goCustomerList()">-->
-      <!--<div class="iconfont icon-kefu"></div>-->
-      <!--<div>客服</div>-->
-      <!--</div>-->
-      <div class="item" @click="setCollect">
-        <div class="iconfont" :class="storeInfo.userCollect ? 'icon-shoucang1' : 'icon-shoucang'"></div>
-        <div>收藏</div>
-      </div>
-      <div
+    </view>
+    <view class="product-intro">
+      <text class="title">产品介绍</text>
+      <view class="conter" v-html="storeInfo.description"></view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="footer acea-row row-between-wrapper">
+      <!--<view class="item" @click="goCustomerList()">-->
+      <!--<view class="iconfont icon-kefu"></view>-->
+      <!--<view>客服</view>-->
+      <!--</view>-->
+      <view class="item" @click="setCollect">
+        <view class="iconfont" :class="storeInfo.userCollect ? 'icon-shoucang1' : 'icon-shoucang'"></view>
+        <text>收藏</text>
+      </view>
+      <view
         @click="goShoppingCart()"
         class="item animated"
         :class="animated === true ? 'bounceIn' : ''"
       >
-        <div class="iconfont icon-gouwuche1">
-          <span class="num bg-color-red" v-if="CartCount > 0">
-            {{
-            CartCount
-            }}
-          </span>
-        </div>
-        <div>购物车</div>
-      </div>
-      <div class="bnt acea-row">
-        <div class="joinCart" @click="joinCart">加入购物车</div>
-        <div class="buy" @click="tapBuy">立即购买</div>
-      </div>
-    </div>
+        <view class="iconfont icon-gouwuche1">
+          <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
+        </view>
+        <text>购物车</text>
+      </view>
+      <view class="bnt acea-row">
+        <view class="joinCart" @click="joinCart">
+          <text>加入购物车</text>
+        </view>
+        <view class="buy" @click="tapBuy">
+          <text>立即购买</text>
+        </view>
+      </view>
+    </view>
     <CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
     <StorePoster
@@ -141,18 +137,18 @@
       :posterData="posterData"
     ></StorePoster>
     <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
-    <div class="generate-posters acea-row row-middle" :class="posters ? 'on' : ''">
-      <div class="item" v-if="weixinStatus === true" @click="setShareInfoStatus">
-        <div class="iconfont icon-weixin3"></div>
-        <div class>发送给朋友</div>
-      </div>
-      <div class="item" @click="setPosterImageStatus">
-        <div class="iconfont icon-haibao"></div>
-        <div class>生成海报</div>
-      </div>
-    </div>
-    <div class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></div>
-    <div class="geoPage" v-if="mapShow">
+    <view class="generate-posters acea-row row-middle" :class="posters ? 'on' : ''">
+      <view class="item" v-if="weixinStatus === true" @click="setShareInfoStatus">
+        <view class="iconfont icon-weixin3"></view>
+        <view class>发送给朋友</view>
+      </view>
+      <view class="item" @click="setPosterImageStatus">
+        <view class="iconfont icon-haibao"></view>
+        <view class>生成海报</view>
+      </view>
+    </view>
+    <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
+    <view class="geoPage" v-if="mapShow">
       <iframe
         width="100%"
         height="100%"
@@ -160,8 +156,8 @@
         scrolling="no"
         :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +system_store.latitude +',' +system_store.longitude +'&referer=' +mapKey"
       ></iframe>
-    </div>
-  </div>
+    </view>
+  </view>
 </template>
 
 <script>
@@ -272,12 +268,16 @@ export default {
       this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");
     },
     goCustomerList() {
-      this.$yrouter.push({ path: "/pages/user/CustomerList/index" });
+      this.$yrouter.push({
+        path: "/pages/user/CustomerList/index"
+      });
     },
     goEvaluateList(id) {
       this.$yrouter.push({
         path: "/pages/shop/EvaluateList/index",
-        query: { id }
+        query: {
+          id
+        }
       });
     },
     showChang: function() {
@@ -297,10 +297,14 @@ export default {
         //     }
         //   });
       } else {
-        if (!this.mapKey)
-          return this.$dialog.error(
-            "暂无法使用查看地图，请配置您的腾讯地图key"
-          );
+        if (!this.mapKey) {
+          uni.showToast({
+            title: "暂无法使用查看地图，请配置您的腾讯地图key",
+            icon: "none",
+            duration: 2000
+          });
+          return;
+        }
         this.mapShow = true;
       }
     },
@@ -350,7 +354,10 @@ export default {
           let count = Math.ceil(good_list.length / 6);
           for (let i = 0; i < count; i++) {
             var list = good_list.slice(i * 6, 6);
-            if (list.length) goodArray.push({ list: list });
+            if (list.length)
+              goodArray.push({
+                list: list
+              });
           }
           that.mapKay = res.data.mapKay;
           that.$set(that, "goodList", goodArray);
@@ -476,7 +483,10 @@ export default {
     //可领取优惠券接口；
     coupons: function() {
       let that = this,
-        q = { page: 1, limit: 20 };
+        q = {
+          page: 1,
+          limit: 20
+        };
       getCoupon(q).then(res => {
         that.$set(that, "couponList", res.data || []);
         that.$set(that.coupon, "list", res.data);
@@ -566,8 +576,14 @@ export default {
         that.attr.productAttr.length &&
         productSelect === undefined &&
         that.isOpen === true
-      )
-        return that.$dialog.toast({ mes: "产品库存不足，请选择其它" });
+      ) {
+        uni.showToast({
+          title: "产品库存不足，请选择其它",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
       let q = {
         productId: that.id,
         cartNum: that.attr.productSelect.cart_num,
@@ -584,12 +600,16 @@ export default {
           if (news) {
             that.$yrouter.push({
               path: "/pages/order/OrderSubmission/index",
-              query: { id: res.data.cartId }
+              query: {
+                id: res.data.cartId
+              }
             });
           } else {
-            that.$dialog.toast({
-              mes: "添加购物车成功",
-              callback: () => {
+            uni.showToast({
+              title: "添加购物车成功",
+              icon: "success",
+              duration: 2000,
+              complete: () => {
                 that.getCartCount(true);
               }
             });
@@ -609,7 +629,9 @@ export default {
       let that = this;
       const isLogin = that.isLogin;
       if (isLogin) {
-        getCartCount({ numType: 0 }).then(res => {
+        getCartCount({
+          numType: 0
+        }).then(res => {
           that.CartCount = res.data.count;
           //加入购物车后重置属性
           if (isAnima) {
@@ -648,10 +670,12 @@ export default {
   top: 0;
   z-index: 10000;
 }
+
 .product-con .store-info {
   margin-top: 0.2rem;
   background-color: #fff;
 }
+
 .product-con .store-info .title {
   padding: 0 0.3rem;
   font-size: 0.28rem;
@@ -660,56 +684,70 @@ export default {
   line-height: 0.8rem;
   border-bottom: 0.01rem solid #f5f5f5;
 }
+
 .product-con .store-info .info {
   padding: 0 0.3rem;
   height: 1.26rem;
 }
+
 .product-con .store-info .info .picTxt {
   width: 6.15rem;
 }
+
 .product-con .store-info .info .picTxt .pictrue {
   width: 0.76rem;
   height: 0.76rem;
 }
-.product-con .store-info .info .picTxt .pictrue img {
+
+.product-con .store-info .info .picTxt .pictrue image {
   width: 100%;
   height: 100%;
   border-radius: 0.06rem;
 }
+
 .product-con .store-info .info .picTxt .text {
   width: 5.22rem;
 }
+
 .product-con .store-info .info .picTxt .text .name {
   font-size: 0.3rem;
   color: #282828;
 }
+
 .product-con .store-info .info .picTxt .text .address {
   font-size: 0.24rem;
   color: #666;
   margin-top: 0.03rem;
 }
+
 .product-con .store-info .info .picTxt .text .address .iconfont {
   color: #707070;
   font-size: 0.18rem;
   margin-left: 0.1rem;
 }
+
 .product-con .store-info .info .picTxt .text .address .addressTxt {
   width: 4.8rem;
 }
+
 .product-con .store-info .info .iconfont {
   font-size: 0.4rem;
 }
+
 .product-con .superior {
   background-color: #fff;
   margin-top: 0.2rem;
 }
+
 .product-con .superior .title {
   height: 0.98rem;
 }
-.product-con .superior .title img {
+
+.product-con .superior .title image {
   width: 0.3rem;
   height: 0.3rem;
 }
+
 .product-con .superior .title .titleTxt {
   margin: 0 0.2rem;
   font-size: 0.3rem;
@@ -719,39 +757,48 @@ export default {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
 .product-con .superior .slider-banner {
   width: 6.9rem;
   margin: 0 auto;
   padding-bottom: 0.2rem;
 }
+
 .product-con .superior .slider-banner .list {
   width: 100%;
   padding-bottom: 0.2rem;
 }
+
 .product-con .superior .slider-banner .list .item {
   width: 2.15rem;
   margin: 0 0.22rem 0.3rem 0;
   font-size: 0.26rem;
 }
+
 .product-con .superior .slider-banner .list .item:nth-of-type(3n) {
   margin-right: 0;
 }
+
 .product-con .superior .slider-banner .list .item .pictrue {
   width: 100%;
   height: 2.15rem;
 }
-.product-con .superior .slider-banner .list .item .pictrue img {
+
+.product-con .superior .slider-banner .list .item .pictrue image {
   width: 100%;
   height: 100%;
   border-radius: 0.06rem;
 }
+
 .product-con .superior .slider-banner .list .item .name {
   color: #282828;
   margin-top: 0.12rem;
 }
+
 .product-con .superior .slider-banner .swiper-pagination-bullet {
   background-color: #999;
 }
+
 .product-con .superior .slider-banner .swiper-pagination-bullet-active {
   background-color: #e93323;
 }
@@ -762,12 +809,15 @@ export default {
   -ms-filter: blur(2px);
   filter: blur(2px);
 }
+
 .footer .icon-shoucang1 {
   color: #73cbb6;
 }
-.product-con .product-intro .conter div {
+
+.product-con .product-intro .conter view {
   width: 100% !important;
 }
+
 .generate-posters {
   width: 100%;
   height: 1.7rem;
@@ -786,6 +836,7 @@ export default {
   -moz-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
   -o-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
 }
+
 .generate-posters.on {
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
@@ -793,19 +844,23 @@ export default {
   -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
 }
+
 .generate-posters .item {
   flex: 50%;
   -webkit-flex: 50%;
   -ms-flex: 50%;
   text-align: center;
 }
+
 .generate-posters .item .iconfont {
   font-size: 0.8rem;
   color: #5eae72;
 }
+
 .generate-posters .item .iconfont.icon-haibao {
   color: #5391f1;
 }
+
 .noscroll {
   height: 100%;
   overflow: hidden;

@@ -1,18 +1,18 @@
 <template>
-  <div class="bargain">
+  <view class="bargain">
     <!-- 在header上加 on 为请求支援 -->
-    <div :class="[bargainPartake != userInfo.uid ? 'header on' : 'header']">
-      <div class="people">{{ lookCount }}人查看 丨 {{ shareCount }}人分享 丨 {{ userCount }}人参与</div>
+    <view :class="[bargainPartake != userInfo.uid ? 'header on' : 'header']">
+      <view class="people">{{ lookCount }}人查看 丨 {{ shareCount }}人分享 丨 {{ userCount }}人参与</view>
       <!-- 帮助砍价、帮砍成功：-->
-      <div class="pictxt acea-row row-center-wrapper" v-if="bargainPartake != userInfo.uid">
-        <div class="pictrue">
-          <img :src="bargainUserInfo.avatar" />
-        </div>
-        <div class="text">
+      <view class="pictxt acea-row row-center-wrapper" v-if="bargainPartake != userInfo.uid">
+        <view class="pictrue">
+          <image :src="bargainUserInfo.avatar" />
+        </view>
+        <view class="text">
           {{ bargainUserInfo.nickname }}
-          <span>邀请您帮忙砍价</span>
-        </div>
-      </div>
+          <text>邀请您帮忙砍价</text>
+        </view>
+      </view>
       <count-down
         :is-day="true"
         :tip-text="'倒计时 '"
@@ -22,143 +22,142 @@
         :second-text="' 秒'"
         :datatime="datatime"
       ></count-down>
-    </div>
-    <div class="wrapper">
-      <div class="pictxt acea-row row-between-wrapper">
-        <div class="pictrue">
-          <img :src="bargain.image" />
-        </div>
-        <div class="text acea-row row-column-around">
-          <div class="line2" v-text="bargain.title"></div>
-          <div class="money font-color-red">
+    </view>
+    <view class="wrapper">
+      <view class="pictxt acea-row row-between-wrapper">
+        <view class="pictrue">
+          <image :src="bargain.image" />
+        </view>
+        <view class="text acea-row row-column-around">
+          <view class="line2" v-text="bargain.title"></view>
+          <view class="money font-color-red">
             已砍至: ￥
-            <span class="num" v-text="price"></span>
-          </div>
-          <div class="acea-row row-middle">
-            <div class="successNum" v-text="'原价' + bargain.price"></div>
-            <div class="successNum" v-text="'已有' + bargainSumCount + '人砍价成功'"></div>
-          </div>
-        </div>
-      </div>
-      <div class="cu-progress acea-row row-middle round margin-top">
-        <div
+            <text class="num" v-text="price"></text>
+          </view>
+          <view class="acea-row row-middle">
+            <view class="successNum" v-text="'原价' + bargain.price"></view>
+            <view class="successNum" v-text="'已有' + bargainSumCount + '人砍价成功'"></view>
+          </view>
+        </view>
+      </view>
+      <view class="cu-progress acea-row row-middle round margin-top">
+        <view
           class="acea-row row-middle bg-red"
           :style="{ width: loading ? pricePercent + '%' : '' }"
-        ></div>
-      </div>
-      <div class="balance acea-row row-between-wrapper">
-        <div v-text="'已砍' + alreadyPrice + '元'"></div>
-        <div v-if="surplusPrice === 0">砍价成功</div>
-        <div v-else v-text="'还剩' + surplusPrice + '元'"></div>
-      </div>
+        ></view>
+      </view>
+      <view class="balance acea-row row-between-wrapper">
+        <view v-text="'已砍' + alreadyPrice + '元'"></view>
+        <view v-if="surplusPrice === 0">砍价成功</view>
+        <view v-else v-text="'还剩' + surplusPrice + '元'"></view>
+      </view>
       <!-- 帮助砍价、帮砍成功：-->
-      <!--<div class='bargainSuccess'><span class='iconfont icon-xiaolian'></span>已成功帮助好友砍价</div>-->
-      <div class="bargainBnts">
-        <div
+      <!--<view class='bargainSuccess'><text class='iconfont icon-xiaolian'></text>已成功帮助好友砍价</view>-->
+      <view class="bargainBnts">
+        <view
           class="bargainBnt"
           @click="goPoster"
           v-if="bargainPartake === userInfo.uid && surplusPrice > 0"
-        >邀请好友帮砍价</div>
-        <div
+        >邀请好友帮砍价</view>
+        <view
           class="bargainBnt"
           @click="getBargainHelp"
           v-else-if="bargainPartake != userInfo.uid"
-        >帮好友砍一刀</div>
-        <div class="bargainBnt" @click="getBargainStart" v-if="bargainPartake != userInfo.uid">开启砍价</div>
-        <div
+        >帮好友砍一刀</view>
+        <view class="bargainBnt" @click="getBargainStart" v-if="bargainPartake != userInfo.uid">开启砍价</view>
+        <view
           class="bargainBnt"
           @click="goPay"
           v-if="surplusPrice === 0 && bargainPartake === userInfo.uid && userBargainStatus === 1"
-        >立即支付</div>
-        <div class="bargainBnt on" @click="goList">抢更多商品</div>
-      </div>
-      <div class="tip">
+        >立即支付</view>
+        <view class="bargainBnt on" @click="goList">抢更多商品</view>
+      </view>
+      <view class="tip">
         已有
-        <span class="font-color-red" v-text="helpCount"></span>
-        位好友成功帮您砍价
-      </div>
-      <div class="lock"></div>
-    </div>
-    <div class="bargainGang">
-      <div class="title font-color-red acea-row row-center-wrapper">
-        <div class="pictrue">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-        <div class="titleCon">砍价帮</div>
-        <div class="pictrue on">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-      </div>
-      <div class="list">
-        <div
+        <text class="font-color-red" v-text="helpCount"></text>位好友成功帮您砍价
+      </view>
+      <view class="lock"></view>
+    </view>
+    <view class="bargainGang">
+      <view class="title font-color-red acea-row row-center-wrapper">
+        <view class="pictrue">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+        <view class="titleCon">砍价帮</view>
+        <view class="pictrue on">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+      </view>
+      <view class="list">
+        <view
           class="item acea-row row-between-wrapper"
           v-for="(item, bargainHelpListIndex) in bargainHelpList"
           :key="bargainHelpListIndex"
         >
-          <div class="pictxt acea-row row-between-wrapper">
-            <div class="pictrue">
-              <img :src="item.avatar" />
-            </div>
-            <div class="text">
-              <div class="name line1" v-text="item.nickname"></div>
-              <div class="line1" v-text="item.add_time"></div>
-            </div>
-          </div>
-          <div class="money font-color-red">
-            <span class="iconfont icon-kanjia"></span>
+          <view class="pictxt acea-row row-between-wrapper">
+            <view class="pictrue">
+              <image :src="item.avatar" />
+            </view>
+            <view class="text">
+              <view class="name line1" v-text="item.nickname"></view>
+              <view class="line1" v-text="item.add_time"></view>
+            </view>
+          </view>
+          <view class="money font-color-red">
+            <text class="iconfont icon-kanjia"></text>
             砍掉{{ item.price }}元
-          </div>
-        </div>
-      </div>
-      <div
+          </view>
+        </view>
+      </view>
+      <view
         class="load font-color-red"
         v-if="!helpListStatus && !helpListLoading"
         @click="getBargainHelpList"
-      >点击加载更多</div>
-      <div class="lock"></div>
-    </div>
-    <div class="goodsDetails">
-      <div class="title font-color-red acea-row row-center-wrapper">
-        <div class="pictrue">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-        <div class="titleCon">商品详情</div>
-        <div class="pictrue on">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-      </div>
-      <div class="conter" v-html="bargain.description"></div>
-      <div class="lock"></div>
-    </div>
-    <div class="goodsDetails">
-      <div class="title font-color-red acea-row row-center-wrapper">
-        <div class="pictrue">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-        <div class="titleCon">活动规则</div>
-        <div class="pictrue on">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
-        </div>
-      </div>
-      <div class="conter" v-html="bargain.rule"></div>
-    </div>
-    <div class="bargainTip" :class="active === true ? 'on' : ''">
-      <div class="pictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/bargainBg.jpg'" />
-        <div class="iconfont icon-guanbi" @click="close"></div>
-      </div>
-      <div class="cutOff" v-if="bargainPartake === userInfo.uid">
+      >点击加载更多</view>
+      <view class="lock"></view>
+    </view>
+    <view class="goodsDetails">
+      <view class="title font-color-red acea-row row-center-wrapper">
+        <view class="pictrue">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+        <view class="titleCon">商品详情</view>
+        <view class="pictrue on">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+      </view>
+      <view class="conter" v-html="bargain.description"></view>
+      <view class="lock"></view>
+    </view>
+    <view class="goodsDetails">
+      <view class="title font-color-red acea-row row-center-wrapper">
+        <view class="pictrue">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+        <view class="titleCon">活动规则</view>
+        <view class="pictrue on">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+        </view>
+      </view>
+      <view class="conter" v-html="bargain.rule"></view>
+    </view>
+    <view class="bargainTip" :class="active === true ? 'on' : ''">
+      <view class="pictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/bargainBg.jpg'" />
+        <view class="iconfont icon-guanbi" @click="close"></view>
+      </view>
+      <view class="cutOff" v-if="bargainPartake === userInfo.uid">
         您已砍掉
-        <span class="font-color-red" v-text="bargainHelpPrice"></span>元，听说分享次数越多砍价成功的机会越大哦！
-      </div>
-      <div class="cutOff on" v-else>
-        <div class="help font-color-red" v-text="'成功帮砍' + bargainHelpPrice + '元'"></div>，您也可以砍价低价拿哦，快去挑选心仪的商品吧~
-      </div>
-      <div class="tipBnt" @click="goPoster" v-if="bargainPartake === userInfo.uid">邀请好友帮砍价</div>
-      <div class="tipBnt" @click="getBargainStart" v-else>我也要参与</div>
-    </div>
-    <div class="mask" @touchmove.prevent :hidden="active === false" @click="close"></div>
-  </div>
+        <text class="font-color-red" v-text="bargainHelpPrice"></text>元，听说分享次数越多砍价成功的机会越大哦！
+      </view>
+      <view class="cutOff on" v-else>
+        <view class="help font-color-red" v-text="'成功帮砍' + bargainHelpPrice + '元'"></view>，您也可以砍价低价拿哦，快去挑选心仪的商品吧~
+      </view>
+      <view class="tipBnt" @click="goPoster" v-if="bargainPartake === userInfo.uid">邀请好友帮砍价</view>
+      <view class="tipBnt" @click="getBargainStart" v-else>我也要参与</view>
+    </view>
+    <view class="mask" @touchmove.prevent :hidden="active === false" @click="close"></view>
+  </view>
 </template>
 <script>
 import CountDown from "@/components/CountDown";
@@ -279,7 +278,11 @@ export default {
           });
         })
         .catch(err => {
-          this.$dialog.error(err.msg || err.response.data.msg);
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     goPoster: function() {
@@ -364,7 +367,12 @@ export default {
             res.data.status === "SUCCESSFUL" &&
             that.bargainPartake !== that.userInfo.uid
           ) {
-            return that.$dialog.toast({ mes: "您已经砍过了" });
+            uni.showToast({
+              title: "您已经砍过了",
+              icon: "none",
+              duration: 2000
+            });
+            return;
           }
           that.helpListStatus = false;
           that.page = 1;
@@ -492,9 +500,7 @@ export default {
   },
   onShareAppMessage() {
     return {
-      path: `/pages/activity/DargainDetails/index/?id=${
-        this.$yroute.query.id
-      }&partake=${this.userInfo.uid}`
+      path: `/pages/activity/DargainDetails/index/?id=${this.$yroute.query.id}&partake=${this.userInfo.uid}`
     };
   }
 };

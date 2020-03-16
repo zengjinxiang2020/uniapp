@@ -1,45 +1,45 @@
 <template>
-  <div class="return-list" ref="container">
-    <div class="goodWrapper" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
-      <div class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></div>
-      <div class="iconfont icon-yituikuan" v-if="order._status._type === -2"></div>
-      <div class="orderNum">订单号：{{ order.orderId }}</div>
-      <div
+  <view class="return-list" ref="container">
+    <view class="goodWrapper" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
+      <view class="iconfont icon-tuikuanzhong powder" v-if="order._status._type === -1"></view>
+      <view class="iconfont icon-yituikuan" v-if="order._status._type === -2"></view>
+      <view class="orderNum">订单号：{{ order.orderId }}</view>
+      <view
         class="item acea-row row-between-wrapper"
         v-for="(cart,cartInfoIndex) in order.cartInfo"
         :key="cartInfoIndex"
         @click="goOrderDetails(order)"
       >
-        <div class="pictrue">
-          <img :src="cart.productInfo.image" class="image" @click.stop="goGoodsCon(cart)" />
-        </div>
-        <div class="text">
-          <div class="acea-row row-between-wrapper">
-            <div class="name line1">{{ cart.productInfo.storeName }}</div>
-            <div class="num">x {{ cart.cartNum }}</div>
-          </div>
-          <div
+        <view class="pictrue">
+          <image :src="cart.productInfo.image" class="image" @click.stop="goGoodsCon(cart)" />
+        </view>
+        <view class="text">
+          <view class="acea-row row-between-wrapper">
+            <view class="name line1">{{ cart.productInfo.storeName }}</view>
+            <view class="num">x {{ cart.cartNum }}</view>
+          </view>
+          <view
             class="attr line1"
             v-if="cart.productInfo.attrInfo"
-          >{{ cart.productInfo.attrInfo.suk }}</div>
-          <div class="attr line1" v-else>{{ cart.productInfo.storeName }}</div>
-          <div class="money">￥{{ cart.productInfo.price }}</div>
-        </div>
-      </div>
-      <div class="totalSum">
+          >{{ cart.productInfo.attrInfo.suk }}</view>
+          <view class="attr line1" v-else>{{ cart.productInfo.storeName }}</view>
+          <view class="money">￥{{ cart.productInfo.price }}</view>
+        </view>
+      </view>
+      <view class="totalSum">
         共{{ order.cartInfo.length || 0 }}件商品，总金额
-        <span
+        <text
           class="font-color-red price"
-        >￥{{ order.payPrice }}</span>
-      </div>
-    </div>
-    <div class="noCart" v-if="orderList.length === 0 && page > 1">
-      <div class="pictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noOrder.png'" />
-      </div>
-    </div>
+        >￥{{ order.payPrice }}</text>
+      </view>
+    </view>
+    <view class="noCart" v-if="orderList.length === 0 && page > 1">
+      <view class="pictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noOrder.png'" />
+      </view>
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 
 <script>

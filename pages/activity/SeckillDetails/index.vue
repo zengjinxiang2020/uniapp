@@ -1,15 +1,15 @@
 <template>
-  <div :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
+  <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
     <product-con-swiper :imgUrls="imgUrls"></product-con-swiper>
-    <div class="nav acea-row row-between-wrapper">
-      <div class="money">
+    <view class="nav acea-row row-between-wrapper">
+      <view class="money">
         ￥
-        <span class="num" v-text="storeInfo.price"></span>
-        <span class="y-money" v-text="'￥' + storeInfo.price"></span>
-      </div>
-      <div class="acea-row row-middle">
-        <div class="times">
-          <div>距秒杀结束仅剩</div>
+        <text class="num" v-text="storeInfo.price"></text>
+        <text class="y-money" v-text="'￥' + storeInfo.price"></text>
+      </view>
+      <view class="acea-row row-middle">
+        <view class="times">
+          <view>距秒杀结束仅剩</view>
           <count-down
             :is-day="false"
             :tip-text="''"
@@ -19,42 +19,42 @@
             :second-text="''"
             :datatime="datatime"
           ></count-down>
-        </div>
-        <div class="iconfont icon-jiantou"></div>
-      </div>
-    </div>
-    <div class="wrapperRush">
-      <div class="introduce acea-row row-between">
-        <div class="infor" v-text="storeInfo.title"></div>
-        <div class="iconfont icon-fenxiang" @click="setPosterImageStatus"></div>
-      </div>
-      <div class="label acea-row row-middle">
-        <div class="stock" v-text="'库存:' + storeInfo.stock + '件'"></div>
-        <div v-text="'销量:' + storeInfo.sales + '件'"></div>
-      </div>
-    </div>
-    <div class="product-intro">
-      <div class="title">产品介绍</div>
-      <div class="conter" v-html="storeInfo.description"></div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="footerRush acea-row row-between-wrapper">
-      <div
+        </view>
+        <view class="iconfont icon-jiantou"></view>
+      </view>
+    </view>
+    <view class="wrapperRush">
+      <view class="introduce acea-row row-between">
+        <view class="infor" v-text="storeInfo.title"></view>
+        <view class="iconfont icon-fenxiang" @click="setPosterImageStatus"></view>
+      </view>
+      <view class="label acea-row row-middle">
+        <view class="stock" v-text="'库存:' + storeInfo.stock + '件'"></view>
+        <view v-text="'销量:' + storeInfo.sales + '件'"></view>
+      </view>
+    </view>
+    <view class="product-intro">
+      <view class="title">产品介绍</view>
+      <view class="conter" v-html="storeInfo.description"></view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="footerRush acea-row row-between-wrapper">
+      <view
         class="customerSer acea-row row-center-wrapper row-column"
         @click="routerGo()"
       >
-        <div class="iconfont icon-kefu"></div>
-        <div>客服</div>
-      </div>
-      <div class="bnt bg-color-red" @click="tapBuy">立即购买</div>
-    </div>
+        <view class="iconfont icon-kefu"></view>
+        <view>客服</view>
+      </view>
+      <view class="bnt bg-color-red" @click="tapBuy">立即购买</view>
+    </view>
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster
       v-on:setPosterImageStatus="setPosterImageStatus"
       :posterImageStatus="posterImageStatus"
       :posterData="posterData"
     ></StorePoster>
-  </div>
+  </view>
 </template>
 <style scoped>
 .noscroll {
@@ -215,8 +215,11 @@ export default {
             });
           })
           .catch(err => {
-            console.log(err);
-            this.$dialog.error(err.msg || err.response.data.msg);
+            uni.showToast({
+            	title: err.msg || err.response.data.msg,
+            	icon: 'none',
+            	duration: 2000
+            });
           });
       }
     }

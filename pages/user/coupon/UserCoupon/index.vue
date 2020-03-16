@@ -1,35 +1,35 @@
 <template>
-  <div ref="container">
-    <div class="coupon-list" v-if="couponsList.length > 0">
-      <div
+  <view ref="container">
+    <view class="coupon-list" v-if="couponsList.length > 0">
+      <view
         class="item acea-row row-center-wrapper"
         v-for="(item, couponsListIndex) in couponsList"
         :key="couponsListIndex"
       >
-        <div class="money" :class="item._type === 0 ? 'moneyGray' : ''">
-          ￥<span class="num">{{ item.couponPrice }}</span>
-        </div>
-        <div class="text">
-          <div class="condition line1">{{ item.couponTitle }}</div>
-          <div class="data acea-row row-between-wrapper">
-            <div v-if="item.endTime === 0">不限时</div>
-            <div v-else><data-format-t :data="item.addTime"></data-format-t> - <data-format-t :data="item.endTime"></data-format-t></div>
-            <div class="bnt gray" v-if="item._type === 0">{{ item._msg }}</div>
-            <div class="bnt bg-color-red" v-else>{{ item._msg }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <view class="money" :class="item._type === 0 ? 'moneyGray' : ''">
+          ￥<text class="num">{{ item.couponPrice }}</text>
+        </view>
+        <view class="text">
+          <view class="condition line1">{{ item.couponTitle }}</view>
+          <view class="data acea-row row-between-wrapper">
+            <view v-if="item.endTime === 0">不限时</view>
+            <view v-else><data-format-t :data="item.addTime"></data-format-t> - <data-format-t :data="item.endTime"></data-format-t></view>
+            <view class="bnt gray" v-if="item._type === 0">{{ item._msg }}</view>
+            <view class="bnt bg-color-red" v-else>{{ item._msg }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <!--暂无优惠券-->
-    <div
+    <view
       class="noCommodity"
       v-if="couponsList.length === 0 && loading === true"
     >
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
-      </div>
-    </div>
-  </div>
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { getCouponsUser } from "@/api/user";

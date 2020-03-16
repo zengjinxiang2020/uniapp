@@ -1,45 +1,45 @@
 <template>
-  <div class="productList" ref="container">
+  <view class="productList" ref="container">
     <form @submit.prevent="submitForm">
-      <div class="search bg-color-red acea-row row-between-wrapper">
-        <div class="input acea-row row-between-wrapper">
-          <span class="iconfont icon-sousuo"></span>
+      <view class="search bg-color-red acea-row row-between-wrapper">
+        <view class="input acea-row row-between-wrapper">
+          <text class="iconfont icon-sousuo"></text>
           <input placeholder="搜索商品信息" v-model="where.keyword" />
-        </div>
-        <div
+        </view>
+        <view
           class="iconfont"
           :class="Switch === true ? 'icon-pailie' : 'icon-tupianpailie'"
           @click="switchTap"
-        ></div>
-      </div>
+        ></view>
+      </view>
     </form>
-    <div class="nav acea-row row-middle">
-      <div
+    <view class="nav acea-row row-middle">
+      <view
         class="item"
         :class="title ? 'font-color-red' : ''"
         @click="set_where(0)"
-      >{{ title ? title : "默认" }}</div>
-      <div class="item" @click="set_where(1)">
+      >{{ title ? title : "默认" }}</view>
+      <view class="item" @click="set_where(1)">
         价格
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/horn.png'" v-if="price === 0" />
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/up.png'" v-if="price === 1" />
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/down.png'" v-if="price === 2" />
-      </div>
-      <div class="item" @click="set_where(2)">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/horn.png'" v-if="price === 0" />
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/up.png'" v-if="price === 1" />
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/down.png'" v-if="price === 2" />
+      </view>
+      <view class="item" @click="set_where(2)">
         销量
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/horn.png'" v-if="stock === 0" />
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/up.png'" v-if="stock === 1" />
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/down.png'" v-if="stock === 2" />
-      </div>
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/horn.png'" v-if="stock === 0" />
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/up.png'" v-if="stock === 1" />
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/down.png'" v-if="stock === 2" />
+      </view>
       <!-- down -->
-      <div class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</div>
-    </div>
-    <div
+      <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
+    </view>
+    <view
       class="list acea-row row-between-wrapper"
       :class="Switch === true ? '' : 'on'"
       ref="container"
     >
-      <div
+      <view
         @click="goGoodsCon(item)"
         class="item"
         :class="Switch === true ? '' : 'on'"
@@ -47,34 +47,34 @@
         :key="productListIndex"
         :title="item.storeName"
       >
-        <div class="pictrue" :class="Switch === true ? '' : 'on'">
-          <img :src="item.image" :class="Switch === true ? '' : 'on'" />
-        </div>
-        <div class="text" :class="Switch === true ? '' : 'on'">
-          <div class="name line1">{{ item.storeName }}</div>
-          <div class="money font-color-red" :class="Switch === true ? '' : 'on'">
+        <view class="pictrue" :class="Switch === true ? '' : 'on'">
+          <image :src="item.image" :class="Switch === true ? '' : 'on'" />
+        </view>
+        <view class="text" :class="Switch === true ? '' : 'on'">
+          <view class="name line1">{{ item.storeName }}</view>
+          <view class="money font-color-red" :class="Switch === true ? '' : 'on'">
             ￥
-            <span class="num">{{ item.price }}</span>
-          </div>
-          <div class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
-            <div class="vip-money">￥{{ item.otPrice }}</div>
-            <div>已售{{ item.sales }}件</div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <text class="num">{{ item.price }}</text>
+          </view>
+          <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
+            <view class="vip-money">￥{{ item.otPrice }}</view>
+            <view>已售{{ item.sales }}件</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loadend" :loading="loading"></Loading>
-    <div
+    <view
       class="noCommodity"
       style="background-color: #fff;"
       v-if="productList.length === 0 && where.page > 1"
     >
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
-      </div>
-    </div>
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
+      </view>
+    </view>
     <Recommend v-if="productList.length === 0 && where.page > 1"></Recommend>
-  </div>
+  </view>
 </template>
 <script>
 import Recommend from "@/components/Recommend";

@@ -1,30 +1,30 @@
 <template>
-  <div class="bill-details" ref="container">
-    <div class="nav acea-row">
-      <div class="item" :class="types == 0 ? 'on' : ''" @click="changeTypes(0)">全部</div>
-      <div class="item" :class="types == 1 ? 'on' : ''" @click="changeTypes(1)">消费</div>
-    </div>
-    <div class="sign-record">
-      <div class="list">
-        <div class="item" v-for="(item, listIndex) in list" :key="listIndex">
-          <div class="data">{{ item.time }}</div>
-          <div class="listn" v-for="(val, key) in item.list" :key="key">
-            <div class="itemn acea-row row-between-wrapper">
-              <div>
-                <div class="name line1">{{ val.title }}</div>
-                <div>{{ val.add_time }}</div>
-              </div>
-              <div
+  <view class="bill-details" ref="container">
+    <view class="nav acea-row">
+      <view class="item" :class="types == 0 ? 'on' : ''" @click="changeTypes(0)">全部</view>
+      <view class="item" :class="types == 1 ? 'on' : ''" @click="changeTypes(1)">消费</view>
+    </view>
+    <view class="sign-record">
+      <view class="list">
+        <view class="item" v-for="(item, listIndex) in list" :key="listIndex">
+          <view class="data">{{ item.time }}</view>
+          <view class="listn" v-for="(val, key) in item.list" :key="key">
+            <view class="itemn acea-row row-between-wrapper">
+              <view>
+                <view class="name line1">{{ val.title }}</view>
+                <view>{{ val.add_time }}</view>
+              </view>
+              <view
                 class="num"
                 :class="val.pm == 0 ? 'font-color-red' : ''"
-              >{{ val.pm == 0 ? "-" : "+" }}{{ val.number }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              >{{ val.pm == 0 ? "-" : "+" }}{{ val.number }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import { getCommissionInfo } from "@/api/user";
@@ -95,8 +95,12 @@ export default {
           that.where.page = that.where.page + 1;
           that.list.push.apply(that.list, res.data);
         },
-        error => {
-          that.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     }

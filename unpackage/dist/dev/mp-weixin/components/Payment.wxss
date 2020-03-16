@@ -1,5 +1,5 @@
 
-.payment.data-v-005af410 {
+.payment.data-v-0deb0dae {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -18,14 +18,14 @@
   -moz-transform: translate3d(0, 100%, 0);
   -o-transform: translate3d(0, 100%, 0);
 }
-.payment.on.data-v-005af410 {
+.payment.on.data-v-0deb0dae {
   transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -o-transform: translate3d(0, 0, 0);
 }
-.payment .title.data-v-005af410 {
+.payment .title.data-v-0deb0dae {
   text-align: center;
   height: 1.23rem;
   font-size: 0.32rem;
@@ -36,7 +36,7 @@
   position: relative;
   border-bottom: 0.01rem solid #eee;
 }
-.payment .title .iconfont.data-v-005af410 {
+.payment .title .iconfont.data-v-0deb0dae {
   position: absolute;
   right: 0.3rem;
   top: 50%;
@@ -46,43 +46,43 @@
   color: #8a8a8a;
   font-weight: normal;
 }
-.payment .item.data-v-005af410 {
+.payment .item.data-v-0deb0dae {
   border-bottom: 0.01rem solid #eee;
   height: 1.3rem;
   margin-left: 0.3rem;
   padding-right: 0.3rem;
 }
-.payment .item .left.data-v-005af410 {
+.payment .item .left.data-v-0deb0dae {
   width: 6.1rem;
 }
-.payment .item .left .text.data-v-005af410 {
+.payment .item .left .text.data-v-0deb0dae {
   width: 5.4rem;
 }
-.payment .item .left .text .name.data-v-005af410 {
+.payment .item .left .text .name.data-v-0deb0dae {
   font-size: 0.32rem;
   color: #282828;
 }
-.payment .item .left .text .info.data-v-005af410 {
+.payment .item .left .text .info.data-v-0deb0dae {
   font-size: 0.24rem;
   color: #999;
 }
-.payment .item .left .text .info .money.data-v-005af410 {
+.payment .item .left .text .info .money.data-v-0deb0dae {
   color: #ff9900;
 }
-.payment .item .left .iconfont.data-v-005af410 {
+.payment .item .left .iconfont.data-v-0deb0dae {
   font-size: 0.45rem;
   color: #09bb07;
 }
-.payment .item .left .iconfont.icon-zhifubao.data-v-005af410 {
+.payment .item .left .iconfont.icon-zhifubao.data-v-0deb0dae {
   color: #00aaea;
 }
-.payment .item .left .iconfont.icon-yuezhifu.data-v-005af410 {
+.payment .item .left .iconfont.icon-yuezhifu.data-v-0deb0dae {
   color: #ff9900;
 }
-.payment .item .left .iconfont.icon-yuezhifu1.data-v-005af410 {
+.payment .item .left .iconfont.icon-yuezhifu1.data-v-0deb0dae {
   color: #eb6623;
 }
-.payment .item .iconfont.data-v-005af410 {
+.payment .item .iconfont.data-v-0deb0dae {
   font-size: 0.3rem;
   color: #999;
 }

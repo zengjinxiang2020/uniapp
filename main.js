@@ -8,13 +8,13 @@ import schema from "async-validator";
 import dialog from "./utils/dialog";
 import cookie from "@/utils/store/cookie";
 
-// import "@/assets/iconfont/iconfont";
-import "@/assets/iconfont/iconfont.css";
-// import "@/assets/js/media_750";
-// import "vue-ydui/dist/ydui.base.css";
-import "@/assets/css/base.less";
-import "@/assets/css/reset.less";
-import "@/assets/css/style.less";
+// // import "@/assets/iconfont/iconfont";
+// import "@/assets/iconfont/iconfont.css";
+// // import "@/assets/js/media_750";
+// // import "vue-ydui/dist/ydui.base.css";
+// import "@/assets/css/base.less";
+// import "@/assets/css/reset.less";
+// import "@/assets/css/style.less";
 
 import {
 	parseRoute,

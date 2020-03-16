@@ -1,75 +1,75 @@
 <template>
-  <div class="integral-details" ref="container">
-    <div class="header">
-      <div class="currentScore">当前积分</div>
-      <div>{{ info.integral }}</div>
-      <div class="line"></div>
-      <!--<div class="nav acea-row">-->
-      <!--<div class="item">-->
-      <!--<div class="num">{{ info.sum_integral }}</div>-->
-      <!--<div>累计积分</div>-->
-      <!--</div>-->
-      <!--<div class="item">-->
-      <!--<div class="num">{{ info.deduction_integral }}</div>-->
-      <!--<div>累计消费</div>-->
-      <!--</div>-->
-      <!--<div class="item">-->
-      <!--<div class="num">{{ info.today_integral }}</div>-->
-      <!--<div>今日获得</div>-->
-      <!--</div>-->
-      <!--</div>-->
-    </div>
-    <div class="wrapper">
-      <div class="nav acea-row">
-        <div
+  <view class="integral-details" ref="container">
+    <view class="header">
+      <view class="currentScore">当前积分</view>
+      <view>{{ info.integral }}</view>
+      <view class="line"></view>
+      <!--<view class="nav acea-row">-->
+      <!--<view class="item">-->
+      <!--<view class="num">{{ info.sum_integral }}</view>-->
+      <!--<view>累计积分</view>-->
+      <!--</view>-->
+      <!--<view class="item">-->
+      <!--<view class="num">{{ info.deduction_integral }}</view>-->
+      <!--<view>累计消费</view>-->
+      <!--</view>-->
+      <!--<view class="item">-->
+      <!--<view class="num">{{ info.today_integral }}</view>-->
+      <!--<view>今日获得</view>-->
+      <!--</view>-->
+      <!--</view>-->
+    </view>
+    <view class="wrapper">
+      <view class="nav acea-row">
+        <view
           class="item acea-row row-center-wrapper"
           :class="current === navListIndex ? 'on' : ''"
           v-for="(item, navListIndex) in navList"
           :key="navListIndex"
           @click="nav(navListIndex)"
         >
-          <span class="iconfont" :class="item.icon"></span>
+          <text class="iconfont" :class="item.icon"></text>
           {{ item.name }}
-        </div>
-      </div>
-      <div class="list" :hidden="current !== 0">
-        <!--<div class="tip acea-row row-middle">-->
-        <!--<span class="iconfont icon-shuoming"></span-->
+        </view>
+      </view>
+      <view class="list" :hidden="current !== 0">
+        <!--<view class="tip acea-row row-middle">-->
+        <!--<text class="iconfont icon-shuoming"><text-->
         <!--&gt;提示：积分数值的高低会直接影响您的会员等级-->
-        <!--</div>-->
-        <div
+        <!--</view>-->
+        <view
           class="item acea-row row-between-wrapper"
           v-for="(item, listIndex) in list"
           :key="listIndex"
         >
-          <div>
-            <div class="state">{{ item.title }}</div>
-            <div>
+          <view>
+            <view class="state">{{ item.title }}</view>
+            <view>
               <data-format :data="item.addTime"></data-format>
-            </div>
-          </div>
-          <div class="num" v-if="item.pm == 1">+{{ item.number }}</div>
-          <div class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</div>
-        </div>
-      </div>
-      <!--<div class="list2" :hidden="current !== 1">-->
-      <!--<div class="item acea-row row-between-wrapper" @click="goHome()">-->
-      <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
-      <!--<div class="name">购买商品可获得积分奖励</div>-->
-      <!--<div class="earn">赚积分</div>-->
-      <!--</div>-->
-      <!--<div-->
+            </view>
+          </view>
+          <view class="num" v-if="item.pm == 1">+{{ item.number }}</view>
+          <view class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</view>
+        </view>
+      </view>
+      <!--<view class="list2" :hidden="current !== 1">-->
+      <!--<view class="item acea-row row-between-wrapper" @click="goHome()">-->
+      <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></view>-->
+      <!--<view class="name">购买商品可获得积分奖励</view>-->
+      <!--<view class="earn">赚积分</view>-->
+      <!--</view>-->
+      <!--<view-->
       <!--class="item acea-row row-between-wrapper"-->
       <!--@click="goSignIn()"-->
       <!--&gt;-->
-      <!--<div class="pictrue"><img :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></div>-->
-      <!--<div class="name">每日签到可获得积分奖励</div>-->
-      <!--<div class="earn">赚积分</div>-->
-      <!--</div>-->
-      <!--</div>-->
-    </div>
+      <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></view>-->
+      <!--<view class="name">每日签到可获得积分奖励</view>-->
+      <!--<view class="earn">赚积分</view>-->
+      <!--</view>-->
+      <!--</view>-->
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import { getIntegralList, postSignUser } from "@/api/user";
@@ -134,7 +134,11 @@ export default {
           that.list.push.apply(that.list, res.data);
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },
@@ -145,7 +149,11 @@ export default {
           that.info = res.data;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     }

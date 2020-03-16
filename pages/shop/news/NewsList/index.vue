@@ -1,26 +1,26 @@
 <template>
-  <div class="newsList" ref="container">
-    <div class="list" v-for="(item, articleListIndex) in articleList" :key="articleListIndex">
-      <div @click="goNewsDetail(item)" class="item acea-row row-between-wrapper">
-        <div class="text acea-row row-column-between">
-          <div class="name line2">{{ item.title }}</div>
-          <div>{{ item.addTime }}</div>
-        </div>
-        <div class="pictrue">
-          <img :src="item.imageInput" />
-        </div>
-      </div>
-    </div>
+  <view class="newsList" ref="container">
+    <view class="list" v-for="(item, articleListIndex) in articleList" :key="articleListIndex">
+      <view @click="goNewsDetail(item)" class="item acea-row row-between-wrapper">
+        <view class="text acea-row row-column-between">
+          <view class="name line2">{{ item.title }}</view>
+          <view>{{ item.addTime }}</view>
+        </view>
+        <view class="pictrue">
+          <image :src="item.imageInput" />
+        </view>
+      </view>
+    </view>
 
     <!--暂无新闻-->
-    <div class="noCommodity" v-if="articleList.length === 0 && page > 1">
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noNews.png'" class="image" />
-      </div>
-    </div>
+    <view class="noCommodity" v-if="articleList.length === 0 && page > 1">
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noNews.png'" class="image" />
+      </view>
+    </view>
     <!--</Tab>-->
     <!--</Tabs>-->
-  </div>
+  </view>
 </template>
 <script>
 import { getArticleList } from "@/api/public";

@@ -1,16 +1,16 @@
 <template>
-  <div v-show="iShidden === false">
-    <div class="WriteOff">
-      <div class="pictrue"><img :src="orderInfo.image" /></div>
-      <div class="num acea-row row-center-wrapper">
+  <view v-show="iShidden === false">
+    <view class="WriteOff">
+      <view class="pictrue"><image :src="orderInfo.image" /></view>
+      <view class="num acea-row row-center-wrapper">
         {{ orderInfo.order_id }}
-      </div>
-      <div class="tip">确定要核销此订单吗？</div>
-      <div class="sure" @click="confirm">确定核销</div>
-      <div class="sure cancel" @click="cancel">取消</div>
-    </div>
-    <div class="mask" @touchmove.prevent></div>
-  </div>
+      </view>
+      <view class="tip">确定要核销此订单吗？</view>
+      <view class="sure" @click="confirm">确定核销</view>
+      <view class="sure cancel" @click="cancel">取消</view>
+    </view>
+    <view class="mask" @touchmove.prevent></view>
+  </view>
 </template>
 <style scoped>
 .WriteOff {
@@ -31,7 +31,7 @@
   height: 3.4rem;
   margin: 0 auto;
 }
-.WriteOff .pictrue img {
+.WriteOff .pictrue image{
   width: 100%;
   height: 100%;
   display: block;

@@ -1,141 +1,141 @@
 <template>
-  <div class="order-details pos-order-details">
-    <div class="header acea-row row-middle">
-      <div class="state">{{ title }}</div>
-      <div class="data">
-        <div class="order-num">订单：{{ orderInfo.orderId }}</div>
-        <div>
-          <span class="time">
+  <view class="order-details pos-order-details">
+    <view class="header acea-row row-middle">
+      <view class="state">{{ title }}</view>
+      <view class="data">
+        <view class="order-num">订单：{{ orderInfo.orderId }}</view>
+        <view>
+          <text class="time">
             <data-format :data="orderInfo.addTime"></data-format>
-          </span>
-        </div>
-      </div>
-    </div>
-    <div class="orderingUser acea-row row-middle">{{ orderInfo.nickname }}</div>
-    <div class="address">
-      <div class="name">
+          </text>
+        </view>
+      </view>
+    </view>
+    <view class="orderingUser acea-row row-middle">{{ orderInfo.nickname }}</view>
+    <view class="address">
+      <view class="name">
         {{ orderInfo.realName}}
-        <span class="phone">{{ orderInfo.userPhone }}</span>
-      </div>
-      <div>{{ orderInfo.userAddress }}</div>
-    </div>
-    <div class="line">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
-    </div>
-    <div class="pos-order-goods">
-      <div
+        <text class="phone">{{ orderInfo.userPhone }}</text>
+      </view>
+      <view>{{ orderInfo.userAddress }}</view>
+    </view>
+    <view class="line">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
+    </view>
+    <view class="pos-order-goods">
+      <view
         class="goods acea-row row-between-wrapper"
         v-for="(item, orderInfoIndex) in orderInfo.cartInfo"
         :key="orderInfoIndex"
       >
-        <div class="picTxt acea-row row-between-wrapper">
-          <div class="pictrue">
-            <img :src="item.productInfo.image" />
-          </div>
-          <div class="text acea-row row-between row-column">
-            <div class="info line2">{{ item.productInfo.storeName }}</div>
-            <div class="attr">{{ item.productInfo.suk }}</div>
-          </div>
-        </div>
-        <div class="money">
-          <div class="x-money">￥{{ item.productInfo.price }}</div>
-          <div class="num">x{{ item.cartNum }}</div>
-          <div class="y-money">￥{{ item.productInfo.otPrice ? item.productInfo.otPrice : 0 }}</div>
-        </div>
-      </div>
-    </div>
-    <div class="public-total">
+        <view class="picTxt acea-row row-between-wrapper">
+          <view class="pictrue">
+            <image :src="item.productInfo.image" />
+          </view>
+          <view class="text acea-row row-between row-column">
+            <view class="info line2">{{ item.productInfo.storeName }}</view>
+            <view class="attr">{{ item.productInfo.suk }}</view>
+          </view>
+        </view>
+        <view class="money">
+          <view class="x-money">￥{{ item.productInfo.price }}</view>
+          <view class="num">x{{ item.cartNum }}</view>
+          <view class="y-money">￥{{ item.productInfo.otPrice ? item.productInfo.otPrice : 0 }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="public-total">
       共{{ orderInfo.totalNum }}件商品，应支付
-      <span class="money">￥{{ orderInfo.payPrice }}</span>
+      <text class="money">￥{{ orderInfo.payPrice }}</text>
       ( 邮费 ¥{{
       orderInfo.payPostage
       }}
       )
-    </div>
-    <div class="wrapper">
-      <div class="item acea-row row-between">
-        <div>订单编号：</div>
-        <div class="conter acea-row row-middle row-right">
+    </view>
+    <view class="wrapper">
+      <view class="item acea-row row-between">
+        <view>订单编号：</view>
+        <view class="conter acea-row row-middle row-right">
           {{ orderInfo.orderId
           }}
-          <span
+          <text
             class="copy copy-data"
             @click="copyClipboard(orderInfo.orderId)"
-          >复制</span>
-        </div>
-      </div>
-      <div class="item acea-row row-between">
-        <div>下单时间：</div>
-        <div class="conter">
+          >复制</text>
+        </view>
+      </view>
+      <view class="item acea-row row-between">
+        <view>下单时间：</view>
+        <view class="conter">
           <data-format :data="orderInfo.addTime"></data-format>
-        </div>
-      </div>
-      <div class="item acea-row row-between">
-        <div>支付状态：</div>
-        <div class="conter">{{ orderInfo.paid == 1 ? "已支付" : "未支付" }}</div>
-      </div>
-      <div class="item acea-row row-between">
-        <div>支付方式：</div>
-        <div class="conter">{{ payType }}</div>
-      </div>
-      <div class="item acea-row row-between">
-        <div>买家留言：</div>
-        <div class="conter">{{ orderInfo.mark }}</div>
-      </div>
-    </div>
-    <div class="wrapper">
-      <div class="item acea-row row-between">
-        <div>支付金额：</div>
-        <div class="conter">￥{{ orderInfo.totalPrice }}</div>
-      </div>
-      <div class="item acea-row row-between">
-        <div>优惠券抵扣：</div>
-        <div class="conter">-￥{{ orderInfo.couponPrice }}</div>
-      </div>
-      <div class="actualPay acea-row row-right">
+        </view>
+      </view>
+      <view class="item acea-row row-between">
+        <view>支付状态：</view>
+        <view class="conter">{{ orderInfo.paid == 1 ? "已支付" : "未支付" }}</view>
+      </view>
+      <view class="item acea-row row-between">
+        <view>支付方式：</view>
+        <view class="conter">{{ payType }}</view>
+      </view>
+      <view class="item acea-row row-between">
+        <view>买家留言：</view>
+        <view class="conter">{{ orderInfo.mark }}</view>
+      </view>
+    </view>
+    <view class="wrapper">
+      <view class="item acea-row row-between">
+        <view>支付金额：</view>
+        <view class="conter">￥{{ orderInfo.totalPrice }}</view>
+      </view>
+      <view class="item acea-row row-between">
+        <view>优惠券抵扣：</view>
+        <view class="conter">-￥{{ orderInfo.couponPrice }}</view>
+      </view>
+      <view class="actualPay acea-row row-right">
         实付款：
-        <span class="money font-color-red">￥{{ orderInfo.payPrice }}</span>
-      </div>
-    </div>
-    <div
+        <text class="money font-color-red">￥{{ orderInfo.payPrice }}</text>
+      </view>
+    </view>
+    <view
       class="wrapper"
       v-if="orderInfo.delivery_type != 'fictitious' && orderInfo._status._type === 2"
     >
-      <div class="item acea-row row-between">
-        <div>配送方式：</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'express'">快递</div>
-        <div class="conter" v-if="orderInfo.delivery_type === 'send'">送货</div>
-      </div>
-      <div class="item acea-row row-between">
-        <div v-if="orderInfo.delivery_type === 'express'">快递公司：</div>
-        <div v-if="orderInfo.delivery_type === 'send'">送货人：</div>
-        <div class="conter">{{ orderInfo.delivery_name }}</div>
-      </div>
-      <div class="item acea-row row-between">
-        <div v-if="orderInfo.delivery_type === 'express'">快递单号：</div>
-        <div v-if="orderInfo.delivery_type === 'send'">送货人电话：</div>
-        <div class="conter">
+      <view class="item acea-row row-between">
+        <view>配送方式：</view>
+        <view class="conter" v-if="orderInfo.delivery_type === 'express'">快递</view>
+        <view class="conter" v-if="orderInfo.delivery_type === 'send'">送货</view>
+      </view>
+      <view class="item acea-row row-between">
+        <view v-if="orderInfo.delivery_type === 'express'">快递公司：</view>
+        <view v-if="orderInfo.delivery_type === 'send'">送货人：</view>
+        <view class="conter">{{ orderInfo.delivery_name }}</view>
+      </view>
+      <view class="item acea-row row-between">
+        <view v-if="orderInfo.delivery_type === 'express'">快递单号：</view>
+        <view v-if="orderInfo.delivery_type === 'send'">送货人电话：</view>
+        <view class="conter">
           {{ orderInfo.delivery_id
           }}
-          <span
+          <text
             class="copy copy-data"
             @click="copyClipboard(orderInfo.delivery_id)"
-          >复制</span>
-        </div>
-      </div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="footer acea-row row-right row-middle">
-      <div class="more"></div>
-      <div class="bnt cancel" @click="modify(0)" v-if="types == 0">一键改价</div>
-      <div class="bnt cancel" @click="modify(0)" v-if="types == -1">立即退款</div>
-      <div
+          >复制</text>
+        </view>
+      </view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="footer acea-row row-right row-middle">
+      <view class="more"></view>
+      <view class="bnt cancel" @click="modify(0)" v-if="types == 0">一键改价</view>
+      <view class="bnt cancel" @click="modify(0)" v-if="types == -1">立即退款</view>
+      <view
         class="bnt cancel"
         v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0"
         @click="offlinePay"
-      >确认付款</div>
-      <div class="bnt delivery" v-if="types == 1" @click="goGoodsDeliver(orderInfo)">去发货</div>
-    </div>
+      >确认付款</view>
+      <view class="bnt delivery" v-if="types == 1" @click="goGoodsDeliver(orderInfo)">去发货</view>
+    </view>
     <PriceChange
       :change="change"
       :orderInfo="orderInfo"
@@ -143,7 +143,7 @@
       v-on:savePrice="savePrice"
       :status="status"
     ></PriceChange>
-  </div>
+  </view>
 </template>
 <script>
 import PriceChange from "@/components/PriceChange";

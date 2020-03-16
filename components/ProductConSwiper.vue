@@ -1,19 +1,19 @@
 <template>
-  <div class="slider-banner product-bg">
+  <view class="slider-banner product-bg">
     <swiper class="swiper-wrapper" @change="handleChange" v-if="imgUrls.length > 0">
       <block v-for="(item, imgUrlsIndex) in imgUrls" :key="imgUrlsIndex">
         <swiper-item>
-          <img :src="item" class="slide-image" />
+          <image :src="item" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
     <!-- <swiper class="swiper-wrapper" :options="ProductConSwiper" v-if="imgUrls.length > 0">
       <swiperSlide class="swiper-slide" v-for="item in imgUrls" :key="item" ref="goodSwiper">
-        <img :src="item" class="slide-image" />
+        <image :src="item" class="slide-image" />
       </swiperSlide>
     </swiper>-->
-    <div class="pages">{{ currents || 1 }}/{{ imgUrls.length || 1 }}</div>
-  </div>
+    <view class="pages">{{ currents || 1 }}/{{ imgUrls.length || 1 }}</view>
+  </view>
 </template>
 <script>
 // import { swiper, swiperSlide } from "vue-awesome-swiper";

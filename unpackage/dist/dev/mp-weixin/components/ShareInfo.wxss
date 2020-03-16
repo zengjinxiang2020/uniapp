@@ -1,8 +1,8 @@
 
-.poster-first.data-v-44c7db1f {
+.poster-first.data-v-606073e0 {
   overscroll-behavior: contain;
 }
-.mask-share.data-v-44c7db1f {
+.mask-share.data-v-606073e0 {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   bottom: 0;
   z-index: 999;
 }
-.mask-share ._img.data-v-44c7db1f {
+.mask-share image.data-v-606073e0{
   width: 100%;
 }
 

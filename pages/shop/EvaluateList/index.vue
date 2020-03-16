@@ -1,36 +1,36 @@
 <template>
-  <div class="evaluate-list" ref="container">
-    <div class="header">
-      <div class="generalComment acea-row row-between-wrapper">
-        <div class="acea-row row-middle font-color-red">
-          <div class="evaluate">评分</div>
-          <div class="start" :class="'star' + replyData.replyStar"></div>
-        </div>
-        <div>
-          <span class="font-color-red">{{ replyData.replyChance || 0 }}%</span
-          >好评率
-        </div>
-      </div>
-      <div class="nav acea-row row-middle">
-        <div
+  <view class="evaluate-list" ref="container">
+    <view class="header">
+      <view class="generalComment acea-row row-between-wrapper">
+        <view class="acea-row row-middle font-color-red">
+          <text class="evaluate">评分</text>
+          <view class="start" :class="'star' + replyData.replyStar"></view>
+        </view>
+        <view>
+          <text class="font-color-red">{{ replyData.replyChance || 0 }}%</text>
+		  <text>好评率</text>
+        </view>
+      </view>
+      <view class="nav acea-row row-middle">
+        <view
           class="acea-row row-center-wrapper"
           v-for="(item, navListIndex) in navList"
           :key="navListIndex"
           @click="changeType(navListIndex)"
         >
-          <div
+          <view
             class="item"
             :class="currentActive === navListIndex ? 'bg-color-red' : ''"
             v-if="item.num"
           >
-            {{ item.evaluate }}({{ item.num }})
-          </div>
-        </div>
-      </div>
-    </div>
+		  <text>{{ item.evaluate }}({{ item.num }})</text>
+          </view>
+        </view>
+      </view>
+    </view>
     <UserEvaluation :reply="reply"></UserEvaluation>
     <Loading :loaded="loadend" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import UserEvaluation from "@/components/UserEvaluation";

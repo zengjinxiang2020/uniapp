@@ -1,19 +1,19 @@
 <template>
-  <div class="addAddress absolute">
-    <div class="list">
-      <div class="item acea-row row-between-wrapper">
-        <div class="name">姓名</div>
+  <view class="addAddress absolute">
+    <view class="list">
+      <view class="item acea-row row-between-wrapper">
+        <view class="name">姓名</view>
         <input type="text" placeholder="请输入姓名" v-model="userAddress.realName" required />
-      </div>
-      <div class="item acea-row row-between-wrapper">
-        <div class="name">联系电话</div>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view class="name">联系电话</view>
         <input type="text" placeholder="请输入联系电话" v-model="userAddress.phone" required />
-      </div>
-      <div class="item acea-row row-between-wrapper">
-        <div class="name">所在地区</div>
-        <div class="picker acea-row row-between-wrapper select-value form-control">
-          <div class="address">
-            <div slot="right" @click.stop="show2 = true">{{ model2 || "请选择收货地址" }}</div>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view class="name">所在地区</view>
+        <view class="picker acea-row row-between-wrapper select-value form-control">
+          <view class="address">
+            <view slot="right" @click.stop="show2 = true">{{ model2 || "请选择收货地址" }}</view>
             <vant-popup :show="show2" position="bottom" @close="closeaArea">
               <vant-area
                 :area-list="district"
@@ -23,31 +23,31 @@
                 @confirm="result2"
               />
             </vant-popup>
-          </div>
-          <div class="iconfont icon-dizhi font-color-red"></div>
-        </div>
-      </div>
-      <div class="item acea-row row-between-wrapper">
-        <div class="name">详细地址</div>
+          </view>
+          <view class="iconfont icon-dizhi font-color-red"></view>
+        </view>
+      </view>
+      <view class="item acea-row row-between-wrapper">
+        <view class="name">详细地址</view>
         <input type="text" placeholder="请填写具体地址" v-model="userAddress.detail" required />
-      </div>
-    </div>
-    <div class="default acea-row row-middle">
-      <div class="select-btn">
-        <div class="checkbox-wrapper">
+      </view>
+    </view>
+    <view class="default acea-row row-middle">
+      <view class="select-btn">
+        <view class="checkbox-wrapper">
           <checkbox-group @change="ChangeIsDefault">
             <label class="well-check">
               <checkbox value :checked="userAddress.isDefault ? true : false"></checkbox>
-              <span class="def">设置为默认地址</span>
+              <text class="def">设置为默认地址</text>
             </label>
           </checkbox-group>
-        </div>
-      </div>
-    </div>
-    <div></div>
-    <div class="keepBnt bg-color-red" @click="submit">立即保存</div>
-    <div class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</div>
-  </div>
+        </view>
+      </view>
+    </view>
+    <view></view>
+    <view class="keepBnt bg-color-red" @click="submit">立即保存</view>
+    <view class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</view>
+  </view>
 </template>
 <script type="text/babel">
 // import { CitySelect } from "vue-ydui/dist/lib.rem/cityselect";
@@ -130,12 +130,30 @@ export default {
             post_code: ""
           };
         postAddress(data).then(function() {
-          if (that.id) that.$dialog.toast({ mes: "修改成功" });
-          else that.$dialog.toast({ mes: "添加成功" });
+          if (that.id) {
+            uni.showToast({
+              title: "修改成功",
+              icon: "none",
+              duration: 2000
+            });
+          } else {
+            uni.showToast({
+              title: "已取消绑定",
+              icon: "none",
+              duration: 2000
+            });
+            that.$yrouter.replace({
+              path: "/pages/user/PersonalData/index"
+            });
+          }
           that.$yrouter.go(-1);
         });
-      } catch (e) {
-        this.$dialog.error(e.msg);
+      } catch (err) {
+        uni.showToast({
+          title: err.msg || err.response.data.msg,
+          icon: "none",
+          duration: 2000
+        });
       }
     },
     ChangeIsDefault: function() {

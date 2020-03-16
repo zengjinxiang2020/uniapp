@@ -1,16 +1,16 @@
 <template>
-  <div class="distribution-posters">
-    <div class="slider-banner banner">
+  <view class="distribution-posters">
+    <view class="slider-banner banner">
       <swiper indicatorDots="true">
         <block v-for="(item, infoIndex) in info" :key="infoIndex">
           <swiper-item>
-            <img class="slide-image" :src="item.wap_poster" mode="widthFix" show-menu-by-longpress />
+            <image class="slide-image" :src="item.wap_poster" mode="widthFix" show-menu-by-longpress />
           </swiper-item>
         </block>
       </swiper>
-    </div>
-    <div class="keep bg-color-red" @click="saveImg">保存海报</div>
-  </div>
+    </view>
+    <view class="keep bg-color-red" @click="saveImg">保存海报</view>
+  </view>
 </template>
 <script>
 // import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -64,7 +64,11 @@ export default {
           that.info = res.data;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },

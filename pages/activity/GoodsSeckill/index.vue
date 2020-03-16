@@ -1,8 +1,8 @@
 <template>
-  <div class="flash-sale" ref="container">
-    <div class="header" v-if="headerImg">
-      <img :src="headerImg" />
-    </div>
+  <view class="flash-sale" ref="container">
+    <view class="header" v-if="headerImg">
+      <image :src="headerImg" />
+    </view>
     <vant-tabs
       :active="active"
       @change="setTime"
@@ -17,12 +17,12 @@
         v-for="(item, index) in timeList"
         :key="index"
       >
-        <div slot="title" class="timeItem">
-          <div class="time">{{ item.time }}</div>
-          <div class="state">{{ item.state }}</div>
-        </div>
-        <div class="countDown font-color-red acea-row row-center-wrapper">
-          <div v-if="item.status === 0" class="activity">活动已结束</div>
+        <view slot="title" class="timeItem">
+          <view class="time">{{ item.time }}</view>
+          <view class="state">{{ item.state }}</view>
+        </view>
+        <view class="countDown font-color-red acea-row row-center-wrapper">
+          <view v-if="item.status === 0" class="activity">活动已结束</view>
           <count-down
             :is-day="false"
             :tip-text="'距结束仅剩 '"
@@ -33,50 +33,50 @@
             :datatime="datatime"
             v-if="item.status === 1"
           ></count-down>
-          <div v-if="item.status === 2" class="activity">活动即将开始</div>
-        </div>
-        <div class="list">
-          <div
+          <view v-if="item.status === 2" class="activity">活动即将开始</view>
+        </view>
+        <view class="list">
+          <view
             class="item acea-row row-between-wrapper"
             v-for="(itemSeckill, indexSeckill) in seckillList"
             :key="indexSeckill"
           >
-            <div class="pictrue">
-              <img :src="itemSeckill.image" />
-            </div>
-            <div class="text acea-row row-column-around">
-              <div class="line1" v-text="itemSeckill.title"></div>
-              <div class="money">
+            <view class="pictrue">
+              <image :src="itemSeckill.image" />
+            </view>
+            <view class="text acea-row row-column-around">
+              <view class="line1" v-text="itemSeckill.title"></view>
+              <view class="money">
                 限时价
-                <span class="num font-color-red" v-text="'￥' + itemSeckill.price"></span>
-              </div>
-              <div class="progress cart-color">
-                <div class="bg-red" :style="{ width: loading ? itemSeckill.percent + '%' : '' }"></div>
-                <div class="piece font-color-red" v-text="'仅剩' + itemSeckill.stock + '件'"></div>
-              </div>
-            </div>
-            <div
+                <text class="num font-color-red" v-text="'￥' + itemSeckill.price"></text>
+              </view>
+              <view class="progress cart-color">
+                <view class="bg-red" :style="{ width: loading ? itemSeckill.percent + '%' : '' }"></view>
+                <view class="piece font-color-red" v-text="'仅剩' + itemSeckill.stock + '件'"></view>
+              </view>
+            </view>
+            <view
               class="grab bg-color-red"
               v-if="item.status === 1 && itemSeckill.stock > 0"
               @click="goDetail(itemSeckill.id)"
-            >马上抢</div>
-            <div class="grab" v-if="item.status === 1 && itemSeckill.stock <= 0">已售磬</div>
-            <div class="grab bg-color-red" v-if="item.status === 2">即将开始</div>
-            <div class="grab bg-color-red" v-if="item.status === 0">已结束</div>
-          </div>
-        </div>
-        <div
+            >马上抢</view>
+            <view class="grab" v-if="item.status === 1 && itemSeckill.stock <= 0">已售磬</view>
+            <view class="grab bg-color-red" v-if="item.status === 2">即将开始</view>
+            <view class="grab bg-color-red" v-if="item.status === 0">已结束</view>
+          </view>
+        </view>
+        <view
           class="noCommodity"
           style="background-color: #fff;"
           v-if="seckillList.length === 0 && page > 1"
         >
-          <div class="noPictrue">
-            <img :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
-          </div>
-        </div>
+          <view class="noPictrue">
+            <image :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
+          </view>
+        </view>
       </vant-tab>
     </vant-tabs>
-  </div>
+  </view>
 </template>
 <script>
 import { getSeckillConfig, getSeckillList } from "@/api/activity";

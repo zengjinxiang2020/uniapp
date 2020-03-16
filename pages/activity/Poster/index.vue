@@ -1,12 +1,12 @@
 <template>
-  <div class="poster-poster" v-if="status === false">
-    <div class="tip">
-      <span class="iconfont icon-shuoming"></span>提示：长按图片保存至手机相册
-    </div>
-    <div class="poster">
-      <img :src="image" mode="widthFix" show-menu-by-longpress />
-    </div>
-  </div>
+  <view class="poster-poster" v-if="status === false">
+    <view class="tip">
+      <text class="iconfont icon-shuoming"></text>提示：长按图片保存至手机相册
+    </view>
+    <view class="poster">
+      <image :src="image" mode="widthFix" show-menu-by-longpress />
+    </view>
+  </view>
 </template>
 <style scoped>
 .poster-poster {

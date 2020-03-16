@@ -1,39 +1,39 @@
 <template>
-  <div>
-    <div class="address-window" :class="value === true ? 'on' : ''">
-      <div class="title">
+  <view>
+    <view class="address-window" :class="value === true ? 'on' : ''">
+      <view class="title">
         选择地址
-        <span class="iconfont icon-guanbi" @click="closeAddress"></span>
-      </div>
-      <div class="list" v-if="addressList.length">
-        <div
+        <text class="iconfont icon-guanbi" @click="closeAddress"></text>
+      </view>
+      <view class="list" v-if="addressList.length">
+        <view
           class="item acea-row row-between-wrapper"
           :class="item.id === checked ? 'font-color-red' : ''"
           v-for="(item, addressIndex) in addressList"
           @click="tapAddress(addressIndex)"
           :key="addressIndex"
         >
-          <span class="iconfont icon-ditu" :class="item.id === checked ? 'font-color-red' : ''"></span>
-          <div class="addressTxt">
-            <div class="name" :class="item.id === checked ? 'font-color-red' : ''">
+          <text class="iconfont icon-ditu" :class="item.id === checked ? 'font-color-red' : ''"></text>
+          <view class="addressTxt">
+            <view class="name" :class="item.id === checked ? 'font-color-red' : ''">
               {{ item.realName }}
-              <span class="phone">{{ item.phone }}</span>
-            </div>
-            <div class="line1">
+              <text class="phone">{{ item.phone }}</text>
+            </view>
+            <view class="line1">
               {{ item.province }}{{ item.city }}{{ item.district
               }}{{ item.detail }}
-            </div>
-          </div>
-          <span class="iconfont icon-complete" :class="item.id === checked ? 'font-color-red' : ''"></span>
-        </div>
-      </div>
-      <div class="pictrue" v-if="addressList.length < 1">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noAddress.png'" class="image" />
-      </div>
-      <div class="addressBnt bg-color-red" @click="goAddressPages">新加地址</div>
-    </div>
-    <div class="mask" @touchmove.prevent :hidden="value === false" @click="closeAddress"></div>
-  </div>
+            </view>
+          </view>
+          <text class="iconfont icon-complete" :class="item.id === checked ? 'font-color-red' : ''"></text>
+        </view>
+      </view>
+      <view class="pictrue" v-if="addressList.length < 1">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noAddress.png'" class="image" />
+      </view>
+      <view class="addressBnt bg-color-red" @click="goAddressPages">新加地址</view>
+    </view>
+    <view class="mask" @touchmove.prevent :hidden="value === false" @click="closeAddress"></view>
+  </view>
 </template>
 <script>
 import { getAddressList } from "@/api/user";

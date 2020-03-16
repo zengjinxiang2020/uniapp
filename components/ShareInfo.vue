@@ -1,9 +1,9 @@
 <template>
-  <div v-if="shareInfoStatus" class="poster-first">
-    <div class="mask-share">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/share-info.png'" @click="shareInfoClose" />
-    </div>
-  </div>
+  <view v-if="shareInfoStatus" class="poster-first">
+    <view class="mask-share">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/share-info.png'" @click="shareInfoClose" />
+    </view>
+  </view>
 </template>
 <style scoped>
 .poster-first {
@@ -17,7 +17,7 @@
   bottom: 0;
   z-index: 999;
 }
-.mask-share img {
+.mask-share image{
   width: 100%;
 }
 </style>

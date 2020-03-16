@@ -1,36 +1,36 @@
 <template>
-  <div ref="container">
-    <div class="collectionGoods" v-if="collectProductList.length > 0">
-      <div
+  <view ref="container">
+    <view class="collectionGoods" v-if="collectProductList.length > 0">
+      <view
         class="item acea-row row-between-wrapper"
         v-for="(item, collectProductListIndex) in collectProductList"
         :key="collectProductListIndex"
         @click="goGoodsCon(item)"
       >
-        <div class="pictrue">
-          <img :src="item.image" />
-        </div>
-        <div class="text acea-row row-column-between">
-          <div class="infor line1">{{ item.storeName }}</div>
-          <div class="acea-row row-between-wrapper">
-            <div class="money font-color-red">￥{{ item.price }}</div>
-            <div class="delete" @click.prevent="delCollection(collectProductListIndex)">删除</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <view class="pictrue">
+          <image :src="item.image" />
+        </view>
+        <view class="text acea-row row-column-between">
+          <view class="infor line1">{{ item.storeName }}</view>
+          <view class="acea-row row-between-wrapper">
+            <view class="money font-color-red">￥{{ item.price }}</view>
+            <view class="delete" @click.prevent="delCollection(collectProductListIndex)">删除</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loadend" :loading="loading"></Loading>
-    <div
+    <view
       class="noCommodity"
       style="background-color:#fff;"
       v-if="collectProductList.length < 1 && page > 1"
     >
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noCollection.png'" class="image" />
-      </div>
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCollection.png'" class="image" />
+      </view>
       <Recommend></Recommend>
-    </div>
-  </div>
+    </view>
+  </view>
 </template>
 <script>
 import Recommend from "@/components/Recommend";
@@ -85,9 +85,11 @@ export default {
         id = that.collectProductList[index].pid,
         category = that.collectProductList[index].category;
       getCollectDel(id, category).then(function() {
-        that.$dialog.toast({
-          mes: "删除收藏成功!",
-          callback: () => {
+        uni.showToast({
+          title: "添加购物车成功",
+          icon: "success",
+          duration: 2000,
+          complete: () => {
             that.collectProductList.splice(index, 1);
             that.$set(that, "collectProductList", that.collectProductList);
           }

@@ -1,27 +1,27 @@
 <template>
-	<div class="recommend" ref="container">
-		<div class="title acea-row row-center-wrapper">
-			<span class="iconfont icon-zhuangshixian"></span>
-			<span class="name">为你推荐</span>
-			<span class="iconfont icon-zhuangshixian lefticon"></span>
-		</div>
-		<div class="recommendList acea-row row-between-wrapper">
-			<div
+	<view class="recommend" ref="container">
+		<view class="title acea-row row-center-wrapper">
+			<text class="iconfont icon-zhuangshixian"></text>
+			<text class="name">为你推荐</text>
+			<text class="iconfont icon-zhuangshixian lefticon"></text>
+		</view>
+		<view class="recommendList acea-row row-between-wrapper">
+			<view
 				@click="routerGo(item)"
 				class="item"
 				v-for="(item, recommendIndex) in hostProduct"
 				:key="recommendIndex"
 			>
-				<div class="pictrue"><img :src="item.image" class="image" /></div>
-				<div class="name line1">{{ item.storeName }}</div>
-				<div class="money font-color-red">
+				<view class="pictrue"><image :src="item.image" class="image" /></view>
+				<view class="name line1">{{ item.storeName }}</view>
+				<view class="money font-color-red">
 					￥
-					<span class="num">{{ item.price }}</span>
-				</div>
-			</div>
-		</div>
+					<text class="num">{{ item.price }}</text>
+				</view>
+			</view>
+		</view>
 		<Loading :loaded="loadend" :loading="loading"></Loading>
-	</div>
+	</view>
 </template>
 <script>
 import { getHostProducts } from '@/api/store';

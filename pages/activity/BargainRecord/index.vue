@@ -1,12 +1,12 @@
 <template>
-  <div class="bargain-record" ref="container">
-    <div class="item" v-for="(item, bargainrecordIndex) in bargain" :key="bargainrecordIndex">
-      <div class="picTxt acea-row row-between-wrapper">
-        <div class="pictrue">
-          <img :src="item.image" />
-        </div>
-        <div class="text acea-row row-column-around">
-          <div class="line1">{{ item.title }}</div>
+  <view class="bargain-record" ref="container">
+    <view class="item" v-for="(item, bargainrecordIndex) in bargain" :key="bargainrecordIndex">
+      <view class="picTxt acea-row row-between-wrapper">
+        <view class="pictrue">
+          <image :src="item.image" />
+        </view>
+        <view class="text acea-row row-column-around">
+          <view class="line1">{{ item.title }}</view>
           <count-down
             :is-day="true"
             :tip-text="'倒计时 '"
@@ -16,34 +16,34 @@
             :second-text="' 秒'"
             :datatime="item.datatime"
           ></count-down>
-          <div class="money font-color-red">
+          <view class="money font-color-red">
             已砍至
-            <span class="symbol">￥</span>
-            <span class="num">{{ item.residuePrice }}</span>
-          </div>
-        </div>
-      </div>
-      <div class="bottom acea-row row-between-wrapper">
-        <div class="purple" v-if="item.status === 1">活动进行中</div>
-        <div class="success" v-else-if="item.status === 3">砍价成功</div>
-        <div class="end" v-else>活动已结束</div>
-        <div class="acea-row row-middle row-right">
-          <div
+            <text class="symbol">￥</text>
+            <text class="num">{{ item.residuePrice }}</text>
+          </view>
+        </view>
+      </view>
+      <view class="bottom acea-row row-between-wrapper">
+        <view class="purple" v-if="item.status === 1">活动进行中</view>
+        <view class="success" v-else-if="item.status === 3">砍价成功</view>
+        <view class="end" v-else>活动已结束</view>
+        <view class="acea-row row-middle row-right">
+          <view
             class="bnt cancel"
             v-if="item.status === 1"
             @click="getBargainUserCancel(item.bargainId)"
-          >取消活动</div>
-          <div
+          >取消活动</view>
+          <view
             class="bnt bg-color-red"
             v-if="item.status === 1"
             @click="goDetail(item.bargainId)"
-          >继续砍价</div>
-          <div class="bnt bg-color-red" v-else @click="goList">重开一个</div>
-        </div>
-      </div>
-    </div>
+          >继续砍价</view>
+          <view class="bnt bg-color-red" v-else @click="goList">重开一个</view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="status" :loading="loadingList"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import CountDown from "@/components/CountDown";

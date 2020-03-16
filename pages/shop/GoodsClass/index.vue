@@ -1,50 +1,50 @@
 <template>
-  <div class="productSort">
+  <view class="productSort">
     <form @submit.prevent="submitForm">
-      <div class="header acea-row row-center-wrapper" ref="header">
-        <div class="acea-row row-between-wrapper input">
-          <span class="iconfont icon-sousuo"></span>
+      <view class="header acea-row row-center-wrapper" ref="header">
+        <view class="acea-row row-between-wrapper input">
+          <text class="iconfont icon-sousuo"></text>
           <input type="text" placeholder="搜索商品信息" v-model="search" />
-        </div>
-      </div>
+        </view>
+      </view>
     </form>
-    <div class="aside">
-      <div
+    <view class="aside">
+      <view
         class="item acea-row row-center-wrapper"
         :class="categoryDivindex === navActive ? 'on' : ''"
         v-for="(item, categoryDivindex) in category"
         :key="categoryDivindex"
         @click="asideTap(categoryDivindex)"
       >
-        <span>{{ item.cateName }}</span>
-      </div>
-    </div>
-    <div class="conter">
-      <div class="listw" v-for="(item, eq) in category" :key="eq">
-        <div v-if="eq === navActive">
-          <div class="title acea-row row-center-wrapper" ref="title">
-            <div class="line"></div>
-            <div class="name">{{ item.cateName }}</div>
-            <div class="line"></div>
-          </div>
-          <div class="list acea-row">
-            <div
+        <text>{{ item.cateName }}</text>
+      </view>
+    </view>
+    <view class="conter">
+      <view class="listw" v-for="(item, eq) in category" :key="eq">
+        <view v-if="eq === navActive">
+          <view class="title acea-row row-center-wrapper" ref="title">
+            <view class="line"></view>
+            <view class="name">{{ item.cateName }}</view>
+            <view class="line"></view>
+          </view>
+          <view class="list acea-row">
+            <view
               class="item acea-row row-column row-middle"
               v-for="(child, categoryIndex) in item.children"
               :key="categoryIndex"
               @click="goGoodsList(child)"
             >
-              <div class="picture">
-                <img :src="child.pic" />
-              </div>
-              <div class="name line1">{{ child.cateName }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="height:100rpx;"></div>
-  </div>
+              <view class="picture">
+                <image :src="child.pic" />
+              </view>
+              <view class="name line1">{{ child.cateName }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view style="height:100rpx;"></view>
+  </view>
 </template>
 <script>
 import debounce from "lodash.debounce";

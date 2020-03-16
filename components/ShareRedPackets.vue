@@ -1,20 +1,20 @@
 <template>
-  <div class="sharing-packets" :class="state === true ? 'on' : ''">
-    <div
+  <view class="sharing-packets" :class="state === true ? 'on' : ''">
+    <view
       class="iconfont icon-guanbi acea-row row-center-wrapper"
       @click="closeShare"
-    ></div>
-    <div class="line"></div>
-    <div class="sharing-con" @click="goShare">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/red-packets.png'" class="image" />
-      <div class="text font-color-red">
-        <div>会员分享返</div>
-        <div class="money"><span class="label">￥</span>{{ priceName }}</div>
-        <div class="tip">下单即返佣金</div>
-        <div class="shareBut">立即分享</div>
-      </div>
-    </div>
-  </div>
+    ></view>
+    <view class="line"></view>
+    <view class="sharing-con" @click="goShare">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/red-packets.png'" class="image" />
+      <view class="text font-color-red">
+        <view>会员分享返</view>
+        <view class="money"><text class="label">￥</text>{{ priceName }}</view>
+        <view class="tip">下单即返佣金</view>
+        <view class="shareBut">立即分享</view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 export default {

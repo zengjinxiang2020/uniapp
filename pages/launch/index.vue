@@ -1,19 +1,19 @@
 <template>
-  <div class="page">
-    <div :class="tabtarIndex==0?'page':''" v-show="tabtarIndex==0">
+  <view class="page">
+    <view :class="tabtarIndex==0?'page':''" v-show="tabtarIndex==0">
       <home></home>
-    </div>
-    <div :class="tabtarIndex==1?'page':''" v-show="tabtarIndex==1">
+    </view>
+    <view :class="tabtarIndex==1?'page':''" v-show="tabtarIndex==1">
       <goods-class></goods-class>
-    </div>
-    <div :class="tabtarIndex==2?'page':''" v-if="tabtarIndex==2">
+    </view>
+    <view :class="tabtarIndex==2?'page':''" v-if="tabtarIndex==2">
       <shopping-cart></shopping-cart>
-    </div>
-    <div :class="tabtarIndex==3?'page':''" v-if="tabtarIndex==3">
+    </view>
+    <view :class="tabtarIndex==3?'page':''" v-if="tabtarIndex==3">
       <user></user>
-    </div>
+    </view>
     <footer-components></footer-components>
-  </div>
+  </view>
 </template>
 
 <script>

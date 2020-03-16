@@ -1,47 +1,47 @@
 <template>
-  <div class="group-list" ref="container">
-    <!-- <div class="header">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/group.png'" class="image" />
-    </div>-->
-    <div class="list" v-if="combinationList.length>0">
-      <div
+  <view class="group-list" ref="container">
+    <!-- <view class="header">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/group.png'" class="image" />
+    </view>-->
+    <view class="list" v-if="combinationList.length>0">
+      <view
         class="item acea-row row-between-wrapper"
         v-for="(item, combinationListIndex) in combinationList"
         :key="combinationListIndex"
         @click="link(item.id)"
       >
-        <div class="pictrue">
-          <img :src="item.image" />
-        </div>
-        <div class="text">
-          <div class="line1" v-text="item.title"></div>
-          <div class="acea-row">
-            <div class="team acea-row row-middle cart-color">
-              <div class="iconfont icon-pintuan"></div>
-              <div class="num" v-text="item.people + '人团'"></div>
-            </div>
-          </div>
-          <div class="bottom acea-row row-between-wrapper">
-            <div class="money">
+        <view class="pictrue">
+          <image :src="item.image" />
+        </view>
+        <view class="text">
+          <view class="line1" v-text="item.title"></view>
+          <view class="acea-row">
+            <view class="team acea-row row-middle cart-color">
+              <view class="iconfont icon-pintuan"></view>
+              <view class="num" v-text="item.people + '人团'"></view>
+            </view>
+          </view>
+          <view class="bottom acea-row row-between-wrapper">
+            <view class="money">
               ￥
-              <span class="num" v-text="item.price"></span>
-              <span class="y-money" v-text="'￥' + item.productPrice"></span>
-            </div>
-            <div class="groupBnt bg-color-red">
+              <text class="num" v-text="item.price"></text>
+              <text class="y-money" v-text="'￥' + item.productPrice"></text>
+            </view>
+            <view class="groupBnt bg-color-red">
               去拼团
-              <span class="iconfont icon-jiantou"></span>
-            </div>
-          </div>
-        </div>
-      </div>
+              <text class="iconfont icon-jiantou"></text>
+            </view>
+          </view>
+        </view>
+      </view>
       <Loading :loaded="status" :loading="loadingList"></Loading>
-    </div>
-    <div class="noCommodity" style="background-color: #fff;" v-if="combinationList.length === 0">
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
-      </div>
-    </div>
-  </div>
+    </view>
+    <view class="noCommodity" style="background-color: #fff;" v-if="combinationList.length === 0">
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { getCombinationList } from "@/api/activity";

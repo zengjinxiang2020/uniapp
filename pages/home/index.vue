@@ -1,26 +1,26 @@
 <template>
-  <div class="index">
-    <div class="header acea-row row-center-wrapper">
-      <div @click="goGoodSearch()" class="search acea-row row-middle">
-        <span class="iconfont icon-xiazai5"></span>搜索商品
-      </div>
-    </div>
-    <div class="slider-banner banner">
+  <view class="index">
+    <view class="header acea-row row-center-wrapper">
+      <view @click="goGoodSearch()" class="search acea-row row-middle">
+        <text class="iconfont icon-xiazai5"></text>搜索商品
+      </view>
+    </view>
+    <view class="slider-banner banner">
       <swiper indicatorDots="true" v-if="banner.length > 0">
         <block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
           <swiper-item>
-            <div @click="item.url?$yrouter.push('/'+item.url) : ''" class="swiper-item">
-              <img :src="item.pic" />
-            </div>
+            <view @click="item.url?$yrouter.push('/'+item.url) : ''" class="swiper-item">
+              <image :src="item.pic" />
+            </view>
           </swiper-item>
         </block>
       </swiper>
-    </div>
-    <div class="news acea-row row-between-wrapper">
-      <div class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/news.png'" />
-      </div>
-      <div class="swiper-no-swiping new-banner">
+    </view>
+    <view class="news acea-row row-between-wrapper">
+      <view class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/news.png'" />
+      </view>
+      <view class="swiper-no-swiping new-banner">
         <swiper
           class="swiper-wrapper"
           v-if="roll.length > 0"
@@ -31,120 +31,120 @@
         >
           <block v-for="(item, rollIndex) in roll" :key="rollIndex">
             <swiper-item class="swiper-slide">
-              <div
+              <view
                 @click="item.uniapp_url?$yrouter.push(item.uniapp_url) : ''"
                 class="swiper-item acea-row row-between-wrapper"
               >
-                <div class="text acea-row row-between-wrapper">
-                  <div class="label" v-if="item.show === '是'">最新</div>
-                  <div class="newsTitle line1">{{ item.info }}</div>
-                </div>
-                <div class="iconfont icon-xiangyou"></div>
-              </div>
+                <view class="text acea-row row-between-wrapper">
+                  <view class="label" v-if="item.show === '是'">最新</view>
+                  <view class="newsTitle line1">{{ item.info }}</view>
+                </view>
+                <view class="iconfont icon-xiangyou"></view>
+              </view>
             </swiper-item>
           </block>
         </swiper>
-      </div>
-    </div>
-    <div class="nav acea-row">
-      <div
+      </view>
+    </view>
+    <view class="nav acea-row">
+      <view
         @click="goWxappUrl(item)"
         class="item"
         v-for="(item, menusIndex) in menus"
         :key="menusIndex"
       >
-        <div class="pictrue">
-          <img :src="item.pic" />
-        </div>
-        <div>{{ item.name }}</div>
-      </div>
-    </div>
-    <div class="wrapper hot" v-if="bastList.length > 0">
-      <img class="bg" src="../../assets/images/index-bg.png" mode="widthFix" />
-      <div class="title acea-row row-between-wrapper">
-        <div class="text">
-          <div class="name line1">热门榜单</div>
-        </div>
-        <div @click="goHotNewGoods()" class="more">
+        <view class="pictrue">
+          <image :src="item.pic" />
+        </view>
+        <view>{{ item.name }}</view>
+      </view>
+    </view>
+    <view class="wrapper hot" v-if="bastList.length > 0">
+      <image class="bg" src="../../static/images/index-bg.png" mode="widthFix" ></image>
+      <view class="title acea-row row-between-wrapper">
+        <view class="text">
+          <view class="name line1">热门榜单</view>
+        </view>
+        <view @click="goHotNewGoods()" class="more">
           更多
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
-      <div class="newProducts">
+          <text class="iconfont icon-jiantou"></text>
+        </view>
+      </view>
+      <view class="newProducts">
         <scroll-view scroll-y="false" scroll-x="true">
-          <div class="newProductsScroll">
-            <div
+          <view class="newProductsScroll">
+            <view
               @click="goGoodsCon(item)"
               class="newProductsItem"
               v-for="(item, likeInfoIndex) in likeInfo"
               :key="likeInfoIndex"
             >
-              <div class="img-box">
-                <img :src="item.image" />
-              </div>
-              <div class="pro-info line1">{{ item.storeName }}</div>
-              <div class="money font-color-red">￥{{ item.price }}</div>
-            </div>
-          </div>
+              <view class="img-box">
+                <image :src="item.image" />
+              </view>
+              <view class="pro-info line1">{{ item.storeName }}</view>
+              <view class="money font-color-red">￥{{ item.price }}</view>
+            </view>
+          </view>
         </scroll-view>
-      </div>
-    </div>
-    <div class="wrapper" v-if="bastList.length > 0">
-      <div class="title acea-row row-between-wrapper">
-        <div class="text">
-          <div class="name line1">精品推荐</div>
-        </div>
-        <div @click="goHotNewGoods(1)" class="more">
+      </view>
+    </view>
+    <view class="wrapper" v-if="bastList.length > 0">
+      <view class="title acea-row row-between-wrapper">
+        <view class="text">
+          <view class="name line1">精品推荐</view>
+        </view>
+        <view @click="goHotNewGoods(1)" class="more">
           更多
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
+          <text class="iconfont icon-jiantou"></text>
+        </view>
+      </view>
       <Good-list :good-list="bastList" :is-sort="false"></Good-list>
-    </div>
+    </view>
 
-    <div class="wrapper" v-if="firstList.length > 0">
-      <div class="title acea-row row-between-wrapper">
-        <div class="text">
-          <div class="name line1">
+    <view class="wrapper" v-if="firstList.length > 0">
+      <view class="title acea-row row-between-wrapper">
+        <view class="text">
+          <view class="name line1">
             首发新品
-            <span class="new font-color-red">NEW~</span>
-          </div>
-        </div>
-        <div @click="goHotNewGoods(3)" class="more">
+            <text class="new font-color-red">NEW~</text>
+          </view>
+        </view>
+        <view @click="goHotNewGoods(3)" class="more">
           更多
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
-      <div class="newProducts">
+          <text class="iconfont icon-jiantou"></text>
+        </view>
+      </view>
+      <view class="newProducts">
         <scroll-view scroll-y="false" scroll-x="true">
-          <div class="newProductsScroll">
-            <div
+          <view class="newProductsScroll">
+            <view
               @click="goGoodsCon(item)"
               class="newProductsItem"
               v-for="(item, firstListIndex) in firstList"
               :key="firstListIndex"
             >
-              <div class="img-box">
-                <img :src="item.image" />
-              </div>
-              <div class="pro-info line1">{{ item.storeName }}</div>
-              <div class="money font-color-red">￥{{ item.price }}</div>
-            </div>
-          </div>
+              <view class="img-box">
+                <image :src="item.image" />
+              </view>
+              <view class="pro-info line1">{{ item.storeName }}</view>
+              <view class="money font-color-red">￥{{ item.price }}</view>
+            </view>
+          </view>
         </scroll-view>
-      </div>
-    </div>
-    <div class="wrapper" v-if="benefit.length > 0">
-      <div class="title acea-row row-between-wrapper">
-        <div class="text">
-          <div class="name line1">促销单品</div>
-        </div>
-        <div @click="goGoodsPromotion()" class="more">
+      </view>
+    </view>
+    <view class="wrapper" v-if="benefit.length > 0">
+      <view class="title acea-row row-between-wrapper">
+        <view class="text">
+          <view class="name line1">促销单品</view>
+        </view>
+        <view @click="goGoodsPromotion()" class="more">
           更多
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
-    </div>
+          <text class="iconfont icon-jiantou"></text>
+        </view>
+      </view>
+    </view>
     <PromotionGood :benefit="benefit"></PromotionGood>
     <Coupon-window
       :coupon-list="couponList"
@@ -152,7 +152,7 @@
       @checked="couponClose"
       @close="couponClose"
     ></Coupon-window>
-  </div>
+  </view>
 </template>
 <script>
 // import { swiper, swiperSlide } from "vue-awesome-swiper";

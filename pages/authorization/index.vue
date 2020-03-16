@@ -1,188 +1,201 @@
 <template>
-  <div class="container">
-    <div v-if="!isAuthorization">
-      <div class="getUserInfo">
-        <p>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</p>
-        <vant-button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</vant-button>
-        <div class="sp-cell"></div>
-        <vant-button type="default" @click="back">取消微信登录授权</vant-button>
-      </div>
-    </div>
-  </div>
+	<view class="container">
+		<view v-if="!isAuthorization">
+			<view class="getUserInfo">
+				<view>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
+					<vant-button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</vant-button>
+					<view class="sp-cell"></view>
+					<vant-button type="default" @click="back">取消微信登录授权</vant-button>
+				</view>
+			</view>
+		</view>
+	</view>
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from "vuex";
-// 组件
-// import request from "@//api/request";
-import { wxappAuth, getUser } from "@/api/user";
-import dayjs from "dayjs";
-import cookie from "@/utils/store/cookie";
-import { login } from "@/utils";
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from "vuex";
+	// 组件
+	// import request from "@//api/request";
+	import {
+		wxappAuth,
+		getUser
+	} from "@/api/user";
+	import dayjs from "dayjs";
+	import cookie from "@/utils/store/cookie";
+	import {
+		login
+	} from "@/utils";
 
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapState(["isAuthorization"])
-  },
-  onShow() {
-    this.UPDATE_AUTHORIZATIONPAGE(false);
-  },
-  onHide() {
-    this.changeAuthorization(false);
-  },
-  onUnload() {
-    this.changeAuthorization(false);
-  },
-  methods: {
-    ...mapActions(["changeAuthorization", "changeUserInfo"]),
-    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
-    back() {
-      // if (this.$yroute.query.redirect) {
-      //   this.$yrouter.replace({
-      //     path: this.$yroute.query.redirect
-      //   });
-      // } else {
-      //   this.$yrouter.replace({
-      //     path: "/pages/launch/index",
-      //     query: { type: 0 }
-      //   });
-      // }
-      this.CHANGE_TABTAR(0);
-      this.$yrouter.replace({
-        path: "/pages/home/index",
-        query: { type: 0 }
-      });
-    },
-    getUserInfo(data) {
-      uni.showLoading({
-        title: "登录中"
-      });
-      login();
-    }
-  },
-  onUnload() {},
-  mounted() {}
-};
+	export default {
+		data() {
+			return {};
+		},
+		computed: {
+			...mapState(["isAuthorization"])
+		},
+		onShow() {
+			this.UPDATE_AUTHORIZATIONPAGE(false);
+		},
+		onHide() {
+			this.changeAuthorization(false);
+		},
+		onUnload() {
+			this.changeAuthorization(false);
+		},
+		methods: {
+			...mapActions(["changeAuthorization", "changeUserInfo"]),
+			...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+			back() {
+				// if (this.$yroute.query.redirect) {
+				//   this.$yrouter.replace({
+				//     path: this.$yroute.query.redirect
+				//   });
+				// } else {
+				//   this.$yrouter.replace({
+				//     path: "/pages/launch/index",
+				//     query: { type: 0 }
+				//   });
+				// }
+				this.CHANGE_TABTAR(0);
+				this.$yrouter.replace({
+					path: "/pages/home/index",
+					query: {
+						type: 0
+					}
+				});
+			},
+			getUserInfo(data) {
+				uni.showLoading({
+					title: "登录中"
+				});
+				login();
+			}
+		},
+		onUnload() {},
+		mounted() {}
+	};
 </script>
 
 <style lang="less">
-.sp-cell {
-  height: 20rpx;
-}
-.getUserInfo {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 30px;
+	.sp-cell {
+		height: 20rpx;
+	}
 
-  p {
-    margin-bottom: 20px;
-  }
-}
-.container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  position: relative;
-}
+	.getUserInfo {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		padding: 30px;
 
-.tab-bar {
-  font-size: 0;
-  display: flex;
-  align-items: center;
-  background: rgba(255, 255, 255, 0.9);
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 99;
-  border-top: 1px solid rgba(248, 248, 248, 1);
+		p {
+			margin-bottom: 20px;
+		}
+	}
 
-  .tab-bar-item {
-    flex: 1;
-    height: 49px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+	.container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		position: relative;
+	}
 
-    &.active {
-      text {
-        color: #ee7559;
-      }
+	.tab-bar {
+		font-size: 0;
+		display: flex;
+		align-items: center;
+		background: rgba(255, 255, 255, 0.9);
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		z-index: 99;
+		border-top: 1px solid rgba(248, 248, 248, 1);
 
-      .tab-bar-pic {
-        display: none;
-        background: #f9f9f9;
+		.tab-bar-item {
+			flex: 1;
+			height: 49px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
 
-        &.active {
-          display: block;
-        }
-      }
-    }
+			&.active {
+				text {
+					color: #ee7559;
+				}
 
-    .tab-bar-pic {
-      display: block;
-      background: #f9f9f9;
+				.tab-bar-pic {
+					display: none;
+					background: #f9f9f9;
 
-      &.active {
-        display: none;
-      }
-    }
-  }
+					&.active {
+						display: block;
+					}
+				}
+			}
 
-  .tab-bar-pic {
-    width: 25px;
-    height: 25px;
-    background: #f9f9f9;
+			.tab-bar-pic {
+				display: block;
+				background: #f9f9f9;
 
-    image {
-      width: 25px;
-      height: 25px;
-    }
-  }
+				&.active {
+					display: none;
+				}
+			}
+		}
 
-  .tab-bar-pic-active {
-  }
+		.tab-bar-pic {
+			width: 25px;
+			height: 25px;
+			background: #f9f9f9;
 
-  text {
-    font-size: 10px;
-    color: rgb(160, 160, 160);
-    line-height: 10px;
-    margin-top: 5px;
-  }
-}
+			image {
+				width: 25px;
+				height: 25px;
+			}
+		}
 
-.tab-bar-bg {
-  padding-top: 46px;
-  width: 100%;
-}
+		.tab-bar-pic-active {}
 
-.view-item {
-  display: none;
-  width: 100%;
-}
+		text {
+			font-size: 10px;
+			color: rgb(160, 160, 160);
+			line-height: 10px;
+			margin-top: 5px;
+		}
+	}
 
-.view-item-active {
-  display: block;
-}
+	.tab-bar-bg {
+		padding-top: 46px;
+		width: 100%;
+	}
 
-.getUserInfo {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  padding: 30px;
+	.view-item {
+		display: none;
+		width: 100%;
+	}
 
-  p {
-    margin-bottom: 20px;
-  }
-}
+	.view-item-active {
+		display: block;
+	}
 
-._van-dialog {
-  z-index: 99999999999;
-}
+	.getUserInfo {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		padding: 30px;
+
+		p {
+			margin-bottom: 20px;
+		}
+	}
+
+	._van-dialog {
+		z-index: 99999999999;
+	}
 </style>

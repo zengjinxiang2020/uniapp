@@ -1,8 +1,8 @@
 
-.index.data-v-63128198 {
+.index.data-v-3b5f8d09 {
   background-color: #fff;
 }
-.swiper-item.data-v-63128198 {
+.swiper-item.data-v-3b5f8d09 {
   height: 100%;
 }
 
@@ -46,7 +46,7 @@
 }
 
 
-.lottie-bg.data-v-c8fad028 {
+.lottie-bg.data-v-d68ae9c6 {
   position: fixed;
   left: 0;
   top: 0;
@@ -64,7 +64,7 @@
   -webkit-box-pack: center;
           justify-content: center;
 }
-#lottie.data-v-c8fad028 {
+#lottie.data-v-d68ae9c6 {
   width: 35%;
   display: block;
   overflow: hidden;
@@ -72,7 +72,7 @@
           transform: translate3d(0, 0, 0);
   margin: auto;
 }
-.iphonex.data-v-c8fad028 {
+.iphonex.data-v-d68ae9c6 {
   height: 68rpx;
 }
 

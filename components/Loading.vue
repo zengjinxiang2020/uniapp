@@ -1,19 +1,19 @@
 <template>
-  <div
+  <view
     class="Loads acea-row row-center-wrapper"
     v-if="loading || !loaded"
     style="margin-top: .2rem;"
   >
     <template v-if="loading">
-      <div
+      <view
         class="iconfont icon-jiazai loading acea-row row-center-wrapper"
-      ></div>
+      ></view>
       正在加载中
     </template>
     <template v-else>
       上拉加载更多
     </template>
-  </div>
+  </view>
 </template>
 
 <script>

@@ -1,40 +1,40 @@
 <template>
-  <div class="my-account">
-    <div class="wrapper">
-      <div class="header">
-        <div class="headerCon">
-          <div class="account acea-row row-top row-between">
-            <div class="assets">
-              <div>总资产(元)</div>
-              <div class="money">{{ now_money }}</div>
-            </div>
-          </div>
-          <div class="cumulative acea-row row-top">
-            <div class="item">
-              <div>累计消费(元)</div>
-              <div class="money">{{ orderStatusSum }}</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="nav acea-row row-middle">
-        <div class="item" @click="goUserBill(0)">
-          <div class="pictrue">
-            <img :src="$VUE_APP_RESOURCES_URL+'/images/record1.png'" />
-          </div>
-          <div>账单记录</div>
-        </div>
-        <div class="item" @click="goUserBill(1)">
-          <div class="pictrue">
-            <img :src="$VUE_APP_RESOURCES_URL+'/images/record2.png'" />
-          </div>
-          <div>消费记录</div>
-        </div>
-      </div>
-      <div class="advert acea-row row-between-wrapper"></div>
-    </div>
+  <view class="my-account">
+    <view class="wrapper">
+      <view class="header">
+        <view class="headerCon">
+          <view class="account acea-row row-top row-between">
+            <view class="assets">
+              <view>总资产(元)</view>
+              <view class="money">{{ now_money }}</view>
+            </view>
+          </view>
+          <view class="cumulative acea-row row-top">
+            <view class="item">
+              <view>累计消费(元)</view>
+              <view class="money">{{ orderStatusSum }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="nav acea-row row-middle">
+        <view class="item" @click="goUserBill(0)">
+          <view class="pictrue">
+            <image :src="$VUE_APP_RESOURCES_URL+'/images/record1.png'" />
+          </view>
+          <view>账单记录</view>
+        </view>
+        <view class="item" @click="goUserBill(1)">
+          <view class="pictrue">
+            <image :src="$VUE_APP_RESOURCES_URL+'/images/record2.png'" />
+          </view>
+          <view>消费记录</view>
+        </view>
+      </view>
+      <view class="advert acea-row row-between-wrapper"></view>
+    </view>
     <Recommend></Recommend>
-  </div>
+  </view>
 </template>
 <script>
 import Recommend from "@/components/Recommend";
@@ -74,7 +74,11 @@ export default {
           that.recharge = res.data.recharge;
         },
         err => {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },
@@ -86,8 +90,12 @@ export default {
           that.activity.is_pink = res.data.is_pink;
           that.activity.is_seckill = res.data.is_seckill;
         },
-        error => {
-          that.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     }

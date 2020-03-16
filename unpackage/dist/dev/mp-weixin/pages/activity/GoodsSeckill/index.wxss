@@ -1,5 +1,5 @@
 
-.timeItem.data-v-7a1ed156 {
+.timeItem.data-v-a2e413f6 {
   font-size: 0.22rem;
   color: #282828;
   width: 100%;
@@ -8,20 +8,20 @@
   height: 0.96rem;
   background-color: #efc58f;
 }
-.timeItem .time.data-v-7a1ed156 {
+.timeItem .time.data-v-a2e413f6 {
   font-size: 0.32rem;
   font-weight: bold;
   height: 0.37rem;
   line-height: 0.37rem;
 }
-.timeItem .state.data-v-7a1ed156 {
+.timeItem .state.data-v-a2e413f6 {
   height: 0.37rem;
   line-height: 0.37rem;
 }
-.activity.data-v-7a1ed156 {
+.activity.data-v-a2e413f6 {
   color: #333;
 }
-.flash-sale .list .item .grab.data-v-7a1ed156 {
+.flash-sale .list .item .grab.data-v-a2e413f6 {
   background-color: #999;
 }
 

@@ -1,23 +1,23 @@
 <template>
-  <div class="register absolute">
-    <div class="shading">
-      <div class="pictrue acea-row row-center-wrapper">
-        <img src="@/assets/images/logo.png" />
-      </div>
-    </div>
-    <div class="whiteBg">
-      <div class="title">找回密码</div>
-      <div class="list">
-        <div class="item">
-          <div>
+  <view class="register absolute">
+    <view class="shading">
+      <view class="pictrue acea-row row-center-wrapper">
+        <image src="@/assets/images/logo.png" />
+      </view>
+    </view>
+    <view class="whiteBg">
+      <view class="title">找回密码</view>
+      <view class="list">
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-phone_" />
             </svg>
             <input type="text" placeholder="输入手机号码" v-model="account" />
-          </div>
-        </div>
-        <div class="item">
-          <div class="align-left">
+          </view>
+        </view>
+        <view class="item">
+          <view class="align-left">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_1" />
             </svg>
@@ -28,24 +28,24 @@
               :class="disabled === true ? 'on' : ''"
               @click="code"
             >{{ text }}</button>
-          </div>
-        </div>
-        <div class="item">
-          <div>
+          </view>
+        </view>
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_" />
             </svg>
             <input type="password" placeholder="填写您的登录密码" v-model="password" />
-          </div>
-        </div>
-      </div>
-      <div class="logon" @click="registerReset">确认</div>
-      <div class="tip">
-        <span @click="goLogin()" class="font-color-red">立即登录</span>
-      </div>
-    </div>
-    <div class="bottom"></div>
-  </div>
+          </view>
+        </view>
+      </view>
+      <view class="logon" @click="registerReset">确认</view>
+      <view class="tip">
+        <text @click="goLogin()" class="font-color-red">立即登录</text>
+      </view>
+    </view>
+    <view class="bottom"></view>
+  </view>
 </template>
 
 <script>
@@ -98,12 +98,21 @@ export default {
         password: that.password
       })
         .then(res => {
-          that.$dialog.success(res.msg).then(() => {
-            that.$yrouter.push({ name: "Login" });
+          uni.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 2000,
+            complete: () => {
+              that.$yrouter.push({ name: "Login" });
+            }
           });
         })
-        .catch(res => {
-          that.$dialog.error(res.msg);
+        .catch(err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     async code() {
@@ -123,11 +132,19 @@ export default {
       }
       registerVerify({ phone: that.account })
         .then(res => {
-          that.$dialog.success(res.msg);
+          uni.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 2000
+          });
           that.sendCode();
         })
-        .catch(res => {
-          that.$dialog.error(res.msg);
+        .catch(err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     }
   }

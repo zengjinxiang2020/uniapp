@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}
+Object.defineProperty(exports, "__esModule", { value: true });exports.createApp = createApp;exports.createComponent = createComponent;exports.createPage = createPage;exports.default = void 0;var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _slicedToArray(arr, i) {return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();}function _nonIterableRest() {throw new TypeError("Invalid attempt to destructure non-iterable instance");}function _iterableToArrayLimit(arr, i) {var _arr = [];var _n = true;var _d = false;var _e = undefined;try {for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {_arr.push(_s.value);if (i && _arr.length === i) break;}} catch (err) {_d = true;_e = err;} finally {try {if (!_n && _i["return"] != null) _i["return"]();} finally {if (_d) throw _e;}}return _arr;}function _arrayWithHoles(arr) {if (Array.isArray(arr)) return arr;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toConsumableArray(arr) {return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();}function _nonIterableSpread() {throw new TypeError("Invalid attempt to spread non-iterable instance");}function _iterableToArray(iter) {if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);}function _arrayWithoutHoles(arr) {if (Array.isArray(arr)) {for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) {arr2[i] = arr[i];}return arr2;}}
 
 var _toString = Object.prototype.toString;
 var hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -1327,10 +1327,9 @@ function parseBaseComponent(vueComponentOptions)
 {var _ref5 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},isPage = _ref5.isPage,initRelation = _ref5.initRelation;var _initVueComponent =
   initVueComponent(_vue.default, vueComponentOptions),_initVueComponent2 = _slicedToArray(_initVueComponent, 2),VueComponent = _initVueComponent2[0],vueOptions = _initVueComponent2[1];
 
-  var options = _objectSpread({
+  var options = {
     multipleSlots: true,
-    addGlobalClass: true },
-  vueOptions.options || {});
+    addGlobalClass: true };
 
 
   {
@@ -1552,132 +1551,6 @@ uni$1;exports.default = _default;
 
 /***/ }),
 
-/***/ 105:
-/*!***************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/bc.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.div = _div;exports.mul = _mul;exports.add = _add;exports.sub = _sub;exports.default = _default; //除法函数，用来得到精确的除法结果
-//说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
-//调用：div(arg1,arg2)
-//返回值：arg1除以arg2的精确结果
-function _div(arg1, arg2) {
-  var t1 = 0,
-  t2 = 0,
-  r1,
-  r2;
-  try {
-    t1 = arg1.toString().split(".")[1].length;
-  } catch (e) {
-    t1 = 0;
-  }
-  try {
-    t2 = arg2.toString().split(".")[1].length;
-  } catch (e) {
-    t2 = 0;
-  }
-  r1 = Number(arg1.toString().replace(".", ""));
-  r2 = Number(arg2.toString().replace(".", ""));
-  return _mul(r1 / r2, Math.pow(10, t2 - t1));
-}
-//乘法函数，用来得到精确的乘法结果
-//说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-//调用：mul(arg1,arg2)
-//返回值：arg1乘以arg2的精确结果
-function _mul(arg1, arg2) {
-  var m = 0,
-  s1 = arg1.toString(),
-  s2 = arg2.toString();
-  try {
-    m += s1.split(".")[1].length;
-  } catch (e) {
-    m = 0;
-  }
-  try {
-    m += s2.split(".")[1].length;
-  } catch (e) {
-    m = m || 0;
-  }
-  return (
-    Number(s1.replace(".", "")) * Number(s2.replace(".", "")) /
-    Math.pow(10, m));
-
-}
-
-//加法函数，用来得到精确的加法结果
-//说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
-//调用：add(arg1,arg2)
-//返回值：arg1加上arg2的精确结果
-function _add(arg1, arg2) {
-  var r1, r2, m, n;
-  try {
-    r1 = arg1.toString().split(".")[1].length;
-  } catch (e) {
-    r1 = 0;
-  }
-  try {
-    r2 = arg2.toString().split(".")[1].length;
-  } catch (e) {
-    r2 = 0;
-  }
-  m = Math.pow(10, Math.max(r1, r2));
-  n = r1 >= r2 ? r1 : r2;
-  return ((arg1 * m + arg2 * m) / m).toFixed(n);
-}
-
-//减法函数，用来得到精确的减法结果
-//说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的减法结果。
-//调用：sub(arg1,arg2)
-//返回值：arg1减去arg2的精确结果
-function _sub(arg1, arg2) {
-  var r1, r2, m, n;
-  try {
-    r1 = arg1.toString().split(".")[1].length;
-  } catch (e) {
-    r1 = 0;
-  }
-  try {
-    r2 = arg2.toString().split(".")[1].length;
-  } catch (e) {
-    r2 = 0;
-  }
-  m = Math.pow(10, Math.max(r1, r2));
-  //动态控制精度长度
-  n = r1 >= r2 ? r1 : r2;
-  return ((arg1 * m - arg2 * m) / m).toFixed(n);
-}
-
-function Compute(value) {
-  this.value = value;
-}
-Object.assign(Compute.prototype, {
-  add: function add(v) {
-    this.value = _add(this.value, v);
-    return this;
-  },
-  sub: function sub(v) {
-    this.value = _sub(this.value, v);
-    return this;
-  },
-  div: function div(v) {
-    this.value = _div(this.value, v);
-    return this;
-  },
-  mul: function mul(v) {
-    this.value = _mul(this.value, v);
-    return this;
-  } });
-
-
-function _default(value) {
-  return new Compute(value);
-}
-
-/***/ }),
-
 /***/ 14:
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -1800,9 +1673,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 15:
-/*!******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/store/index.js ***!
-  \******************************************************************/
+/*!*******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/store/index.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2879,9 +2752,9 @@ var index_esm = {
 /***/ }),
 
 /***/ 17:
-/*!*************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/store/cookie.js ***!
-  \*************************************************************************/
+/*!**************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/store/cookie.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2975,9 +2848,9 @@ function _has(key) {
 /***/ }),
 
 /***/ 18:
-/*!******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/index.js ***!
-  \******************************************************************/
+/*!*******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/index.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3476,9 +3349,9 @@ var PosterCanvas = function PosterCanvas(store, successCallBack) {
 /***/ }),
 
 /***/ 19:
-/*!***************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/user.js ***!
-  \***************************************************************/
+/*!****************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/user.js ***!
+  \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3860,7 +3733,7 @@ function setDetection() {
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(global) {/*!
  * Vue.js v2.6.11
- * (c) 2014-2020 Evan You
+ * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
 /*  */
@@ -9483,7 +9356,7 @@ var patch = function(oldVnode, vnode) {
     Object.keys(data).forEach(function (key) { //仅同步 data 中有的数据
       mpData[key] = mpInstance.data[key];
     });
-    var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
+    var diffData = diff(data, mpData);
     if (Object.keys(diffData).length) {
       if (Object({"NODE_ENV":"development","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
@@ -9658,11 +9531,12 @@ function getTarget(obj, path) {
 function internalMixin(Vue) {
 
   Vue.config.errorHandler = function(err) {
-    console.error(err);
     /* eslint-disable no-undef */
     var app = getApp();
     if (app && app.onError) {
       app.onError(err);
+    } else {
+      console.error(err);
     }
   };
 
@@ -9880,9 +9754,9 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 20:
-/*!********************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/request.js ***!
-  \********************************************************************/
+/*!*********************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/request.js ***!
+  \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10788,9 +10662,9 @@ module.exports = function (engine) {
 /***/ }),
 
 /***/ 22:
-/*!*****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/libs/login.js ***!
-  \*****************************************************************/
+/*!******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/libs/login.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10830,9 +10704,9 @@ function toLogin(push, backUrl) {
 /***/ }),
 
 /***/ 23:
-/*!*******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/config/index.js ***!
-  \*******************************************************************/
+/*!********************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/config/index.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10844,9 +10718,9 @@ var VUE_APP_RESOURCES_URL = 'https://h5.dayouqiantu.cn/static';exports.VUE_APP_R
 /***/ }),
 
 /***/ 24:
-/*!***********************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/node_modules/dayjs/dayjs.min.js ***!
-  \***********************************************************************************/
+/*!************************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/node_modules/dayjs/dayjs.min.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10856,9 +10730,9 @@ var VUE_APP_RESOURCES_URL = 'https://h5.dayouqiantu.cn/static';exports.VUE_APP_R
 /***/ }),
 
 /***/ 25:
-/*!************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/querystring.js ***!
-  \************************************************************************/
+/*!*************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/querystring.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10930,9 +10804,9 @@ stringify;exports.default = _default;
 /***/ }),
 
 /***/ 26:
-/*!*******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/dialog.js ***!
-  \*******************************************************************/
+/*!********************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/dialog.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11045,9 +10919,9 @@ dialog;exports.default = _default;
 /***/ }),
 
 /***/ 27:
-/*!****************************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/node_modules/animate.css/animate.css ***!
-  \****************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/node_modules/animate.css/animate.css ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11056,9 +10930,9 @@ dialog;exports.default = _default;
 /***/ }),
 
 /***/ 28:
-/*!**************************************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/node_modules/async-validator/dist-web/index.js ***!
-  \**************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/node_modules/async-validator/dist-web/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12722,54 +12596,10 @@ var substr = 'ab'.substr(-1) === 'b'
 
 /***/ }),
 
-/***/ 31:
-/*!********************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/iconfont/iconfont.css ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 32:
-/*!************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/base.less ***!
-  \************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 33:
-/*!*************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/reset.less ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 34:
-/*!*************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/css/style.less ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
-/***/ 343:
-/*!******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/libs/wechat.js ***!
-  \******************************************************************/
+/***/ 336:
+/*!*******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/libs/wechat.js ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12798,10 +12628,10 @@ var weappPay = function weappPay(option) {
 
 /***/ }),
 
-/***/ 352:
-/*!****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/order.js ***!
-  \****************************************************************/
+/***/ 345:
+/*!*****************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/order.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12938,17 +12768,17 @@ function orderVerific(verify_code, is_confirm) {
 
 /***/ }),
 
-/***/ 353:
-/*!*****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/libs/order.js ***!
-  \*****************************************************************/
+/***/ 346:
+/*!******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/libs/order.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.cancelOrderHandle = cancelOrderHandle;exports.takeOrderHandle = takeOrderHandle;exports.delOrderHandle = delOrderHandle;exports.payOrderHandle = payOrderHandle;var _order = __webpack_require__(/*! @/api/order */ 352);
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.cancelOrderHandle = cancelOrderHandle;exports.takeOrderHandle = takeOrderHandle;exports.delOrderHandle = delOrderHandle;exports.payOrderHandle = payOrderHandle;var _order = __webpack_require__(/*! @/api/order */ 345);
 var _dialog = _interopRequireDefault(__webpack_require__(/*! @/utils/dialog */ 26));
-var _wechat = __webpack_require__(/*! @/libs/wechat */ 343);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+var _wechat = __webpack_require__(/*! @/libs/wechat */ 336);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 
 function cancelOrderHandle(orderId) {
   return new Promise(function (resolve, reject) {
@@ -13057,33 +12887,10 @@ function payOrderHandle(orderId, type, from) {
 
 /***/ }),
 
-/***/ 39:
-/*!*******************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/images/live-logo.gif ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/gif;base64,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"
-
-/***/ }),
-
-/***/ 4:
-/*!**************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/pages.json ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/***/ }),
-
-/***/ 402:
-/*!****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/admin.js ***!
-  \****************************************************************/
+/***/ 395:
+/*!*****************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/admin.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13164,10 +12971,22 @@ function setOrderRefund(data) {
 
 /***/ }),
 
-/***/ 443:
-/*!*******************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/activity.js ***!
-  \*******************************************************************/
+/***/ 4:
+/*!***************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/pages.json ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+/***/ }),
+
+/***/ 436:
+/*!********************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/activity.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14215,41 +14034,19 @@ main();
 
 /***/ }),
 
-/***/ 56:
-/*!**************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/images/logo.png ***!
-  \**************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__.p + "static/img/logo.617f49e2.png";
-
-/***/ }),
-
-/***/ 59:
+/***/ 53:
 /*!**********************************************************!*\
   !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
   \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! regenerator-runtime */ 60);
+module.exports = __webpack_require__(/*! regenerator-runtime */ 54);
 
 
 /***/ }),
 
-/***/ 6:
-/*!******************************************************!*\
-  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
-  \******************************************************/
-/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
-/***/ (function(module) {
-
-module.exports = {"_from":"@dcloudio/uni-stat@next","_id":"@dcloudio/uni-stat@2.0.0-26420200313001","_inBundle":false,"_integrity":"sha512-7dPuazTiDmUyRcw+WW+UlWGKH0eeCUB+p0P4pJVKEHjpdXnXgvDQCSdJk764NH99TfsUycnuxecP5oHckVa88g==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@next","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"next","saveSpec":null,"fetchSpec":"next"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-26420200313001.tgz","_shasum":"a006e329e033cd412accfa635f8933dbb822a9c3","_spec":"@dcloudio/uni-stat@next","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/release/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"b1fdbafab5dd4673cff64188a5203d0c947e4f50","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-26420200313001"};
-
-/***/ }),
-
-/***/ 60:
+/***/ 54:
 /*!************************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime-module.js ***!
   \************************************************************/
@@ -14280,7 +14077,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(/*! ./runtime */ 61);
+module.exports = __webpack_require__(/*! ./runtime */ 55);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -14297,7 +14094,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 61:
+/***/ 55:
 /*!*****************************************************!*\
   !*** ./node_modules/regenerator-runtime/runtime.js ***!
   \*****************************************************/
@@ -15029,10 +14826,10 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 62:
-/*!****************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/mixins/SendVerifyCode.js ***!
-  \****************************************************************************/
+/***/ 56:
+/*!*****************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/mixins/SendVerifyCode.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15065,10 +14862,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 63:
-/*!*********************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/utils/validate.js ***!
-  \*********************************************************************/
+/***/ 57:
+/*!**********************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/validate.js ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15243,22 +15040,33 @@ attrs;exports.default = _default;
 
 /***/ }),
 
+/***/ 6:
+/*!******************************************************!*\
+  !*** ./node_modules/@dcloudio/uni-stat/package.json ***!
+  \******************************************************/
+/*! exports provided: _from, _id, _inBundle, _integrity, _location, _phantomChildren, _requested, _requiredBy, _resolved, _shasum, _spec, _where, author, bugs, bundleDependencies, deprecated, description, devDependencies, files, gitHead, homepage, license, main, name, repository, scripts, version, default */
+/***/ (function(module) {
+
+module.exports = {"_from":"@dcloudio/uni-stat@alpha","_id":"@dcloudio/uni-stat@2.0.0-alpha-25720200116005","_inBundle":false,"_integrity":"sha512-RZFw3WAaS/CZTzzv9JPaWvmoNitojD/06vPdHSzlqZi8GbuE222lFuyochEjrGkG8rPPrWHAnwfoPBuQVtkfdg==","_location":"/@dcloudio/uni-stat","_phantomChildren":{},"_requested":{"type":"tag","registry":true,"raw":"@dcloudio/uni-stat@alpha","name":"@dcloudio/uni-stat","escapedName":"@dcloudio%2funi-stat","scope":"@dcloudio","rawSpec":"alpha","saveSpec":null,"fetchSpec":"alpha"},"_requiredBy":["#USER","/","/@dcloudio/vue-cli-plugin-uni"],"_resolved":"https://registry.npmjs.org/@dcloudio/uni-stat/-/uni-stat-2.0.0-alpha-25720200116005.tgz","_shasum":"08bb17aba91c84a981f33d74153aa3dd07b578ad","_spec":"@dcloudio/uni-stat@alpha","_where":"/Users/guoshengqiang/Documents/dcloud-plugins/alpha/uniapp-cli","author":"","bugs":{"url":"https://github.com/dcloudio/uni-app/issues"},"bundleDependencies":false,"deprecated":false,"description":"","devDependencies":{"@babel/core":"^7.5.5","@babel/preset-env":"^7.5.5","eslint":"^6.1.0","rollup":"^1.19.3","rollup-plugin-babel":"^4.3.3","rollup-plugin-clear":"^2.0.7","rollup-plugin-commonjs":"^10.0.2","rollup-plugin-copy":"^3.1.0","rollup-plugin-eslint":"^7.0.0","rollup-plugin-json":"^4.0.0","rollup-plugin-node-resolve":"^5.2.0","rollup-plugin-replace":"^2.2.0","rollup-plugin-uglify":"^6.0.2"},"files":["dist","package.json","LICENSE"],"gitHead":"a129bde60de35f7ef497f43d5a45b4556231995c","homepage":"https://github.com/dcloudio/uni-app#readme","license":"Apache-2.0","main":"dist/index.js","name":"@dcloudio/uni-stat","repository":{"type":"git","url":"git+https://github.com/dcloudio/uni-app.git","directory":"packages/uni-stat"},"scripts":{"build":"NODE_ENV=production rollup -c rollup.config.js","dev":"NODE_ENV=development rollup -w -c rollup.config.js"},"version":"2.0.0-alpha-25720200116005"};
+
+/***/ }),
+
 /***/ 7:
-/*!*******************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/pages.json?{"type":"style"} ***!
-  \*******************************************************************************/
+/*!********************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/pages.json?{"type":"style"} ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/Loading/index": { "navigationBarTitleText": "Loading", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/authorization/index": { "navigationBarTitleText": "authorization", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Login/index": { "navigationBarTitleText": "Login", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Register/index": { "navigationBarTitleText": "Register", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/RetrievePassword/index": { "navigationBarTitleText": "RetrievePassword", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/launch/index": { "navigationBarTitleText": "launch", "usingComponents": { "home": "/pages/home/index", "goods-class": "/pages/shop/GoodsClass/index", "shopping-cart": "/pages/shop/ShoppingCart/index", "user": "/pages/user/User/index", "footer-components": "/components/Footer" }, "usingAutoImportComponents": {} }, "pages/home/index": { "navigationBarTitleText": "home", "usingComponents": { "good-list": "/components/GoodList", "promotion-good": "/components/PromotionGood", "coupon-window": "/components/CouponWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodSearch/index": { "navigationBarTitleText": "GoodSearch", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsClass/index": { "navigationBarTitleText": "GoodsClass", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/ShoppingCart/index": { "navigationBarTitleText": "ShoppingCart", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsList/index": { "navigationBarTitleText": "GoodsList", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/NotDefined/index": { "navigationBarTitleText": "NotDefined", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/User/index": { "navigationBarTitleText": "User", "usingComponents": { "switch-window": "/components/SwitchWindow" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCollection/index": { "navigationBarTitleText": "GoodsCollection", "usingComponents": { "recommend": "/components/Recommend", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/news/NewsDetail/index": { "navigationBarTitleText": "NewsDetail", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/news/NewsList/index": { "navigationBarTitleText": "NewsList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/EvaluateList/index": { "navigationBarTitleText": "EvaluateList", "usingComponents": { "user-evaluation": "/components/UserEvaluation", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsEvaluate/index": { "navigationBarTitleText": "GoodsEvaluate", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/shop/GoodsPromotion/index": { "navigationBarTitleText": "GoodsPromotion", "usingComponents": { "promotion-good": "/components/PromotionGood" }, "usingAutoImportComponents": {} }, "pages/shop/HotNewGoods/index": { "navigationBarTitleText": "HotNewGoods", "usingComponents": { "good-list": "/components/GoodList" }, "usingAutoImportComponents": {} }, "pages/shop/GoodsCon/index": { "navigationBarTitleText": "GoodsCon", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "user-evaluation": "/components/UserEvaluation", "coupon-pop": "/components/CouponPop", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster", "share-info": "/components/ShareInfo" }, "usingAutoImportComponents": {} }, "pages/user/BindingPhone/index": { "navigationBarTitleText": "BindingPhone", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/address/AddAddress/index": { "navigationBarTitleText": "AddAddress", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserAccount/index": { "navigationBarTitleText": "UserAccount", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/address/AddressManagement/index": { "navigationBarTitleText": "AddressManagement", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/Poster/index": { "navigationBarTitleText": "promotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/Sign/index": { "navigationBarTitleText": "signIn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/signIn/SignRecord/index": { "navigationBarTitleText": "SignRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashAudit/index": { "navigationBarTitleText": "CashAudit", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterOrder/index": { "navigationBarTitleText": "PromoterOrder", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/PromoterList/index": { "navigationBarTitleText": "PromoterList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserPromotion/index": { "navigationBarTitleText": "UserPromotion", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/UserBill/index": { "navigationBarTitleText": "UserBill", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CashRecord/index": { "navigationBarTitleText": "CashRecord", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/promotion/CommissionDetails/index": { "navigationBarTitleText": "CommissionDetails", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/user/signIn/Integral/index": { "navigationBarTitleText": "Integral", "usingComponents": { "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/user/UserVip/index": { "navigationBarTitleText": "UserVip", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/user/PersonalData/index": { "navigationBarTitleText": "PersonalData", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/coupon/UserCoupon/index": { "navigationBarTitleText": "UserCoupon", "usingComponents": { "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/coupon/GetCoupon/index": { "navigationBarTitleText": "GetCoupon", "usingComponents": { "loading": "/components/Loading", "data-format-t": "/components/DataFormatT" }, "usingAutoImportComponents": {} }, "pages/user/promotion/UserCash/index": { "navigationBarTitleText": "UserCash", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/CustomerList/index": { "navigationBarTitleText": "CustomerList", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/user/Recharge/index": { "navigationBarTitleText": "Recharge", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/MyOrder/index": { "navigationBarTitleText": "MyOrder", "usingComponents": { "loading": "/components/Loading", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/Logistics/index": { "navigationBarTitleText": "Logistics", "usingComponents": { "recommend": "/components/Recommend" }, "usingAutoImportComponents": {} }, "pages/order/OrderDetails/index": { "navigationBarTitleText": "OrderDetails", "usingComponents": { "order-goods": "/components/OrderGoods", "payment": "/components/Payment", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/order/OrderSubmission/index": { "navigationBarTitleText": "OrderSubmission", "usingComponents": { "order-goods": "/components/OrderGoods", "coupon-list-window": "/components/CouponListWindow", "address-window": "/components/AddressWindow" }, "usingAutoImportComponents": {} }, "pages/order/PaymentStatus/index": { "navigationBarTitleText": "PaymentStatus", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/GoodsReturn/index": { "navigationBarTitleText": "GoodsReturn", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/order/ReturnList/index": { "navigationBarTitleText": "ReturnList", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderIndex/index": { "navigationBarTitleText": "OrderIndex", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrderList/index": { "navigationBarTitleText": "AdminOrderList", "usingComponents": { "price-change": "/components/PriceChange", "loading": "/components/Loading", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/GoodsDeliver/index": { "navigationBarTitleText": "GoodsDeliver", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/orderAdmin/AdminOrder/index": { "navigationBarTitleText": "AdminOrder", "usingComponents": { "price-change": "/components/PriceChange", "data-format": "/components/DataFormat" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/Statistics/index": { "navigationBarTitleText": "Statistics", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/orderAdmin/OrderCancellation/index": { "navigationBarTitleText": "OrderCancellation", "usingComponents": { "write-off": "/components/WriteOff" }, "usingAutoImportComponents": {} }, "pages/activity/Poster/index": { "navigationBarTitleText": "Poster", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/DargainDetails/index": { "navigationBarTitleText": "DargainDetails", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsBargain/index": { "navigationBarTitleText": "GoodsBargain", "usingComponents": {}, "usingAutoImportComponents": {} }, "pages/activity/BargainRecord/index": { "navigationBarTitleText": "BargainRecord", "usingComponents": { "count-down": "/components/CountDown", "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsGroup/index": { "navigationBarTitleText": "GoodsGroup", "usingComponents": { "loading": "/components/Loading" }, "usingAutoImportComponents": {} }, "pages/activity/GroupDetails/index": { "navigationBarTitleText": "GroupDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "user-evaluation": "/components/UserEvaluation", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} }, "pages/activity/GroupRule/index": { "navigationBarTitleText": "GroupRule", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/GoodsSeckill/index": { "navigationBarTitleText": "GoodsSeckill", "usingComponents": { "count-down": "/components/CountDown" }, "usingAutoImportComponents": {} }, "pages/activity/SeckillDetails/index": { "navigationBarTitleText": "SeckillDetails", "usingComponents": { "product-con-swiper": "/components/ProductConSwiper", "count-down": "/components/CountDown", "product-window": "/components/ProductWindow", "store-poster": "/components/StorePoster" }, "usingAutoImportComponents": {} }, "pages/11111/11111": { "usingComponents": {}, "usingAutoImportComponents": {} } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = { "pages": { "pages/Loading/index": { "navigationBarTitleText": "Loading" }, "pages/authorization/index": { "navigationBarTitleText": "authorization" }, "pages/user/Login/index": { "navigationBarTitleText": "Login" }, "pages/user/Register/index": { "navigationBarTitleText": "Register" }, "pages/user/RetrievePassword/index": { "navigationBarTitleText": "RetrievePassword" }, "pages/launch/index": { "navigationBarTitleText": "launch" }, "pages/home/index": { "navigationBarTitleText": "home" }, "pages/shop/GoodSearch/index": { "navigationBarTitleText": "GoodSearch" }, "pages/shop/GoodsClass/index": { "navigationBarTitleText": "GoodsClass" }, "pages/shop/ShoppingCart/index": { "navigationBarTitleText": "ShoppingCart" }, "pages/shop/GoodsList/index": { "navigationBarTitleText": "GoodsList" }, "pages/NotDefined/index": { "navigationBarTitleText": "NotDefined" }, "pages/user/User/index": { "navigationBarTitleText": "User" }, "pages/shop/GoodsCollection/index": { "navigationBarTitleText": "GoodsCollection" }, "pages/shop/news/NewsDetail/index": { "navigationBarTitleText": "NewsDetail" }, "pages/shop/news/NewsList/index": { "navigationBarTitleText": "NewsList" }, "pages/shop/EvaluateList/index": { "navigationBarTitleText": "EvaluateList" }, "pages/shop/GoodsEvaluate/index": { "navigationBarTitleText": "GoodsEvaluate" }, "pages/shop/GoodsPromotion/index": { "navigationBarTitleText": "GoodsPromotion" }, "pages/shop/HotNewGoods/index": { "navigationBarTitleText": "HotNewGoods" }, "pages/shop/GoodsCon/index": { "navigationBarTitleText": "GoodsCon" }, "pages/user/BindingPhone/index": { "navigationBarTitleText": "BindingPhone" }, "pages/user/address/AddAddress/index": { "navigationBarTitleText": "AddAddress" }, "pages/user/UserAccount/index": { "navigationBarTitleText": "UserAccount" }, "pages/user/address/AddressManagement/index": { "navigationBarTitleText": "AddressManagement" }, "pages/user/promotion/Poster/index": { "navigationBarTitleText": "promotion" }, "pages/user/signIn/Sign/index": { "navigationBarTitleText": "signIn" }, "pages/user/signIn/SignRecord/index": { "navigationBarTitleText": "SignRecord" }, "pages/user/promotion/CashAudit/index": { "navigationBarTitleText": "CashAudit" }, "pages/user/promotion/PromoterOrder/index": { "navigationBarTitleText": "PromoterOrder" }, "pages/user/promotion/PromoterList/index": { "navigationBarTitleText": "PromoterList" }, "pages/user/promotion/UserPromotion/index": { "navigationBarTitleText": "UserPromotion" }, "pages/user/UserBill/index": { "navigationBarTitleText": "UserBill" }, "pages/user/promotion/CashRecord/index": { "navigationBarTitleText": "CashRecord" }, "pages/user/promotion/CommissionDetails/index": { "navigationBarTitleText": "CommissionDetails" }, "pages/user/signIn/Integral/index": { "navigationBarTitleText": "Integral" }, "pages/user/UserVip/index": { "navigationBarTitleText": "UserVip" }, "pages/user/PersonalData/index": { "navigationBarTitleText": "PersonalData" }, "pages/user/coupon/UserCoupon/index": { "navigationBarTitleText": "UserCoupon" }, "pages/user/coupon/GetCoupon/index": { "navigationBarTitleText": "GetCoupon" }, "pages/user/promotion/UserCash/index": { "navigationBarTitleText": "UserCash" }, "pages/user/CustomerList/index": { "navigationBarTitleText": "CustomerList" }, "pages/user/Recharge/index": { "navigationBarTitleText": "Recharge" }, "pages/order/MyOrder/index": { "navigationBarTitleText": "MyOrder" }, "pages/order/Logistics/index": { "navigationBarTitleText": "Logistics" }, "pages/order/OrderDetails/index": { "navigationBarTitleText": "OrderDetails" }, "pages/order/OrderSubmission/index": { "navigationBarTitleText": "OrderSubmission" }, "pages/order/PaymentStatus/index": { "navigationBarTitleText": "PaymentStatus" }, "pages/order/GoodsReturn/index": { "navigationBarTitleText": "GoodsReturn" }, "pages/order/ReturnList/index": { "navigationBarTitleText": "ReturnList" }, "pages/orderAdmin/OrderIndex/index": { "navigationBarTitleText": "OrderIndex" }, "pages/orderAdmin/AdminOrderList/index": { "navigationBarTitleText": "AdminOrderList" }, "pages/orderAdmin/GoodsDeliver/index": { "navigationBarTitleText": "GoodsDeliver" }, "pages/orderAdmin/AdminOrder/index": { "navigationBarTitleText": "AdminOrder" }, "pages/orderAdmin/Statistics/index": { "navigationBarTitleText": "Statistics" }, "pages/orderAdmin/OrderCancellation/index": { "navigationBarTitleText": "OrderCancellation" }, "pages/activity/Poster/index": { "navigationBarTitleText": "Poster" }, "pages/activity/DargainDetails/index": { "navigationBarTitleText": "DargainDetails" }, "pages/activity/GoodsBargain/index": { "navigationBarTitleText": "GoodsBargain" }, "pages/activity/BargainRecord/index": { "navigationBarTitleText": "BargainRecord" }, "pages/activity/GoodsGroup/index": { "navigationBarTitleText": "GoodsGroup" }, "pages/activity/GroupDetails/index": { "navigationBarTitleText": "GroupDetails" }, "pages/activity/GroupRule/index": { "navigationBarTitleText": "GroupRule" }, "pages/activity/GoodsSeckill/index": { "navigationBarTitleText": "GoodsSeckill" }, "pages/activity/SeckillDetails/index": { "navigationBarTitleText": "SeckillDetails" } }, "globalStyle": { "navigationBarTextStyle": "black", "navigationBarTitleText": "uni-app", "navigationBarBackgroundColor": "#F8F8F8", "backgroundColor": "#F8F8F8" } };exports.default = _default;
 
 /***/ }),
 
 /***/ 8:
-/*!******************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/pages.json?{"type":"stat"} ***!
-  \******************************************************************************/
+/*!*******************************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/pages.json?{"type":"stat"} ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15267,21 +15075,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 85:
-/*!******************************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/assets/images/index-bg.png ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,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"
-
-/***/ }),
-
-/***/ 88:
-/*!*****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/public.js ***!
-  \*****************************************************************/
+/***/ 81:
+/*!******************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/public.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15389,7 +15186,7 @@ function imageBase64(image, code) {
 
 /***/ }),
 
-/***/ 96:
+/***/ 89:
 /*!***********************************************!*\
   !*** ./node_modules/lodash.debounce/index.js ***!
   \***********************************************/
@@ -15778,10 +15575,10 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 97:
-/*!****************************************************************!*\
-  !*** /Users/piao/Documents/Project/yshopmall_uni/api/store.js ***!
-  \****************************************************************/
+/***/ 90:
+/*!*****************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/api/store.js ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15916,6 +15713,132 @@ function postOrderProduct(unique) {
    */
 function postOrderComment(data) {
   return _request.default.post("/order/comment", data, { login: true });
+}
+
+/***/ }),
+
+/***/ 98:
+/*!****************************************************************!*\
+  !*** /Users/gaoxs/Documents/project/yshopmall_uni/utils/bc.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.div = _div;exports.mul = _mul;exports.add = _add;exports.sub = _sub;exports.default = _default; //除法函数，用来得到精确的除法结果
+//说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
+//调用：div(arg1,arg2)
+//返回值：arg1除以arg2的精确结果
+function _div(arg1, arg2) {
+  var t1 = 0,
+  t2 = 0,
+  r1,
+  r2;
+  try {
+    t1 = arg1.toString().split(".")[1].length;
+  } catch (e) {
+    t1 = 0;
+  }
+  try {
+    t2 = arg2.toString().split(".")[1].length;
+  } catch (e) {
+    t2 = 0;
+  }
+  r1 = Number(arg1.toString().replace(".", ""));
+  r2 = Number(arg2.toString().replace(".", ""));
+  return _mul(r1 / r2, Math.pow(10, t2 - t1));
+}
+//乘法函数，用来得到精确的乘法结果
+//说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+//调用：mul(arg1,arg2)
+//返回值：arg1乘以arg2的精确结果
+function _mul(arg1, arg2) {
+  var m = 0,
+  s1 = arg1.toString(),
+  s2 = arg2.toString();
+  try {
+    m += s1.split(".")[1].length;
+  } catch (e) {
+    m = 0;
+  }
+  try {
+    m += s2.split(".")[1].length;
+  } catch (e) {
+    m = m || 0;
+  }
+  return (
+    Number(s1.replace(".", "")) * Number(s2.replace(".", "")) /
+    Math.pow(10, m));
+
+}
+
+//加法函数，用来得到精确的加法结果
+//说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+//调用：add(arg1,arg2)
+//返回值：arg1加上arg2的精确结果
+function _add(arg1, arg2) {
+  var r1, r2, m, n;
+  try {
+    r1 = arg1.toString().split(".")[1].length;
+  } catch (e) {
+    r1 = 0;
+  }
+  try {
+    r2 = arg2.toString().split(".")[1].length;
+  } catch (e) {
+    r2 = 0;
+  }
+  m = Math.pow(10, Math.max(r1, r2));
+  n = r1 >= r2 ? r1 : r2;
+  return ((arg1 * m + arg2 * m) / m).toFixed(n);
+}
+
+//减法函数，用来得到精确的减法结果
+//说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的减法结果。
+//调用：sub(arg1,arg2)
+//返回值：arg1减去arg2的精确结果
+function _sub(arg1, arg2) {
+  var r1, r2, m, n;
+  try {
+    r1 = arg1.toString().split(".")[1].length;
+  } catch (e) {
+    r1 = 0;
+  }
+  try {
+    r2 = arg2.toString().split(".")[1].length;
+  } catch (e) {
+    r2 = 0;
+  }
+  m = Math.pow(10, Math.max(r1, r2));
+  //动态控制精度长度
+  n = r1 >= r2 ? r1 : r2;
+  return ((arg1 * m - arg2 * m) / m).toFixed(n);
+}
+
+function Compute(value) {
+  this.value = value;
+}
+Object.assign(Compute.prototype, {
+  add: function add(v) {
+    this.value = _add(this.value, v);
+    return this;
+  },
+  sub: function sub(v) {
+    this.value = _sub(this.value, v);
+    return this;
+  },
+  div: function div(v) {
+    this.value = _div(this.value, v);
+    return this;
+  },
+  mul: function mul(v) {
+    this.value = _mul(this.value, v);
+    return this;
+  } });
+
+
+function _default(value) {
+  return new Compute(value);
 }
 
 /***/ })

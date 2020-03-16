@@ -1,17 +1,17 @@
 <template>
-  <div class="CustomerList">
-    <div
+  <view class="CustomerList">
+    <view
       class="item acea-row row-between-wrapper"
       v-for="item in list"
       :key="item.id"
       @click="goCustomerService(item)"
     >
-      <div class="pictrue">
-        <img :src="item.avatar" />
-      </div>
-      <div class="text line1">{{ item.nickname }}</div>
-    </div>
-  </div>
+      <view class="pictrue">
+        <image :src="item.avatar" />
+      </view>
+      <view class="text line1">{{ item.nickname }}</view>
+    </view>
+  </view>
 </template>
 <script>
 import { serviceList } from "@/api/user";
@@ -60,7 +60,7 @@ export default {
   -webkit-box-shadow: 0 0 0.1rem 0.05rem #f3f3f3;
   -moz-box-shadow: 0 0 0.1rem 0.05rem #f3f3f3;
 }
-.CustomerList .item .pictrue img {
+.CustomerList .item .pictrue image{
   width: 100%;
   height: 100%;
   border-radius: 50%;

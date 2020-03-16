@@ -1,53 +1,54 @@
 <template>
-  <div :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
+  <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']" v-show="domStatus">
     <product-con-swiper :imgUrls="imgUrls"></product-con-swiper>
-    <div class="wrapper">
-      <div class="share acea-row row-between row-bottom">
-        <div class="money font-color-red">
+    <view class="wrapper">
+      <view class="share acea-row row-between row-bottom">
+        <view class="money font-color-red">
           ￥
-          <span class="num" v-text="storeInfo.price"></span>
-          <span class="y-money" v-text="'￥' + storeInfo.productPrice"></span>
-        </div>
-      </div>
-      <div class="introduce" v-text="storeInfo.title"></div>
-      <div class="label acea-row row-between-wrapper">
-        <div v-text="'类型:' + storeInfo.people + '人团'"></div>
-        <div v-text="'库存:' + storeInfo.stock + storeInfo.unitName"></div>
-        <div v-text="'已拼:' + storeInfo.sales + storeInfo.unitName"></div>
-      </div>
-    </div>
-    <div class="notice acea-row row-middle">
-      <div class="num font-color-red">
-        <span class="iconfont icon-laba"></span>
+          <text class="num" v-text="storeInfo.price"></text>
+          <text class="y-money" v-text="'￥' + storeInfo.productPrice"></text>
+        </view>
+      </view>
+      <view class="introduce" v-text="storeInfo.title"></view>
+      <view class="label acea-row row-between-wrapper">
+        <view v-text="'类型:' + storeInfo.people + '人团'"></view>
+        <view v-text="'库存:' + storeInfo.stock + storeInfo.unitName"></view>
+        <view v-text="'已拼:' + storeInfo.sales + storeInfo.unitName"></view>
+      </view>
+    </view>
+    <view class="notice acea-row row-middle">
+      <view class="num font-color-red">
+        <text class="iconfont icon-laba"></text>
         已拼{{ storeInfo.sales
         }}{{ storeInfo.unitName }}
-        <span class="line">|</span>
-      </div>
-      <div class="swiper-no-swiping swiper">
+        <text class="line">|</text>
+      </view>
+      <view class="swiper-no-swiping swiper">
         <swiper class="swiper-wrapper" :options="swiperTip" :autoplay="true" :interval="3000">
           <block v-for="(item, itemNewIndex) in itemNew" :key="itemNewIndex">
             <swiper-item>
-              <div class="line1">{{ item }}</div>
+              <view class="line1">{{ item }}</view>
             </swiper-item>
           </block>
         </swiper>
-      </div>
-    </div>
-    <div class="assemble">
-      <div v-for="(item, groupListindex) in groupList" :key="groupListindex">
-        <div class="item acea-row row-between-wrapper" v-if="groupListindex < groupListCount">
-          <div class="pictxt acea-row row-between-wrapper">
-            <div class="pictrue">
-              <img :src="item.avatar" class="image" />
-            </div>
-            <div class="text line1" v-text="item.nickname"></div>
-          </div>
-          <div class="right acea-row row-middle">
-            <div>
-              <div class="lack">
-                还差
-                <span class="font-color-red" v-text="item.count"></span>人成团
-              </div>
+      </view>
+    </view>
+    <view class="assemble">
+      <view v-for="(item, groupListindex) in groupList" :key="groupListindex">
+        <view class="item acea-row row-between-wrapper" v-if="groupListindex < groupListCount">
+          <view class="pictxt acea-row row-between-wrapper">
+            <view class="pictrue">
+              <image :src="item.avatar" class="image" />
+            </view>
+            <view class="text line1" v-text="item.nickname"></view>
+          </view>
+          <view class="right acea-row row-middle">
+            <view>
+              <view class="lack">
+                <text>还差</text>
+                <text class="font-color-red" v-text="item.count"></text>
+				<text>人成团</text>
+              </view>
               <count-down
                 :is-day="false"
                 :tip-text="'剩余 '"
@@ -57,69 +58,69 @@
                 :second-text="''"
                 :datatime="item.stopTime"
               ></count-down>
-            </div>
-            <div class="spellBnt" @click="groupRule(item.id)">
+            </view>
+            <view class="spellBnt" @click="groupRule(item.id)">
               去拼单
-              <span class="iconfont icon-jiantou"></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="more" v-if="groupList.length > groupListCount" @click="setGroupListCount">
+              <text class="iconfont icon-jiantou"></text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="more" v-if="groupList.length > groupListCount" @click="setGroupListCount">
         查看更多
-        <span class="iconfont icon-xiangxia"></span>
-      </div>
-    </div>
-    <div class="playWay">
-      <div class="title acea-row row-between-wrapper">
-        <div>拼团玩法</div>
-      </div>
-      <div class="way acea-row row-middle">
-        <div class="item">
-          <span class="num">①</span>开团/参团
-        </div>
-        <div class="iconfont icon-arrow"></div>
-        <div class="item">
-          <span class="num">②</span>邀请好友
-        </div>
-        <div class="iconfont icon-arrow"></div>
-        <div class="item">
-          <div>
-            <span class="num">③</span>满员发货
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="userEvaluation">
-      <div class="title acea-row row-between-wrapper">
-        <div v-text="'用户评价(' + replyCount + ')'"></div>
-        <div class="praise" @click="goReply">
-          <span class="font-color-red" v-text="replyChance + '%'"></span>好评率
-          <span class="iconfont icon-jiantou"></span>
-        </div>
-      </div>
+        <text class="iconfont icon-xiangxia"></text>
+      </view>
+    </view>
+    <view class="playWay">
+      <view class="title acea-row row-between-wrapper">
+        <view>拼团玩法</view>
+      </view>
+      <view class="way acea-row row-middle">
+        <view class="item">
+          <text class="num">①</text>开团/参团
+        </view>
+        <view class="iconfont icon-arrow"></view>
+        <view class="item">
+          <text class="num">②</text>邀请好友
+        </view>
+        <view class="iconfont icon-arrow"></view>
+        <view class="item">
+          <view>
+            <text class="num">③</text>满员发货
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="userEvaluation">
+      <view class="title acea-row row-between-wrapper">
+        <view v-text="'用户评价(' + replyCount + ')'"></view>
+        <view class="praise" @click="goReply">
+          <text class="font-color-red" v-text="replyChance + '%'"></text>好评率
+          <text class="iconfont icon-jiantou"></text>
+        </view>
+      </view>
       <UserEvaluation :reply="reply"></UserEvaluation>
-    </div>
-    <div class="product-intro">
-      <div class="title">产品介绍</div>
-      <div class="conter" v-html="storeInfo.description"></div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="footer-group acea-row row-between-wrapper">
-      <div class="customerSer acea-row row-center-wrapper row-column">
-        <div class="iconfont icon-kefu"></div>
-        <div>客服</div>
-      </div>
-      <div class="bnt bg-color-violet" @click="openAlone">单独购买</div>
-      <div class="bnt bg-color-red" @click="openTeam">立即开团</div>
-    </div>
+    </view>
+    <view class="product-intro">
+      <view class="title">产品介绍</view>
+      <view class="conter" v-html="storeInfo.description"></view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="footer-group acea-row row-between-wrapper">
+      <view class="customerSer acea-row row-center-wrapper row-column">
+        <view class="iconfont icon-kefu"></view>
+        <view>客服</view>
+      </view>
+      <view class="bnt bg-color-violet" @click="openAlone">单独购买</view>
+      <view class="bnt bg-color-red" @click="openTeam">立即开团</view>
+    </view>
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster
       v-on:setPosterImageStatus="setPosterImageStatus"
       :posterImageStatus="posterImageStatus"
       :posterData="posterData"
     ></StorePoster>
-  </div>
+  </view>
 </template>
 <style scoped>
 .noscroll {
@@ -285,7 +286,11 @@ export default {
       var that = this;
       that.attr.productSelect.cart_num = 1;
       that.cartNum = 1;
-      that.$dialog.message("每人每次限购1" + that.storeInfo.unitName);
+       uni.showToast({
+              title: "每人每次限购1" + that.storeInfo.unitName,
+              icon: "none",
+              duration: 2000
+            });
     },
     setProductSelect: function() {
       var that = this;
@@ -316,7 +321,11 @@ export default {
             });
           })
           .catch(err => {
-            this.$dialog.error(err.msg||err.response.data.msg);
+            uni.showToast({
+            	title: err.msg || err.response.data.msg,
+            	icon: 'none',
+            	duration: 2000
+            });
           });
       }
     }

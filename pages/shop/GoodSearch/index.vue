@@ -1,35 +1,35 @@
 <template>
-  <div>
-    <div class="searchGood">
-      <div class="search acea-row row-between-wrapper">
-        <div class="input acea-row row-between-wrapper">
-          <span class="iconfont icon-sousuo2"></span>
+  <view>
+    <view class="searchGood">
+      <view class="search acea-row row-between-wrapper">
+        <view class="input acea-row row-between-wrapper">
+          <text class="iconfont icon-sousuo2"></text>
           <!-- <form @submit.prevent="submit"></form> -->
           <input type="text" placeholder="点击搜索商品" v-model="search" />
-        </div>
-        <div class="bnt" @click="submit">搜索</div>
-      </div>
-      <div v-if="keywords.length">
-        <div class="title">热门搜索</div>
-        <div class="list acea-row">
-          <div
+        </view>
+        <view class="bnt" @click="submit">搜索</view>
+      </view>
+      <view v-if="keywords.length">
+        <view class="title">热门搜索</view>
+        <view class="list acea-row">
+          <view
             class="item"
             v-for="keywordsKey of keywords"
             :key="keywordsKey"
             @click="toSearch(keywordsKey)"
-          >{{ keywordsKey }}</div>
-        </div>
-      </div>
-      <div class="line"></div>
+          >{{ keywordsKey }}</view>
+        </view>
+      </view>
+      <view class="line"></view>
       <!--      <GoodList></GoodList>-->
-    </div>
-    <!--<div class="noCommodity">-->
-    <!--<div class="noPictrue">-->
-    <!--<img :src="$VUE_APP_RESOURCES_URL+'/images/noSearch.png'" class="image" />-->
-    <!--</div>-->
+    </view>
+    <!--<view class="noCommodity">-->
+    <!--<view class="noPictrue">-->
+    <!--<image :src="$VUE_APP_RESOURCES_URL+'/images/noSearch.png'" class="image" />-->
+    <!--</view>-->
     <!--<recommend></recommend>-->
-    <!--</div>-->
-  </div>
+    <!--</view>-->
+  </view>
 </template>
 <script>
 // import GoodList from "@/components/GoodList";

@@ -1,25 +1,25 @@
 <template>
-  <div class="sign-record" ref="container">
-    <div class="list">
-      <div class="item" v-for="(item, signListIndex) in signList" :key="signListIndex">
-        <div class="data">{{ item.time }}</div>
-        <div class="listn">
-          <div
+  <view class="sign-record" ref="container">
+    <view class="list">
+      <view class="item" v-for="(item, signListIndex) in signList" :key="signListIndex">
+        <view class="data">{{ item.time }}</view>
+        <view class="listn">
+          <view
             class="itemn acea-row row-between-wrapper"
             v-for="(itemn, indexn) in item.list"
             :key="indexn"
           >
-            <div>
-              <div class="name line1">{{ itemn.title }}</div>
-              <div>{{ itemn.addTime }}</div>
-            </div>
-            <div class="num font-color-red">+{{ itemn.number }}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <view>
+              <view class="name line1">{{ itemn.title }}</view>
+              <view>{{ itemn.addTime }}</view>
+            </view>
+            <view class="num font-color-red">+{{ itemn.number }}</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loadend" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import { getSignMonth } from "@/api/user";

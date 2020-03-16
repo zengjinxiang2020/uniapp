@@ -1,27 +1,27 @@
 <template>
-  <div class="deliver-goods">
+  <view class="deliver-goods">
     <header>
-      <div class="order-num acea-row row-between-wrapper">
-        <div class="num line1">订单号：{{ delivery.orderId }}</div>
-        <div class="name line1">{{ delivery.nickname }}</div>
-      </div>
-      <div class="address">
-        <div class="name">
+      <view class="order-num acea-row row-between-wrapper">
+        <view class="num line1">订单号：{{ delivery.orderId }}</view>
+        <view class="name line1">{{ delivery.nickname }}</view>
+      </view>
+      <view class="address">
+        <view class="name">
           {{ delivery.realName
           }}
-          <span class="phone">{{ delivery.userPhone }}</span>
-        </div>
-        <div>{{ delivery.userAddress }}</div>
-      </div>
-      <div class="line">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
-      </div>
+          <text class="phone">{{ delivery.userPhone }}</text>
+        </view>
+        <view>{{ delivery.userAddress }}</view>
+      </view>
+      <view class="line">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
+      </view>
     </header>
-    <div class="wrapper">
-      <div class="item acea-row row-between-wrapper">
-        <div>发货方式</div>
-        <div class="mode acea-row row-middle row-right">
-          <div
+    <view class="wrapper">
+      <view class="item acea-row row-between-wrapper">
+        <view>发货方式</view>
+        <view class="mode acea-row row-middle row-right">
+          <view
             class="goods"
             :class="active === typesIndex ? 'on' : ''"
             v-for="(item, typesIndex) in types"
@@ -29,34 +29,34 @@
             @click="changeType(item, typesIndex)"
           >
             {{ item.title }}
-            <span class="iconfont icon-xuanzhong2"></span>
-          </div>
-        </div>
-      </div>
-      <div class="list" v-show="active === 0">
-        <div class="item acea-row row-between-wrapper">
-          <div>快递公司</div>
+            <text class="iconfont icon-xuanzhong2"></text>
+          </view>
+        </view>
+      </view>
+      <view class="list" v-show="active === 0">
+        <view class="item acea-row row-between-wrapper">
+          <view>快递公司</view>
           <input type="text" placeholder="填写快递公司" v-model="delivery_name" class="mode" />
-        </div>
-        <div class="item acea-row row-between-wrapper">
-          <div>快递单号</div>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view>快递单号</view>
           <input type="text" placeholder="填写快递单号" v-model="delivery_id" class="mode" />
-        </div>
-      </div>
-      <div class="list" v-show="active === 1">
-        <div class="item acea-row row-between-wrapper">
-          <div>送货人</div>
+        </view>
+      </view>
+      <view class="list" v-show="active === 1">
+        <view class="item acea-row row-between-wrapper">
+          <view>送货人</view>
           <input type="text" placeholder="填写送货人" v-model="delivery_name" class="mode" />
-        </div>
-        <div class="item acea-row row-between-wrapper">
-          <div>送货电话</div>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view>送货电话</view>
           <input type="text" placeholder="填写送货电话" v-model="delivery_id" class="mode" />
-        </div>
-      </div>
-    </div>
-    <div style="height:100rpx;"></div>
-    <div class="confirm" @click="saveInfo">确认提交</div>
-  </div>
+        </view>
+      </view>
+    </view>
+    <view style="height:100rpx;"></view>
+    <view class="confirm" @click="saveInfo">确认提交</view>
+  </view>
 </template>
 <script>
 import { getAdminOrderDelivery, setAdminOrderDelivery } from "@/api/admin";

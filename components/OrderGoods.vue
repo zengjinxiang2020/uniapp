@@ -1,30 +1,30 @@
 <template>
-  <div class="orderGoods">
-    <div class="total">共{{ cartInfo.length }}件商品</div>
-    <div class="goodWrapper">
-      <div class="item acea-row row-between-wrapper" v-for="cart in cartInfo" :key="cart.id">
-        <div class="pictrue">
-          <img :src="cart.productInfo.image" class="image" />
-        </div>
-        <div class="text">
-          <div class="acea-row row-between-wrapper">
-            <div class="name line1">{{ cart.productInfo.storeName }}</div>
-            <div class="num">x {{ cart.cartNum }}</div>
-          </div>
-          <div
+  <view class="orderGoods">
+    <view class="total">共{{ cartInfo.length }}件商品</view>
+    <view class="goodWrapper">
+      <view class="item acea-row row-between-wrapper" v-for="cart in cartInfo" :key="cart.id">
+        <view class="pictrue">
+          <image :src="cart.productInfo.image" class="image" />
+        </view>
+        <view class="text">
+          <view class="acea-row row-between-wrapper">
+            <view class="name line1">{{ cart.productInfo.storeName }}</view>
+            <view class="num">x {{ cart.cartNum }}</view>
+          </view>
+          <view
             class="attr line1"
             v-if="cart.productInfo.attrInfo"
-          >{{ cart.productInfo.attrInfo.suk }}</div>
-          <div class="money font-color-red">￥{{ cart.truePrice }}</div>
-          <div
+          >{{ cart.productInfo.attrInfo.suk }}</view>
+          <view class="money font-color-red">￥{{ cart.truePrice }}</view>
+          <view
             class="evaluate"
             v-if="evaluate == 3"
 			@click="routerGo(cart)"
-          >评价</div>
-        </div>
-      </div>
-    </div>
-  </div>
+          >评价</view>
+        </view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 export default {

@@ -1,70 +1,70 @@
 <template>
-  <div>
-    <div class="payment" :class="value === true ? 'on' : ''">
-      <div class="title acea-row row-center-wrapper">
-        选择付款方式<span class="iconfont icon-guanbi" @click="close"></span>
-      </div>
-      <div
+  <view>
+    <view class="payment" :class="value === true ? 'on' : ''">
+      <view class="title acea-row row-center-wrapper">
+        选择付款方式<text class="iconfont icon-guanbi" @click="close"></text>
+      </view>
+      <view
         class="item acea-row row-between-wrapper"
         v-if="types.indexOf('weixin') !== -1"
         @click="checked('weixin')"
       >
-        <div class="left acea-row row-between-wrapper">
-          <div class="iconfont icon-weixinzhifu"></div>
-          <div class="text">
-            <div class="name">微信支付</div>
-            <div class="info">使用微信快捷支付</div>
-          </div>
-        </div>
-        <div class="iconfont icon-xiangyou"></div>
-      </div>
-      <!-- <div
+        <view class="left acea-row row-between-wrapper">
+          <view class="iconfont icon-weixinzhifu"></view>
+          <view class="text">
+            <view class="name">微信支付</view>
+            <view class="info">使用微信快捷支付</view>
+          </view>
+        </view>
+        <view class="iconfont icon-xiangyou"></view>
+      </view>
+      <!-- <view
         class="item acea-row row-between-wrapper"
         v-if="types.indexOf('alipay') !== -1"
         @click="checked('alipay')"
       >
-        <div class="left acea-row row-between-wrapper">
-          <div class="iconfont icon-zhifubao"></div>
-          <div class="text">
-            <div class="name">支付宝支付</div>
-            <div class="info">使用线上支付宝支付</div>
-          </div>
-        </div>
-        <div class="iconfont icon-xiangyou"></div>
-      </div> -->
-      <div
+        <view class="left acea-row row-between-wrapper">
+          <view class="iconfont icon-zhifubao"></view>
+          <view class="text">
+            <view class="name">支付宝支付</view>
+            <view class="info">使用线上支付宝支付</view>
+          </view>
+        </view>
+        <view class="iconfont icon-xiangyou"></view>
+      </view> -->
+      <view
         class="item acea-row row-between-wrapper"
         v-if="types.indexOf('yue') !== -1"
         @click="checked('yue')"
       >
-        <div class="left acea-row row-between-wrapper">
-          <div class="iconfont icon-yuezhifu"></div>
-          <div class="text">
-            <div class="name">余额支付</div>
-            <div class="info">
-              当前可用余额：<span class="money">{{ balance }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="iconfont icon-xiangyou"></div>
-      </div>
-      <!-- <div
+        <view class="left acea-row row-between-wrapper">
+          <view class="iconfont icon-yuezhifu"></view>
+          <view class="text">
+            <view class="name">余额支付</view>
+            <view class="info">
+              当前可用余额：<text class="money">{{ balance }}</text>
+            </view>
+          </view>
+        </view>
+        <view class="iconfont icon-xiangyou"></view>
+      </view>
+      <!-- <view
         class="item acea-row row-between-wrapper"
         v-if="types.indexOf('offline') !== -1"
         @click="checked('offline')"
       >
-        <div class="left acea-row row-between-wrapper">
-          <div class="iconfont icon-yuezhifu1"></div>
-          <div class="text">
-            <div class="name">线下支付</div>
-            <div class="info">选择线下付款方式</div>
-          </div>
-        </div>
-        <div class="iconfont icon-xiangyou"></div>
-      </div> -->
-    </div>
-    <div class="mask" v-show="value" @click="close"></div>
-  </div>
+        <view class="left acea-row row-between-wrapper">
+          <view class="iconfont icon-yuezhifu1"></view>
+          <view class="text">
+            <view class="name">线下支付</view>
+            <view class="info">选择线下付款方式</view>
+          </view>
+        </view>
+        <view class="iconfont icon-xiangyou"></view>
+      </view> -->
+    </view>
+    <view class="mask" v-show="value" @click="close"></view>
+  </view>
 </template>
 <script>
 export default {

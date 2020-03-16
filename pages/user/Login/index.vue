@@ -1,143 +1,113 @@
 <template>
-  <div class="register absolute">
-    <div class="shading">
-      <div class="pictrue acea-row row-center-wrapper">
-        <img src="@/assets/images/logo.png" />
-      </div>
-    </div>
-    <div class="whiteBg" v-if="formItem === 1">
-      <div class="title acea-row row-center-wrapper">
-        <div
+  <view class="register absolute">
+    <view class="shading">
+      <view class="pictrue acea-row row-center-wrapper">
+        <image src="@/assets/images/logo.png" />
+      </view>
+    </view>
+    <view class="whiteBg" v-if="formItem === 1">
+      <view class="title acea-row row-center-wrapper">
+        <view
           class="item"
           :class="current === index ? 'on' : ''"
           v-for="(item, index) in navList"
           @click="navTap(index)"
           :key="index"
-        >
-          {{ item }}
-        </div>
-      </div>
-      <div class="list" :hidden="current !== 0">
+        >{{ item }}</view>
+      </view>
+      <view class="list" :hidden="current !== 0">
         <form @submit.prevent="submit">
-          <div class="item">
-            <div class="acea-row row-between-wrapper">
+          <view class="item">
+            <view class="acea-row row-between-wrapper">
               <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-phone_"></use>
+                <use xlink:href="#icon-phone_" />
               </svg>
-              <input
-                type="text"
-                placeholder="输入手机号码"
-                v-model="account"
-                required
-              />
-            </div>
-          </div>
-          <div class="item">
-            <div class="acea-row row-between-wrapper">
+              <input type="text" placeholder="输入手机号码" v-model="account" required />
+            </view>
+          </view>
+          <view class="item">
+            <view class="acea-row row-between-wrapper">
               <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-code_"></use>
+                <use xlink:href="#icon-code_" />
               </svg>
-              <input
-                type="password"
-                placeholder="填写登录密码"
-                v-model="password"
-                required
-              />
-            </div>
-          </div>
+              <input type="password" placeholder="填写登录密码" v-model="password" required />
+            </view>
+          </view>
         </form>
-      </div>
-      <div class="list" :hidden="current !== 1">
-        <div class="item">
-          <div class="acea-row row-between-wrapper">
+      </view>
+      <view class="list" :hidden="current !== 1">
+        <view class="item">
+          <view class="acea-row row-between-wrapper">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-phone_"></use>
+              <use xlink:href="#icon-phone_" />
             </svg>
             <input type="text" placeholder="输入手机号码" v-model="account" />
-          </div>
-        </div>
-        <div class="item">
-          <div class="align-left">
+          </view>
+        </view>
+        <view class="item">
+          <view class="align-left">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-code_1"></use>
+              <use xlink:href="#icon-code_1" />
             </svg>
-            <input
-              type="text"
-              placeholder="填写验证码"
-              class="codeIput"
-              v-model="captcha"
-            />
+            <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
             <button
               class="code"
               :disabled="disabled"
               :class="disabled === true ? 'on' : ''"
               @click="code"
-            >
-              {{ text }}
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="logon" @click="loginMobile" :hidden="current !== 1">登录</div>
-      <div class="logon" @click="submit" :hidden="current === 1">登录</div>
-      <div class="tip">
+            >{{ text }}</button>
+          </view>
+        </view>
+      </view>
+      <view class="logon" @click="loginMobile" :hidden="current !== 1">登录</view>
+      <view class="logon" @click="submit" :hidden="current === 1">登录</view>
+      <view class="tip">
         没有账号?
-        <span @click="formItem = 2" class="font-color-red">立即注册</span>
-      </div>
-    </div>
-    <div class="whiteBg" v-else>
-      <div class="title">注册账号</div>
-      <div class="list">
-        <div class="item">
-          <div>
+        <text @click="formItem = 2" class="font-color-red">立即注册</text>
+      </view>
+    </view>
+    <view class="whiteBg" v-else>
+      <view class="title">注册账号</view>
+      <view class="list">
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-phone_"></use>
+              <use xlink:href="#icon-phone_" />
             </svg>
             <input type="text" placeholder="输入手机号码" v-model="account" />
-          </div>
-        </div>
-        <div class="item">
-          <div class="align-left">
+          </view>
+        </view>
+        <view class="item">
+          <view class="align-left">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-code_1"></use>
+              <use xlink:href="#icon-code_1" />
             </svg>
-            <input
-              type="text"
-              placeholder="填写验证码"
-              class="codeIput"
-              v-model="captcha"
-            />
+            <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
             <button
               class="code"
               :disabled="disabled"
               :class="disabled === true ? 'on' : ''"
               @click="code"
-            >
-              {{ text }}
-            </button>
-          </div>
-        </div>
-        <div class="item">
-          <div>
+            >{{ text }}</button>
+          </view>
+        </view>
+        <view class="item">
+          <view>
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-code_"></use>
+              <use xlink:href="#icon-code_" />
             </svg>
-            <input
-              type="password"
-              placeholder="填写您的登录密码"
-              v-model="password"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="logon" @click="register">注册</div>
-      <div class="tip">
+            <input type="password" placeholder="填写您的登录密码" v-model="password" />
+          </view>
+        </view>
+      </view>
+      <view class="logon" @click="register">注册</view>
+      <view class="tip">
         已有账号?
-        <span @click="formItem = 1" class="font-color-red">立即登录</span>
-      </div>
-    </div>
-    <div class="bottom"></div>
-  </div>
+        <text @click="formItem = 1" class="font-color-red">立即登录</text>
+      </view>
+    </view>
+    <view class="bottom"></view>
+  </view>
 </template>
 <script>
 import sendVerifyCode from "@/mixins/SendVerifyCode";
@@ -179,7 +149,10 @@ export default {
               alpha_num(alpha_num.message("验证码"))
             ]
           })
-          .validate({ account, captcha });
+          .validate({
+            account,
+            captcha
+          });
       } catch (e) {
         return validatorDefaultCatch(e);
       }
@@ -193,10 +166,16 @@ export default {
           that.$store.commit("LOGIN", data.token, dayjs(data.expires_time));
           const backUrl = cookie.get(BACK_URL) || "/";
           cookie.remove(BACK_URL);
-          that.$yrouter.replace({ path: backUrl });
+          that.$yrouter.replace({
+            path: backUrl
+          });
         })
-        .catch(res => {
-          that.$dialog.error(res.msg);
+        .catch(err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         });
     },
     async register() {
@@ -219,7 +198,11 @@ export default {
               alpha_num(alpha_num.message("密码"))
             ]
           })
-          .validate({ account, captcha, password });
+          .validate({
+            account,
+            captcha,
+            password
+          });
       } catch (e) {
         return validatorDefaultCatch(e);
       }
@@ -230,11 +213,19 @@ export default {
         spread: cookie.get("spread")
       })
         .then(res => {
-          that.$dialog.success(res.msg);
+          uni.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 2000
+          });
           that.formItem = 1;
         })
-        .catch(res => {
-          that.$dialog.error(res.msg);
+        .catch(err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     async code() {
@@ -248,25 +239,38 @@ export default {
               chs_phone(chs_phone.message())
             ]
           })
-          .validate({ account });
+          .validate({
+            account
+          });
       } catch (e) {
         return validatorDefaultCatch(e);
       }
       if (that.formItem == 2) that.type = "register";
-      await registerVerify({ phone: that.account, type: that.type })
+      await registerVerify({
+        phone: that.account,
+        type: that.type
+      })
         .then(res => {
-          that.$dialog.success(res.msg);
+          uni.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 2000
+          });
           that.sendCode();
         })
-        .catch(res => {
-          that.$dialog.error(res.msg);
+        .catch(err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     navTap: function(index) {
       this.current = index;
     },
     async submit() {
-      console.log('spread:'+cookie.get("spread") )
+      console.log("spread:" + cookie.get("spread"));
       const { account, password } = this;
       try {
         await this.$validator({
@@ -280,21 +284,33 @@ export default {
             attrs.range([6, 16], attrs.range.message("密码")),
             alpha_num(alpha_num.message("密码"))
           ]
-        }).validate({ account, password });
+        }).validate({
+          account,
+          password
+        });
       } catch (e) {
         return validatorDefaultCatch(e);
       }
 
-
-      login({ username: account, password, spread: cookie.get("spread") })
+      login({
+        username: account,
+        password,
+        spread: cookie.get("spread")
+      })
         .then(({ data }) => {
           this.$store.commit("LOGIN", data.token, dayjs(data.expires_time));
           const backUrl = cookie.get(BACK_URL) || "/";
           cookie.remove(BACK_URL);
-          this.$yrouter.replace({ path: backUrl });
+          this.$yrouter.replace({
+            path: backUrl
+          });
         })
-        .catch(e => {
-          this.$dialog.error(e.msg);
+        .catch(err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         });
     }
   }

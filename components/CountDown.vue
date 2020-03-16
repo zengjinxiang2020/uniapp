@@ -1,15 +1,15 @@
 <template>
-  <div class="time">
+  <view class="time">
     {{ tipText }}
-    <span class="styleAll" v-if="isDay === true">{{ day }}</span>
-    <span class="timeTxt">{{ dayText }}</span>
-    <span class="styleAll">{{ hour }}</span>
-    <span class="timeTxt">{{ hourText }}</span>
-    <span class="styleAll">{{ minute }}</span>
-    <span class="timeTxt">{{ minuteText }}</span>
-    <span class="styleAll">{{ second }}</span>
-    <span class="timeTxt">{{ secondText }}</span>
-  </div>
+    <text class="styleAll" v-if="isDay === true">{{ day }}</text>
+    <text class="timeTxt">{{ dayText }}</text>
+    <text class="styleAll">{{ hour }}</text>
+    <text class="timeTxt">{{ hourText }}</text>
+    <text class="styleAll">{{ minute }}</text>
+    <text class="timeTxt">{{ minuteText }}</text>
+    <text class="styleAll">{{ second }}</text>
+    <text class="timeTxt">{{ secondText }}</text>
+  </view>
 </template>
 <script>
 export default {

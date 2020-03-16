@@ -1,48 +1,41 @@
 <template>
-  <div>
-    <div class="coupon-list-window" :class="coupon.coupon === true ? 'on' : ''">
-      <div class="title">
-        优惠券<span class="iconfont icon-guanbi" @click="close"></span>
-      </div>
-      <div class="coupon-list" v-if="coupon.list.length > 0">
-        <div
+  <view>
+    <view class="coupon-list-window" :class="coupon.coupon === true ? 'on' : ''">
+      <view class="title">
+        优惠券
+        <text class="iconfont icon-guanbi" @click="close"></text>
+      </view>
+      <view class="coupon-list" v-if="coupon.list.length > 0">
+        <view
           class="item acea-row row-center-wrapper"
           v-for="(item, couponpopIndex) in coupon.list"
           :key="couponpopIndex"
           @click="getCouponUser(couponpopIndex, item.id)"
         >
-          <div class="money">
-            ￥<span class="num">{{ item.coupon_price }}</span>
-          </div>
-          <div class="text">
-            <div class="condition line1">
-              购物满{{ item.use_min_price }}元可用
-            </div>
-            <div class="data acea-row row-between-wrapper">
-              <div v-if="item.end_time === 0">不限时</div>
-              <div v-else>{{ item.start_time }}-{{ item.end_time }}</div>
-              <div
+          <view class="money">
+            ￥
+            <text class="num">{{ item.coupon_price }}</text>
+          </view>
+          <view class="text">
+            <view class="condition line1">购物满{{ item.use_min_price }}元可用</view>
+            <view class="data acea-row row-between-wrapper">
+              <view v-if="item.end_time === 0">不限时</view>
+              <view v-else>{{ item.start_time }}-{{ item.end_time }}</view>
+              <view
                 class="bnt acea-row row-center-wrapper"
                 :class="!item.is_use ? 'bg-color-red' : 'gray'"
-              >
-                {{ !item.is_use ? "立即领取" : "已领取" }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              >{{ !item.is_use ? "立即领取" : "已领取" }}</view>
+            </view>
+          </view>
+        </view>
+      </view>
       <!--无优惠券-->
-      <div class="pictrue" v-else>
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
-      </div>
-    </div>
-    <div
-      class="mask"
-      @touchmove.prevent
-      :hidden="coupon.coupon === false"
-      @click="close"
-    ></div>
-  </div>
+      <view class="pictrue" v-else>
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+      </view>
+    </view>
+    <view class="mask" @touchmove.prevent :hidden="coupon.coupon === false" @click="close"></view>
+  </view>
 </template>
 <script>
 import { getCouponReceive } from "@/api/user";
@@ -67,7 +60,11 @@ export default {
         list = that.coupon.list;
       if (list[index].is_use === true) return;
       getCouponReceive(id).then(function() {
-        that.$dialog.toast({ mes: "已领取" });
+        uni.showToast({
+          title: "已领取",
+          icon: "none",
+          duration: 2000
+        });
         that.$set(list[index], "is_use", true);
         that.$emit("changefun", { action: "currentcoupon", value: index });
         that.$emit("changeFun", { action: "changecoupon", value: false });

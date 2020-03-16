@@ -1,51 +1,51 @@
 <template>
-  <div>
-    <div class="coupon-list-window" :class="value === true ? 'on' : ''">
-      <div class="title">
+  <view>
+    <view class="coupon-list-window" :class="value === true ? 'on' : ''">
+      <view class="title">
         优惠券
-        <span class="iconfont icon-guanbi" @click="close"></span>
-      </div>
-      <div v-if="couponList.length > 0">
-        <div class="coupon-list">
-          <div
+        <text class="iconfont icon-guanbi" @click="close"></text>
+      </view>
+      <view v-if="couponList.length > 0">
+        <view class="coupon-list">
+          <view
             class="item acea-row row-center-wrapper"
             v-for="coupon in couponList"
             :key="coupon.id"
             @click="click(coupon)"
           >
-            <div class="money">
+            <view class="money">
               ￥
-              <span class="num">{{ coupon.couponPrice }}</span>
-            </div>
-            <div class="text">
-              <div class="condition line1">{{ coupon.couponTitle }}</div>
-              <div class="data acea-row row-between-wrapper">
-                <div v-if="coupon.endTime === 0">不限时</div>
-                <div v-else><data-format-t :data="coupon.addTime"></data-format-t> - <data-format-t :data="coupon.endTime"></data-format-t></div>
-                <div
+              <text class="num">{{ coupon.couponPrice }}</text>
+            </view>
+            <view class="text">
+              <view class="condition line1">{{ coupon.couponTitle }}</view>
+              <view class="data acea-row row-between-wrapper">
+                <view v-if="coupon.endTime === 0">不限时</view>
+                <view v-else><data-format-t :data="coupon.addTime"></data-format-t> - <data-format-t :data="coupon.endTime"></data-format-t></view>
+                <view
                   class="iconfont icon-xuanzhong1 font-color-red"
                   v-if="checked === coupon.id"
-                ></div>
-                <div class="iconfont icon-weixuanzhong" v-else></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="couponNo bg-color-red" @click="couponNo">不使用优惠券</div>
-      </div>
-      <div v-if="!couponList.length && loaded">
-        <div class="pictrue">
-          <img :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
-        </div>
-      </div>
-    </div>
-    <div
+                ></view>
+                <view class="iconfont icon-weixuanzhong" v-else></view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="couponNo bg-color-red" @click="couponNo">不使用优惠券</view>
+      </view>
+      <view v-if="!couponList.length && loaded">
+        <view class="pictrue">
+          <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+        </view>
+      </view>
+    </view>
+    <view
       class="mask"
       @touchmove.prevent
       :hidden="value === false"
       @click="close"
-    ></div>
-  </div>
+    ></view>
+  </view>
 </template>
 <style scoped>
 .coupon-list-window .iconfont {

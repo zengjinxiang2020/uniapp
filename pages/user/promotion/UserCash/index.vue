@@ -1,73 +1,58 @@
 <template>
-  <div class="cash-withdrawal">
-    <div class="nav acea-row">
-      <div
+  <view class="cash-withdrawal">
+    <view class="nav acea-row">
+      <view
         v-for="(item, navListIndex) in navList"
         class="item font-color-red"
         @click="swichNav(navListIndex, item)"
         :key="navListIndex"
       >
-        <div
-          class="line bg-color-red"
-          :class="currentTab === navListIndex ? 'on' : ''"
-        ></div>
-        <div
-          class="iconfont"
-          :class="item.icon + ' ' + (currentTab === navListIndex ? 'on' : '')"
-        ></div>
-        <div>{{ item.name }}</div>
-      </div>
-    </div>
-    <div class="wrapper">
-      <div :hidden="currentTab !== 0" class="list">
-        <div class="item acea-row row-between-wrapper">
-          <div class="name">微信号</div>
-          <div class="input">
+        <view class="line bg-color-red" :class="currentTab === navListIndex ? 'on' : ''"></view>
+        <view class="iconfont" :class="item.icon + ' ' + (currentTab === navListIndex ? 'on' : '')"></view>
+        <view>{{ item.name }}</view>
+      </view>
+    </view>
+    <view class="wrapper">
+      <view :hidden="currentTab !== 0" class="list">
+        <view class="item acea-row row-between-wrapper">
+          <view class="name">微信号</view>
+          <view class="input">
             <input placeholder="请输入微信号" v-model="post.weixin" />
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper">
-          <div class="name">提现</div>
-          <div class="input">
-            <input
-              :placeholder="'最低提现金额' + minPrice"
-              v-model="post.money"
-            />
-          </div>
-        </div>
-        <div class="tip">当前可提现金额: {{ commissionCount }}</div>
-        <div class="bnt bg-color-red" @click="submitted">提现</div>
-      </div>
-      <div :hidden="currentTab !== 1" class="list">
-        <div class="item acea-row row-between-wrapper">
-          <div class="name">用户名</div>
-          <div class="input">
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="name">提现</view>
+          <view class="input">
+            <input :placeholder="'最低提现金额' + minPrice" v-model="post.money" />
+          </view>
+        </view>
+        <view class="tip">当前可提现金额: {{ commissionCount }}</view>
+        <view class="bnt bg-color-red" @click="submitted">提现</view>
+      </view>
+      <view :hidden="currentTab !== 1" class="list">
+        <view class="item acea-row row-between-wrapper">
+          <view class="name">用户名</view>
+          <view class="input">
             <input placeholder="请填写您的支付宝用户名" v-model="post.name" />
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper">
-          <div class="name">账号</div>
-          <div class="input">
-            <input
-              placeholder="请填写您的支付宝账号"
-              v-model="post.alipay_code"
-            />
-          </div>
-        </div>
-        <div class="item acea-row row-between-wrapper">
-          <div class="name">提现</div>
-          <div class="input">
-            <input
-              :placeholder="'最低提现金额' + minPrice"
-              v-model="post.money"
-            />
-          </div>
-        </div>
-        <div class="tip">当前可提现金额: {{ commissionCount }}</div>
-        <div class="bnt bg-color-red" @click="submitted">提现</div>
-      </div>
-    </div>
-  </div>
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="name">账号</view>
+          <view class="input">
+            <input placeholder="请填写您的支付宝账号" v-model="post.alipay_code" />
+          </view>
+        </view>
+        <view class="item acea-row row-between-wrapper">
+          <view class="name">提现</view>
+          <view class="input">
+            <input :placeholder="'最低提现金额' + minPrice" v-model="post.money" />
+          </view>
+        </view>
+        <view class="tip">当前可提现金额: {{ commissionCount }}</view>
+        <view class="bnt bg-color-red" @click="submitted">提现</view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { getBank, postCashInfo } from "@/api/user";
@@ -116,7 +101,11 @@ export default {
           that.commissionCount = res.data.commissionCount;
         },
         function(err) {
-          that.$dialog.message(err.msg);
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },
@@ -131,10 +120,22 @@ export default {
       if (
         parseFloat(money) > parseFloat(that.commissionCount) ||
         parseFloat(that.commissionCount) == 0
-      )
-        return that.$dialog.message("余额不足");
-      if (parseFloat(money) < parseFloat(that.minPrice))
-        return that.$dialog.message("最低提现金额" + that.minPrice);
+      ) {
+        uni.showToast({
+          title: "余额不足",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
+      if (parseFloat(money) < parseFloat(that.minPrice)) {
+        uni.showToast({
+          title: "最低提现金额" + that.minPrice,
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
       switch (that.post.extract_type) {
         case "alipay":
           try {
@@ -175,11 +176,19 @@ export default {
     save: function(info) {
       postCashInfo(info).then(
         res => {
-          this.$dialog.message(res.msg);
+          uni.showToast({
+            title: res.msg,
+            icon: "none",
+            duration: 2000
+          });
           this.router.push({ path: "/user/audit" });
         },
-        error => {
-          this.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     }

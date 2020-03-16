@@ -1,40 +1,40 @@
 <template>
-  <div class="bargain-list">
-    <!-- <div class="header">
-      <img :src="$VUE_APP_RESOURCES_URL+'/images/cut-bg.png'" alt="">
-    </div>-->
-    <div class="list" v-if="bargainLis.length > 0">
-      <div
+  <view class="bargain-list">
+    <!-- <view class="header">
+      <image :src="$VUE_APP_RESOURCES_URL+'/images/cut-bg.png'" alt="">
+    </view>-->
+    <view class="list" v-if="bargainLis.length > 0">
+      <view
         class="item acea-row row-between-wrapper"
         v-for="(item, bargainLisIndex) in bargainLis"
         :key="bargainLisIndex"
       >
-        <div class="pictrue">
-          <img :src="item.image" />
-        </div>
-        <div class="text acea-row row-column-around">
-          <div class="line1" v-text="item.title"></div>
-          <div class="num">
-            <span class="iconfont icon-pintuan"></span>
+        <view class="pictrue">
+          <image :src="item.image" />
+        </view>
+        <view class="text acea-row row-column-around">
+          <view class="line1" v-text="item.title"></view>
+          <view class="num">
+            <text class="iconfont icon-pintuan"></text>
             {{ item.people }}人正在参与
-          </div>
-          <div class="money font-color-red">
+          </view>
+          <view class="money font-color-red">
             可砍至: ￥
-            <span class="price">{{item.minPrice}}</span>
-          </div>
-        </div>
-        <div class="cutBnt bg-color-red" @click="goDetail(item.id)">
-          <span class="iconfont icon-kanjia"></span>参与砍价
-        </div>
-      </div>
-      <div class="load font-color-red" v-if="!status" @click="getBargainList">点击加载更多</div>
-    </div>
-    <div class="noCommodity" style="background-color: #fff;" v-if="bargainLis.length === 0">
-      <div class="noPictrue">
-        <img :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
-      </div>
-    </div>
-  </div>
+            <text class="price">{{item.minPrice}}</text>
+          </view>
+        </view>
+        <view class="cutBnt bg-color-red" @click="goDetail(item.id)">
+          <text class="iconfont icon-kanjia"></text>参与砍价
+        </view>
+      </view>
+      <view class="load font-color-red" v-if="!status" @click="getBargainList">点击加载更多</view>
+    </view>
+    <view class="noCommodity" style="background-color: #fff;" v-if="bargainLis.length === 0">
+      <view class="noPictrue">
+        <image :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { getBargainList } from "@/api/activity";

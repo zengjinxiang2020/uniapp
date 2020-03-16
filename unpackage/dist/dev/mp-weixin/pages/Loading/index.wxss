@@ -1,5 +1,5 @@
 
-.lottie-bg.data-v-14757819 {
+.lottie-bg.data-v-423beb08 {
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -17,7 +17,7 @@
 	-webkit-box-pack: center;
 	        justify-content: center;
 }
-#lottie.data-v-14757819 {
+#lottie.data-v-423beb08 {
 	width: 35%;
 	display: block;
 	overflow: hidden;

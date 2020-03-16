@@ -1,23 +1,23 @@
 <template>
-  <div>
-    <div v-if="isIpx" class="iphonex-footer-bg"></div>
-    <div v-else class="footer-bg"></div>
-    <div id="footer" :class="[isIpx ? 'iphonex-footer' : '', 'acea-row row-middle'] ">
-      <div
+  <view>
+    <view v-if="isIpx" class="iphonex-footer-bg"></view>
+    <view v-else class="footer-bg"></view>
+    <view id="footer" :class="[isIpx ? 'iphonex-footer' : '', 'acea-row row-middle'] ">
+      <view
         @click="changeTabtar(footerIndex)"
         class="item"
         :class="{ on: footerIndex == tabtarIndex }"
         v-for="(item, footerIndex) in footerList"
         :key="footerIndex"
       >
-        <div
+        <view
           class="iconfont"
           :class="item.icon1 + ' ' + (footerIndex == tabtarIndex ? item.icon2 : '')"
-        ></div>
-        <div>{{ item.name }}</div>
-      </div>
-    </div>
-  </div>
+        ></view>
+        <view>{{ item.name }}</view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";

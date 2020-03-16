@@ -1,1 +1,1 @@
-<view class="lottie-bg _div data-v-14757819"><view id="lottie" class="_div data-v-14757819"><image style="width:100%;" src="{{$root.m0}}" rel="preload" class="_img data-v-14757819"></image></view></view>
+<view class="lottie-bg data-v-423beb08"><view id="lottie" class="data-v-423beb08"><image style="width:100%;" src="../../static/images/live-logo.gif" rel="preload" mode="widthFix" class="data-v-423beb08"></image></view></view>

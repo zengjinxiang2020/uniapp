@@ -35,7 +35,7 @@
   height: 2.36rem;
   margin: 0 auto;
 }
-.switchWindow .pictrue ._img {
+.switchWindow .pictrue image {
   width: 100%;
   height: 100%;
   display: block;

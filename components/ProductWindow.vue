@@ -1,40 +1,40 @@
 <template>
-  <div>
-    <div class="product-window" :class="attr.cartAttr === true ? 'on' : ''">
-      <div class="textpic acea-row row-between-wrapper">
-        <div class="pictrue">
-          <img :src="attr.productSelect.image" class="image" />
-        </div>
-        <div class="text">
-          <div class="line1">{{ attr.productSelect.store_name }}</div>
-          <div class="money font-color-red">
+  <view>
+    <view class="product-window" :class="attr.cartAttr === true ? 'on' : ''">
+      <view class="textpic acea-row row-between-wrapper">
+        <view class="pictrue">
+          <image :src="attr.productSelect.image" class="image" />
+        </view>
+        <view class="text">
+          <view class="line1">{{ attr.productSelect.store_name }}</view>
+          <view class="money font-color-red">
             ￥
-            <span class="num">{{ attr.productSelect.price }}</span>
-            <span class="stock">库存: {{ attr.productSelect.stock }}</span>
-          </div>
-        </div>
-        <div class="iconfont icon-guanbi" @click="closeAttr"></div>
-      </div>
-      <div class="productWinList">
-        <div class="item" v-for="(item, indexw) in attr.productAttr" :key="indexw">
-          <div class="title">{{ item.attrName }}</div>
-          <div class="listn acea-row row-middle">
-            <div
+            <text class="num">{{ attr.productSelect.price }}</text>
+            <text class="stock">库存: {{ attr.productSelect.stock }}</text>
+          </view>
+        </view>
+        <view class="iconfont icon-guanbi" @click="closeAttr"></view>
+      </view>
+      <view class="productWinList">
+        <view class="item" v-for="(item, indexw) in attr.productAttr" :key="indexw">
+          <view class="title">{{ item.attrName }}</view>
+          <view class="listn acea-row row-middle">
+            <view
               class="itemn"
               :class="item.index == indexn ? 'on' : ''"
               v-for="(itemn, indexn) in item.attrValue"
               @click="tapAttr(indexw, indexn)"
               :key="indexn"
-            >{{ itemn.attr }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="cart">
-        <div class="title">数量</div>
-        <div class="carnum acea-row row-left">
-          <div class="item reduce" :class="cartNum <= 1 ? 'on' : ''" @click="CartNumDes">-</div>
-          <div class="item num">{{ cartNum }}</div>
-          <div
+            >{{ itemn.attr }}</view>
+          </view>
+        </view>
+      </view>
+      <view class="cart">
+        <view class="title">数量</view>
+        <view class="carnum acea-row row-left">
+          <view class="item reduce" :class="cartNum <= 1 ? 'on' : ''" @click="CartNumDes">-</view>
+          <view class="item num">{{ cartNum }}</view>
+          <view
             class="item plus"
             :class="
               cartNum >= attr.productSelect.stock
@@ -42,12 +42,12 @@
                 : ''
             "
             @click="CartNumAdd"
-          >+</div>
-        </div>
-      </div>
-    </div>
-    <div class="mask" @touchmove.prevent :hidden="attr.cartAttr === false" @click="closeAttr"></div>
-  </div>
+          >+</view>
+        </view>
+      </view>
+    </view>
+    <view class="mask" @touchmove.prevent :hidden="attr.cartAttr === false" @click="closeAttr"></view>
+  </view>
 </template>
 <script>
 export default {

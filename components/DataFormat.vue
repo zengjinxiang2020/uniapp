@@ -1,5 +1,5 @@
 <template>
-  <span>{{time}}</span>
+  <text>{{time}}</text>
 </template>
 <script>
 import { dataFormat } from "@/utils";

@@ -1,28 +1,28 @@
 <template>
-  <div>
-    <div class="recharge">
-      <div class="nav acea-row row-around row-middle">
-        <div
+  <view>
+    <view class="recharge">
+      <view class="nav acea-row row-around row-middle">
+        <view
           class="item"
           :class="active === navRechargeIndex ? 'on' : ''"
           v-for="(item, navRechargeIndex) in navRecharge"
           :key="navRechargeIndex"
           @click="navRecharges(navRechargeIndex)"
-        >{{ item }}</div>
-      </div>
-      <div class="info-wrapper">
-        <div class="money">
-          <span>￥</span>
+        >{{ item }}</view>
+      </view>
+      <view class="info-wrapper">
+        <view class="money">
+          <text>￥</text>
           <input type="number" placeholder="0.00" v-model="money" />
-        </div>
-        <div class="tips" v-if="!active">
+        </view>
+        <view class="tips" v-if="!active">
           提示：当前余额为
-          <span>￥{{ now_money || 0 }}</span>
-        </div>
-        <div class="pay-btn bg-color-red" @click="recharge">{{ active ? "立即转入" : "立即充值" }}</div>
-      </div>
-    </div>
-  </div>
+          <text>￥{{ now_money || 0 }}</text>
+        </view>
+        <view class="pay-btn bg-color-red" @click="recharge">{{ active ? "立即转入" : "立即充值" }}</view>
+      </view>
+    </view>
+  </view>
 </template>
 <script>
 import { mapGetters } from "vuex";
@@ -58,78 +58,97 @@ export default {
         price = Number(this.money);
       if (that.active) {
         if (price === 0) {
-          return that.$dialog.toast({ mes: "请输入您要转入的金额" });
+          uni.showToast({
+            title: "请输入您要转入的金额",
+            icon: "none",
+            duration: 2000
+          });
+          return
         } else if (price < 0.01) {
-          return that.$dialog.toast({ mes: "转入金额不能低于0.01" });
+          uni.showToast({
+            title: "转入金额不能低于0.01",
+            icon: "none",
+            duration: 2000
+          });
+          return
         }
-        this.$dialog.confirm({
-          mes: "转入余额无法在转出，请确认转入",
+
+        uni.showModal({
           title: "转入余额",
-          opts: [
-            {
-              txt: "确认",
-              color: false,
-              callback: () => {
-                rechargeWechat({ price: price, from: that.from, type: 1 })
-                  .then(res => {
-                    that.now_money = add(
-                      price,
-                      parseInt(that.userInfo.now_money)
-                    );
-                    that.userInfo.brokerage_price = sub(
-                      that.userInfo.brokerage_price,
-                      price
-                    );
-                    that.money = "";
-                    return that.$dialog.toast({ mes: res.msg });
-                  })
-                  .catch(res => {
-                    that.$dialog.toast({ mes: res.msg });
+          content: "转入余额无法在转出，请确认转入?",
+          success: function(res) {
+            if (res.confirm) {
+              rechargeWechat({ price: price, from: that.from, type: 1 })
+                .then(res => {
+                  that.now_money = add(
+                    price,
+                    parseInt(that.userInfo.now_money)
+                  );
+                  that.userInfo.brokerage_price = sub(
+                    that.userInfo.brokerage_price,
+                    price
+                  );
+                  that.money = "";
+                  uni.showToast({
+                    title: res.msg,
+                    icon: "none",
+                    duration: 2000
                   });
-              }
-            },
-            {
-              txt: "取消",
-              color: false,
-              callback: () => {
-                return that.$dialog.toast({ mes: "已取消" });
-              }
+                })
+                .catch(err => {
+                  uni.showToast({
+                    title: err.msg || err.response.data.msg,
+                    icon: "none",
+                    duration: 2000
+                  });
+                });
+            } else if (res.cancel) {
+              uni.showToast({
+                title: "已取消",
+                icon: "none",
+                duration: 2000
+              });
+              return;
             }
-          ]
+          }
         });
       } else {
         if (price === 0) {
-          return that.$dialog.toast({ mes: "请输入您要充值的金额" });
+          uni.showToast({
+            title: "请输入您要充值的金额",
+            icon: "none",
+            duration: 2000
+          });
+          return;
         } else if (price < 0.01) {
-          return that.$dialog.toast({ mes: "充值金额不能低于0.01" });
+          uni.showToast({
+            title: "充值金额不能低于0.01",
+            icon: "none",
+            duration: 2000
+          });
+          return;
         }
         rechargeWechat({ price: price, from: that.from })
           .then(res => {
             var data = res.data;
             if (data.type == "weixinh5") {
               location.replace(data.data.mweb_url);
-              this.$dialog.confirm({
-                mes: "充值余额",
-                opts: [
-                  {
-                    txt: "已充值",
-                    color: false,
-                    callback: () => {
-                      that.$yrouter.replace({
-                        path: "/user/account"
-                      });
-                    }
-                  },
-                  {
-                    txt: "查看余额",
-                    color: false,
-                    callback: () => {
-                      that.$yrouter.replace({
-                        path: "/user/account"
-                      });
-                    }
+              uni.showModal({
+                title: "提示",
+                content: "充值余额",
+                confirmText: "已充值",
+                cancelText: "查看余额",
+                success: function(res) {
+                  if (res.confirm) {
+                    that.$yrouter.replace({
+                      path: "/user/account"
+                    });
+                  } else if (res.cancel) {
+                    that.$yrouter.replace({
+                      path: "/user/account"
+                    });
                   }
-                ]
+                }
               });
             } else {
               weappPay(data.data)
@@ -138,15 +157,27 @@ export default {
                     price,
                     parseInt(that.userInfo.now_money)
                   );
-                  that.$dialog.toast({ mes: "支付成功" });
+                  uni.showToast({
+                    title: "支付成功",
+                    icon: "success",
+                    duration: 2000
+                  });
                 })
                 .catch(function() {
-                  that.$dialog.toast({ mes: "支付失败" });
+                  uni.showToast({
+                    title: "支付失败",
+                    icon: "none",
+                    duration: 2000
+                  });
                 });
             }
           })
-          .catch(res => {
-            that.$dialog.toast({ mes: res.msg });
+          .catch(err => {
+            uni.showToast({
+              title: err.msg || err.response.data.msg,
+              icon: "none",
+              duration: 2000
+            });
           });
       }
     }
@@ -185,7 +216,7 @@ export default {
   padding-bottom: 0.2rem;
   border-bottom: 1px dashed #ddd;
 }
-.recharge .info-wrapper .money span {
+.recharge .info-wrapper .money text {
   font-size: 0.56rem;
   color: #333;
   font-weight: bold;
@@ -221,7 +252,7 @@ export default {
   line-height: 1.5;
   padding: 0 0.3rem;
 }
-.recharge .info-wrapper .tips span {
+.recharge .info-wrapper .tips text {
   color: #ef4a49;
 }
 .recharge .info-wrapper .pay-btn {

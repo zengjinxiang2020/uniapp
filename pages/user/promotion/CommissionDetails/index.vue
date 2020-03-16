@@ -1,36 +1,36 @@
 <template>
-  <div class="commission-details" ref="container">
-    <div class="promoterHeader bg-color-red">
-      <div class="headerCon acea-row row-between-wrapper">
-        <div>
-          <div class="name">佣金明细</div>
-          <div class="money">
-            ￥<span class="num">{{ commission }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="sign-record" ref="content">
-      <div class="list">
-        <div class="item" v-for="(item, infoIndex) in info" :key="infoIndex">
-          <div class="data">{{ item.time }}</div>
-          <div class="listn" v-for="(val, indexn) in item.list" :key="indexn">
-            <div class="itemn acea-row row-between-wrapper">
-              <div>
-                <div class="name line1">{{ val.title }}</div>
-                <div>{{ val.addTime }}</div>
-              </div>
-              <div class="num" v-if="val.pm == 1">+{{ val.number }}</div>
-              <div class="num font-color-red" v-if="val.pm == 0">
+  <view class="commission-details" ref="container">
+    <view class="promoterHeader bg-color-red">
+      <view class="headerCon acea-row row-between-wrapper">
+        <view>
+          <view class="name">佣金明细</view>
+          <view class="money">
+            ￥<text class="num">{{ commission }}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="sign-record" ref="content">
+      <view class="list">
+        <view class="item" v-for="(item, infoIndex) in info" :key="infoIndex">
+          <view class="data">{{ item.time }}</view>
+          <view class="listn" v-for="(val, indexn) in item.list" :key="indexn">
+            <view class="itemn acea-row row-between-wrapper">
+              <view>
+                <view class="name line1">{{ val.title }}</view>
+                <view>{{ val.addTime }}</view>
+              </view>
+              <view class="num" v-if="val.pm == 1">+{{ val.number }}</view>
+              <view class="num font-color-red" v-if="val.pm == 0">
                 -{{ val.number }}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
-  </div>
+  </view>
 </template>
 <script>
 import { getCommissionInfo, getSpreadInfo } from "@/api/user";
@@ -75,8 +75,12 @@ export default {
           that.where.page = that.where.page + 1;
           that.info.push.apply(that.info, res.data);
         },
-        error => {
-          that.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     },
@@ -86,8 +90,12 @@ export default {
         res => {
           that.commission = res.data.commissionCount;
         },
-        error => {
-          this.$dialog.message(error.msg);
+        err => {
+          uni.showToast({
+				title: err.msg || err.response.data.msg,
+				icon: 'none',
+				duration: 2000
+			});
         }
       );
     }
