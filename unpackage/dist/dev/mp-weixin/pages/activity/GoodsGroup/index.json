@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "GoodsGroup",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

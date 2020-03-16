@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "SignRecord",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

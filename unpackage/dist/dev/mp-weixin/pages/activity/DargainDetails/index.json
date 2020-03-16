@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "DargainDetails",
-  "usingComponents": {
-    "count-down": "/components/CountDown"
-  }
-}

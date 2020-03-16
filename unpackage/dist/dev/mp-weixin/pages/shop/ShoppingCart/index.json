@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "ShoppingCart",
-  "usingComponents": {
-    "recommend": "/components/Recommend"
-  }
-}

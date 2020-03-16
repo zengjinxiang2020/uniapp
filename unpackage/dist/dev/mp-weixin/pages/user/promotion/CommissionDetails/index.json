@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "CommissionDetails",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

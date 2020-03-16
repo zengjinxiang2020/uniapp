@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "OrderIndex",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

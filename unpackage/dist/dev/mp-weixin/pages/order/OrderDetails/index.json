@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "OrderDetails",
-  "usingComponents": {
-    "order-goods": "/components/OrderGoods",
-    "payment": "/components/Payment",
-    "data-format": "/components/DataFormat"
-  }
-}

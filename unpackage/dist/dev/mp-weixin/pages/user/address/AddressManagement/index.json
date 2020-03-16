@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "AddressManagement",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

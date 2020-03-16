@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "GoodsPromotion",
-  "usingComponents": {
-    "promotion-good": "/components/PromotionGood"
-  }
-}

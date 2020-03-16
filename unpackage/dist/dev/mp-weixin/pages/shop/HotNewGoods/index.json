@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "HotNewGoods",
-  "usingComponents": {
-    "good-list": "/components/GoodList"
-  }
-}

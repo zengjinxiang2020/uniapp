@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "UserBill",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

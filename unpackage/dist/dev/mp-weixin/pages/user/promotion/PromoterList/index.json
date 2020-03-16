@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "PromoterList",
-  "usingComponents": {
-    "loading": "/components/Loading"
-  }
-}

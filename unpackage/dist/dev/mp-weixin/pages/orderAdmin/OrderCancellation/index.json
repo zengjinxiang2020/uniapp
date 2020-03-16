@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "OrderCancellation",
-  "usingComponents": {
-    "write-off": "/components/WriteOff"
-  }
-}
