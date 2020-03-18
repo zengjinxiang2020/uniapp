@@ -47,7 +47,7 @@
               <view class="lack">
                 <text>还差</text>
                 <text class="font-color-red" v-text="item.count"></text>
-				<text>人成团</text>
+                <text>人成团</text>
               </view>
               <count-down
                 :is-day="false"
@@ -200,7 +200,7 @@ export default {
           cart_num: 1
         }
       },
-      cartNum:1
+      cartNum: 1
     };
   },
   watch: {
@@ -286,11 +286,11 @@ export default {
       var that = this;
       that.attr.productSelect.cart_num = 1;
       that.cartNum = 1;
-       uni.showToast({
-              title: "每人每次限购1" + that.storeInfo.unitName,
-              icon: "none",
-              duration: 2000
-            });
+      uni.showToast({
+        title: "每人每次限购1" + that.storeInfo.unitName,
+        icon: "none",
+        duration: 2000
+      });
     },
     setProductSelect: function() {
       var that = this;
@@ -322,9 +322,9 @@ export default {
           })
           .catch(err => {
             uni.showToast({
-            	title: err.msg || err.response.data.msg,
-            	icon: 'none',
-            	duration: 2000
+              title: err.msg || err.response.data.msg,
+              icon: "none",
+              duration: 2000
             });
           });
       }

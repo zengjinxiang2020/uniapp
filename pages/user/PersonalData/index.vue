@@ -121,11 +121,6 @@ export default {
       userIndex: 0
     };
   },
-  watch: {
-    $yroute(n) {
-      if (n.name === "PersonalData") this.$store.dispatch("USERINFO", true);
-    }
-  },
   computed: mapGetters(["userInfo"]),
   mounted: function() {
     this.avatar = this.userInfo.avatar;

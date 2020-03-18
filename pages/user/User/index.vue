@@ -1,157 +1,161 @@
 <template>
   <view class="user">
-    <view class="header bg-color-red acea-row row-between-wrapper">
-      <view class="picTxt acea-row row-between-wrapper">
-        <view class="pictrue">
-          <image :src="userInfo.avatar" />
-        </view>
-        <view class="text">
-          <view class="acea-row row-middle">
-            <view class="name line1">{{ userInfo.nickname }}</view>
-            <view class="member acea-row row-middle" v-if="userInfo.vip">
-              <image :src="userInfo.vipIcon" />
-              <text>{{ userInfo.vipName }}</text>
-            </view>
+    <view v-if="userInfo.uid">
+      <view class="header bg-color-red acea-row row-between-wrapper">
+        <view class="picTxt acea-row row-between-wrapper">
+          <view class="pictrue">
+            <image :src="userInfo.avatar" />
           </view>
-          <view @click="goPersonalData()" class="id" v-if="userInfo.phone">
-            <text>ID：{{ userInfo.uid || 0}}</text>
-            <text class="iconfont icon-bianji1"></text>
-          </view>
-          <button
-            open-type="getPhoneNumber"
-            @getphonenumber="getPhoneNumber"
-            class="binding"
-            v-else
-          >
-            <text>绑定手机号</text>
-          </button>
-        </view>
-      </view>
-      <text class="iconfont icon-shezhi" @click="goPersonalData()"></text>
-    </view>
-    <view class="wrapper">
-      <view class="nav acea-row row-middle">
-        <view @click="goUserAccount()" class="item">
-          <text>我的余额</text>
-          <text class="num">{{ userInfo.nowMoney || 0 }}</text>
-        </view>
-        <view
-          @click="goUserPromotion()"
-          class="item"
-          v-if="userInfo.isPromoter === 1 || userInfo.statu === 2"
-        >
-          <text>当前佣金</text>
-          <text class="num">{{ userInfo.brokeragePrice || 0 }}</text>
-        </view>
-        <view @click="goIntegral()" class="item" v-else>
-          <text>当前积分</text>
-          <text class="num">{{ userInfo.integral || 0 }}</text>
-        </view>
-        <view @click="goUserCoupon()" class="item">
-          <text>优惠券</text>
-          <text class="num">{{ userInfo.couponCount || 0 }}</text>
-        </view>
-      </view>
-      <view class="myOrder">
-        <view class="title acea-row row-between-wrapper">
-          <text>我的订单</text>
-          <text @click="goMyOrder()" class="allOrder">
-            全部订单
-            <text class="iconfont icon-jiantou"></text>
-          </text>
-        </view>
-        <view class="orderState acea-row row-middle">
-          <view @click="goMyOrder(0)" class="item">
-            <view class="pictrue">
-              <image :src="$VUE_APP_RESOURCES_URL + '/images/dfk.png'" />
-              <text
-                class="order-status-num"
-                v-if="orderStatusNum.unpaidCount > 0"
-              >{{ orderStatusNum.unpaidCount }}</text>
-            </view>
-            <view>待付款</view>
-          </view>
-          <view @click="goMyOrder(1)" class="item">
-            <view class="pictrue">
-              <image :src="$VUE_APP_RESOURCES_URL+'/images/dfh.png'" />
-              <text
-                class="order-status-num"
-                v-if="orderStatusNum.unshippedCount > 0"
-              >{{ orderStatusNum.unshippedCount }}</text>
-            </view>
-            <view>待发货</view>
-          </view>
-          <view @click="goMyOrder(2)" class="item">
-            <view class="pictrue">
-              <image :src="$VUE_APP_RESOURCES_URL+'/images/dsh.png'" />
-              <text
-                class="order-status-num"
-                v-if="orderStatusNum.receivedCount > 0"
-              >{{ orderStatusNum.receivedCount }}</text>
-            </view>
-            <text>待收货</text>
-          </view>
-          <view @click="goMyOrder(3)" class="item">
-            <view class="pictrue">
-              <image :src="$VUE_APP_RESOURCES_URL+'/images/dpj.png'" />
-              <text
-                class="order-status-num"
-                v-if="orderStatusNum.evaluatedCount > 0"
-              >{{ orderStatusNum.evaluatedCount }}</text>
-            </view>
-            <text>待评价</text>
-          </view>
-          <view @click="goReturnList()" class="item">
-            <view class="pictrue">
-              <image :src="$VUE_APP_RESOURCES_URL+'/images/sh.png'" />
-              <text
-                class="order-status-num"
-                v-if="orderStatusNum.refundCount > 0"
-              >{{ orderStatusNum.refundCount }}</text>
-            </view>
-            <text>售后/退款</text>
-          </view>
-        </view>
-      </view>
-      <view class="myService">
-        <view class="title acea-row row-middle">
-          <text>我的服务</text>
-        </view>
-        <view class="serviceList acea-row row-middle">
-          <template v-for="(item, MyMenusIndex) in MyMenus">
-            <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)" v-if="item.url">
-              <view class="pictrue">
-                <image :src="item.pic" />
+          <view class="text">
+            <view class="acea-row row-middle">
+              <view class="name line1">{{ userInfo.nickname }}</view>
+              <view class="member acea-row row-middle" v-if="userInfo.vip">
+                <image :src="userInfo.vipIcon" />
+                <text>{{ userInfo.vipName }}</text>
               </view>
-              <view>{{ item.name }}</view>
             </view>
-          </template>
+            <view @click="goPersonalData()" class="id" v-if="userInfo.phone">
+              <text>ID：{{ userInfo.uid || 0}}</text>
+              <text class="iconfont icon-bianji1"></text>
+            </view>
+            <button
+              open-type="getPhoneNumber"
+              @getphonenumber="getPhoneNumber"
+              class="binding"
+              v-else
+            >
+              <text>绑定手机号</text>
+            </button>
+          </view>
         </view>
+        <text class="iconfont icon-shezhi" @click="goPersonalData()"></text>
       </view>
-      <!--<view -->
-      <!--class="item"-->
-      <!--@click="changeswitch(true)"-->
-      <!--v-if="userInfo.phone && isWeixin"-->
-      <!--&gt;-->
-      <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/switch.png'" /></view>-->
-      <!--<view>账号切换</!--<view>-->
-      <!--</!--<view>-->
-      <!-- </view>
-      </view>-->
+      <view class="wrapper">
+        <view class="nav acea-row row-middle">
+          <view @click="goUserAccount()" class="item">
+            <text>我的余额</text>
+            <text class="num">{{ userInfo.nowMoney || 0 }}</text>
+          </view>
+          <view
+            @click="goUserPromotion()"
+            class="item"
+            v-if="userInfo.isPromoter === 1 || userInfo.statu === 2"
+          >
+            <text>当前佣金</text>
+            <text class="num">{{ userInfo.brokeragePrice || 0 }}</text>
+          </view>
+          <view @click="goIntegral()" class="item" v-else>
+            <text>当前积分</text>
+            <text class="num">{{ userInfo.integral || 0 }}</text>
+          </view>
+          <view @click="goUserCoupon()" class="item">
+            <text>优惠券</text>
+            <text class="num">{{ userInfo.couponCount || 0 }}</text>
+          </view>
+        </view>
+        <view class="myOrder">
+          <view class="title acea-row row-between-wrapper">
+            <text>我的订单</text>
+            <text @click="goMyOrder()" class="allOrder">
+              全部订单
+              <text class="iconfont icon-jiantou"></text>
+            </text>
+          </view>
+          <view class="orderState acea-row row-middle">
+            <view @click="goMyOrder(0)" class="item">
+              <view class="pictrue">
+                <image :src="$VUE_APP_RESOURCES_URL + '/images/dfk.png'" />
+                <text
+                  class="order-status-num"
+                  v-if="orderStatusNum.unpaidCount > 0"
+                >{{ orderStatusNum.unpaidCount }}</text>
+              </view>
+              <view>待付款</view>
+            </view>
+            <view @click="goMyOrder(1)" class="item">
+              <view class="pictrue">
+                <image :src="$VUE_APP_RESOURCES_URL+'/images/dfh.png'" />
+                <text
+                  class="order-status-num"
+                  v-if="userInfo.orderStatusNum.unshippedCount > 0"
+                >{{ userInfo.orderStatusNum.unshippedCount }}</text>
+              </view>
+              <view>待发货</view>
+            </view>
+            <view @click="goMyOrder(2)" class="item">
+              <view class="pictrue">
+                <image :src="$VUE_APP_RESOURCES_URL+'/images/dsh.png'" />
+                <text
+                  class="order-status-num"
+                  v-if="userInfo.orderStatusNum.receivedCount > 0"
+                >{{ userInfo.orderStatusNum.receivedCount }}</text>
+              </view>
+              <text>待收货</text>
+            </view>
+            <view @click="goMyOrder(3)" class="item">
+              <view class="pictrue">
+                <image :src="$VUE_APP_RESOURCES_URL+'/images/dpj.png'" />
+                <text
+                  class="order-status-num"
+                  v-if="userInfo.orderStatusNum.evaluatedCount > 0"
+                >{{ userInfo.orderStatusNum.evaluatedCount }}</text>
+              </view>
+              <text>待评价</text>
+            </view>
+            <view @click="goReturnList()" class="item">
+              <view class="pictrue">
+                <image :src="$VUE_APP_RESOURCES_URL+'/images/sh.png'" />
+                <text
+                  class="order-status-num"
+                  v-if="userInfo.orderStatusNum.refundCount > 0"
+                >{{ userInfo.orderStatusNum.refundCount }}</text>
+              </view>
+              <text>售后/退款</text>
+            </view>
+          </view>
+        </view>
+        <view class="myService">
+          <view class="title acea-row row-middle">
+            <text>我的服务</text>
+          </view>
+          <view class="serviceList acea-row row-middle">
+            <template v-for="(item, MyMenusIndex) in MyMenus">
+              <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)" v-if="item.url">
+                <view class="pictrue">
+                  <image :src="item.pic" />
+                </view>
+                <view>{{ item.name }}</view>
+              </view>
+            </template>
+          </view>
+        </view>
+        <!--<view -->
+        <!--class="item"-->
+        <!--@click="changeswitch(true)"-->
+        <!--v-if="userInfo.phone && isWeixin"-->
+        <!--&gt;-->
+        <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/switch.png'" /></view>-->
+        <!--<view>账号切换</!--<view>-->
+        <!--</!--<view>-->
+        <!-- </view>
+        </view>-->
+      </view>
+      <view style="text-align: center;margin-top: 1rem">By@意象</view>
+      <view class="footer-line-height"></view>
+      <SwitchWindow
+        v-on:changeswitch="changeswitch"
+        :switchActive="switchActive"
+        :login_type="userInfo.login_type"
+      ></SwitchWindow>
     </view>
-    <view style="text-align: center;margin-top: 1rem">By@意象</view>
-    <view class="footer-line-height"></view>
-    <SwitchWindow
-      v-on:changeswitch="changeswitch"
-      :switchActive="switchActive"
-      :login_type="userInfo.login_type"
-    ></SwitchWindow>
+    <Authorization v-else />
   </view>
 </template>
 <script>
 import { getUser, getMenuUser, bindingPhone } from "@/api/user";
 import { isWeixin, VUE_APP_RESOURCES_URL } from "@/utils";
 import SwitchWindow from "@/components/SwitchWindow";
+import Authorization from "@/pages/authorization/index";
 import { mapGetters } from "vuex";
 
 const NAME = "User";
@@ -159,30 +163,18 @@ const NAME = "User";
 export default {
   name: NAME,
   components: {
-    SwitchWindow
+    SwitchWindow,
+    Authorization
   },
   props: {},
   data: function() {
     return {
-      userInfo: {},
       MyMenus: [],
-      orderStatusNum: {},
       switchActive: false,
       isWeixin: false
     };
   },
-  computed: mapGetters(["wxCode"]),
-  watch: {
-    $yroute(n) {
-      if (n.name === NAME) this.User();
-    }
-  },
-  mounted: function() {
-    console.log("这个是个人中心");
-    this.User();
-    this.MenuUser();
-    this.isWeixin = isWeixin();
-  },
+  computed: mapGetters(["userInfo"]),
   methods: {
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
@@ -214,33 +206,44 @@ export default {
     },
     getPhoneNumber: function(e) {
       console.log(e.mp.detail);
+      // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
       if (e.mp.detail.errMsg == "getPhoneNumber:ok") {
         uni.showLoading({
           title: "绑定中"
         });
-        wx.login({
-          success: loginRes => {
-            bindingPhone({
-              code: loginRes.code,
-              encryptedData: e.mp.detail.encryptedData,
-              iv: e.mp.detail.iv
-            })
-              .then(res => {
-                this.User();
-                uni.hideLoading();
-                uni.showToast({
-                  title: res.msg,
-                  icon: "success",
-                  duration: 2000
-                });
-              })
-              .catch(error => {
-                uni.showToast({
-                  title: error.msg || error.response.data.msg,
-                  icon: "none",
-                  duration: 2000
-                });
+        // 获取当前环境的服务商
+        uni.getProvider({
+          service: "oauth",
+          success: function(res) {
+            console.log(res.provider);
+            // 此处可以排除h5
+            if (res.provider) {
+              uni.login({
+                success: loginRes => {
+                  bindingPhone({
+                    code: loginRes.code,
+                    encryptedData: e.mp.detail.encryptedData,
+                    iv: e.mp.detail.iv
+                  })
+                    .then(res => {
+                      this.User();
+                      uni.hideLoading();
+                      uni.showToast({
+                        title: res.msg,
+                        icon: "success",
+                        duration: 2000
+                      });
+                    })
+                    .catch(error => {
+                      uni.showToast({
+                        title: error.msg || error.response.data.msg,
+                        icon: "none",
+                        duration: 2000
+                      });
+                    });
+                }
               });
+            }
           }
         });
       } else {
@@ -256,10 +259,10 @@ export default {
     },
     User: function() {
       let that = this;
-      getUser().then(res => {
-        that.userInfo = res.data;
-        that.orderStatusNum = res.data.orderStatusNum;
-      });
+      // getUser().then(res => {
+      // 	that.user = res.data;
+      // 	that.orderStatusNum = res.data.orderStatusNum;
+      // });
     },
     MenuUser: function() {
       let that = this;
@@ -287,12 +290,12 @@ export default {
         url === "/pages/orderAdmin/OrderIndex/index" &&
         !this.userInfo.adminid
       ) {
-		   uni.showToast({
-            title: "您还不是管理员！！",
-            icon: "none",
-            duration: 2000
-          });
-          return;
+        uni.showToast({
+          title: "您还不是管理员！！",
+          icon: "none",
+          duration: 2000
+        });
+        return;
       }
 
       this.$yrouter.push({
@@ -300,10 +303,18 @@ export default {
       });
     }
   },
+  watch: {
+    userInfo() {
+      this.MenuUser();
+    }
+  },
   onShow() {
-    this.User();
-    this.MenuUser();
-    this.isWeixin = isWeixin();
+    console.log(this.userInfo);
+    if (this.userInfo.uid) {
+      this.User();
+      this.MenuUser();
+      this.isWeixin = isWeixin();
+    }
   }
 };
 </script>

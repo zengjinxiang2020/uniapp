@@ -63,14 +63,14 @@ export default {
             icon: "none",
             duration: 2000
           });
-          return
+          return;
         } else if (price < 0.01) {
           uni.showToast({
             title: "转入金额不能低于0.01",
             icon: "none",
             duration: 2000
           });
-          return
+          return;
         }
 
         uni.showModal({

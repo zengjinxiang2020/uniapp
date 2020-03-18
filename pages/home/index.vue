@@ -254,6 +254,9 @@ export default {
   },
   mounted: function() {
     let that = this;
+    uni.showLoading({
+      title:'加载中'
+    })
     getHomeData().then(res => {
       that.logoUrl = res.data.logoUrl;
       that.$set(that, "banner", res.data.banner);
@@ -269,6 +272,7 @@ export default {
       that.$set(that, "lovely", res.data.lovely);
       that.$set(that, "benefit", res.data.benefit);
       that.$set(that, "couponList", res.data.couponList);
+      uni.hideLoading()
       that.setOpenShare();
     });
   },

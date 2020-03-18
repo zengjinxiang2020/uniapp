@@ -97,7 +97,7 @@ export function getCurrentPageUrlWithArgs() {
 
 // 复制到剪切板
 export const copyClipboard = (data) => {
-	wx.setClipboardData({
+	uni.setClipboardData({
 		data: data,
 		success: (res) => {
 			uni.showToast({
@@ -110,139 +110,209 @@ export const copyClipboard = (data) => {
 }
 
 
-export const toAuthorization = (msg) => {
+export const replaceLogin = (msg) => {
 	uni.hideLoading();
 	uni.showToast({
 		title: msg,
 		icon: 'none',
 		duration: 2000
 	});
-	console.log(222222222)
-	replace({
-		path: '/pages/user/Login/index',
-		query: {
-			redirect: `/${getCurrentPageUrl()}`,
-			...parseQuery()
-		}
+	console.log(Vue.prototype.$deviceType)
+	// 这里代表已经失去登录状态以及401强制推出登录了
+	store.commit('LOGOUT')
+
+	if (Vue.prototype.$deviceType == 'Weixin') {
+		// 如果是微信小程序，跳转到授权页
+		replace({
+			path: '/pages/authorization/index',
+			query: {
+				redirect: `/${getCurrentPageUrl()}`,
+				...parseQuery()
+			}
+		})
+	} else {
+		// 如果不是小程序跳转到登录页
+		replace({
+			path: '/pages/user/Login/index',
+			query: query || {
+				redirect: `/${getCurrentPageUrl()}`,
+				...parseQuery()
+			}
+		})
+	}
+}
+
+export const getProvider = () => {
+	return new Promise((resolve, reject) => {
+		// 获取当前环境的服务商
+		uni.getProvider({
+			service: 'oauth',
+			success: function (res) {
+				console.log(`当前环境的服务商为 | ${res.provider}`)
+				// 此处可以排除h5
+				if (res.provider) {
+					resolve(res.provider[0])
+				}
+			},
+			fail() {
+				reject('获取环境服务商失败')
+			}
+		})
+	}).catch(error => {
+		console.log(error)
+	})
+
+}
+
+export const authorize = (authorizeStr) => {
+	return new Promise((resolve, reject) => {
+		uni.authorize({
+			scope: `scope.${authorizeStr}`,
+			success() {
+				resolve('获取授权成功')
+			},
+			fail() {
+				reject('获取授权失败')
+			}
+		})
+	}).catch(error => {
+		console.log(error)
 	})
 }
 
 export const login = (option) => {
 	console.log('调用登录')
 	return new Promise((resolve, reject) => {
-		// 获取当前环境的服务商
-		uni.getProvider({
-			service: 'oauth',
-			success: function(res) {
-				console.log(res.provider)
-				// 此处可以排除h5
-				if (res.provider) {
-					// 调用登录接口
-					uni.login({
-						provider: res.provider[0],
-						success: function(loginRes) {
-							// 微信登录
-							console.log('获取code')
-							let code = loginRes.code;
-							store.commit("UPDATE_WXCODE", loginRes.code);
+		getProvider().then(provider => {
+			// 调用登录接口
+			uni.login({
+				provider: provider,
+				success: function (loginRes) {
+					// 微信登录
+					console.log(`获取code | ${loginRes.code}`)
+					let code = loginRes.code;
+					// 检查授权， 检查用户信息授权
+					authorize('userInfo').then(() => {
+						uni.getUserInfo({
+							provider: provider,
+							success: function (user) {
+								console.log(user)
+								console.log(`用户昵称为 | ${user.userInfo.nickName}`);
+								console.log(`当前的环境 | ${Vue.prototype.$deviceType}`)
+								if (Vue.prototype.$deviceType == 'Weixin') {
+									wxappAuth({
+										encryptedData: user.encryptedData,
+										iv: user.iv,
+										code: code,
+										spread: cookie.get("spread")
+									}).then(({
+										data
+									}) => {
+										console.log('登录成功')
+										console.log(data)
+										console.log('登录成功1')
 
-							console.log(JSON.stringify(loginRes));
-							// 检查授权， 检查用户信息授权
-							uni.authorize({
-								scope: 'scope.userInfo',
-								success() {
-									uni.getUserInfo({
-										provider: res.provider[0],
-										success: function(user) {
-											console.log(user)
-											console.log('用户昵称为：' + user.userInfo.nickName);
-											if (Vue.prototype.$deviceType == 'Weixin') {
-												wxappAuth({
-													encryptedData: user.encryptedData,
-													iv: user.iv,
-													code: code,
-													spread: cookie.get("spread")
-												}).then(({
-													data
-												}) => {
-													resolve(res.data)
-													uni.hideLoading();
-													store.commit("LOGIN", data.token, dayjs(data.expires_time));
-													getUser().then(res => {
-														store.dispatch('changeUserInfo', {
-															user: res.data
-														})
-													});
-													var pages = getCurrentPages() //获取加载的页面
-													var currentPage = pages[pages.length - 1] //获取当前页面的对象
-													let url = "/pages/home/index"
-													let query = {}
-													if (currentPage) {
-														if (currentPage.route != 'pages/Loading/index' && currentPage.route !=
-															'pages/user/Login/index') {
-															url = currentPage.route
-														}
-														if (currentPage.route == 'pages/user/Login/index') {
-															const {
-																redirect,
-																...querys
-															} = currentPage.options
-															url = redirect
-															query = { ...querys
-															}
-														}
+										resolve(data)
+										console.log('登录成功3')
+
+										uni.hideLoading();
+										console.log('登录成功4')
+										store.commit("LOGIN", data.token, dayjs(data.expires_time));
+										console.log('登录成功5')
+
+										getUser().then(res => {
+											store.dispatch('changeUserInfo', {
+												user: res.data
+											})
+											console.log('登录成功6')
+											console.log(option)
+											// option && option.success ? option.success() : null
+											var pages = getCurrentPages() //获取加载的页面
+											console.log('登录成功7')
+
+											var currentPage = pages[pages.length - 1] //获取当前页面的对象
+											let url = "/pages/home/index"
+											let query = {}
+											console.log('登录成功8')
+											console.log(currentPage)
+
+											if (currentPage) {
+												// 获取到最后一个页面
+												if (
+													currentPage.route != 'pages/Loading/index'
+													&&
+													currentPage.route != 'pages/user/Login/index'
+												) {
+													url = currentPage.route
+												}
+												if (currentPage.route == 'pages/authorization/index') {
+													const {
+														redirect,
+														...querys
+													} = currentPage.options
+													url = redirect
+													query = {
+														...querys
 													}
-													switchTab({
-														path: url,
-														query
-													});
-												}).catch(error => {
-													reject()
-													option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-												});
+												}
 											}
+											console.log('登录成功9')
+											console.log({
+												path: url,
+												query
+											})
+											switchTab({
+												path: `${url}`,
+												query
+											});
+										})
 
-
-										},
-										fail() {
-											// 获取用户信息失败
-											reject()
-											option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-										}
+									}).catch(error => {
+										reject()
+										console.log('微信登录失败')
+										console.log(error)
+										handleFail(option, '微信登录失败')
 									});
-								},
-								fail() {
-									// 获取用户信息失败
-									reject()
-									option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
 								}
-							})
-						},
-						fail() {
-							// 调用登录接口失败
-							reject()
-							option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-						}
-					});
+							},
+							fail() {
+								// 获取用户信息失败
+								reject()
+								handleFail(option, '获取用户信息失败')
+							}
+						});
+					}).catch(error => {
+						reject()
+						console.log(error)
+						handleFail(option, '拒绝授权')
+					})
+				},
+				fail() {
+					// 调用登录接口失败
+					reject()
+					handleFail(option, '登录失败')
 				}
-			},
-			fail() {
-				reject()
-				option && option.fail ? option.fail() : toAuthorization('获取用户信息失败，请重试')
-			}
-		});
-
+			});
+		}).catch(error => {
+			reject()
+			console.log(error)
+			handleFail(option, '获取环境服务商失败')
+		})
+	}).catch(error => {
+		console.log(error)
+		handleFail(option, '登录失败')
 	})
 }
 
 
-
-
-
+const handleFail = (option, msg) => {
+	// 此处是处理登录失效的问题的
+	console.log(store)
+	option && option.fail ? option.fail() : replaceLogin('登录失败，请重新登录')
+}
 
 export function parseUrl(location) {
 	if (typeof location === 'string') return location
-
 	const {
 		path,
 		query
@@ -272,53 +342,95 @@ export function parseRoute($mp) {
 	}
 }
 
-export function push(location, complete, fail, success) {
+
+export const handleLoginStatus = (location, complete, fail, success) => {
+	console.log(location, '开始健全')
+	// 不登录可访问的页面
+	let page = [{
+		path: '/pages/Loading/index',
+		name: 'loading页面'
+	},
+	{
+		path: '/pages/home/index',
+		name: '首页'
+	},
+	{
+		path: '/pages/user/Login/index',
+		name: '登录页面'
+	},
+	{
+		path: '/pages/authorization/index',
+		name: '授权页面'
+	},
+	]
+
+	// 是否可以访问
+	let isAuth = false
+
+	// 从 location 中获取当前url，location typeof string || object
 	let path = ''
 	if (typeof location === 'string') {
 		path = location
 	} else {
 		path = location.path
 	}
-	console.log(path)
-	if (path != '/pages/launch/index' || path != '/pages/loading/index' || path != '/pages/home/index' || path !=
-		'/pages/loading/index') {
-		if (!store.getters.userInfo.uid) {
-			replace({
-				path: '/pages/user/Login/index',
-				query: {
-					redirect: `/${getCurrentPageUrl()}`,
-					...parseQuery()
-				}
-			})
-			return
-		}
-	}
-	const url = parseUrl(location)
-	const params = {
-		url,
-		complete,
-		fail,
-		success
+
+	console.log(store.getters.userInfo, '用户信息')
+	if (!store.getters.userInfo.uid) {
+		page.map((item) => {
+			console.log(item.path == path)
+			if (item.path == path) {
+				isAuth = true
+			}
+		})
+	} else {
+		isAuth = true
 	}
 
-	if (location.isTab) {
-		uni.switchTab(params)
-		return
-	}
-	if (location.reLaunch) {
-		uni.reLaunch(params)
-		return
-	}
-	uni.navigateTo(params)
+	return new Promise((resolve, reject) => {
+		if (isAuth) {
+			console.log('有权限')
+			// 登录了有权限
+			console.log({
+				url: parseUrl(location),
+				complete,
+				fail,
+				success
+			})
+			resolve({
+				url: parseUrl(location),
+				complete,
+				fail,
+				success
+			})
+		} else {
+			console.log('无权限')
+			// 未登录没有权限
+			replaceLogin()
+			reject()
+		}
+	}).catch(error => {
+		console.log(error)
+	})
+}
+
+export function push(location, complete, fail, success) {
+	handleLoginStatus(location, complete, fail, success).then(params => {
+		console.log(params)
+		uni.navigateTo(params)
+	}).catch(error => {
+		// 没有权限
+
+	})
 }
 
 export function replace(location, complete, fail, success) {
-	const url = parseUrl(location)
-	uni.redirectTo({
-		url,
-		complete,
-		fail,
-		success
+	handleLoginStatus(location, complete, fail, success).then(params => {
+		console.log(params)
+		uni.redirectTo(params)
+	}).catch(error => {
+		// 没有权限
+
 	})
 }
 
@@ -331,18 +443,18 @@ export function go(delta) {
 export function back() {
 	uni.navigateBack({
 		delta: 1,
-		success: function(e) {},
-		fail: function(e) {}
+		success: function (e) { },
+		fail: function (e) { }
 	})
 }
 
 export function switchTab(location, complete, fail, success) {
-	const url = parseUrl(location)
-	uni.switchTab({
-		url,
-		complete,
-		fail,
-		success
+	console.log(location)
+	handleLoginStatus(location, complete, fail, success).then(params => {
+		console.log(params)
+		uni.switchTab(params)
+	}).catch(error => {
+		// 没有权限
 	})
 }
 
@@ -383,20 +495,19 @@ export function handleQrCode() {
 }
 
 const getImageInfo = (images) => {
-	console.log(images)
 	return new Promise((resolve, reject) => {
 		let imageAry = {}
 		images.map((item, index) => {
-			wx.getImageInfo({
+			uni.getImageInfo({
 				src: item,
-				fail: function(res) {
+				fail: function (res) {
 					imageAry[index] = null
 					console.log(res)
 					if (imageAry.length == images.length) {
 						resolve(imageAry)
 					}
 				},
-				success: function(res) {
+				success: function (res) {
 					imageAry[index] = res
 					console.log(res)
 					if (Object.keys(imageAry).length == images.length) {
@@ -425,7 +536,7 @@ export const PosterCanvas = (store, successCallBack) => {
 	});
 	getImageInfo([store.image, store.code]).then(res => {
 		let contentHh = 48 * 1.3
-		const ctx = wx.createCanvasContext('myCanvas');
+		const ctx = uni.createCanvasContext('myCanvas');
 		ctx.clearRect(0, 0, 0, 0);
 		const WIDTH = 747
 		const HEIGHT = 1326;
@@ -455,17 +566,17 @@ export const PosterCanvas = (store, successCallBack) => {
 		ctx.fillText('长按识别二维码立即购买', WIDTH / 2, 1167);
 		// ctx.drawImage(store.code, 199, 1064, 200, 200);
 		ctx.save();
-		ctx.draw(true, function(oi) {
-			wx.canvasToTempFilePath({
+		ctx.draw(true, function (oi) {
+			uni.canvasToTempFilePath({
 				canvasId: 'myCanvas',
 				fileType: 'png',
 				destWidth: WIDTH,
 				destHeight: HEIGHT,
-				success: function(res) {
+				success: function (res) {
 					uni.hideLoading();
 					successCallBack && successCallBack(res.tempFilePath);
 				},
-				fail: function(error) {
+				fail: function (error) {
 					console.log(error)
 				},
 
@@ -473,7 +584,7 @@ export const PosterCanvas = (store, successCallBack) => {
 		});
 	})
 
-	// wx.getImageInfo({
+	// uni.getImageInfo({
 	//   src: store.image,
 	//   fail: function (res) {
 	//     uni.showToast({

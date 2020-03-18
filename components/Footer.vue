@@ -1,10 +1,8 @@
 <template>
   <view>
-    <view v-if="isIpx" class="iphonex-footer-bg"></view>
-    <view v-else class="footer-bg"></view>
+    <view class="footer-bg"></view>
     <view id="footer" :class="[isIpx ? 'iphonex-footer' : '', 'acea-row row-middle'] ">
       <view
-        @click="changeTabtar(footerIndex)"
         class="item"
         :class="{ on: footerIndex == tabtarIndex }"
         v-for="(item, footerIndex) in footerList"
@@ -59,20 +57,9 @@ export default {
     ...mapState(["tabtarIndex"])
   },
   methods: {
-    ...mapActions(["changeTabtar"])
   },
   mounted() {
-    let that = this;
-    this.changeTabtar(this.$yroute.query.type);
-    wx.getSystemInfo({
-      success: function(res) {
-        console.log(res);
-        var name = "iPhone X";
-        if (res.model.indexOf(name) > -1) {
-          that.isIpx = true;
-        }
-      }
-    });
+    
   }
 };
 </script>

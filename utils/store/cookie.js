@@ -7,69 +7,36 @@ function get(key) {
   if (!key || !_has(key)) {
     return null;
   }
-  return wx.getStorageSync(key)
-  // let regexpStr =
-  //   "(?:^|.*;\\s*)" +
-  //   escape(key).replace(/[-.+*]/g, "\\$&") +
-  //   "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*";
-  // return JSON.parse(unescape(doc.cookie.replace(new RegExp(regexpStr), "$1")));
-
+  return uni.getStorageSync(key)
 }
 
 function all() {
-  return wx.getStorageInfoSync()
-  // let cookies = doc.cookie.split(/; ?/g),
-  //   data = {};
-  // for (let i = cookies.length - 1; i >= 0; i--) {
-  //   if (!trim(cookies[i])) {
-  //     continue;
-  //   }
-  //   let kvp = cookies[i].split("=");
-  //   let key = unescape(kvp[0]);
-  //   data[key] = unescape(kvp[1]);
-  // }
-  // return data;
+  return uni.getStorageInfoSync()
 }
 
 function set(key, data, time) {
   if (!key) {
     return;
   }
-  // let expires = "Tue, 19 Jan 2038 03:14:07 GMT";
-  // if (time) {
-  //   let date;
-  //   if (isType(time, "Date")) {
-  //     date = time;
-  //   } else {
-  //     date = new Date();
-  //     date.setTime(date.getTime() + time * 60000);
-  //   }
-  //   expires = date.toGMTString();
-  // }
-
-  // data = JSON.stringify(data);
-  // doc.cookie =
-  //   escape(key) + "=" + escape(data) + "; expires=" + expires + "; path=/";
-
-  wx.setStorageSync(key, data)
+  uni.setStorageSync(key, data)
 }
 
 function remove(key) {
   if (!key || !_has(key)) {
     return;
   }
-  wx.removeStorageSync(key)
+  uni.removeStorageSync(key)
 }
 
 function clearAll() {
-  wx.clearStorage()
+  uni.clearStorage()
 }
 
 function _has(key) {
   if (!key) {
     return
   }
-  let value = wx.getStorageSync(key)
+  let value = uni.getStorageSync(key)
   if (value) {
     return true
   }

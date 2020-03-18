@@ -2,7 +2,7 @@
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
     // 吊起微信支付
-    wx.requestPayment({
+    uni.requestPayment({
       ...option,
       timeStamp: option.timeStamp + '',
       success: (success) => {

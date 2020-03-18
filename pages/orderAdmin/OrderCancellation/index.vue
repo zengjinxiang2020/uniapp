@@ -152,43 +152,7 @@
 			},
 			openQRCode: function() {
 				let that = this;
-				// wechatEvevt("scanQRCode", {
-				//   needResult: 1,
-				//   scanType: ["qrCode", "barCode"]
-				// })
-				//   .then(res => {
-				//     if (res.resultStr) {
-				//       that.verify_code = res.resultStr;
-				//       that.storeCancellation();
-				//     } else {
-				//        uni.showToast({
-				//                     title: '没有扫描到什么！',
-				//                     icon: "none",
-				//                     duration: 2000
-				//                   });
-				//     }
-				//   })
-				//   .catch(res => {
-				//     if (res.is_ready) {
-				//       res.wx.scanQRCode({
-				//         needResult: 1,
-				//         scanType: ["qrCode", "barCode"],
-				//         success: function(res) {
-				//           that.verify_code = res.resultStr;
-				//           that.storeCancellation();
-				//         },
-				//         fail: function(res) {
-				//           if (res.errMsg == "scanQRCode:permission denied") {
-				//              uni.showToast({
-				//                     title: '没有权限',
-				//                     icon: "none",
-				//                     duration: 2000
-				//                   });
-				//           }
-				//         }
-				//       });
-				//     }
-				//   });
+				// 这里需要调用扫码功能
 			}
 		}
 	};

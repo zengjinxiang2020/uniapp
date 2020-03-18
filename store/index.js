@@ -12,15 +12,11 @@ const LOGIN_KEY = "login_status";
 
 const vuexStore = new Vuex.Store({
   state: {
-    wxCode: null,
+    // 是否已经在授权页面
     isAuthorizationPage: false,
+    // 是否授权
     isAuthorization: false,
-    footer: true,
-    home: true,
-    tabtarIndex: 0,
-    homeActive: false,
     token: store.get(LOGIN_KEY) || null,
-    backgroundColor: "#fff",
     userInfo: null
   },
   mutations: {
@@ -50,8 +46,9 @@ const vuexStore = new Vuex.Store({
       store.set(LOGIN_KEY, token, expires_time);
     },
     LOGOUT(state) {
-      state.token = undefined;
-      store.remove(LOGIN_KEY);
+      state.token = null;
+      state.userInfo = null
+      store.clearAll()
     },
     BACKGROUND_COLOR(state, color) {
       state.color = color;
@@ -66,10 +63,6 @@ const vuexStore = new Vuex.Store({
     UPDATE_AUTHORIZATION(state, isAuthorization) {
       state.isAuthorization = isAuthorization;
     },
-    UPDATE_WXCODE(state, wxCode) {
-      console.log(wxCode, 'wxCode')
-      state.wxCode = wxCode;
-    }
   },
   actions: {
     USERINFO({ state, commit }, force) {
@@ -85,31 +78,25 @@ const vuexStore = new Vuex.Store({
           dialog.error("获取信息失败!");
         });
     },
+    changeLogin({ state, commit }, data, date) {
+      commit("LOGIN", data, date);
+    },
     changeUserInfo({ state, commit }, user) {
       commit("UPDATE_USERINFO", user.user);
     },
-    changeTabtar({ state, commit }, index) {
-      commit("CHANGE_TABTAR", index);
+    changeAuthorizationPage({ state, commit }, index) {
+      commit("UPDATE_AUTHORIZATIONPAGE", index);
     },
     changeAuthorization({ state, commit }, index) {
       commit("UPDATE_AUTHORIZATION", index);
     },
-    changeWxCode({ state, commit }, index) {
-      commit("UPDATE_WXCODE", index);
-    },
   },
   getters: {
-    wxCode: state => state.wxCode,
     isAuthorizationPage: state => state.isAuthorizationPage,
     isAuthorization: state => state.isAuthorization,
-    footer: state => state.footer,
-    homeActive: state => state.homeActive,
-    home: state => state.home,
     token: state => state.token,
     isLogin: state => !!state.token,
-    backgroundColor: state => state.backgroundColor,
     userInfo: state => state.userInfo || {},
-    tabtarIndex: state => state.tabtarIndex
   },
   strict: debug
 });

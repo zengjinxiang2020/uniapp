@@ -496,6 +496,7 @@
 		methods: {
 			copyClipboard,
 			showChang: function() {
+				// 这里判断是不是微信小程序
 				if (isWeixin()) {
 					let config = {
 						latitude: this.system_store.latitude,
@@ -503,14 +504,6 @@
 						name: this.system_store.name,
 						address: this.system_store._detailed_address
 					};
-					// wechatEvevt("openLocation", config)
-					//   .then(res => {
-					//   })
-					//   .catch(res => {
-					//     if (res.is_ready) {
-					//       res.wx.openLocation(config);
-					//     }
-					//   });
 				} else {
 					if (!this.mapKey)
 						uni.showToast({

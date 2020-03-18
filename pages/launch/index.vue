@@ -43,22 +43,18 @@ export default {
     ...mapState(["tabtarIndex"])
   },
   methods: {
-    ...mapActions(["changeTabtar"])
   },
   mounted() {
     let type = this.$yroute.query.type;
     console.log(2222)
     if (type) {
-      this.changeTabtar(type);
     }
 	
     // if (!this.tabtarIndex) {
-    //   this.changeTabtar(0);
     // }
   },
   onHide() {
     console.log("清除状态");
-    // this.changeTabtar(0);
   }
 };
 </script>

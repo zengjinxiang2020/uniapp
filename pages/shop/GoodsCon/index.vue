@@ -288,14 +288,6 @@ export default {
           name: this.system_store.name,
           address: this.system_store._detailed_address
         };
-        // wechatEvevt("openLocation", config)
-        //   .then(res => {
-        //   })
-        //   .catch(res => {
-        //     if (res.is_ready) {
-        //       res.wx.openLocation(config);
-        //     }
-        //   });
       } else {
         if (!this.mapKey) {
           uni.showToast({
