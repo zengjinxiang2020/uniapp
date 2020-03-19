@@ -41,24 +41,24 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .CustomerList {
-  margin-top: 0.13rem;
+  margin-top: 0.13*100rpx;
 }
 .CustomerList .item {
-  height: 1.38rem;
+  height: 1.38*100rpx;
   border-bottom: 1px solid #eee;
-  padding: 0 0.24rem;
+  padding: 0 0.24*100rpx;
   background-color: #fff;
 }
 .CustomerList .item .pictrue {
-  width: 0.9rem;
-  height: 0.9rem;
+  width: 0.9*100rpx;
+  height: 0.9*100rpx;
   border-radius: 50%;
-  border: 0.03rem solid #fff;
-  box-shadow: 0 0 0.1rem 0.05rem #f3f3f3;
-  -webkit-box-shadow: 0 0 0.1rem 0.05rem #f3f3f3;
-  -moz-box-shadow: 0 0 0.1rem 0.05rem #f3f3f3;
+  border: 0.03*100rpx solid #fff;
+  box-shadow: 0 0 0.1*100rpx 0.05*100rpx #f3f3f3;
+  -webkit-box-shadow: 0 0 0.1*100rpx 0.05*100rpx #f3f3f3;
+  -moz-box-shadow: 0 0 0.1*100rpx 0.05*100rpx #f3f3f3;
 }
 .CustomerList .item .pictrue image{
   width: 100%;
@@ -66,8 +66,8 @@ export default {
   border-radius: 50%;
 }
 .CustomerList .item .text {
-  width: 5.82rem;
-  font-size: 0.32rem;
+  width: 5.82*100rpx;
+  font-size: 0.32*100rpx;
   color: #000;
 }
 </style>

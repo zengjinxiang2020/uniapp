@@ -46,16 +46,16 @@ export default {
 	}
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .mystyl {
 	display: inline-block;
-	width: 0.64rem;
-	height: 0.64rem;
-	margin-top: 0.12rem;
+	width: 64rpx;
+	height: 64rpx;
+	margin-top:12rpx;
 	box-sizing: border-box;
 	border: 1px solid #e1e1e1;
 	border-radius: 50%;
-	background-size: 1.24rem auto;
+	background-size: 124rpx auto;
 	background-repeat: no-repeat;
 	background-color: rgba(255, 255, 255, 0.9);
 }

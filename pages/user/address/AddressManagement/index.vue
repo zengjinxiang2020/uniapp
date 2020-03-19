@@ -70,7 +70,7 @@
     </view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .address-management.on {
   background-color: #fff;
   height: 100vh;

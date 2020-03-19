@@ -62,7 +62,7 @@
 		</view>
 	</view>
 </template>
-<style scoped>
+<style scoped lang="less">
 	.evaluate-con .score .textarea .list .pictrue.uploadBnt {
 		border: 1px solid #ddd;
 	}

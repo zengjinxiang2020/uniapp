@@ -66,15 +66,15 @@
     <view class="mask" @touchmove.prevent v-show="change === true"></view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less" >
 .priceChange .listChange textarea {
   border: 1px solid #eee;
   width: 100%;
-  height: 2rem;
-  margin-top: 0.5rem;
-  border-radius: 0.1rem;
+  height: 200rpx;
+  margin-top: 50rpx;
+  border-radius: 10rpx;
   color: #333;
-  padding: 0.2rem;
+  padding: 20rpx;
 }
 </style>
 <script>

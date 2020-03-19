@@ -47,20 +47,20 @@
     ></view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .coupon-list-window .iconfont {
-  font-size: 0.4rem;
+  font-size: 40rpx;
 }
 .couponNo {
-  font-size: 0.3rem;
+  font-size: 30rpx;
   font-weight: bold;
   color: #fff;
-  width: 6.9rem;
-  height: 0.86rem;
-  border-radius: 0.43rem;
+  width: 690rpx;
+  height: 86rpx;
+  border-radius: 43rpx;
   text-align: center;
-  line-height: 0.86rem;
-  margin: 0.6rem auto;
+  line-height: 86rpx;
+  margin: 60rpx auto;
 }
 </style>
 <script>

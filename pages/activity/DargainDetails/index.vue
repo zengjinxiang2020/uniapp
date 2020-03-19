@@ -506,7 +506,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .bargainBnts {
   display: flex;
   align-items: center;

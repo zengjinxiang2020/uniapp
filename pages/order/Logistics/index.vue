@@ -43,7 +43,7 @@
 			<!--物流跟踪-->
 			<view style="margin-bottom:5px;">
 				<view class="bg-white" style="width: 92%; margin-left: 4%;margin: auto;padding-left: 15px;padding-right: 15px;padding-top: 10px">
-					<view style="font-size: .26rem;color: #111111; margin: 5px 0">
+					<view style="font-size: 26rpx;color: #111111; margin: 5px 0">
 						物流跟踪
 						<!--物流跟踪-->
 					</view>
@@ -182,24 +182,24 @@
 	};
 </script>
 
-<style scoped>
+<style scoped lang="less">
 	.no-express {
-		margin: 1.5rem 0;
+		margin: 1.5*100rpx 0;
 	}
 
 	.no-express image {
-		width: 6rem;
+		width: 6*100rpx;
 		margin: 0 auto;
 		display: block;
 	}
 
 	.message-text {
 		font-family: MicrosoftYaHei;
-		font-size: 1rem;
+		font-size: 1*100rpx;
 		font-weight: normal;
 		font-stretch: normal;
-		line-height: 3rem;
-		letter-spacing: 0rem;
+		line-height: 3*100rpx;
+		letter-spacing: 0*100rpx;
 		color: #333333;
 		width: 50%;
 	}
@@ -209,8 +209,8 @@
 	}
 
 	.img2 {
-		width: 0.81rem;
-		height: 0.8rem;
+		width: 0.81*100rpx;
+		height: 0.8*100rpx;
 		float: right;
 	}
 
@@ -225,7 +225,7 @@
 		white-space: normal;
 		word-wrap: break-word;
 		word-break: break-all;
-		font-size: 1rem;
+		font-size: 1*100rpx;
 	}
 
 	.addressshow1 {
@@ -239,11 +239,11 @@
 		white-space: normal;
 		word-wrap: break-word;
 		word-break: break-all;
-		font-size: 1rem;
+		font-size: 1*100rpx;
 	}
 
 	.orderTitle {
-		font-size: 1rem;
+		font-size: 1*100rpx;
 		color: #333333;
 		height: auto;
 		overflow: hidden;
@@ -254,11 +254,11 @@
 		white-space: normal;
 		word-wrap: break-word;
 		word-break: break-all;
-		height: 2.5rem;
+		height: 2.5*100rpx;
 	}
 
 	.orderDetail {
-		font-size: 0.26rem;
+		font-size: 0.26*100rpx;
 		color: #666666;
 		text-align: left;
 	}
@@ -271,7 +271,7 @@
 
 	.pay-button {
 		width: 88%;
-		height: 2.6rem;
+		height: 2.6*100rpx;
 		position: relative;
 		background-color: red;
 		color: white;
@@ -281,7 +281,7 @@
 
 	ul view {
 		list-style: none;
-		font-size: 0.24rem;
+		font-size: 0.24*100rpx;
 	}
 
 	ul {}
@@ -294,8 +294,8 @@
 
 	.track-list view {
 		position: relative;
-		padding: 0 0 0.5rem 5px;
-		line-height: 0.3rem;
+		padding: 0 0 0.5*100rpx 5px;
+		line-height: 0.3*100rpx;
 		border-left: 1px solid #d9d9d9;
 		color: #999;
 	}
@@ -312,8 +312,8 @@
 		position: absolute;
 		left: -6.5px;
 		border-radius: 50%;
-		width: 0.2rem;
-		height: 0.2rem;
+		width: 0.2*100rpx;
+		height: 0.2*100rpx;
 		top: 4px;
 		background-color: #b2b2b2;
 	}
@@ -321,11 +321,11 @@
 	.track-list view.active .node-icon {
 		background-position: 0-72px;
 		background-color: #ea7c0a;
-		width: 0.3rem;
+		width: 0.3*100rpx;
 		z-index: 2;
-		height: 0.3rem;
+		height: 0.3*100rpx;
 		position: absolute;
-		left: -0.19rem;
+		left: -0.19*100rpx;
 		top: 0;
 		border-radius: 50%;
 	}
@@ -346,8 +346,8 @@
 		display: inline-block;
 		vertical-align: top;
 		color: #999;
-		left: 0.2rem;
-		top: 0.04rem;
+		left: 0.2*100rpx;
+		top: 0.04*100rpx;
 	}
 
 	.track-list view.first .time {
@@ -364,7 +364,7 @@
 
 	.track-list view.finall {
 		position: relative;
-		padding: 0px 0 0.5rem 5px;
+		padding: 0px 0 0.5*100rpx 5px;
 		line-height: 18px;
 		border-color: white;
 		border-left: 1px solid #ffffff;
@@ -375,7 +375,7 @@
 		width: 1px;
 		position: absolute;
 		left: -1.5px;
-		height: 0.5rem;
+		height: 0.5*100rpx;
 		background-color: #d9d9d9;
 	}
 </style>

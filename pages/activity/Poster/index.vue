@@ -8,7 +8,7 @@
     </view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .poster-poster {
   height: unset !important;
 }

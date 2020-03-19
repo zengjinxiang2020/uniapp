@@ -124,7 +124,7 @@
         </view>
         <Recommend></Recommend>
       </view>
-      <view style="height:2.1rem"></view>
+      <view style="height:210rpx"></view>
       <view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
         <view>
           <view class="select-btn">
@@ -160,7 +160,7 @@
         </view>
       </view>
     </view>
-    <Authorization v-else />
+    <Authorization v-if="!$store.getters.token" />
   </view>
 </template>
 <script>

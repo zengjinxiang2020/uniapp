@@ -5,7 +5,7 @@
     </view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .poster-first {
   overscroll-behavior: contain;
 }

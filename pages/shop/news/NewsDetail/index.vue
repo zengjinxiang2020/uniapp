@@ -13,55 +13,55 @@
     <view class="conter" v-html="articleInfo.content"></view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .newsDetail .picTxt {
-  width: 6.9rem;
-  height: 2rem;
-  border-radius: 0.2rem;
+  width: 6.9*100rpx;
+  height: 2*100rpx;
+  border-radius: 0.2*100rpx;
   border: 1px solid #e1e1e1;
   position: relative;
-  margin: 0.3rem auto 0 auto;
+  margin: 0.3*100rpx auto 0 auto;
 }
 .newsDetail .picTxt .pictrue {
-  width: 2rem;
-  height: 2rem;
+  width: 2*100rpx;
+  height: 2*100rpx;
 }
 .newsDetail .picTxt .pictrue image{
   width: 100%;
   height: 100%;
-  border-radius: 0.2rem 0 0 0.2rem;
+  border-radius: 0.2*100rpx 0 0 0.2*100rpx;
   display: block;
 }
 .newsDetail .picTxt .text {
-  width: 4.6rem;
+  width: 4.6*100rpx;
 }
 .newsDetail .picTxt .text .name {
-  font-size: 0.3rem;
+  font-size: 0.3*100rpx;
   color: #282828;
 }
 .newsDetail .picTxt .text .money {
-  font-size: 0.24rem;
-  margin-top: 0.4rem;
+  font-size: 0.24*100rpx;
+  margin-top: 0.4*100rpx;
   font-weight: bold;
 }
 .newsDetail .picTxt .text .money .num {
-  font-size: 0.36rem;
+  font-size: 0.36*100rpx;
 }
 .newsDetail .picTxt .text .y_money {
-  font-size: 0.26rem;
+  font-size: 0.26*100rpx;
   color: #999;
   text-decoration: line-through;
 }
 .newsDetail .picTxt .label {
   position: absolute;
   background-color: #303131;
-  width: 1.6rem;
-  height: 0.5rem;
-  right: -0.07rem;
-  border-radius: 0.25rem 0 0.06rem 0.25rem;
+  width: 1.6*100rpx;
+  height: 0.5*100rpx;
+  right: -0.07*100rpx;
+  border-radius: 0.25*100rpx 0 0.06*100rpx 0.25*100rpx;
   text-align: center;
-  line-height: 0.5rem;
-  bottom: 0.24rem;
+  line-height: 0.5*100rpx;
+  bottom: 0.24*100rpx;
 }
 .newsDetail .picTxt .label .span {
   background-image: linear-gradient(to right, #fff71e 0%, #f9b513 100%);
@@ -75,20 +75,20 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-bottom: 0.08rem solid #303131;
-  border-right: 0.08rem solid transparent;
-  top: -0.08rem;
+  border-bottom: 0.08*100rpx solid #303131;
+  border-right: 0.08*100rpx solid transparent;
+  top: -0.08*100rpx;
   right: 0;
 }
 .newsDetail .bnt {
   color: #fff;
-  font-size: 0.3rem;
-  width: 6.9rem;
-  height: 0.9rem;
-  border-radius: 0.45rem;
-  margin: 0.48rem auto 0 auto;
+  font-size: 0.3*100rpx;
+  width: 6.9*100rpx;
+  height: 0.9*100rpx;
+  border-radius: 0.45*100rpx;
+  margin: 0.48*100rpx auto 0 auto;
   text-align: center;
-  line-height: 0.9rem;
+  line-height: 0.9*100rpx;
 }
 </style>
 <script>

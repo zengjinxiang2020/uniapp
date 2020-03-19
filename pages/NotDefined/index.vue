@@ -22,21 +22,21 @@
 	};
 </script>
 
-<style scoped>
+<style scoped lang="less">
 	.not-defined image{
 		width: 100%;
 		margin-top: 18%;
 	}
 
 	.content {
-		padding: 0 1rem;
+		padding: 0 1*100rpx;
 		text-align: center;
 		color: #44405e;
 		font-size: 15px;
 	}
 
 	.title {
-		margin-bottom: 0.6rem;
+		margin-bottom: 0.6*100rpx;
 		color: #302c48;
 		font-size: 20px;
 	}
@@ -45,11 +45,11 @@
 		color: #fff;
 		background-color: #ef4c4c;
 		font-size: 16px;
-		padding: 0.16rem;
+		padding: 0.16*100rpx;
 		border-radius: 25px;
 		text-align: center;
-		width: 2.4rem;
+		width: 2.4*100rpx;
 		margin: 0 auto;
-		margin-top: 1rem;
+		margin-top: 1*100rpx;
 	}
 </style>

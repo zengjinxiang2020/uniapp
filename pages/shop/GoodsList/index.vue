@@ -266,7 +266,7 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .noCommodity {
   border-top: 3px solid #f5f5f5;
   padding-bottom: 1px;

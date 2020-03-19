@@ -98,15 +98,15 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less" lang="less">
 .payment {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  border-radius: 0.16rem 0.16rem 0 0;
+  border-radius: 0.16*100rpx 0.16*100rpx 0 0;
   background-color: #fff;
-  padding-bottom: 0.6rem;
+  padding-bottom: 0.6*100rpx;
   z-index: 99;
   transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.5, 0.5, 0.9);
@@ -129,48 +129,48 @@ export default {
 
 .payment .title {
   text-align: center;
-  height: 1.23rem;
-  font-size: 0.32rem;
+  height: 1.23*100rpx;
+  font-size: 0.32*100rpx;
   color: #282828;
   font-weight: bold;
-  padding-right: 0.3rem;
-  margin-left: 0.3rem;
+  padding-right: 0.3*100rpx;
+  margin-left: 0.3*100rpx;
   position: relative;
-  border-bottom: 0.01rem solid #eee;
+  border-bottom: 0.01*100rpx solid #eee;
 }
 
 .payment .title .iconfont {
   position: absolute;
-  right: 0.3rem;
+  right: 0.3*100rpx;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.43rem;
+  font-size: 0.43*100rpx;
   color: #8a8a8a;
   font-weight: normal;
 }
 
 .payment .item {
-  border-bottom: 0.01rem solid #eee;
-  height: 1.3rem;
-  margin-left: 0.3rem;
-  padding-right: 0.3rem;
+  border-bottom: 0.01*100rpx solid #eee;
+  height: 1.3*100rpx;
+  margin-left: 0.3*100rpx;
+  padding-right: 0.3*100rpx;
 }
 
 .payment .item .left {
-  width: 6.1rem;
+  width: 6.1*100rpx;
 }
 
 .payment .item .left .text {
-  width: 5.4rem;
+  width: 5.4*100rpx;
 }
 
 .payment .item .left .text .name {
-  font-size: 0.32rem;
+  font-size: 0.32*100rpx;
   color: #282828;
 }
 
 .payment .item .left .text .info {
-  font-size: 0.24rem;
+  font-size: 0.24*100rpx;
   color: #999;
 }
 
@@ -179,7 +179,7 @@ export default {
 }
 
 .payment .item .left .iconfont {
-  font-size: 0.45rem;
+  font-size: 0.45*100rpx;
   color: #09bb07;
 }
 
@@ -196,7 +196,7 @@ export default {
 }
 
 .payment .item .iconfont {
-  font-size: 0.3rem;
+  font-size: 0.3*100rpx;
   color: #999;
 }
 </style>

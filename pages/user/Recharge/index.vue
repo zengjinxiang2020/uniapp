@@ -184,51 +184,51 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 #iframe {
   display: none;
 }
 .recharge {
-  width: 7.03rem;
-  padding: 0.5rem 0.63rem 0.45rem;
+  width: 7.03*100rpx;
+  padding: 0.5*100rpx 0.63*100rpx 0.45*100rpx;
   background-color: #fff;
-  margin: 0.2rem auto 0 auto;
-  border-radius: 0.1rem;
+  margin: 0.2*100rpx auto 0 auto;
+  border-radius: 0.1*100rpx;
 }
 .recharge .nav {
-  height: 0.75rem;
-  line-height: 0.75rem;
-  padding: 0 1rem;
+  height: 0.75*100rpx;
+  line-height: 0.75*100rpx;
+  padding: 0 1*100rpx;
 }
 .recharge .nav .item {
-  font-size: 0.3rem;
+  font-size: 0.3*100rpx;
   color: #333;
 }
 .recharge .nav .item.on {
   font-weight: bold;
-  border-bottom: 0.04rem solid #e83323;
+  border-bottom: 0.04*100rpx solid #e83323;
 }
 .recharge .info-wrapper {
   text-align: center;
 }
 .recharge .info-wrapper .money {
-  margin-top: 0.6rem;
-  padding-bottom: 0.2rem;
+  margin-top: 0.6*100rpx;
+  padding-bottom: 0.2*100rpx;
   border-bottom: 1px dashed #ddd;
 }
 .recharge .info-wrapper .money text {
-  font-size: 0.56rem;
+  font-size: 0.56*100rpx;
   color: #333;
   font-weight: bold;
 }
 .recharge .info-wrapper .money input {
   display: inline-block;
-  width: 3rem;
-  font-size: 0.84rem;
+  width: 3*100rpx;
+  font-size: 0.84*100rpx;
   text-align: center;
   color: #282828;
   font-weight: bold;
-  padding-right: 0.7rem;
+  padding-right: 0.7*100rpx;
 }
 .recharge .info-wrapper .money input::placeholder {
   color: #ddd;
@@ -246,25 +246,25 @@ export default {
   color: #ddd;
 }
 .recharge .info-wrapper .tips {
-  font-size: 0.26rem;
+  font-size: 0.26*100rpx;
   color: #888;
-  margin: 0.25rem auto 0 auto;
+  margin: 0.25*100rpx auto 0 auto;
   line-height: 1.5;
-  padding: 0 0.3rem;
+  padding: 0 0.3*100rpx;
 }
 .recharge .info-wrapper .tips text {
   color: #ef4a49;
 }
 .recharge .info-wrapper .pay-btn {
   display: block;
-  width: 5.5rem;
-  height: 0.86rem;
-  margin: 0.5rem auto 0 auto;
-  line-height: 0.86rem;
+  width: 5.5*100rpx;
+  height: 0.86*100rpx;
+  margin: 0.5*100rpx auto 0 auto;
+  line-height: 0.86*100rpx;
   text-align: center;
   color: #fff;
-  border-radius: 0.5rem;
-  font-size: 0.3rem;
+  border-radius: 0.5*100rpx;
+  font-size: 0.3*100rpx;
   font-weight: bold;
 }
 </style>

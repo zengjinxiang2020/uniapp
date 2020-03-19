@@ -2,7 +2,7 @@
   <view
     class="Loads acea-row row-center-wrapper"
     v-if="loading || !loaded"
-    style="margin-top: .2rem;"
+    style="margin-top: 20rpx;"
   >
     <template v-if="loading">
       <view

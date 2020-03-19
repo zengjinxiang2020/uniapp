@@ -326,5 +326,5 @@
 	};
 </script>
 
-<style>
+<style lang="less">
 </style>

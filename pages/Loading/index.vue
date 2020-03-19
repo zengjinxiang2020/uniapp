@@ -41,7 +41,8 @@ export default {
       this.toLaunch();
       return;
     }
-    console.log(this.$store.getters.token, 9999);
+    console.log(this.$store.getters.token, '获取store里面的 token');
+    console.log(this.$store.getters.userInfo, '获取store里面的 userInfo');
     cookie.get("spread");
     // this.toLaunch();
     if (this.$deviceType == 'App') {
@@ -70,7 +71,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .lottie-bg {
   position: fixed;
   left: 0;

@@ -194,25 +194,25 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .timeItem {
-  font-size: 0.22rem;
+  font-size: 0.22*100rpx;
   color: #282828;
   width: 100%;
   text-align: center;
-  padding: 0.11rem 0;
-  height: 0.96rem;
+  padding: 0.11*100rpx 0;
+  height: 0.96*100rpx;
   background-color: #efc58f;
 }
 .timeItem .time {
-  font-size: 0.32rem;
+  font-size: 0.32*100rpx;
   font-weight: bold;
-  height: 0.37rem;
-  line-height: 0.37rem;
+  height: 0.37*100rpx;
+  line-height: 0.37*100rpx;
 }
 .timeItem .state {
-  height: 0.37rem;
-  line-height: 0.37rem;
+  height: 0.37*100rpx;
+  line-height: 0.37*100rpx;
 }
 .activity {
   color: #333;

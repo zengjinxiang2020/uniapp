@@ -410,10 +410,10 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .echarts {
   width: 100%;
-  height: 5.5rem;
+  height: 5.5*100rpx;
 }
 .calendar-wrapper {
   position: fixed;
@@ -428,7 +428,7 @@ export default {
   transform: translate3d(0, 0, 0);
 }
 .statistical-page .wrapper .increase {
-  font-size: 0.26rem;
+  font-size: 0.26*100rpx;
 }
 .statistical-page .wrapper .increase .iconfont {
   margin-left: 0;

@@ -654,7 +654,7 @@ export default {
 </script>
 
 
-<style scoped>
+<style scoped lang="less">
 .geoPage {
   position: fixed;
   width: 100%;
@@ -664,85 +664,85 @@ export default {
 }
 
 .product-con .store-info {
-  margin-top: 0.2rem;
+  margin-top: 0.2*100rpx;
   background-color: #fff;
 }
 
 .product-con .store-info .title {
-  padding: 0 0.3rem;
-  font-size: 0.28rem;
+  padding: 0 0.3*100rpx;
+  font-size: 0.28*100rpx;
   color: #282828;
-  height: 0.8rem;
-  line-height: 0.8rem;
-  border-bottom: 0.01rem solid #f5f5f5;
+  height: 0.8*100rpx;
+  line-height: 0.8*100rpx;
+  border-bottom: 0.01*100rpx solid #f5f5f5;
 }
 
 .product-con .store-info .info {
-  padding: 0 0.3rem;
-  height: 1.26rem;
+  padding: 0 0.3*100rpx;
+  height: 1.26*100rpx;
 }
 
 .product-con .store-info .info .picTxt {
-  width: 6.15rem;
+  width: 6.15*100rpx;
 }
 
 .product-con .store-info .info .picTxt .pictrue {
-  width: 0.76rem;
-  height: 0.76rem;
+  width: 0.76*100rpx;
+  height: 0.76*100rpx;
 }
 
 .product-con .store-info .info .picTxt .pictrue image {
   width: 100%;
   height: 100%;
-  border-radius: 0.06rem;
+  border-radius: 0.06*100rpx;
 }
 
 .product-con .store-info .info .picTxt .text {
-  width: 5.22rem;
+  width: 5.22*100rpx;
 }
 
 .product-con .store-info .info .picTxt .text .name {
-  font-size: 0.3rem;
+  font-size: 0.3*100rpx;
   color: #282828;
 }
 
 .product-con .store-info .info .picTxt .text .address {
-  font-size: 0.24rem;
+  font-size: 0.24*100rpx;
   color: #666;
-  margin-top: 0.03rem;
+  margin-top: 0.03*100rpx;
 }
 
 .product-con .store-info .info .picTxt .text .address .iconfont {
   color: #707070;
-  font-size: 0.18rem;
-  margin-left: 0.1rem;
+  font-size: 0.18*100rpx;
+  margin-left: 0.1*100rpx;
 }
 
 .product-con .store-info .info .picTxt .text .address .addressTxt {
-  width: 4.8rem;
+  width: 4.8*100rpx;
 }
 
 .product-con .store-info .info .iconfont {
-  font-size: 0.4rem;
+  font-size: 0.4*100rpx;
 }
 
 .product-con .superior {
   background-color: #fff;
-  margin-top: 0.2rem;
+  margin-top: 0.2*100rpx;
 }
 
 .product-con .superior .title {
-  height: 0.98rem;
+  height: 0.98*100rpx;
 }
 
 .product-con .superior .title image {
-  width: 0.3rem;
-  height: 0.3rem;
+  width: 0.3*100rpx;
+  height: 0.3*100rpx;
 }
 
 .product-con .superior .title .titleTxt {
-  margin: 0 0.2rem;
-  font-size: 0.3rem;
+  margin: 0 0.2*100rpx;
+  font-size: 0.3*100rpx;
   background-image: linear-gradient(to right, #f57a37 0%, #f21b07 100%);
   background-image: -webkit-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
   background-image: -moz-linear-gradient(to right, #f57a37 0%, #f21b07 100%);
@@ -751,20 +751,20 @@ export default {
 }
 
 .product-con .superior .slider-banner {
-  width: 6.9rem;
+  width: 6.9*100rpx;
   margin: 0 auto;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.2*100rpx;
 }
 
 .product-con .superior .slider-banner .list {
   width: 100%;
-  padding-bottom: 0.2rem;
+  padding-bottom: 0.2*100rpx;
 }
 
 .product-con .superior .slider-banner .list .item {
-  width: 2.15rem;
-  margin: 0 0.22rem 0.3rem 0;
-  font-size: 0.26rem;
+  width: 2.15*100rpx;
+  margin: 0 0.22*100rpx 0.3*100rpx 0;
+  font-size: 0.26*100rpx;
 }
 
 .product-con .superior .slider-banner .list .item:nth-of-type(3n) {
@@ -773,18 +773,18 @@ export default {
 
 .product-con .superior .slider-banner .list .item .pictrue {
   width: 100%;
-  height: 2.15rem;
+  height: 2.15*100rpx;
 }
 
 .product-con .superior .slider-banner .list .item .pictrue image {
   width: 100%;
   height: 100%;
-  border-radius: 0.06rem;
+  border-radius: 0.06*100rpx;
 }
 
 .product-con .superior .slider-banner .list .item .name {
   color: #282828;
-  margin-top: 0.12rem;
+  margin-top: 0.12*100rpx;
 }
 
 .product-con .superior .slider-banner .swiper-pagination-bullet {
@@ -812,7 +812,7 @@ export default {
 
 .generate-posters {
   width: 100%;
-  height: 1.7rem;
+  height: 1.7*100rpx;
   background-color: #fff;
   position: fixed;
   left: 0;
@@ -845,7 +845,7 @@ export default {
 }
 
 .generate-posters .item .iconfont {
-  font-size: 0.8rem;
+  font-size: 0.8*100rpx;
   color: #5eae72;
 }
 

@@ -56,7 +56,7 @@
     ></StorePoster>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .noscroll {
   height: 100%;
   overflow: hidden;
@@ -226,8 +226,8 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .product-con .nav {
-  padding: 0 0.2rem;
+  padding: 0 0.2*100rpx;
 }
 </style>

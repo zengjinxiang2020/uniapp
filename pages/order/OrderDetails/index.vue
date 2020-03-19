@@ -294,7 +294,7 @@
 		}
 	};
 </script>
-<style scoped>
+<style scoped lang="less">
 	.geoPage {
 		position: fixed;
 		width: 100%;
@@ -305,31 +305,31 @@
 
 	.order-details .writeOff {
 		background-color: #fff;
-		margin-top: 0.13rem;
-		padding-bottom: 0.3rem;
+		margin-top: 0.13*100rpx;
+		padding-bottom: 0.3*100rpx;
 	}
 
 	.order-details .writeOff .title {
-		font-size: 0.3rem;
+		font-size: 0.3*100rpx;
 		color: #282828;
-		height: 0.87rem;
+		height: 0.87*100rpx;
 		border-bottom: 1px solid #f0f0f0;
-		padding: 0 0.3rem;
-		line-height: 0.87rem;
+		padding: 0 0.3*100rpx;
+		line-height: 0.87*100rpx;
 	}
 
 	.order-details .writeOff .grayBg {
 		background-color: #f2f5f7;
-		width: 5.9rem;
-		height: 3.84rem;
-		border-radius: 0.2rem 0.2rem 0 0;
-		margin: 0.5rem auto 0 auto;
-		padding-top: 0.55rem;
+		width: 5.9*100rpx;
+		height: 3.84*100rpx;
+		border-radius: 0.2*100rpx 0.2*100rpx 0 0;
+		margin: 0.5*100rpx auto 0 auto;
+		padding-top: 0.55*100rpx;
 	}
 
 	.order-details .writeOff .grayBg .pictrue {
-		width: 2.9rem;
-		height: 2.9rem;
+		width: 2.9*100rpx;
+		height: 2.9*100rpx;
 		margin: 0 auto;
 	}
 
@@ -340,8 +340,8 @@
 	}
 
 	.order-details .writeOff .gear {
-		width: 5.9rem;
-		height: 0.3rem;
+		width: 5.9*100rpx;
+		height: 0.3*100rpx;
 		margin: 0 auto;
 	}
 
@@ -353,78 +353,78 @@
 
 	.order-details .writeOff .num {
 		background-color: #f0c34c;
-		width: 5.9rem;
-		height: 0.84rem;
+		width: 5.9*100rpx;
+		height: 0.84*100rpx;
 		color: #282828;
-		font-size: 0.48rem;
+		font-size: 0.48*100rpx;
 		margin: 0 auto;
-		border-radius: 0 0 0.2rem 0.2rem;
+		border-radius: 0 0 0.2*100rpx 0.2*100rpx;
 		text-align: center;
-		padding-top: 0.04rem;
+		padding-top: 0.04*100rpx;
 	}
 
 	.order-details .writeOff .rules {
-		margin: 0.46rem 0.3rem 0 0.3rem;
-		border-top: 0.01rem solid #f0f0f0;
-		padding-top: 0.1rem;
+		margin: 0.46*100rpx 0.3*100rpx 0 0.3*100rpx;
+		border-top: 0.01*100rpx solid #f0f0f0;
+		padding-top: 0.1*100rpx;
 	}
 
 	.order-details .writeOff .rules .item {
-		margin-top: 0.15rem;
+		margin-top: 0.15*100rpx;
 	}
 
 	.order-details .writeOff .rules .item .rulesTitle {
-		font-size: 0.28rem;
+		font-size: 0.28*100rpx;
 		color: #282828;
 	}
 
 	.order-details .writeOff .rules .item .rulesTitle .iconfont {
-		font-size: 0.3rem;
+		font-size: 0.3*100rpx;
 		color: #333;
-		margin-right: 0.08rem;
-		margin-top: 0.05rem;
+		margin-right: 0.08*100rpx;
+		margin-top: 0.05*100rpx;
 	}
 
 	.order-details .writeOff .rules .item .info {
-		font-size: 0.28rem;
+		font-size: 0.28*100rpx;
 		color: #999;
-		margin-top: 0.05rem;
+		margin-top: 0.05*100rpx;
 	}
 
 	.order-details .writeOff .rules .item .info .time {
-		margin-left: 0.2rem;
+		margin-left: 0.2*100rpx;
 	}
 
 	.order-details .map {
-		height: 0.86rem;
-		font-size: 0.3rem;
+		height: 0.86*100rpx;
+		font-size: 0.3*100rpx;
 		color: #282828;
-		line-height: 0.86rem;
-		border-bottom: 0.01rem solid #f0f0f0;
-		margin-top: 0.13rem;
+		line-height: 0.86*100rpx;
+		border-bottom: 1rpx solid #f0f0f0;
+		margin-top: 0.13*100rpx;
 		background-color: #fff;
-		padding: 0 0.3rem;
+		padding: 0 0.3*100rpx;
 	}
 
 	.order-details .map .place {
-		font-size: 0.26rem;
-		width: 1.76rem;
-		height: 0.5rem;
-		border-radius: 0.25rem;
-		line-height: 0.5rem;
+		font-size: 0.26*100rpx;
+		width: 1.76*100rpx;
+		height: 0.5*100rpx;
+		border-radius: 0.25*100rpx;
+		line-height: 0.5*100rpx;
 		text-align: center;
 	}
 
 	.order-details .map .place .iconfont {
-		font-size: 0.27rem;
-		height: 0.27rem;
-		line-height: 0.27rem;
-		margin: 0.02rem 0.03rem 0 0;
+		font-size: 0.27*100rpx;
+		height: 0.27*100rpx;
+		line-height: 0.27*100rpx;
+		margin: 0.02*100rpx 0.03*100rpx 0 0;
 	}
 
 	.order-details .address .name .iconfont {
-		font-size: 0.34rem;
-		margin-left: 0.1rem;
+		font-size: 0.34*100rpx;
+		margin-left: 0.1*100rpx;
 	}
 </style>
 <script>

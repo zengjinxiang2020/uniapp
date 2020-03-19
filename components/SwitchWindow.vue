@@ -23,19 +23,19 @@
     <view class="mask" @touchmove.prevent v-show="switchActive === true" @click="switchClose"></view>
   </view>
 </template>
-<style>
+<style lang="less">
 .switchWindow {
-  width: 5.6rem;
-  border-radius: 0.2rem;
-  -webkit-border-radius: 0.2rem;
+  width: 5.6*100rpx;
+  border-radius: 0.2*100rpx;
+  -webkit-border-radius: 0.2*100rpx;
   background-color: #fff;
   position: fixed;
   top: 50%;
   left: 50%;
-  margin-left: -2.8rem;
-  margin-top: -3rem;
+  margin-left: -2.8*100rpx;
+  margin-top: -3*100rpx;
   z-index: 99;
-  padding: 0.5rem 0.3rem 0.4rem 0.3rem;
+  padding: 0.5*100rpx 0.3*100rpx 0.4*100rpx 0.3*100rpx;
   text-align: center;
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -57,8 +57,8 @@
 }
 
 .switchWindow .pictrue {
-  width: 2.36rem;
-  height: 2.36rem;
+  width: 2.36*100rpx;
+  height: 2.36*100rpx;
   margin: 0 auto;
 }
 
@@ -69,21 +69,21 @@
 }
 
 .switchWindow .info {
-  font-size: 0.32rem;
+  font-size: 0.32*100rpx;
   color: #282828;
-  margin-top: 0.44rem;
+  margin-top: 0.44*100rpx;
   font-weight: bold;
 }
 
 .switchWindow .switchBnt {
-  font-size: 0.32rem;
+  font-size: 0.32*100rpx;
   color: #fff;
-  width: 3.6rem;
-  height: 0.82rem;
-  border-radius: 0.41rem;
-  -webkit-border-radius: 0.41rem;
-  margin: 0.57rem auto 0 auto;
-  line-height: 0.82rem;
+  width: 3.6*100rpx;
+  height: 0.82*100rpx;
+  border-radius: 0.41*100rpx;
+  -webkit-border-radius: 0.41*100rpx;
+  margin: 0.57*100rpx auto 0 auto;
+  line-height: 0.82*100rpx;
   background-image: linear-gradient(to right, #f67a38 0%, #f11b09 100%);
   background-image: -webkit-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
   background-image: -moz-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
@@ -93,7 +93,7 @@
   background-color: #fff;
   color: #999;
   background-image: none;
-  margin-top: 0.1rem;
+  margin-top: 0.1*100rpx;
 }
 </style>
 <script>

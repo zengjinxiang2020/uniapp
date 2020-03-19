@@ -13,54 +13,54 @@
 		<WriteOff :iShidden="iShidden" :orderInfo="orderInfo" @cancel="cancel" @confirm="confirm"></WriteOff>
 	</view>
 </template>
-<style scoped>
+<style scoped lang="less">
 	.OrderCancellation .header {
 		background: url("https://h5.dayouqiantu.cn/static/images/writeOffBg.jpg") no-repeat;
 		width: 100%;
-		height: 3rem;
+		height: 3*100rpx;
 		background-size: 100% 100%;
 	}
 
 	.OrderCancellation .whiteBg {
-		width: 6.9rem;
+		width: 6.9*100rpx;
 		background-color: #fff;
-		margin: -0.93rem auto 0 auto;
-		padding-top: 0.8rem;
-		border-radius: 0.06rem 0.06rem 0 0;
+		margin: -0.93*100rpx auto 0 auto;
+		padding-top: 0.8*100rpx;
+		border-radius: 0.06*100rpx 0.06*100rpx 0 0;
 	}
 
 	.OrderCancellation .whiteBg .input {
-		width: 5.8rem;
+		width: 5.8*100rpx;
 		margin: 0 auto;
-		border-bottom: 0.01rem solid #eee;
+		border-bottom: 0.01*100rpx solid #eee;
 	}
 
 	.OrderCancellation .whiteBg .input input {
-		padding-bottom: 0.25rem;
-		font-size: 0.6rem;
+		padding-bottom: 0.25*100rpx;
+		font-size: 0.6*100rpx;
 		color: #282828;
 		width: 100%;
 		text-align: center;
 	}
 
 	.OrderCancellation .whiteBg .bnt {
-		font-size: 0.32rem;
+		font-size: 0.32*100rpx;
 		color: #fff;
-		width: 5.8rem;
-		height: 0.86rem;
-		border-radius: 0.43rem;
+		width: 5.8*100rpx;
+		height: 0.86*100rpx;
+		border-radius: 0.43*100rpx;
 		background-image: linear-gradient(to right, #f67a38 0%, #f11b09 100%);
 		background-image: -webkit-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
 		background-image: -moz-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
 		text-align: center;
-		line-height: 0.86rem;
-		margin: 0.55rem auto 0 auto;
+		line-height: 0.86*100rpx;
+		margin: 0.55*100rpx auto 0 auto;
 	}
 
 	.OrderCancellation .scan {
-		width: 3rem;
-		height: 3rem;
-		margin: 1.1rem auto 0 auto;
+		width: 3*100rpx;
+		height: 3*100rpx;
+		margin: 1.1*100rpx auto 0 auto;
 	}
 
 	.OrderCancellation .scan image {

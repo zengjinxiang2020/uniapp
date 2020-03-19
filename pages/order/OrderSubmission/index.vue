@@ -153,7 +153,7 @@
 		 ref="mychild"></AddressWindow>
 	</view>
 </template>
-<style scoped>
+<style scoped lang="less">
 	.order-submission .wrapper .shipping select {
 		color: #999;
 		padding-right: 0.15*100rpx;

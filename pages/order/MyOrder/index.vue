@@ -332,20 +332,21 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .noCart {
-  margin-top: 0.17rem;
-  padding-top: 0.1rem;
+  margin-top: 0.17*100rpx;
+  padding-top: 0.1*100rpx;
 }
 
 .noCart .pictrue {
-  width: 4rem;
-  height: 3rem;
-  margin: 0.7rem auto 0.5rem auto;
+  width: 4*100rpx;
+  height: 3*100rpx;
+  overflow: hidden;
+  margin: 0.7*100rpx auto 0.5*100rpx auto;
 }
 
 .noCart .pictrue image{
-  width: 100%;
-  height: 100%;
+  width: 4*100rpx;
+  height: 3*100rpx;
 }
 </style>

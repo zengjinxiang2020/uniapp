@@ -97,10 +97,10 @@
     <view class="mask" @touchmove.prevent :hidden="active === false"></view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .Loads .iconfont {
-  font-size: 0.25rem;
-  margin: 0.02rem 0 0 0.1rem;
+  font-size: 0.25*100rpx;
+  margin: 0.02*100rpx 0 0 0.1*100rpx;
 }
 </style>
 <script>

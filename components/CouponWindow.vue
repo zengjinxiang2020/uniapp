@@ -15,7 +15,7 @@
 						</view>
 					</view>
 				</view>
-				<view style="height:1.2rem"></view>
+				<view style="height:120rpx"></view>
 			</view>
 			<view class="lid">
 				<view class="bnt font-color-red" @click="checked">立即领取</view>

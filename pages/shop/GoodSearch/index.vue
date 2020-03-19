@@ -72,6 +72,6 @@ export default {
 <style >
 
 .noCommodity {
-  border-top: 0.05rem solid #f5f5f5;
+  border-top: 0.05*100rpx solid #f5f5f5;
 }
 </style>

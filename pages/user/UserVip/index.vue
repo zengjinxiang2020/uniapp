@@ -197,7 +197,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less">
 .banner swiper {
   height: 328rpx;
 }

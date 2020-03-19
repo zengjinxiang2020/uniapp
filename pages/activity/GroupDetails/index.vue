@@ -321,9 +321,9 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .product-con .wrapper {
-  padding-bottom: 0.26rem;
+  padding-bottom: 0.26*100rpx;
 }
 .noscroll {
   height: 100%;

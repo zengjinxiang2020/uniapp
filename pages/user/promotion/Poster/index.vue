@@ -128,7 +128,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .distribution-posters {
   height: 100%;
 }

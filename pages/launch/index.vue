@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="less">
 .lottie-bg {
   position: fixed;
   left: 0;

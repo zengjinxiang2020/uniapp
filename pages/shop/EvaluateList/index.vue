@@ -107,9 +107,9 @@ export default {
   }
 };
 </script>
-<style scoped>
+<style scoped lang="less">
 .noCommodity {
-  height: 8rem;
+  height: 8*100rpx;
   background-color: #fff;
 }
 </style>

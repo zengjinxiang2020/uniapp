@@ -24,9 +24,9 @@
     <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
   </view>
 </template>
-<style scoped>
+<style scoped lang="less">
 .ChangePassword .phone input {
-  width: 2rem;
+  width: 2*100rpx;
   text-align: center;
 }
 </style>
