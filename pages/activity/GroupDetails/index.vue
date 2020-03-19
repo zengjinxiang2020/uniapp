@@ -114,7 +114,7 @@
       <view class="bnt bg-color-violet" @click="openAlone">单独购买</view>
       <view class="bnt bg-color-red" @click="openTeam">立即开团</view>
     </view>
-    <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
+    <ProductWindow v-if="cartNum" v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster
       v-on:setPosterImageStatus="setPosterImageStatus"
       :posterImageStatus="posterImageStatus"
@@ -122,18 +122,6 @@
     ></StorePoster>
   </view>
 </template>
-<style scoped>
-.noscroll {
-  height: 100%;
-  overflow: hidden;
-}
-.product-con .footer-group .bnt {
-  width: 43%;
-}
-.product-con .footer-group .bnt.bg-color-violet {
-  background-color: #fa8013;
-}
-</style>
 
 <script>
 // import { swiper, swiperSlide } from "vue-awesome-swiper";
@@ -211,7 +199,7 @@ export default {
       }
     }
   },
-  mounted: function() {
+  onShow: function() {
     this.mountedStart();
   },
   methods: {
@@ -220,6 +208,7 @@ export default {
     },
     mountedStart: function() {
       var that = this;
+      console.log(that)
       let id = that.$yroute.query.id;
       getCombinationDetail(id).then(res => {
         that.$set(that, "storeInfo", res.data.storeInfo);
@@ -335,5 +324,15 @@ export default {
 <style scoped>
 .product-con .wrapper {
   padding-bottom: 0.26rem;
+}
+.noscroll {
+  height: 100%;
+  overflow: hidden;
+}
+.product-con .footer-group .bnt {
+  width: 43%;
+}
+.product-con .footer-group .bnt.bg-color-violet {
+  background-color: #fa8013;
 }
 </style>

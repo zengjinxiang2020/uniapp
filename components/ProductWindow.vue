@@ -58,7 +58,7 @@ export default {
       default: () => {}
     },
     cartNum: {
-      type: String,
+      type: Number,
       default: () => 1
     }
   },

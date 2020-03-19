@@ -120,7 +120,7 @@ export const replaceLogin = (msg) => {
 	console.log(Vue.prototype.$deviceType)
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
-
+	console.log(uni, 989)
 	if (Vue.prototype.$deviceType == 'Weixin') {
 		// 如果是微信小程序，跳转到授权页
 		replace({
@@ -132,9 +132,9 @@ export const replaceLogin = (msg) => {
 		})
 	} else {
 		// 如果不是小程序跳转到登录页
-		replace({
+		push({
 			path: '/pages/user/Login/index',
-			query: query || {
+			query: {
 				redirect: `/${getCurrentPageUrl()}`,
 				...parseQuery()
 			}
@@ -220,52 +220,7 @@ export const login = (option) => {
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
 										console.log('登录成功5')
 
-										getUser().then(res => {
-											store.dispatch('changeUserInfo', {
-												user: res.data
-											})
-											console.log('登录成功6')
-											console.log(option)
-											// option && option.success ? option.success() : null
-											var pages = getCurrentPages() //获取加载的页面
-											console.log('登录成功7')
-
-											var currentPage = pages[pages.length - 1] //获取当前页面的对象
-											let url = "/pages/home/index"
-											let query = {}
-											console.log('登录成功8')
-											console.log(currentPage)
-
-											if (currentPage) {
-												// 获取到最后一个页面
-												if (
-													currentPage.route != 'pages/Loading/index'
-													&&
-													currentPage.route != 'pages/user/Login/index'
-												) {
-													url = currentPage.route
-												}
-												if (currentPage.route == 'pages/authorization/index') {
-													const {
-														redirect,
-														...querys
-													} = currentPage.options
-													url = redirect
-													query = {
-														...querys
-													}
-												}
-											}
-											console.log('登录成功9')
-											console.log({
-												path: url,
-												query
-											})
-											switchTab({
-												path: `${url}`,
-												query
-											});
-										})
+										handleGetUserInfo()
 
 									}).catch(error => {
 										reject()
@@ -304,6 +259,51 @@ export const login = (option) => {
 	})
 }
 
+export const handleGetUserInfo = () => {
+	getUser().then(res => {
+		console.log(res.data, '登录后的样式')
+		store.dispatch('setUserInfo', res.data)
+		console.log('登录成功6')
+		var pages = getCurrentPages() //获取加载的页面
+		console.log('登录成功7')
+
+		var currentPage = pages[pages.length - 1] //获取当前页面的对象
+		let url = "/pages/home/index"
+		let query = {}
+		console.log('登录成功8')
+		console.log(currentPage)
+
+		if (currentPage) {
+			// 获取到最后一个页面
+			if (
+				currentPage.route != 'pages/Loading/index' &&
+				currentPage.route != 'pages/user/Login/index'
+			) {
+				url = currentPage.route
+			}
+			if (currentPage.route == 'pages/authorization/index') {
+				const {
+					redirect,
+					...querys
+				} = currentPage.options
+				url = redirect
+				query = {
+					...querys
+				}
+			}
+		}
+		console.log('登录成功9')
+		console.log({
+			path: url,
+			query
+		})
+		switchTab({
+			path: `${url}`,
+			query
+		});
+	})
+}
+
 
 const handleFail = (option, msg) => {
 	// 此处是处理登录失效的问题的
@@ -332,11 +332,11 @@ export function parseRoute($mp) {
 	return {
 		path: `/${path}`,
 		params: {},
-		query: _$mp.query,
+		query: _$mp.query || _$mp.page.options,
 		hash: '',
 		fullPath: parseUrl({
 			path: `/${path}`,
-			query: _$mp.query
+			query: _$mp.query || _$mp.page.options
 		}),
 		name: path && path.replace(/\/(\w)/g, ($0, $1) => $1.toUpperCase())
 	}
@@ -376,7 +376,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	}
 
 	console.log(store.getters.userInfo, '用户信息')
-	if (!store.getters.userInfo.uid) {
+	if (!store.getters.token) {
 		page.map((item) => {
 			console.log(item.path == path)
 			if (item.path == path) {

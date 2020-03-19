@@ -33,8 +33,6 @@ Vue.prototype.$validator = function(rule) {
 	return new schema(rule);
 };
 
-Vue.prototype.$dialog = dialog;
-
 const CACHE_KEY = "clear_0.0.1";
 
 if (!cookie.has(CACHE_KEY)) {
@@ -54,6 +52,7 @@ Vue.mixin({
 		const {
 			$mp
 		} = this.$root
+		console.log($mp)
 		this._route = parseRoute($mp)
 		// this.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
 		this._data.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
@@ -79,15 +78,17 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 
+
+
+// #ifdef H5
+// H5编译的代码
+Vue.prototype.$deviceType = 'H5'
+// #endif
+
 // #ifdef APP-PLUS
 // App平台编译的代码
 Vue.prototype.$deviceType = 'App'
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
-// #endif
-
-// #ifndef H5
-// H5编译的代码
-Vue.prototype.$deviceType = 'H5'
 // #endif
 
 // #ifdef MP-WEIXIN
@@ -95,8 +96,10 @@ Vue.prototype.$deviceType = 'H5'
 Vue.prototype.$deviceType = 'Weixin'
 // #endif
 
-if(wx){
-	Vue.prototype.$deviceType = 'Weixin'
-}
+console.log(wx,121212)
+console.log(Vue.prototype.$deviceType)
+// if(wx){
+// 	Vue.prototype.$deviceType = 'Weixin'
+// }
 
 app.$mount()

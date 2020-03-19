@@ -10,6 +10,7 @@
         :key="combinationListIndex"
         @click="link(item.id)"
       >
+      <text>{{item.id}}</text>
         <view class="pictrue">
           <image :src="item.image" />
         </view>

@@ -10,17 +10,17 @@
       <view class="list">
         <view class="item">
           <view>
-            <svg class="icon" aria-hidden="true">
+            <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-phone_" />
-            </svg>
+            </svg> -->
             <input type="text" placeholder="输入手机号码" />
           </view>
         </view>
         <view class="item">
           <view class="align-left">
-            <svg class="icon" aria-hidden="true">
+            <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_1" />
-            </svg>
+            </svg> -->
             <input type="text" placeholder="填写验证码" class="codeIput" />
             <button
               class="code"
@@ -32,9 +32,9 @@
         </view>
         <view class="item">
           <view>
-            <svg class="icon" aria-hidden="true">
+            <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_" />
-            </svg>
+            </svg> -->
             <input type="text" placeholder="填写您的登录密码" />
           </view>
         </view>

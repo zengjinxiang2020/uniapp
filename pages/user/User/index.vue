@@ -57,7 +57,7 @@
           <view class="title acea-row row-between-wrapper">
             <text>我的订单</text>
             <text @click="goMyOrder()" class="allOrder">
-              全部订单
+              <text>全部订单</text>
               <text class="iconfont icon-jiantou"></text>
             </text>
           </view>
@@ -67,8 +67,8 @@
                 <image :src="$VUE_APP_RESOURCES_URL + '/images/dfk.png'" />
                 <text
                   class="order-status-num"
-                  v-if="orderStatusNum.unpaidCount > 0"
-                >{{ orderStatusNum.unpaidCount }}</text>
+                  v-if="userInfo.orderStatusNum.unpaidCount > 0"
+                >{{ userInfo.orderStatusNum.unpaidCount }}</text>
               </view>
               <view>待付款</view>
             </view>
@@ -142,11 +142,11 @@
       </view>
       <view style="text-align: center;margin-top: 1rem">By@意象</view>
       <view class="footer-line-height"></view>
-      <SwitchWindow
+      <!-- <SwitchWindow
         v-on:changeswitch="changeswitch"
         :switchActive="switchActive"
         :login_type="userInfo.login_type"
-      ></SwitchWindow>
+      ></SwitchWindow> -->
     </view>
     <Authorization v-else />
   </view>
@@ -310,7 +310,7 @@ export default {
   },
   onShow() {
     console.log(this.userInfo);
-    if (this.userInfo.uid) {
+    if (this.$store.getters.token) {
       this.User();
       this.MenuUser();
       this.isWeixin = isWeixin();

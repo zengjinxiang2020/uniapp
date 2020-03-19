@@ -17,7 +17,7 @@ const vuexStore = new Vuex.Store({
     // 是否授权
     isAuthorization: false,
     token: store.get(LOGIN_KEY) || null,
-    userInfo: null
+    userInfo: store.get('userInfo')
   },
   mutations: {
     SHOW_FOOTER(state) {
@@ -81,8 +81,13 @@ const vuexStore = new Vuex.Store({
     changeLogin({ state, commit }, data, date) {
       commit("LOGIN", data, date);
     },
-    changeUserInfo({ state, commit }, user) {
-      commit("UPDATE_USERINFO", user.user);
+    setUserInfo({ state, commit }, user) {
+      commit("UPDATE_USERINFO", user);
+      if (user) {
+        store.set('userInfo', user)
+      } else {
+        store.set('userInfo', null)
+      }
     },
     changeAuthorizationPage({ state, commit }, index) {
       commit("UPDATE_AUTHORIZATIONPAGE", index);

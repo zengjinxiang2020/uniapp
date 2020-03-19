@@ -252,7 +252,7 @@ export default {
       }
     };
   },
-  mounted: function() {
+  onShow: function() {
     let that = this;
     uni.showLoading({
       title:'加载中'
