@@ -13,16 +13,28 @@
         <view class="name">所在地区</view>
         <view class="picker acea-row row-between-wrapper select-value form-control">
           <view class="address">
-            <view slot="right" @click.stop="show2 = true">{{ model2 || "请选择收货地址" }}</view>
-            <vant-popup :show="show2" position="bottom" @close="closeaArea">
-              <vant-area
-                :area-list="district"
-                columns-num="3"
-                :columns-placeholder="['请选择', '请选择', '请选择']"
-                title="请选择"
-                @confirm="result2"
-              />
-            </vant-popup>
+            <!-- <picker
+              @columnchange="addRessColumnchange"
+              @change="changeAddress"
+              range-key="name"
+              mode="multiSelector"
+              :range="district"
+            >
+              <text class="uni-input" v-if="model2">{{model2}}</text>
+              <text class="uni-input" v-else>请选择地区</text>
+            </picker>-->
+            <text class="uni-input" @tap="openAddres2" >{{model2||'请选择'}}</text>
+            <simple-address
+              ref="simpleAddress"
+              :pickerValueDefault="cityPickerValueDefault"
+              @onConfirm="onConfirm"
+              themeColor="#007AFF"
+            ></simple-address>
+            <!-- <view slot="right" @click.stop="show2 = true">{{ model2 || "请选择收货地址" }}</view> -->
+            <!-- <vant-popup :show="show2" position="bottom" @close="closeaArea">
+							<vant-area :area-list="district" columns-num="3" :columns-placeholder="['请选择', '请选择', '请选择']" title="请选择"
+							 @confirm="result2" />
+            </vant-popup>-->
           </view>
           <view class="iconfont icon-dizhi font-color-red"></view>
         </view>
@@ -52,6 +64,7 @@
 <script type="text/babel">
 // import { CitySelect } from "vue-ydui/dist/lib.rem/cityselect";
 // import District from "@/utils/area";
+import simpleAddress from "@/components/simple-address/simple-address.nvue";
 import { getAddress, postAddress, district } from "@/api/user";
 import attrs, { required, chs_phone } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
@@ -61,16 +74,21 @@ import { isWeixin } from "@/utils";
 export default {
   components: {
     // CitySelect
+    simpleAddress
   },
   data() {
     return {
       show2: false,
       model2: "",
-      district: {},
+      districts: [],
+      district: [],
       id: 0,
       userAddress: { isDefault: 0 },
       address: {},
-      isWechat: isWeixin()
+      isWechat: isWeixin(),
+      selectAddressValue: null,
+      cityPickerValueDefault: [0, 0, 1],
+      pickerText: ""
     };
   },
   mounted: function() {
@@ -79,11 +97,45 @@ export default {
     // document.title = !id ? "添加地址" : "修改地址";
     this.getUserAddress();
     district().then(res => {
-      this.district = res.data;
+      this.districts = res.data;
     });
   },
   methods: {
-    getUserAddress: function() {
+    openAddres() {
+      this.cityPickerValueDefault = [0, 0, 1];
+      this.$refs.simpleAddress.open();
+    },
+    openAddres2() {
+      // 根据 label 获取
+      
+      
+if(this.address.province){
+
+      var index = this.$refs.simpleAddress.queryIndex(
+        [this.address.province, this.address.city, this.address.district],
+        "label"
+      );
+      console.log(index);
+      this.cityPickerValueDefault = index.index;
+	  }
+      this.$refs.simpleAddress.open();
+    },
+    openAddres3() {
+      // 根据value 获取
+      var index = this.$refs.simpleAddress.queryIndex(
+        [13, 1302, 130203],
+        "value"
+      );
+      console.log(index);
+      this.cityPickerValueDefault = index.index;
+      this.$refs.simpleAddress.open();
+    },
+    onConfirm(e) {
+      this.pickerText = JSON.stringify(e);
+      this.model2 = e.label;
+      console.log(this.pickerText);
+    },
+      getUserAddress: function() {
       if (!this.id) return false;
       let that = this;
       getAddress(that.id).then(res => {

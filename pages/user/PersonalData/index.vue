@@ -32,7 +32,7 @@
               <!-- <view class="pictrue" v-else>
                 <image :src="item.avatar" />
               </view>-->
-              <img
+              <image
                 :src="$VUE_APP_RESOURCES_URL+'/images/alter.png'"
                 class="alter"
                 v-if="item.uid === userInfo.uid"

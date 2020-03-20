@@ -55,14 +55,14 @@
             :key="cartInfoIndex"
           >
             <view class="pictrue">
-              <img
+              <image
                 :src="cart.productInfo.image"
                 @click.stop="
                   $yrouter.push({ path: '/pages/shop/GoodsCon/index',query:{id:cart.productInfo.id}  })
                 "
                 v-if="cart.combinationId === 0 && cart.bargainId === 0 &&cart.seckillId === 0"
               />
-              <img
+              <image
                 :src="cart.productInfo.image"
                 @click.stop="
                   $yrouter.push({
@@ -71,7 +71,7 @@
                 "
                 v-else-if="cart.combinationId > 0"
               />
-              <img
+              <image
                 :src="cart.productInfo.image"
                 @click.stop="
                   $yrouter.push({
@@ -80,7 +80,7 @@
                 "
                 v-else-if="cart.bargainId > 0"
               />
-              <img
+              <image
                 :src="cart.productInfo.image"
                 @click.stop="
                   $yrouter.push({
