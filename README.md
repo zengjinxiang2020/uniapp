@@ -4,6 +4,7 @@
 - 先从私服上clone下来项目
 - 下载uni的开发者工具 https://www.dcloud.io/hbuilderx.html
 - 登录微信开发者工具打开 菜单 > 设置 > 安全设置  勾选服务端口为开启
+- 当前项目下执行 npm install 
 - 命令行进入项目所在的目录，点击 hbuilderx > 菜单 > 运行 > 运行到小程序模拟器 > 微信开发者工具
 - uni会自动打开微信开发者工具并且打开uni的项目
 
