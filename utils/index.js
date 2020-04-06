@@ -117,7 +117,6 @@ export const replaceLogin = (msg) => {
 		icon: 'none',
 		duration: 2000
 	});
-	console.log(Vue.prototype.$deviceType)
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
 	console.log(uni, 989)

@@ -76,28 +76,32 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 
-
-
 // #ifdef H5
 // H5编译的代码
 Vue.prototype.$deviceType = 'h5'
+store.commit('UPDATE_DEVICETYPE','h5')
 // #endif
 
 // #ifdef APP-PLUS
 // App平台编译的代码
+console.log('App平台编译的代码')
 Vue.prototype.$deviceType = 'app'
+store.commit('UPDATE_DEVICETYPE','app')
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
 // #endif
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
+console.log('微信小程序编译的代码')
 Vue.prototype.$deviceType = 'weixin'
+store.commit('UPDATE_DEVICETYPE','weixin')
 // #endif
 
-console.log(wx,121212)
-console.log(Vue.prototype.$deviceType)
-// if(wx){
-// 	Vue.prototype.$deviceType = 'weixin'
-// }
+// !!! ps  不建议在 template 中使用 $deviceType 去判断当前环境，很有可能出现 $deviceType 为 undefined 导致判断出错的问题，可以在 script 模块中正常使用
+// 建议通过 store 去获取 $deviceType 可以保证 template 中取到的值有效
+// import { mapState, mapMutations, mapActions } from 'vuex';
+// computed: {
+// 		...mapState(['$deviceType'])
+// },
 
 app.$mount()
