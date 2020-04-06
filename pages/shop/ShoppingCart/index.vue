@@ -177,7 +177,6 @@ import {
 import { postCollectAll } from "@/api/user";
 import { mul, add } from "@/utils/bc";
 import cookie from "@/utils/store/cookie";
-import debounce from "lodash.debounce";
 
 const CHECKED_IDS = "cart_checked";
 

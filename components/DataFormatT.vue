@@ -2,22 +2,22 @@
   <text>{{time}}</text>
 </template>
 <script>
-import { dataFormatT } from "@/utils";
+import { dateFormatT } from "@/utils";
 
 export default {
   name: "DataFormatT",
-  props: ["data"],
+  props: ["date"],
   data: function() {
     return {
       time: ""
     };
   },
   mounted() {
-    this.time = dataFormatT(this.data);
+    this.time = dateFormatT(this.date);
   },
   watch: {
-    "$props.data"(props) {
-      this.time = dataFormatT(this.data);
+    "$props.date"(props) {
+      this.time = dateFormatT(this.date);
     }
   }
 };

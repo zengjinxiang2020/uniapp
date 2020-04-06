@@ -13,7 +13,7 @@
           <view class="condition line1">{{ item.couponTitle }}</view>
           <view class="data acea-row row-between-wrapper">
             <view v-if="item.endTime === 0">不限时</view>
-            <view v-else><data-format-t :data="item.addTime"></data-format-t> - <data-format-t :data="item.endTime"></data-format-t></view>
+            <view v-else><data-format-t :date="item.addTime"></data-format-t> - <data-format-t :date="item.endTime"></data-format-t></view>
             <view class="bnt gray" v-if="item._type === 0">{{ item._msg }}</view>
             <view class="bnt bg-color-red" v-else>{{ item._msg }}</view>
           </view>

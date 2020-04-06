@@ -35,7 +35,7 @@ export function dataFormat(time, option) {
 	}
 }
 
-export function dataFormatT(time) {
+export function dateFormatT(time) {
 	time = +time * 1000;
 	const d = new Date(time);
 
@@ -121,7 +121,7 @@ export const replaceLogin = (msg) => {
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
 	console.log(uni, 989)
-	if (Vue.prototype.$deviceType == 'Weixin') {
+	if (Vue.prototype.$deviceType == 'weixin') {
 		// 如果是微信小程序，跳转到授权页
 		replace({
 			path: '/pages/authorization/index',
@@ -199,7 +199,7 @@ export const login = (option) => {
 								console.log(user)
 								console.log(`用户昵称为 | ${user.userInfo.nickName}`);
 								console.log(`当前的环境 | ${Vue.prototype.$deviceType}`)
-								if (Vue.prototype.$deviceType == 'Weixin') {
+								if (Vue.prototype.$deviceType == 'weixin') {
 									wxappAuth({
 										encryptedData: user.encryptedData,
 										iv: user.iv,

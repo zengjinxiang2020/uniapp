@@ -21,7 +21,7 @@
               <view class="condition line1">{{ coupon.couponTitle }}</view>
               <view class="data acea-row row-between-wrapper">
                 <view v-if="coupon.endTime === 0">不限时</view>
-                <view v-else><data-format-t :data="coupon.addTime"></data-format-t> - <data-format-t :data="coupon.endTime"></data-format-t></view>
+                <view v-else><data-format-t :date="coupon.addTime"></data-format-t> - <data-format-t :date="coupon.endTime"></data-format-t></view>
                 <view
                   class="iconfont icon-xuanzhong1 font-color-red"
                   v-if="checked === coupon.id"

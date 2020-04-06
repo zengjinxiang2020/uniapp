@@ -290,6 +290,7 @@ export default {
       });
     },
     goGoodsCon(item) {
+		console.log(item)
       this.$yrouter.push({
         path: "/pages/shop/GoodsCon/index",
         query: { id: item.id }

@@ -45,7 +45,7 @@ export default {
     console.log(this.$store.getters.userInfo, '获取store里面的 userInfo');
     cookie.get("spread");
     // this.toLaunch();
-    if (this.$deviceType == 'App') {
+    if (this.$deviceType == 'app') {
     	// this.toLaunch();
     	this.$yrouter.switchTab({
     		path: '/pages/home/index',

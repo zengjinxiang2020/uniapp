@@ -5,7 +5,7 @@
 			<view class="data" :class="refundOrder ? 'on' : ''">
 				<view class="state">{{ orderInfo._status._msg }}</view>
 				<view>
-					<data-format :data="orderInfo.addTime"></data-format>
+					<data-format :date="orderInfo.addTime"></data-format>
 				</view>
 			</view>
 		</view>
@@ -144,7 +144,7 @@
 			<view class="item acea-row row-between">
 				<view>下单时间：</view>
 				<view class="conter">
-					<data-format :data="orderInfo.addTime"></data-format>
+					<data-format :date="orderInfo.addTime"></data-format>
 				</view>
 			</view>
 			<view class="item acea-row row-between">

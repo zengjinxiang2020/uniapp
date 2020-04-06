@@ -44,7 +44,7 @@
             >拼团</text>
             <text class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</text>
             <text class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</text>
-            <data-format :data="order.addTime"></data-format>
+            <data-format :date="order.addTime"></data-format>
           </view>
           <view class="font-color-red">{{ getStatus(order) }}</view>
         </view>
@@ -209,7 +209,7 @@ export default {
       orderList: [],
       pay: false,
       payType: ["yue", "weixin"],
-      from: isWeixin() ? "weixin" : "weixinh5"
+      from: this.$deviceType
     };
   },
   components: {

@@ -9,7 +9,9 @@ import request from "@/utils/request";
  * @returns {*}
  */
 export function postOrderConfirm(cartId) {
-  return request.post("/order/confirm", { cartId });
+	return request.post("/order/confirm", {
+		cartId
+	});
 }
 
 /**
@@ -19,7 +21,7 @@ export function postOrderConfirm(cartId) {
  * @returns {*}
  */
 export function postOrderComputed(key, data) {
-  return request.post("/order/computed/" + key, data);
+	return request.post("/order/computed/" + key, data);
 }
 
 /**
@@ -28,7 +30,7 @@ export function postOrderComputed(key, data) {
  * @returns {*}
  */
 export function getOrderCoupon(price) {
-  return request.get("/coupons/order/" + (parseFloat(price) || 0));
+	return request.get("/coupons/order/" + (parseFloat(price) || 0));
 }
 
 /**
@@ -38,7 +40,7 @@ export function getOrderCoupon(price) {
  * @returns {*}
  */
 export function createOrder(key, data) {
-  return request.post("/order/create/" + key, data || {});
+	return request.post("/order/create/" + key, data || {});
 }
 
 /**
@@ -46,7 +48,7 @@ export function createOrder(key, data) {
  * @returns {*}
  */
 export function getOrderData() {
-  return request.get("/order/data");
+	return request.get("/order/data");
 }
 
 /**
@@ -54,7 +56,7 @@ export function getOrderData() {
  * @returns {*}
  */
 export function getOrderList(data) {
-  return request.get("/order/list", data);
+	return request.get("/order/list", data);
 }
 
 /**
@@ -62,7 +64,9 @@ export function getOrderList(data) {
  * @returns {*}
  */
 export function cancelOrder(id) {
-  return request.post("/order/cancel", { id });
+	return request.post("/order/cancel", {
+		id
+	});
 }
 
 /**
@@ -70,7 +74,7 @@ export function cancelOrder(id) {
  * @returns {*}
  */
 export function orderDetail(id) {
-  return request.get("/order/detail/" + id);
+	return request.get("/order/detail/" + id);
 }
 
 /**
@@ -78,7 +82,7 @@ export function orderDetail(id) {
  * @returns {*}
  */
 export function getRefundReason() {
-  return request.get("/order/refund/reason");
+	return request.get("/order/refund/reason");
 }
 
 /**
@@ -86,7 +90,7 @@ export function getRefundReason() {
  * @returns {*}
  */
 export function postOrderRefund(data) {
-  return request.post("/order/refund/verify", data);
+	return request.post("/order/refund/verify", data);
 }
 
 /**
@@ -94,7 +98,9 @@ export function postOrderRefund(data) {
  * @returns {*}
  */
 export function takeOrder(uni) {
-  return request.post("/order/take", { uni });
+	return request.post("/order/take", {
+		uni
+	});
 }
 
 /**
@@ -102,7 +108,9 @@ export function takeOrder(uni) {
  * @returns {*}
  */
 export function delOrder(uni) {
-  return request.post("/order/del", { uni });
+	return request.post("/order/del", {
+		uni
+	});
 }
 
 /**
@@ -110,7 +118,7 @@ export function delOrder(uni) {
  * @returns {*}
  */
 export function express(params) {
-  return request.post("order/express",params);
+	return request.post("order/express", params);
 }
 
 /**
@@ -118,12 +126,19 @@ export function express(params) {
  * @returns {*}
  */
 export function payOrder(uni, paytype, from) {
-  return request.post("order/pay", { uni, paytype, from });
+	return request.post("order/pay", {
+		uni,
+		paytype,
+		from
+	});
 }
 /**
  * 订单核销
  * @returns {*}
  */
 export function orderVerific(verify_code, is_confirm) {
-  return request.post("order/order_verific", { verify_code, is_confirm });
+	return request.post("order/order_verific", {
+		verify_code,
+		is_confirm
+	});
 }

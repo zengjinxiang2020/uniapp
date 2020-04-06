@@ -45,7 +45,7 @@
           <view>
             <view class="state">{{ item.title }}</view>
             <view>
-              <data-format :data="item.addTime"></data-format>
+              <data-format :date="item.addTime"></data-format>
             </view>
           </view>
           <view class="num" v-if="item.pm == 1">+{{ item.number }}</view>

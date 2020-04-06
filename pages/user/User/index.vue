@@ -119,6 +119,14 @@
 			<view class="by">
 				<text class="by-text">By@意象</text>
 			</view>
+			<view class="by">
+				<view>
+				<text class="by-text">Copyright © 2020</text>
+				</view>
+				<view>
+				<text class="by-text">漯河市大有前途网络科技有限公司</text>
+				</view>
+			</view>
 			<view class="footer-line-height"></view>
 			<!-- <SwitchWindow
         v-on:changeswitch="changeswitch"
@@ -296,6 +304,7 @@
 			}
 		},
 		onShow() {
+			console.log(this.$store.getters.token)
 			console.log(this.userInfo);
 			if (this.$store.getters.token) {
 				this.User();

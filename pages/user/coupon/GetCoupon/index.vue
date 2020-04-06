@@ -14,8 +14,8 @@
           <view class="condition line1">购物满{{ item.useMinPrice }}元可用</view>
           <view class="data acea-row row-between-wrapper">
             <view v-if="item.endTime !== 0">
-              <data-format-t :data="item.startTime"></data-format-t>-
-              <data-format-t :data="item.endTime"></data-format-t>
+              <data-format-t :date="item.startTime"></data-format-t>-
+              <data-format-t :date="item.endTime"></data-format-t>
             </view>
             <view v-else>不限时</view>
             <view class="bnt gray" v-if="item.isUse === true">已领取</view>

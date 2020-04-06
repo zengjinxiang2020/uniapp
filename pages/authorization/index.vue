@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view v-if="!$store.getters.token&&$deviceType=='Weixin'">
+		<view v-if="!$store.getters.token&&$deviceType=='weixin'">
 			<view class="getUserInfo">
 				<text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
 				<button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>
@@ -8,7 +8,7 @@
 				<button @click="back">取消微信登录授权</button>
 			</view>
 		</view>
-		<view v-if="!$store.getters.token&&$deviceType!='Weixin'">
+		<view v-if="!$store.getters.token&&$deviceType!='weixin'&&$deviceType=='app'">
 			<view class="getUserInfo">
 				<text>请先登录</text>
 				<button type="primary" @click="this.toLogin">去登录</button>
@@ -43,6 +43,7 @@
 			...mapState(["isAuthorization"])
 		},
 		onShow() {
+			
 			this.UPDATE_AUTHORIZATIONPAGE(true);
 		},
 		onHide() {

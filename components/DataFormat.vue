@@ -6,18 +6,18 @@ import { dataFormat } from "@/utils";
 
 export default {
   name: "DataFormat",
-  props: ["data"],
+  props: ["date"],
   data: function() {
     return {
       time: ""
     };
   },
   mounted() {
-    this.time = dataFormat(this.data);
+    this.time = dataFormat(this.date);
   },
   watch: {
-    "$props.data"(props) {
-      this.time = dataFormat(this.data);
+    "$props.date"(props) {
+      this.time = dataFormat(this.date);
     }
   }
 };

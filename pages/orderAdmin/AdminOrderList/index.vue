@@ -14,7 +14,7 @@
 					<text>订单号：{{ item.orderId }}</text>
 					<text class="time">
 						<text>下单时间：</text>
-						<data-format :data="item.addTime"></data-format>
+						<data-format :date="item.addTime"></data-format>
 					</text>
 				</view>
 				<view class="pos-order-goods" v-for="(val, key) in item.cartInfo" :key="key">

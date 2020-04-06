@@ -16,6 +16,7 @@
 	
 <style lang="less">
     /*每个页面公共css */
+	@import "animate.css";
 	@import "./assets/iconfont/iconfont.css";
 	@import "./assets/css/base.less";
 	@import "./assets/css/reset.less";

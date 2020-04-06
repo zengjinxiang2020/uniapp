@@ -84,6 +84,14 @@
 						<input type="password" placeholder="填写您的登录密码" v-model="password" />
 					</view>
 				</view>
+				<view class="item">
+					<view>
+						<!-- <svg class="icon" aria-hidden="true">
+				  <use xlink:href="#icon-phone_" />
+				</svg> -->
+						<input type="text" placeholder="输入邀请码" v-model="inviteCode" />
+					</view>
+				</view>
 			</view>
 			<view class="logon" @click="register">注册</view>
 			<view class="tip">
@@ -113,7 +121,9 @@
 	import dayjs from "dayjs";
 	import cookie from "@/utils/store/cookie";
 
-import {handleGetUserInfo} from '@/utils'
+	import {
+		handleGetUserInfo
+	} from '@/utils'
 
 	const BACK_URL = "login_back_url";
 
@@ -127,6 +137,7 @@ import {handleGetUserInfo} from '@/utils'
 				account: "",
 				password: "",
 				captcha: "",
+				inviteCode:"",
 				formItem: 1,
 				type: "login"
 			};
@@ -211,6 +222,7 @@ import {handleGetUserInfo} from '@/utils'
 						account: that.account,
 						captcha: that.captcha,
 						password: that.password,
+						inviteCode: that.inviteCode,
 						spread: cookie.get("spread")
 					})
 					.then(res => {
@@ -310,7 +322,7 @@ import {handleGetUserInfo} from '@/utils'
 						handleGetUserInfo()
 						// let replace=this.$yroute.query.replace
 						// if(replace){
-							
+
 						// }
 						// this.$yrouter.replace({
 						// 	path: this.$yroute.query.replace || '/pages/home/index'

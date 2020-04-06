@@ -3,7 +3,6 @@ import App from './App'
 
 // import router from "./router";
 import store from "./store";
-import animate from "animate.css";
 import schema from "async-validator";
 import dialog from "./utils/dialog";
 import cookie from "@/utils/store/cookie";
@@ -25,7 +24,6 @@ import {
 	VUE_APP_API_URL
 } from "@/config";
 
-Vue.use(animate);
 Vue.config.productionTip = false;
 Vue.config.devtools = process.env.NODE_ENV !== "production";
 
@@ -82,24 +80,24 @@ Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 
 // #ifdef H5
 // H5编译的代码
-Vue.prototype.$deviceType = 'H5'
+Vue.prototype.$deviceType = 'h5'
 // #endif
 
 // #ifdef APP-PLUS
 // App平台编译的代码
-Vue.prototype.$deviceType = 'App'
+Vue.prototype.$deviceType = 'app'
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
 // #endif
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
-Vue.prototype.$deviceType = 'Weixin'
+Vue.prototype.$deviceType = 'weixin'
 // #endif
 
 console.log(wx,121212)
 console.log(Vue.prototype.$deviceType)
 // if(wx){
-// 	Vue.prototype.$deviceType = 'Weixin'
+// 	Vue.prototype.$deviceType = 'weixin'
 // }
 
 app.$mount()

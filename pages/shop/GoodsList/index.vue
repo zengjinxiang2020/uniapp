@@ -79,7 +79,6 @@
 <script>
 import Recommend from "@/components/Recommend";
 import { getProducts } from "@/api/store";
-import debounce from "lodash.debounce";
 import Loading from "@/components/Loading";
 
 export default {
