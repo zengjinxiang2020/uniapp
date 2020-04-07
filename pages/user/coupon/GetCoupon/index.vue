@@ -30,7 +30,7 @@
     <!--暂无优惠券-->
     <view class="noCommodity" v-if="couponsList.length === 0 && page > 1">
       <view class="noPictrue">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+        <image src="@/static/images/noCoupon.png" class="image" />
       </view>
     </view>
   </view>

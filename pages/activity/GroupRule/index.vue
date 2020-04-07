@@ -39,7 +39,7 @@
 					</view>
 				</view>
 				<view class="pictrue" v-for="countIndex in count" :key="countIndex">
-					<image class="img-none" :src="$VUE_APP_RESOURCES_URL+'/images/vacancy.png'" />
+					<image class="img-none" src="@/static/images/vacancy.png" />
 				</view>
 			</view>
 			<view v-if="(pinkBool === 1 || pinkBool === -1) && count > 9" class="lookAll acea-row row-center-wrapper" @click="lookAll">

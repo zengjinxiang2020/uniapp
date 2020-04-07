@@ -75,7 +75,7 @@
 			<!--<view class="grayBg">-->
 			<!--<view class="pictrue"><image :src="orderInfo.code" /></view>-->
 			<!--</view>-->
-			<!--<view class="gear"><image :src="$VUE_APP_RESOURCES_URL+'/images/writeOff.jpg'" /></view>-->
+			<!--<view class="gear"><image src="@/static/images/writeOff.jpg" /></view>-->
 			<!--<view class="num">{{ orderInfo._verify_code }}</view>-->
 			<!--<!--<!--<!--<text class="rules">-->
 			<!--<!--<!--<text class="item">-->
@@ -128,7 +128,7 @@
 			<!--<view>{{ system_store._detailed_address }}</view>-->
 			<!--</view>-->
 			<view class="line" v-if="orderInfo.shippingType === 1">
-				<image :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
+				<image src="@/static/images/line.jpg" />
 			</view>
 		</template>
 		<OrderGoods :evaluate="status.type || 0" :cartInfo="orderInfo.cartInfo || []"></OrderGoods>

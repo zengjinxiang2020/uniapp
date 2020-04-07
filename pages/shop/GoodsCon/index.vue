@@ -7,7 +7,7 @@
 					<text>￥</text>
 					<text class="num">{{ storeInfo.price }}</text>
 					<text class="vip-money" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0">￥{{ storeInfo.vipPrice }}</text>
-					<image :src="$VUE_APP_RESOURCES_URL+'/images/vip.png'" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
+					<image src="@/static/images/vip.png" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
 				</view>
 				<view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
 			</view>
@@ -62,9 +62,9 @@
 		</view>
 		<view class="superior">
 			<view class="title acea-row row-center-wrapper">
-				<image :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
+				<image src="@/static/images/ling.png" />
 				<text class="titleTxt">优品推荐</text>
-				<image :src="$VUE_APP_RESOURCES_URL+'/images/ling.png'" />
+				<image src="@/static/images/ling.png" />
 			</view>
 			<template>
 				<view class="slider-banner banner">

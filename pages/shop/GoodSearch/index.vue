@@ -25,7 +25,7 @@
     </view>
     <!--<view class="noCommodity">-->
     <!--<view class="noPictrue">-->
-    <!--<image :src="$VUE_APP_RESOURCES_URL+'/images/noSearch.png'" class="image" />-->
+    <!--<image src="@/static/images/noSearch.png" class="image" />-->
     <!--</view>-->
     <!--<recommend></recommend>-->
     <!--</view>-->

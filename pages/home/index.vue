@@ -16,7 +16,7 @@
 			</swiper>
 		</view>
 		<view class="news acea-row row-between-wrapper">
-			<view class="pictrue" v-if="$VUE_APP_RESOURCES_URL"><image :src="$VUE_APP_RESOURCES_URL + '/images/news.png'" /></view>
+			<view class="pictrue" v-if="$VUE_APP_RESOURCES_URL"><image src="@/static/images/news.png" /></view>
 			<view class="swiper-no-swiping new-banner">
 				<swiper class="swiper-wrapper" v-if="roll.length > 0" :indicator-dots="false" autoplay circular vertical>
 					<block v-for="(item, rollIndex) in roll" :key="rollIndex">

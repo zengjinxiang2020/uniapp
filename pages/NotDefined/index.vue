@@ -1,6 +1,6 @@
 <template>
 	<view class="not-defined">
-		<image :src="$VUE_APP_RESOURCES_URL+'/images/404.png'" />
+		<image src="@/static/images/404.png" />
 		<view class="content">
 			<h3 class="title">页面未找到</h3>
 			<text>抱歉！您访问的页面不存在，请返回上一级或点击下方按钮返回首页...</text>

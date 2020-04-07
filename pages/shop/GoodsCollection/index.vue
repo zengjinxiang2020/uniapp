@@ -26,7 +26,7 @@
       v-if="collectProductList.length < 1 && page > 1"
     >
       <view class="noPictrue">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/noCollection.png'" class="image" />
+        <image src="@/static/images/noCollection.png" class="image" />
       </view>
       <Recommend></Recommend>
     </view>

@@ -43,18 +43,18 @@
           :key="listIndex"
         >
           <view>
-            <view class="state">{{ item.title }}</view>
+            <text class="state">{{ item.title }}</text>
             <view>
               <data-format :date="item.addTime"></data-format>
             </view>
           </view>
-          <view class="num" v-if="item.pm == 1">+{{ item.number }}</view>
-          <view class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</view>
+          <text class="num" v-if="item.pm == 1">+{{ item.number }}</text>
+          <text class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</text>
         </view>
       </view>
       <!--<view class="list2" :hidden="current !== 1">-->
       <!--<view class="item acea-row row-between-wrapper" @click="goHome()">-->
-      <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></view>-->
+      <!--<view class="pictrue"><image src="@/static/images/score.png" /></view>-->
       <!--<view class="name">购买商品可获得积分奖励</view>-->
       <!--<view class="earn">赚积分</view>-->
       <!--</view>-->
@@ -62,7 +62,7 @@
       <!--class="item acea-row row-between-wrapper"-->
       <!--@click="goSignIn()"-->
       <!--&gt;-->
-      <!--<view class="pictrue"><image :src="$VUE_APP_RESOURCES_URL+'/images/score.png'" /></view>-->
+      <!--<view class="pictrue"><image src="@/static/images/score.png" /></view>-->
       <!--<view class="name">每日签到可获得积分奖励</view>-->
       <!--<view class="earn">赚积分</view>-->
       <!--</view>-->
@@ -132,6 +132,7 @@ export default {
           that.loadTitle = that.loaded ? "人家是有底线的" : "上拉加载更多";
           that.where.page = that.where.page + 1;
           that.list.push.apply(that.list, res.data);
+		  console.log(that.list)
         },
         err => {
           uni.showToast({

@@ -33,7 +33,7 @@
                 <image :src="item.avatar" />
               </view>-->
               <image
-                :src="$VUE_APP_RESOURCES_URL+'/images/alter.png'"
+                src="@/static/images/alter.png"
                 class="alter"
                 v-if="item.uid === userInfo.uid"
               />

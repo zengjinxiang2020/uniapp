@@ -35,7 +35,7 @@
       </view>
       <view v-if="!couponList.length && loaded">
         <view class="pictrue">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/noCoupon.png'" class="image" />
+          <image src="@/static/images/noCoupon.png" class="image" />
         </view>
       </view>
     </view>

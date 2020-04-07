@@ -8,7 +8,7 @@
 			<view class="bnt" @click="storeCancellation">立即核销</view>
 		</view>
 		<view class="scan" v-if="iswechat">
-			<image :src="$VUE_APP_RESOURCES_URL+'/images/scan.gif'" @click="openQRCode" />
+			<image src="@/static/images/scan.gif" @click="openQRCode" />
 		</view>
 		<WriteOff :iShidden="iShidden" :orderInfo="orderInfo" @cancel="cancel" @confirm="confirm"></WriteOff>
 	</view>

@@ -1,7 +1,7 @@
 <template>
   <view class="group-list" ref="container">
     <!-- <view class="header">
-      <image :src="$VUE_APP_RESOURCES_URL+'/images/group.png'" class="image" />
+      <image src="@/static/images/group.png" class="image" />
     </view>-->
     <view class="list" v-if="combinationList.length>0">
       <view
@@ -38,7 +38,7 @@
     </view>
     <view class="noCommodity" style="background-color: #fff;" v-if="combinationList.length === 0">
       <view class="noPictrue">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/noGood.png'" class="image" />
+        <image src="@/static/images/noGood.png" class="image" />
       </view>
     </view>
   </view>

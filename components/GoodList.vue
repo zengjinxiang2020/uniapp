@@ -3,9 +3,9 @@
 		<view @click="routerGo(item)" class="item acea-row row-between-wrapper" v-for="(item, goodlistIndex) in goodList" :key="goodlistIndex">
 			<view class="pictrue">
 				<image :src="item.image" class="image" />
-				<image :src="$VUE_APP_RESOURCES_URL + '/images/one.png'" class="numPic" v-if="isSort === true && index === 0" />
-				<image :src="$VUE_APP_RESOURCES_URL + '/images/two.png'" class="numPic" v-if="isSort === true && index === 1" />
-				<image :src="$VUE_APP_RESOURCES_URL + '/images/three.png'" class="numPic" v-if="isSort === true && index === 2" />
+				<image src="@/static/images/one.png" class="numPic" v-if="isSort === true && index === 0" />
+				<image src="@/static/images/two.png" class="numPic" v-if="isSort === true && index === 1" />
+				<image src="@/static/images/three.png" class="numPic" v-if="isSort === true && index === 2" />
 			</view>
 			<view class="underline">
 				<view class="text">

@@ -3,7 +3,7 @@
     <canvas style="width:747px;height:1326px" canvas-id="myCanvas"></canvas>
     <!-- <view class="poster-pop" v-show="!canvasStatus">
       <image
-        :src="$VUE_APP_RESOURCES_URL+'/images/poster-close.png'"
+        src="@/static/images/poster-close.png"
         class="close"
         @click="posterImageClose"
       />
@@ -28,7 +28,7 @@
     </view> -->
     <view class="poster-pop" v-show="canvasStatus">
       <img
-        :src="$VUE_APP_RESOURCES_URL+'/images/poster-close.png'"
+        src="@/static/images/poster-close.png"
         class="close"
         @click="posterImageClose"
         mode="widthFix"

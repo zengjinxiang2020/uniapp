@@ -14,7 +14,7 @@
         <view>{{ delivery.userAddress }}</view>
       </view>
       <view class="line">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/line.jpg'" />
+        <image src="@/static/images/line.jpg" />
       </view>
     </header>
     <view class="wrapper">

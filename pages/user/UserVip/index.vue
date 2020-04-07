@@ -66,7 +66,7 @@
     <Recommend></Recommend>
     <view class="growthValue" :class="growthValue === false ? 'on' : ''">
       <view class="pictrue">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/value.jpg'" />
+        <image src="@/static/images/value.jpg" />
         <text class="iconfont icon-guanbi3" @click="growthTap"></text>
       </view>
       <view class="conter">{{ illustrate }}</view>

@@ -81,11 +81,11 @@
     <view class="bargainGang">
       <view class="title font-color-red acea-row row-center-wrapper">
         <view class="pictrue">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">砍价帮</view>
         <view class="pictrue on">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
       </view>
       <view class="list">
@@ -119,11 +119,11 @@
     <view class="goodsDetails">
       <view class="title font-color-red acea-row row-center-wrapper">
         <view class="pictrue">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">商品详情</view>
         <view class="pictrue on">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
       </view>
       <view class="conter" v-html="bargain.description"></view>
@@ -132,18 +132,18 @@
     <view class="goodsDetails">
       <view class="title font-color-red acea-row row-center-wrapper">
         <view class="pictrue">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">活动规则</view>
         <view class="pictrue on">
-          <image :src="$VUE_APP_RESOURCES_URL+'/images/left.png'" />
+          <image src="@/static/images/left.png" />
         </view>
       </view>
       <view class="conter" v-html="bargain.rule"></view>
     </view>
     <view class="bargainTip" :class="active === true ? 'on' : ''">
       <view class="pictrue">
-        <image :src="$VUE_APP_RESOURCES_URL+'/images/bargainBg.jpg'" />
+        <image src="@/static/images/bargainBg.jpg" />
         <view class="iconfont icon-guanbi" @click="close"></view>
       </view>
       <view class="cutOff" v-if="bargainPartake === userInfo.uid">
