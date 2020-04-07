@@ -323,14 +323,14 @@
 	.order-status-num {
 		min-width: 0.33*100rpx;
 		background-color: #fff;
-		color: #73cbb6;
+		color: #00c17b;
 		border-radius: 15px;
 		position: absolute;
 		right: -0.14*100rpx;
 		top: -0.15*100rpx;
 		font-size: 0.2*100rpx;
 		padding: 0 0.08*100rpx;
-		border: 1px solid #73cbb6;
+		border: 1px solid #00c17b;
 	}
 
 	.pictrue {

@@ -2,13 +2,13 @@
   <view class="time">
     {{ tipText }}
     <text class="styleAll" v-if="isDay === true">{{ day }}</text>
-    <text class="timeTxt">{{ dayText }}</text>
+    <!-- <text class="timeTxt">{{ dayText }}</text> -->
     <text class="styleAll">{{ hour }}</text>
     <text class="timeTxt">{{ hourText }}</text>
     <text class="styleAll">{{ minute }}</text>
     <text class="timeTxt">{{ minuteText }}</text>
     <text class="styleAll">{{ second }}</text>
-    <text class="timeTxt">{{ secondText }}</text>
+    <!-- <text class="timeTxt">{{ secondText }}</text> -->
   </view>
 </template>
 <script>

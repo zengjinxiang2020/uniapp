@@ -790,7 +790,7 @@
 	}
 
 	.footer .icon-shoucang1 {
-		color: #73cbb6;
+		color: #00c17b;
 	}
 
 	.product-con .product-intro .conter view {
