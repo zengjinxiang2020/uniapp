@@ -84,9 +84,9 @@
           <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">砍价帮</view>
-        <view class="pictrue on">
+        <!-- <view class="pictrue on">
           <image src="@/static/images/left.png" />
-        </view>
+        </view> -->
       </view>
       <view class="list">
         <view
@@ -507,6 +507,9 @@ export default {
 </script>
 
 <style lang="less">
+.bargain{
+  background: #00c17b;
+}
 .bargainBnts {
   display: flex;
   align-items: center;

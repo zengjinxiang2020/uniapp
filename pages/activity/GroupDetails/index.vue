@@ -107,10 +107,10 @@
     </view>
     <view style="height:100rpx;"></view>
     <view class="footer-group acea-row row-between-wrapper">
-      <view class="customerSer acea-row row-center-wrapper row-column">
+      <!-- <view class="customerSer acea-row row-center-wrapper row-column">
         <view class="iconfont icon-kefu"></view>
         <view>客服</view>
-      </view>
+      </view> -->
       <view class="bnt bg-color-violet" @click="openAlone">单独购买</view>
       <view class="bnt bg-color-red" @click="openTeam">立即开团</view>
     </view>

@@ -65,13 +65,8 @@ export default {
   data: function() {
     return {};
   },
-  watch: {
-    attr:function(ne){
-      console.log(ne)
-    }
-  },
   mounted: function() {
-    console.log(this.attr)
+    console.log(this.attr);
   },
   methods: {
     closeAttr: function() {
@@ -84,16 +79,23 @@ export default {
       this.$emit("changeFun", { action: "ChangeCartNum", value: 1 });
     },
     tapAttr: function(indexw, indexn) {
+      // 修改商品规格不生效的原因：
+      // H5端下面写法，attr更新，但是除H5外其他端不支持，
+      // 尽量避免下面的骚写法，不要在子组件内更新props
+      // this.attr.productAttr[res.indexw].index = res.indexn;
       let that = this;
-      console.log(that.attr.productAttr);
-      console.log(that.attr.productAttr[indexw], indexw, indexn);
-      that.attr.productAttr[indexw].index = indexn;
       let value = that
         .getCheckedValue()
         .sort()
         .join(",");
-      console.log(value);
-      that.$emit("changeFun", { action: "ChangeAttr", value: value });
+      that.$emit("changeFun", {
+        action: "ChangeAttr",
+        value: {
+          value,
+          indexw,
+          indexn
+        }
+      });
     },
     //获取被选中属性；
     getCheckedValue: function() {

@@ -78,4 +78,7 @@ export default {
 </script>
 
 <style >
+page{
+    background: #00c17b;
+}
 </style>

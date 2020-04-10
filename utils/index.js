@@ -218,7 +218,7 @@ export const login = (option) => {
 										console.log('登录成功4')
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
 										console.log('登录成功5')
-
+										console.log(store)
 										handleGetUserInfo()
 
 									}).catch(error => {
@@ -259,6 +259,7 @@ export const login = (option) => {
 }
 
 export const handleGetUserInfo = () => {
+	console.log('登录后请求用户信息')
 	getUser().then(res => {
 		console.log(res.data, '登录后的样式')
 		store.dispatch('setUserInfo', res.data)
@@ -341,9 +342,25 @@ export function parseRoute($mp) {
 	}
 }
 
+export function auth() {
+	/**
+	 *	如何判断权限?
+	 *	用户如果登录了系统，会留下两个东西，一个是token，一个是userInfo
+	 *	token存在会过期的问题，如果长时间没有打开小程序，会导致登录失效，出现打开一个页面瞬间跳转到授权页面的问题
+	 *		解决办法，保存token的时候加上过期时间，每次请求都取一下缓存里的token
+	 *	userInfo只是用来限时用户信息，作用并不是很大
+	 * 	ps：只需要判断 token 是否存在即可
+	 */
+	console.log(cookie.get('login_status'), 'token')
+	if (cookie.get('login_status')) {
+		return true
+	}
+	return false
+}
+
 
 export const handleLoginStatus = (location, complete, fail, success) => {
-	console.log(location, '开始健全')
+	console.log(location, '开始检验权限')
 	// 不登录可访问的页面
 	let page = [{
 		path: '/pages/Loading/index',
@@ -374,8 +391,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 		path = location.path
 	}
 
-	console.log(store.getters.userInfo, '用户信息')
-	if (!store.getters.token) {
+	if (!auth()) {
 		page.map((item) => {
 			console.log(item.path == path)
 			if (item.path == path) {

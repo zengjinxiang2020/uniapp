@@ -130,7 +130,7 @@
 					<view class="placeOrder bg-color-red" @click="placeOrder">立即下单</view>
 				</view>
 				<view class="button acea-row row-middle" v-else>
-					<view class="bnt cart-color" @click="collectAll">收藏</view>
+					<!-- <view class="bnt cart-color" @click="collectAll">收藏</view> -->
 					<view class="bnt" @click="delgoods">删除</view>
 				</view>
 			</view>

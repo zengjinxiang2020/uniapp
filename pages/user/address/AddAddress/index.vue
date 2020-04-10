@@ -11,8 +11,8 @@
       </view>
       <view class="item acea-row row-between-wrapper">
         <view class="name">所在地区</view>
-        <view class="picker acea-row row-between-wrapper select-value form-control">
-          <view class="address">
+        <view class="picker acea-row row-between-wrapper select-value form-control" >
+          <view class="address" @tap="openAddres2">
             <!-- <picker
               @columnchange="addRessColumnchange"
               @change="changeAddress"
@@ -23,7 +23,7 @@
               <text class="uni-input" v-if="model2">{{model2}}</text>
               <text class="uni-input" v-else>请选择地区</text>
             </picker>-->
-            <text class="uni-input" @tap="openAddres2" >{{model2||'请选择'}}</text>
+            <text class="uni-input"  >{{model2||'请选择'}}</text>
             <simple-address
               ref="simpleAddress"
               :pickerValueDefault="cityPickerValueDefault"
@@ -226,3 +226,12 @@ if(this.address.province){
   }
 };
 </script>
+
+<style lang="less">
+.address{
+  text{
+    width: 100%;
+    display: block;
+  }
+}
+</style>

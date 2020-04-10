@@ -58,7 +58,7 @@
 										当前积分
 										<text class="num font-color-red">{{ userInfo.integral || 0 }}</text>
 									</text>
-									<checkbox value :checked="useIntegral ? true : false"></checkbox>
+									<checkbox value="true" :checked="useIntegral ? true : false"></checkbox>
 								</label>
 							</checkbox-group>
 						</view>
@@ -345,6 +345,7 @@
 			},
 			changeUseIntegral: function(e) {
 				// this.computedPrice();
+				console.log(e)
 				this.useIntegral = e.mp.detail.value[0];
 			},
 			computedPrice() {
