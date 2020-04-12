@@ -122,13 +122,18 @@ export const replaceLogin = (msg) => {
 	console.log(uni, 989)
 	if (Vue.prototype.$deviceType == 'weixin') {
 		// 如果是微信小程序，跳转到授权页
-		replace({
-			path: '/pages/authorization/index',
-			query: {
-				redirect: `/${getCurrentPageUrl()}`,
-				...parseQuery()
+		login({
+			fail: () => {
+				replace({
+					path: '/pages/authorization/index',
+					query: {
+						redirect: `/${getCurrentPageUrl()}`,
+						...parseQuery()
+					}
+				})
 			}
 		})
+
 	} else {
 		// 如果不是小程序跳转到登录页
 		push({
@@ -297,10 +302,17 @@ export const handleGetUserInfo = () => {
 			path: url,
 			query
 		})
-		switchTab({
-			path: `${url}`,
-			query
-		});
+		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
+			switchTab({
+				path: `${url}`,
+				query
+			});
+		} else {
+			push({
+				path: `${url}`,
+				query
+			})
+		}
 	})
 }
 
@@ -550,15 +562,16 @@ export const PosterCanvas = (store, successCallBack) => {
 		mask: true
 	});
 	getImageInfo([store.image, store.code]).then(res => {
+		console.log(res)
 		let contentHh = 48 * 1.3
-		const ctx = uni.createCanvasContext('myCanvas');
+		const ctx = uni.createCanvasContext('myCanvas')
 		ctx.clearRect(0, 0, 0, 0);
 		const WIDTH = 747
 		const HEIGHT = 1326;
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
-		ctx.drawImage(res[1].path, 40, 1064, 200, 200);
 		ctx.drawImage(res[0].path, 0, 0, WIDTH, WIDTH);
+		ctx.drawImage(res[1].path, 40, 1064, 200, 200);
 		ctx.save();
 		let r = 90;
 		let d = r * 2;
@@ -578,10 +591,10 @@ export const PosterCanvas = (store, successCallBack) => {
 		ctx.setTextAlign('center')
 		ctx.setFontSize(22);
 		ctx.setFillStyle('#333333');
+		console.log('长按识别二维码立即购买')
 		ctx.fillText('长按识别二维码立即购买', WIDTH / 2, 1167);
-		// ctx.drawImage(store.code, 199, 1064, 200, 200);
 		ctx.save();
-		ctx.draw(true, function (oi) {
+		ctx.draw(true, () => {
 			uni.canvasToTempFilePath({
 				canvasId: 'myCanvas',
 				fileType: 'png',
@@ -597,6 +610,7 @@ export const PosterCanvas = (store, successCallBack) => {
 
 			})
 		});
+
 	})
 
 	// uni.getImageInfo({

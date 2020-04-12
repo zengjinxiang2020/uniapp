@@ -157,6 +157,9 @@
         :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +system_store.latitude +',' +system_store.longitude +'&referer=' +mapKey"
       ></iframe>
     </view>
+    <div class="posterCanvasWarp">
+      <canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
+    </div>
   </view>
 </template>
 
@@ -510,7 +513,7 @@ export default {
         this.$set(this.attr.productSelect, "stock", productSelect.stock);
         this.$set(this.attr.productSelect, "unique", productSelect.unique);
         this.$set(this.attr.productSelect, "cart_num", 1);
-		this.$set(this, "attrValue", res.value);
+        this.$set(this, "attrValue", res.value);
         this.$set(this, "attrTxt", "已选择");
       } else {
         this.$set(this.attr.productSelect, "image", this.storeInfo.image);

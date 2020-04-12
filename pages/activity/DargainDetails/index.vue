@@ -142,10 +142,10 @@
       <view class="conter" v-html="bargain.rule"></view>
     </view>
     <view class="bargainTip" :class="active === true ? 'on' : ''">
-      <view class="pictrue">
+      <!-- <view class="pictrue">
         <image src="@/static/images/bargainBg.jpg" />
         <view class="iconfont icon-guanbi" @click="close"></view>
-      </view>
+      </view> -->
       <view class="cutOff" v-if="bargainPartake === userInfo.uid">
         您已砍掉
         <text class="font-color-red" v-text="bargainHelpPrice"></text>元，听说分享次数越多砍价成功的机会越大哦！

@@ -104,13 +104,18 @@
     <view class="product-intro">
       <view class="title">产品介绍</view>
       <view class="conter" v-html="storeInfo.description"></view>
+      <!-- <view class="conter" v-html=""></view> -->
     </view>
     <view style="height:100rpx;"></view>
     <view class="footer-group acea-row row-between-wrapper">
       <!-- <view class="customerSer acea-row row-center-wrapper row-column">
         <view class="iconfont icon-kefu"></view>
         <view>客服</view>
-      </view> -->
+      </view>-->
+      <view class="customerSer acea-row row-center-wrapper row-column" @click="setCollect">
+        <view class="iconfont" :class="userCollect ? 'icon-shoucang1' : 'icon-shoucang'"></view>
+        <text>收藏</text>
+      </view>
       <view class="bnt bg-color-violet" @click="openAlone">单独购买</view>
       <view class="bnt bg-color-red" @click="openTeam">立即开团</view>
     </view>
@@ -134,6 +139,12 @@ import StorePoster from "@/components/StorePoster";
 import { getCombinationDetail } from "@/api/activity";
 import { postCartAdd } from "@/api/store";
 import { imageBase64 } from "@/api/public";
+import {
+  getCoupon,
+  getCollectAdd,
+  getCollectDel,
+  getUserInfo
+} from "@/api/user";
 const NAME = "GroupDetails";
 
 export default {
@@ -188,7 +199,8 @@ export default {
           cart_num: 1
         }
       },
-      cartNum: 1
+      cartNum: 1,
+      userCollect: false
     };
   },
   watch: {
@@ -206,11 +218,27 @@ export default {
     openAlone: function() {
       this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
     },
+    //收藏商品
+    setCollect: function() {
+      let that = this,
+        id = that.storeInfo.id,
+        category = "product";
+      if (that.userCollect) {
+        getCollectDel(id, category).then(function() {
+          that.userCollect = !that.userCollect;
+        });
+      } else {
+        getCollectAdd(id, category).then(function() {
+          that.userCollect = !that.userCollect;
+        });
+      }
+    },
     mountedStart: function() {
       var that = this;
-      console.log(that)
+      console.log(that);
       let id = that.$yroute.query.id;
       getCombinationDetail(id).then(res => {
+        that.userCollect = res.data.userCollect;
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);
@@ -323,13 +351,14 @@ export default {
 </script>
 <style scoped lang="less">
 .product-con .wrapper {
-  padding-bottom: 0.26*100rpx;
+  padding-bottom: 0.26 * 100rpx;
 }
 .noscroll {
   height: 100%;
   overflow: hidden;
 }
 .product-con .footer-group .bnt {
+  // flex:1;
   width: 43%;
 }
 .product-con .footer-group .bnt.bg-color-violet {

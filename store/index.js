@@ -58,7 +58,7 @@ const vuexStore = new Vuex.Store({
 			state.color = color;
 			// document.body.style.backgroundColor = color;
 		},
-		UPDATE_USERINFO(state, userInfo) {
+		UPDATE_USERINFO(state, userInfo) { 
 			state.userInfo = userInfo;
 		},
 		UPDATE_AUTHORIZATIONPAGE(state, isAuthorizationPage) {
