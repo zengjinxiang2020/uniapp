@@ -11,12 +11,12 @@
         <view class="times">
           <view>距秒杀结束仅剩</view>
           <count-down
-            :is-day="false"
-            :tip-text="''"
-            :day-text="''"
-            :hour-text="' : '"
-            :minute-text="' : '"
-            :second-text="''"
+            :isDay="false"
+            :tipText="false"
+            :dayText="false"
+            :hourText="' : '"
+            :minuteText="' : '"
+            :secondText="false"
             :datatime="datatime"
           ></count-down>
         </view>

@@ -14,12 +14,12 @@
         </view>
       </view>
       <count-down
-        :is-day="true"
-        :tip-text="'倒计时 '"
-        :day-text="' 天 '"
-        :hour-text="' 时 '"
-        :minute-text="' 分 '"
-        :second-text="' 秒'"
+        :isDay="true"
+        :tipText="'倒计时 '"
+        :dayText="' 天 '"
+        :hourText="' 时 '"
+        :minuteText="' 分 '"
+        :secondText="' 秒'"
         :datatime="datatime"
       ></count-down>
     </view>

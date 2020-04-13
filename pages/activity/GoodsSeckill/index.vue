@@ -18,12 +18,12 @@
         <view class="countDown font-color-red acea-row row-center-wrapper">
           <view v-if="item.status === 0" class="activity">活动已结束</view>
           <count-down
-            :is-day="false"
-            :tip-text="'距结束仅剩 '"
-            :day-text="''"
-            :hour-text="' : '"
-            :minute-text="' : '"
-            :second-text="''"
+            :isDay="false"
+            :tipText="'距结束仅剩 '"
+            :dayText="false"
+            :hourText="' : '"
+            :minuteText="' : '"
+            :secondText="false"
             :datatime="datatime"
             v-if="item.status === 1"
           ></count-down>

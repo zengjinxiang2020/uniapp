@@ -12,7 +12,7 @@
       <view class="item acea-row row-between-wrapper">
         <view class="name">所在地区</view>
         <view class="picker acea-row row-between-wrapper select-value form-control">
-          <view class="address" @tap="openAddres2">
+          <view class="address" @tap="openAddres">
             <!-- <picker
               @columnchange="addRessColumnchange"
               @change="changeAddress"
@@ -102,24 +102,21 @@ export default {
   },
   methods: {
     openAddres() {
-      this.cityPickerValueDefault = [0, 0, 1];
-      this.$refs.simpleAddress.open();
-    },
-    openAddres2() {
       // 根据 label 获取
       if (this.address.province) {
         // 这个插件有个问题，直辖市的 city 必须得是 市辖区
-        let str = "市";
-        let city = this.address.city;
-        if (this.address.province.indexOf(str) != -1) {
-          city = "市辖区";
-        }
-        var index = this.$refs.simpleAddress.queryIndex(
-          [this.address.province, city, this.address.district],
-          "label"
-        );
-        console.log(index);
-        this.cityPickerValueDefault = index.index;
+        try {
+          let str = "市";
+          let city = this.address.city;
+          if (this.address.province.indexOf(str) != -1) {
+            city = "市辖区";
+          }
+          var index = this.$refs.simpleAddress.queryIndex(
+            [this.address.province, city, this.address.district],
+            "label"
+          );
+          this.cityPickerValueDefault = index.index;
+        } catch (error) {}
       }
       this.$refs.simpleAddress.open();
 
@@ -130,19 +127,12 @@ export default {
       // this.cityPickerValueDefault = index.index;
       // this.$refs.simpleAddress.open();
     },
-    openAddres3() {
-      // 根据value 获取
-      var index = this.$refs.simpleAddress.queryIndex(
-        [13, 1302, 130203],
-        "value"
-      );
-      console.log(index);
-      this.cityPickerValueDefault = index.index;
-      this.$refs.simpleAddress.open();
-    },
     onConfirm(e) {
       this.pickerText = JSON.stringify(e);
       this.model2 = e.label;
+      this.address.province = e.labelArr[0] || "";
+      this.address.city = e.labelArr[1] || "";
+      this.address.district = e.labelArr[2] || "";
       console.log(this.pickerText);
     },
     getUserAddress: function() {

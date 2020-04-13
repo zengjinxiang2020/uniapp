@@ -1,6 +1,6 @@
 <template>
 	<view class="shoppingCart">
-		<view class v-if="userInfo.uid">
+		<view v-if="$store.getters.token||userInfo.uid">
 			<view class="labelNav acea-row row-around row-middle">
 				<view class="item">
 					<text class="iconfont icon-xuanzhong"></text>

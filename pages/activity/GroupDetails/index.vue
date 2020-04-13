@@ -50,12 +50,12 @@
                 <text>人成团</text>
               </view>
               <count-down
-                :is-day="false"
-                :tip-text="'剩余 '"
-                :day-text="''"
-                :hour-text="':'"
-                :minute-text="':'"
-                :second-text="''"
+                :isDay="false"
+                :tipText="'剩余 '"
+                :dayText="false"
+                :hourText="':'"
+                :minuteText="':'"
+                :secondText="false"
                 :datatime="item.stopTime"
               ></count-down>
             </view>
