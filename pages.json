@@ -3,37 +3,37 @@
 		{
 			"path": "pages/Loading/index",
 			"style": {
-				"navigationBarTitleText": "Loading"
+				"navigationBarTitleText": "yshop商城"
 			}
 		},
 		{
 			"path": "pages/authorization/index",
 			"style": {
-				"navigationBarTitleText": "authorization"
+				"navigationBarTitleText": "微信授权"
 			}
 		},
 		{
 			"path": "pages/user/Login/index",
 			"style": {
-				"navigationBarTitleText": "Login"
+				"navigationBarTitleText": "登录"
 			}
 		},
 		{
 			"path": "pages/user/Register/index",
 			"style": {
-				"navigationBarTitleText": "Register"
+				"navigationBarTitleText": "注册"
 			}
 		},
 		{
 			"path": "pages/user/RetrievePassword/index",
 			"style": {
-				"navigationBarTitleText": "RetrievePassword"
+				"navigationBarTitleText": "重置密码"
 			}
 		},
 		{
 			"path": "pages/launch/index",
 			"style": {
-				"navigationBarTitleText": "launch"
+				"navigationBarTitleText": "首页"
 			}
 		},
 		{
@@ -45,265 +45,265 @@
 		{
 			"path": "pages/shop/GoodSearch/index",
 			"style": {
-				"navigationBarTitleText": "GoodSearch"
+				"navigationBarTitleText": "搜索商品"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsClass/index",
 			"style": {
-				"navigationBarTitleText": "GoodsClass"
+				"navigationBarTitleText": "商品分类"
 			}
 		},
 		{
 			"path": "pages/shop/ShoppingCart/index",
 			"style": {
-				"navigationBarTitleText": "ShoppingCart"
+				"navigationBarTitleText": "购物车"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsList/index",
 			"style": {
-				"navigationBarTitleText": "GoodsList"
+				"navigationBarTitleText": "商品列表"
 			}
 		},
 		{
 			"path": "pages/NotDefined/index",
 			"style": {
-				"navigationBarTitleText": "NotDefined"
+				"navigationBarTitleText": "404"
 			}
 		},
 		{
 			"path": "pages/user/User/index",
 			"style": {
-				"navigationBarTitleText": "User"
+				"navigationBarTitleText": "我的"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsCollection/index",
 			"style": {
-				"navigationBarTitleText": "GoodsCollection"
+				"navigationBarTitleText": "商品收藏"
 			}
 		},
 		{
 			"path": "pages/shop/news/NewsDetail/index",
 			"style": {
-				"navigationBarTitleText": "NewsDetail"
+				"navigationBarTitleText": "新闻详情"
 			}
 		},
 		{
 			"path": "pages/shop/news/NewsList/index",
 			"style": {
-				"navigationBarTitleText": "NewsList"
+				"navigationBarTitleText": "新闻列表"
 			}
 		},
 		{
 			"path": "pages/shop/EvaluateList/index",
 			"style": {
-				"navigationBarTitleText": "EvaluateList"
+				"navigationBarTitleText": "评价列表"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsEvaluate/index",
 			"style": {
-				"navigationBarTitleText": "GoodsEvaluate"
+				"navigationBarTitleText": "商品评价"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsPromotion/index",
 			"style": {
-				"navigationBarTitleText": "GoodsPromotion"
+				"navigationBarTitleText": "促销商品"
 			}
 		},
 		{
 			"path": "pages/shop/HotNewGoods/index",
 			"style": {
-				"navigationBarTitleText": "HotNewGoods"
+				"navigationBarTitleText": "热门商品"
 			}
 		},
 		{
 			"path": "pages/shop/GoodsCon/index",
 			"style": {
-				"navigationBarTitleText": "GoodsCon"
+				"navigationBarTitleText": "商品详情"
 			}
 		},
 		{
 			"path": "pages/user/BindingPhone/index",
 			"style": {
-				"navigationBarTitleText": "BindingPhone"
+				"navigationBarTitleText": "绑定手机号"
 			}
 		},
 		{
 			"path": "pages/user/address/AddAddress/index",
 			"style": {
-				"navigationBarTitleText": "AddAddress"
+				"navigationBarTitleText": "新增收货地址"
 			}
 		},
 		{
 			"path": "pages/user/UserAccount/index",
 			"style": {
-				"navigationBarTitleText": "UserAccount"
+				"navigationBarTitleText": "账户余额"
 			}
 		},
 		{
 			"path": "pages/user/address/AddressManagement/index",
 			"style": {
-				"navigationBarTitleText": "AddressManagement"
+				"navigationBarTitleText": "收货地址"
 			}
 		},
 		{
 			"path": "pages/user/promotion/Poster/index",
 			"style": {
-				"navigationBarTitleText": "promotion"
+				"navigationBarTitleText": "推广名片"
 			}
 		},
 		{
 			"path": "pages/user/signIn/Sign/index",
 			"style": {
-				"navigationBarTitleText": "signIn"
+				"navigationBarTitleText": "签到"
 			}
 		},
 		{
 			"path": "pages/user/signIn/SignRecord/index",
 			"style": {
-				"navigationBarTitleText": "SignRecord"
+				"navigationBarTitleText": "签到记录"
 			}
 		},
 		{
 			"path": "pages/user/promotion/CashAudit/index",
 			"style": {
-				"navigationBarTitleText": "CashAudit"
+				"navigationBarTitleText": "提现结果"
 			}
 		},
 		{
 			"path": "pages/user/promotion/PromoterOrder/index",
 			"style": {
-				"navigationBarTitleText": "PromoterOrder"
+				"navigationBarTitleText": "分销详情"
 			}
 		},
 		{
 			"path": "pages/user/promotion/PromoterList/index",
 			"style": {
-				"navigationBarTitleText": "PromoterList"
+				"navigationBarTitleText": "分销列表"
 			}
 		},
 		{
 			"path": "pages/user/promotion/UserPromotion/index",
 			"style": {
-				"navigationBarTitleText": "UserPromotion"
+				"navigationBarTitleText": "佣金"
 			}
 		},
 		{
 			"path": "pages/user/UserBill/index",
 			"style": {
-				"navigationBarTitleText": "UserBill"
+				"navigationBarTitleText": "账单记录"
 			}
 		},
 		{
 			"path": "pages/user/promotion/CashRecord/index",
 			"style": {
-				"navigationBarTitleText": "CashRecord"
+				"navigationBarTitleText": "提现记录"
 			}
 		},
 		{
 			"path": "pages/user/promotion/CommissionDetails/index",
 			"style": {
-				"navigationBarTitleText": "CommissionDetails"
+				"navigationBarTitleText": "佣金明细"
 			}
 		},
 		{
 			"path": "pages/user/signIn/Integral/index",
 			"style": {
-				"navigationBarTitleText": "Integral"
+				"navigationBarTitleText": "我的积分"
 			}
 		},
 		{
 			"path": "pages/user/UserVip/index",
 			"style": {
-				"navigationBarTitleText": "UserVip"
+				"navigationBarTitleText": "用户vip"
 			}
 		},
 		{
 			"path": "pages/user/PersonalData/index",
 			"style": {
-				"navigationBarTitleText": "PersonalData"
+				"navigationBarTitleText": "个人资料"
 			}
 		},
 		{
 			"path": "pages/user/coupon/UserCoupon/index",
 			"style": {
-				"navigationBarTitleText": "UserCoupon"
+				"navigationBarTitleText": "优惠券"
 			}
 		},
 		{
 			"path": "pages/user/coupon/GetCoupon/index",
 			"style": {
-				"navigationBarTitleText": "GetCoupon"
+				"navigationBarTitleText": "领取优惠券"
 			}
 		},
 		{
 			"path": "pages/user/promotion/UserCash/index",
 			"style": {
-				"navigationBarTitleText": "UserCash"
+				"navigationBarTitleText": "提现"
 			}
 		},
 		{
 			"path": "pages/user/CustomerList/index",
 			"style": {
-				"navigationBarTitleText": "CustomerList"
+				"navigationBarTitleText": "客服列表"
 			}
 		},
 		{
 			"path": "pages/user/Recharge/index",
 			"style": {
-				"navigationBarTitleText": "Recharge"
+				"navigationBarTitleText": "充值"
 			}
 		},
 		{
 			"path": "pages/order/MyOrder/index",
 			"style": {
-				"navigationBarTitleText": "MyOrder"
+				"navigationBarTitleText": "我的订单"
 			}
 		},
 		{
 			"path": "pages/order/Logistics/index",
 			"style": {
-				"navigationBarTitleText": "Logistics"
+				"navigationBarTitleText": "查看物流"
 			}
 		},
 		{
 			"path": "pages/order/OrderDetails/index",
 			"style": {
-				"navigationBarTitleText": "OrderDetails"
+				"navigationBarTitleText": "订单详情"
 			}
 		},
 		{
 			"path": "pages/order/OrderSubmission/index",
 			"style": {
-				"navigationBarTitleText": "OrderSubmission"
+				"navigationBarTitleText": "提交订单"
 			}
 		},
 		{
 			"path": "pages/order/PaymentStatus/index",
 			"style": {
-				"navigationBarTitleText": "PaymentStatus"
+				"navigationBarTitleText": "支付状态"
 			}
 		},
 		{
 			"path": "pages/order/GoodsReturn/index",
 			"style": {
-				"navigationBarTitleText": "GoodsReturn"
+				"navigationBarTitleText": "商品退货"
 			}
 		},
 		{
 			"path": "pages/order/ReturnList/index",
 			"style": {
-				"navigationBarTitleText": "ReturnList"
+				"navigationBarTitleText": "退货列表"
 			}
 		},
 		{
 			"path": "pages/orderAdmin/OrderIndex/index",
 			"style": {
-				"navigationBarTitleText": "OrderIndex"
+				"navigationBarTitleText": "商家订单统计"
 			}
 		},
 		{
@@ -321,73 +321,73 @@
 		{
 			"path": "pages/orderAdmin/AdminOrder/index",
 			"style": {
-				"navigationBarTitleText": "AdminOrder"
+				"navigationBarTitleText": "商家订单列表"
 			}
 		},
 		{
 			"path": "pages/orderAdmin/Statistics/index",
 			"style": {
-				"navigationBarTitleText": "Statistics"
+				"navigationBarTitleText": "商家统计数据"
 			}
 		},
 		{
 			"path": "pages/orderAdmin/OrderCancellation/index",
 			"style": {
-				"navigationBarTitleText": "OrderCancellation"
+				"navigationBarTitleText": "商家取消订单"
 			}
 		},
 		{
 			"path": "pages/activity/Poster/index",
 			"style": {
-				"navigationBarTitleText": "Poster"
+				"navigationBarTitleText": "推广海报"
 			}
 		},
 		{
 			"path": "pages/activity/DargainDetails/index",
 			"style": {
-				"navigationBarTitleText": "DargainDetails"
+				"navigationBarTitleText": "帮砍价"
 			}
 		},
 		{
 			"path": "pages/activity/GoodsBargain/index",
 			"style": {
-				"navigationBarTitleText": "GoodsBargain"
+				"navigationBarTitleText": "砍价列表"
 			}
 		},
 		{
 			"path": "pages/activity/BargainRecord/index",
 			"style": {
-				"navigationBarTitleText": "BargainRecord"
+				"navigationBarTitleText": "砍价记录"
 			}
 		},
 		{
 			"path": "pages/activity/GoodsGroup/index",
 			"style": {
-				"navigationBarTitleText": "GoodsGroup"
+				"navigationBarTitleText": "团购商品列表"
 			}
 		},
 		{
 			"path": "pages/activity/GroupDetails/index",
 			"style": {
-				"navigationBarTitleText": "GroupDetails"
+				"navigationBarTitleText": "团购商品详情"
 			}
 		},
 		{
 			"path": "pages/activity/GroupRule/index",
 			"style": {
-				"navigationBarTitleText": "GroupRule"
+				"navigationBarTitleText": "团购规则"
 			}
 		},
 		{
 			"path": "pages/activity/GoodsSeckill/index",
 			"style": {
-				"navigationBarTitleText": "GoodsSeckill"
+				"navigationBarTitleText": "秒杀"
 			}
 		},
 		{
 			"path": "pages/activity/SeckillDetails/index",
 			"style": {
-				"navigationBarTitleText": "SeckillDetails"
+				"navigationBarTitleText": "秒杀详情"
 			}
 		}
 	],
