@@ -107,31 +107,18 @@
         </view>
         <view class="totalPrice">
           共{{ order.cartInfo.length || 0 }}件商品，总金额
-          <text
-            class="money font-color-red"
-          >￥{{ order.payPrice }}</text>
+          <text class="money font-color-red">￥{{ order.payPrice }}</text>
         </view>
         <view class="bottom acea-row row-right row-middle">
           <template v-if="order._status._type == 0">
             <view class="bnt cancelBnt" @click="cancelOrder(order)">取消订单</view>
-            <view
-              class="bnt bg-color-red"
-              @click="goOrderDetails(order)"
-            >立即付款</view>
+            <view class="bnt bg-color-red" @click="goOrderDetails(order)">立即付款</view>
           </template>
           <template v-if="order._status._type == 1 || order._status._type == 9">
-            <view
-              class="bnt bg-color-red"
-              @click="goOrderDetails(order)"
-            >查看详情</view>
+            <view class="bnt bg-color-red" @click="goOrderDetails(order)">查看详情</view>
           </template>
           <template v-if="order._status._type == 2">
-            <view
-              class="bnt default"
-              @click="
-            $yrouter.push({ path: '/pages/order/Logistics/index',query:{id:order.orderId}})
-            "
-            >查看物流</view>
+            <view class="bnt default" @click="goLogistics(order)">查看物流</view>
             <view class="bnt bg-color-red" @click="takeOrder(order)">确认收货</view>
           </template>
           <template v-if="order._status._type == 3">
@@ -144,16 +131,10 @@
             <!--&gt;-->
             <!--查看物流-->
             <!--</view>-->
-            <view
-              class="bnt bg-color-red"
-              @click="goOrderDetails(order)"
-            >去评价</view>
+            <view class="bnt bg-color-red" @click="goOrderDetails(order)">去评价</view>
           </template>
           <template v-if="order._status._type === 4">
-            <view
-              class="bnt bg-color-red"
-              @click="goOrderDetails(order)"
-            >查看订单</view>
+            <view class="bnt bg-color-red" @click="goOrderDetails(order)">查看订单</view>
           </template>
         </view>
       </view>
@@ -231,6 +212,12 @@ export default {
     type() {}
   },
   methods: {
+    goLogistics(order) {
+      this.$yrouter.push({
+        path: "/pages/order/Logistics/index",
+        query: { id: order.orderId }
+      });
+    },
     goOrderDetails(order) {
       this.$yrouter.push({
         path: "/pages/order/OrderDetails/index",
@@ -333,20 +320,21 @@ export default {
 </script>
 
 <style scoped lang="less">
+
 .noCart {
-  margin-top: 0.17*100rpx;
-  padding-top: 0.1*100rpx;
+  margin-top: 0.17 * 100rpx;
+  padding-top: 0.1 * 100rpx;
 }
 
 .noCart .pictrue {
-  width: 4*100rpx;
-  height: 3*100rpx;
+  width: 4 * 100rpx;
+  height: 3 * 100rpx;
   overflow: hidden;
-  margin: 0.7*100rpx auto 0.5*100rpx auto;
+  margin: 0.7 * 100rpx auto 0.5 * 100rpx auto;
 }
 
-.noCart .pictrue image{
-  width: 4*100rpx;
-  height: 3*100rpx;
+.noCart .pictrue image {
+  width: 4 * 100rpx;
+  height: 3 * 100rpx;
 }
 </style>

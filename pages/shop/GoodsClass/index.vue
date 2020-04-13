@@ -20,8 +20,8 @@
       </view>
     </view>
     <view class="conter">
-      <view class="listw" v-for="(item, eq) in category" :key="eq">
-        <view v-if="eq === navActive">
+      <view v-for="(item, eq) in category" :key="eq">
+        <view class="listw" v-if="eq === navActive">
           <view class="title acea-row row-center-wrapper" ref="title">
             <view class="line"></view>
             <view class="name">{{ item.cateName }}</view>

@@ -11,12 +11,12 @@
         <view class="times">
           <view>距秒杀结束仅剩</view>
           <count-down
-            :is-day="false"
-            :tip-text="''"
-            :day-text="''"
-            :hour-text="' : '"
-            :minute-text="' : '"
-            :second-text="''"
+            :isDay="false"
+            :tipText="false"
+            :dayText="false"
+            :hourText="' : '"
+            :minuteText="' : '"
+            :secondText="false"
             :datatime="datatime"
           ></count-down>
         </view>
@@ -39,13 +39,13 @@
     </view>
     <view style="height:100rpx;"></view>
     <view class="footerRush acea-row row-between-wrapper">
-      <view
+      <!-- <view
         class="customerSer acea-row row-center-wrapper row-column"
         @click="routerGo()"
       >
         <view class="iconfont icon-kefu"></view>
         <view>客服</view>
-      </view>
+      </view> -->
       <view class="bnt bg-color-red" @click="tapBuy">立即购买</view>
     </view>
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>

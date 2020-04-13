@@ -8,12 +8,12 @@
         <view class="text acea-row row-column-around">
           <view class="line1">{{ item.title }}</view>
           <count-down
-            :is-day="true"
-            :tip-text="'倒计时 '"
-            :day-text="' 天 '"
-            :hour-text="' 时 '"
-            :minute-text="' 分 '"
-            :second-text="' 秒'"
+            :isDay="true"
+            :tipText="'倒计时 '"
+            :dayText="' 天 '"
+            :hourText="' 时 '"
+            :minuteText="' 分 '"
+            :secondText="' 秒'"
             :datatime="item.datatime"
           ></count-down>
           <view class="money font-color-red">

@@ -56,7 +56,7 @@ export default {
       } else if (type === "2") {
         this.name = "热门榜单";
         this.icon = "icon-remen";
-        document.title = "热门榜单";
+        // document.title = "热门榜单";
       } else if (type === "3") {
         this.name = "首发新品";
         this.icon = "icon-xinpin";

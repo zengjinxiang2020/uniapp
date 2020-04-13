@@ -14,12 +14,12 @@
         </view>
       </view>
       <count-down
-        :is-day="true"
-        :tip-text="'倒计时 '"
-        :day-text="' 天 '"
-        :hour-text="' 时 '"
-        :minute-text="' 分 '"
-        :second-text="' 秒'"
+        :isDay="true"
+        :tipText="'倒计时 '"
+        :dayText="' 天 '"
+        :hourText="' 时 '"
+        :minuteText="' 分 '"
+        :secondText="' 秒'"
         :datatime="datatime"
       ></count-down>
     </view>
@@ -84,9 +84,9 @@
           <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">砍价帮</view>
-        <view class="pictrue on">
+        <!-- <view class="pictrue on">
           <image src="@/static/images/left.png" />
-        </view>
+        </view> -->
       </view>
       <view class="list">
         <view
@@ -142,10 +142,10 @@
       <view class="conter" v-html="bargain.rule"></view>
     </view>
     <view class="bargainTip" :class="active === true ? 'on' : ''">
-      <view class="pictrue">
+      <!-- <view class="pictrue">
         <image src="@/static/images/bargainBg.jpg" />
         <view class="iconfont icon-guanbi" @click="close"></view>
-      </view>
+      </view> -->
       <view class="cutOff" v-if="bargainPartake === userInfo.uid">
         您已砍掉
         <text class="font-color-red" v-text="bargainHelpPrice"></text>元，听说分享次数越多砍价成功的机会越大哦！
@@ -507,6 +507,9 @@ export default {
 </script>
 
 <style lang="less">
+.bargain{
+  background: #00c17b;
+}
 .bargainBnts {
   display: flex;
   align-items: center;

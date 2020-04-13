@@ -1,62 +1,57 @@
 <template>
   <view class="time">
-    {{ tipText }}
-    <text class="styleAll" v-if="isDay === true">{{ day }}</text>
-    <!-- <text class="timeTxt">{{ dayText }}</text> -->
+    <text v-if="rtipText">{{ rtipText }}</text> 
+    <text class="styleAll" v-if="risDay === true">{{ rday }}</text>
+    <text class="timeTxt" v-if="rdayText">{{ rdayText }}</text>
     <text class="styleAll">{{ hour }}</text>
-    <text class="timeTxt">{{ hourText }}</text>
+    <text class="timeTxt" v-if="rhourText">{{ rhourText }}</text>
     <text class="styleAll">{{ minute }}</text>
-    <text class="timeTxt">{{ minuteText }}</text>
+    <text class="timeTxt" v-if="rminuteText">{{ rminuteText }}</text>
     <text class="styleAll">{{ second }}</text>
-    <!-- <text class="timeTxt">{{ secondText }}</text> -->
+    <text class="timeTxt" v-if="rsecondText">{{ rsecondText }}</text>
   </view>
 </template>
 <script>
 export default {
   name: "CountDown",
-  props: {
+  props: [
     //距离开始提示文字
-    tipText: {
-      type: String,
-      default: "倒计时"
-    },
-    dayText: {
-      type: String,
-      default: "天"
-    },
-    hourText: {
-      type: String,
-      default: "时"
-    },
-    minuteText: {
-      type: String,
-      default: "分"
-    },
-    secondText: {
-      type: String,
-      default: "秒"
-    },
-    datatime: {
-      type: Number,
-      default: 0
-    },
-    isDay: {
-      type: Boolean,
-      default: true
-    }
-  },
+    'tipText',
+    'dayText',
+    'hourText',
+    'minuteText',
+    'secondText',
+    'datatime',
+    'isDay'
+  ],
   data: function() {
     return {
       day: "00",
       hour: "00",
       minute: "00",
-      second: "00"
+      second: "00",
+      rtipText: "倒计时",
+      rdayText: "天",
+      rhourText: "时",
+      rminuteText: "分",
+      rsecondText: "秒",
+      rdatatime: 0,
+      risDay: true
     };
   },
   created: function() {
     // this.show_time();
   },
   mounted: function() {
+    console.log(this)
+    this.rtipText = this.$props.tipText;
+    this.rdayText = this.$props.dayText;
+    this.rhourText = this.$props.hourText;
+    this.rminuteText = this.$props.minuteText;
+    this.rsecondText = this.$props.secondText;
+    this.rdatatime = this.$props.datatime;
+    this.risDay = this.$props.isDay;
+    console.log(this.rdayText)
     this.show_time();
   },
   methods: {

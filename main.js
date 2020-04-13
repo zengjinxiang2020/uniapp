@@ -31,12 +31,12 @@ Vue.prototype.$validator = function(rule) {
 	return new schema(rule);
 };
 
-const CACHE_KEY = "clear_0.0.1";
+// const CACHE_KEY = "clear_0.0.1";
 
-if (!cookie.has(CACHE_KEY)) {
-	cookie.clearAll();
-	cookie.set(CACHE_KEY, 1);
-}
+// if (!cookie.has(CACHE_KEY)) {
+// 	cookie.clearAll();
+// 	cookie.set(CACHE_KEY, 1);
+// }
 
 
 Vue.config.productionTip = false

@@ -43,7 +43,7 @@
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
 			<view class="title acea-row row-between-wrapper">
 				<view class="text"><view class="name line1">热门榜单</view></view>
-				<view @click="goHotNewGoods()" class="more">
+				<view @click="goHotNewGoods(2)" class="more">
 					更多
 					<text class="iconfont icon-jiantou"></text>
 				</view>
@@ -53,8 +53,8 @@
 					<view class="newProductsScroll">
 						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, likeInfoIndex) in likeInfo" :key="likeInfoIndex">
 							<view class="img-box"><image :src="item.image" /></view>
-							<view class="pro-info line1">{{ item.storeName }}</view>
-							<view class="money font-color-red">￥{{ item.price }}</view>
+							<view class="pro-info line1"><text>{{ item.storeName }}</text></view>
+							<view class="money font-color-red"><text>￥{{ item.price }}</text></view>
 						</view>
 					</view>
 				</scroll-view>
@@ -99,7 +99,7 @@
 		<view class="wrapper" v-if="benefit.length > 0">
 			<view class="title acea-row row-between-wrapper">
 				<view class="text"><view class="name line1">促销单品</view></view>
-				<view @click="goGoodsPromotion()" class="more">
+				<view @click="goGoodsPromotion(4)" class="more">
 					更多
 					<text class="iconfont icon-jiantou"></text>
 				</view>

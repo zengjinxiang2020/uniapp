@@ -2,6 +2,7 @@ import Fly from "flyio/dist/npm/wx";
 import $store from "../store";
 import toLogin from "@/libs/login";
 import { VUE_APP_API_URL } from "@/config";
+import cookie from "@/utils/store/cookie";
 
 
 const fly = new Fly()
@@ -28,28 +29,38 @@ fly.interceptors.response.use(
 const defaultOpt = { login: true };
 
 function baseRequest(options) {
-  const token = $store.state.token;
-  const headers = options.headers || {};
-  if (options.login) {
-    headers["Authorization"] = "Bearer " + token;
+
+  // 从缓存中获取 token 防止 token 失效后还会继续请求的情况
+  const token = cookie.get('login_status');
+
+  // 合并传参过来的 headers
+  // 如果接口需要登录，携带 token 去请求
+  options.headers = {
+    ...options.headers,
+    Authorization: "Bearer " + token
   }
 
-  options.headers = headers;
-  if (options.login && !token) {
+  // 如果需要登录才可访问的接口没有拿到 token 视为登录失效
+  if (options.login === true && !token) {
+    // 跳转到登录或授权页面
     toLogin();
+    // 提示错误信息
     return Promise.reject({ msg: "未登录", toLogin: true });
   }
 
+  // 结构请求需要的参数
   const { url, params, data, login, ...option } = options
+
+  // 发起请求
   return fly.request(url, params || data, {
     ...option
   }).then(res => {
-	  console.log(res)
-	  // console.log(url,params,data, ...option)
+    console.log(res)
+    // console.log(url,params,data, ...option)
     const data = res.data || {};
-    if (res.status !== 200)
+    if (res.status !== 200) {
       return Promise.reject({ msg: "请求失败", res, data });
-
+    }
     if ([410000, 410001, 410002].indexOf(data.status) !== -1) {
       toLogin();
       return Promise.reject({ msg: res.data.msg, res, data, toLogin: true });

@@ -62,8 +62,8 @@ export default {
     this.getActivity();
   },
   methods: {
-    goUserBill(id) {
-      this.$yrouter.push({ path: "/pages/user/UserBill/index", query: { id } });
+    goUserBill(types) {
+      this.$yrouter.push({ path: "/pages/user/UserBill/index", query: { types } });
     },
     getIndex: function() {
       let that = this;

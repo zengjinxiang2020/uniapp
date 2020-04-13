@@ -69,7 +69,7 @@ export function getHostProducts(page, limit) {
  * */
 export function getGroomList(type) {
 	return request.get("/groom/list/" + type, {}, {
-		login: false
+		login: true
 	});
 }
 

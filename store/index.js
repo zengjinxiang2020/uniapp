@@ -4,7 +4,7 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== "production";
 
-import store from "@/utils/store/cookie";
+import cookie from "@/utils/store/cookie";
 import {
 	getUserInfo
 } from "@/api/user";
@@ -18,8 +18,9 @@ const vuexStore = new Vuex.Store({
 		isAuthorizationPage: false,
 		// 是否授权
 		isAuthorization: false,
-		token: store.get(LOGIN_KEY) || null,
-		userInfo: store.get('userInfo'),
+		// 不建议从这里取 token，但是删除掉会影响其他的页面
+		token: cookie.get(LOGIN_KEY) || null,
+		userInfo: cookie.get('userInfo'),
 		$deviceType: null,
 	},
 	mutations: {
@@ -46,18 +47,18 @@ const vuexStore = new Vuex.Store({
 		},
 		LOGIN(state, token, expires_time) {
 			state.token = token;
-			store.set(LOGIN_KEY, token, expires_time);
+			cookie.set(LOGIN_KEY, token, expires_time);
 		},
 		LOGOUT(state) {
 			state.token = null;
 			state.userInfo = null
-			store.clearAll()
+			cookie.clearAll()
 		},
 		BACKGROUND_COLOR(state, color) {
 			state.color = color;
 			// document.body.style.backgroundColor = color;
 		},
-		UPDATE_USERINFO(state, userInfo) {
+		UPDATE_USERINFO(state, userInfo) { 
 			state.userInfo = userInfo;
 		},
 		UPDATE_AUTHORIZATIONPAGE(state, isAuthorizationPage) {
@@ -99,9 +100,9 @@ const vuexStore = new Vuex.Store({
 		}, user) {
 			commit("UPDATE_USERINFO", user);
 			if (user) {
-				store.set('userInfo', user)
+				cookie.set('userInfo', user)
 			} else {
-				store.set('userInfo', null)
+				cookie.set('userInfo', null)
 			}
 		},
 		changeAuthorizationPage({

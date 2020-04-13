@@ -122,13 +122,18 @@ export const replaceLogin = (msg) => {
 	console.log(uni, 989)
 	if (Vue.prototype.$deviceType == 'weixin') {
 		// 如果是微信小程序，跳转到授权页
-		replace({
-			path: '/pages/authorization/index',
-			query: {
-				redirect: `/${getCurrentPageUrl()}`,
-				...parseQuery()
+		login({
+			fail: () => {
+				replace({
+					path: '/pages/authorization/index',
+					query: {
+						redirect: `/${getCurrentPageUrl()}`,
+						...parseQuery()
+					}
+				})
 			}
 		})
+
 	} else {
 		// 如果不是小程序跳转到登录页
 		push({
@@ -218,7 +223,7 @@ export const login = (option) => {
 										console.log('登录成功4')
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
 										console.log('登录成功5')
-
+										console.log(store)
 										handleGetUserInfo()
 
 									}).catch(error => {
@@ -259,6 +264,7 @@ export const login = (option) => {
 }
 
 export const handleGetUserInfo = () => {
+	console.log('登录后请求用户信息')
 	getUser().then(res => {
 		console.log(res.data, '登录后的样式')
 		store.dispatch('setUserInfo', res.data)
@@ -296,10 +302,17 @@ export const handleGetUserInfo = () => {
 			path: url,
 			query
 		})
-		switchTab({
-			path: `${url}`,
-			query
-		});
+		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
+			switchTab({
+				path: `${url}`,
+				query
+			});
+		} else {
+			push({
+				path: `${url}`,
+				query
+			})
+		}
 	})
 }
 
@@ -341,9 +354,25 @@ export function parseRoute($mp) {
 	}
 }
 
+export function auth() {
+	/**
+	 *	如何判断权限?
+	 *	用户如果登录了系统，会留下两个东西，一个是token，一个是userInfo
+	 *	token存在会过期的问题，如果长时间没有打开小程序，会导致登录失效，出现打开一个页面瞬间跳转到授权页面的问题
+	 *		解决办法，保存token的时候加上过期时间，每次请求都取一下缓存里的token
+	 *	userInfo只是用来限时用户信息，作用并不是很大
+	 * 	ps：只需要判断 token 是否存在即可
+	 */
+	console.log(cookie.get('login_status'), 'token')
+	if (cookie.get('login_status')) {
+		return true
+	}
+	return false
+}
+
 
 export const handleLoginStatus = (location, complete, fail, success) => {
-	console.log(location, '开始健全')
+	console.log(location, '开始检验权限')
 	// 不登录可访问的页面
 	let page = [{
 		path: '/pages/Loading/index',
@@ -374,8 +403,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 		path = location.path
 	}
 
-	console.log(store.getters.userInfo, '用户信息')
-	if (!store.getters.token) {
+	if (!auth()) {
 		page.map((item) => {
 			console.log(item.path == path)
 			if (item.path == path) {
@@ -534,15 +562,16 @@ export const PosterCanvas = (store, successCallBack) => {
 		mask: true
 	});
 	getImageInfo([store.image, store.code]).then(res => {
+		console.log(res)
 		let contentHh = 48 * 1.3
-		const ctx = uni.createCanvasContext('myCanvas');
+		const ctx = uni.createCanvasContext('myCanvas')
 		ctx.clearRect(0, 0, 0, 0);
 		const WIDTH = 747
 		const HEIGHT = 1326;
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fillRect(0, 0, WIDTH, HEIGHT);
-		ctx.drawImage(res[1].path, 40, 1064, 200, 200);
 		ctx.drawImage(res[0].path, 0, 0, WIDTH, WIDTH);
+		ctx.drawImage(res[1].path, 40, 1064, 200, 200);
 		ctx.save();
 		let r = 90;
 		let d = r * 2;
@@ -562,10 +591,10 @@ export const PosterCanvas = (store, successCallBack) => {
 		ctx.setTextAlign('center')
 		ctx.setFontSize(22);
 		ctx.setFillStyle('#333333');
+		console.log('长按识别二维码立即购买')
 		ctx.fillText('长按识别二维码立即购买', WIDTH / 2, 1167);
-		// ctx.drawImage(store.code, 199, 1064, 200, 200);
 		ctx.save();
-		ctx.draw(true, function (oi) {
+		ctx.draw(true, () => {
 			uni.canvasToTempFilePath({
 				canvasId: 'myCanvas',
 				fileType: 'png',
@@ -581,6 +610,7 @@ export const PosterCanvas = (store, successCallBack) => {
 
 			})
 		});
+
 	})
 
 	// uni.getImageInfo({
