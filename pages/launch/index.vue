@@ -46,7 +46,6 @@ export default {
   },
   mounted() {
     let type = this.$yroute.query.type;
-    console.log(2222)
     if (type) {
     }
 	
@@ -54,7 +53,6 @@ export default {
     // }
   },
   onHide() {
-    console.log("清除状态");
   }
 };
 </script>

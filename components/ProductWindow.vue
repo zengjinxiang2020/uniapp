@@ -66,7 +66,6 @@ export default {
     return {};
   },
   mounted: function() {
-    console.log(this.attr);
   },
   methods: {
     closeAttr: function() {

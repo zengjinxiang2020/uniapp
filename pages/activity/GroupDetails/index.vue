@@ -235,7 +235,6 @@ export default {
     },
     mountedStart: function() {
       var that = this;
-      console.log(that);
       let id = that.$yroute.query.id;
       getCombinationDetail(id).then(res => {
         that.userCollect = res.data.userCollect;

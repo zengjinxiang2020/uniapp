@@ -119,7 +119,6 @@ export const replaceLogin = (msg) => {
 	});
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
-	console.log(uni, 989)
 	if (Vue.prototype.$deviceType == 'weixin') {
 		// 如果是微信小程序，跳转到授权页
 		login({
@@ -152,7 +151,6 @@ export const getProvider = () => {
 		uni.getProvider({
 			service: 'oauth',
 			success: function (res) {
-				console.log(`当前环境的服务商为 | ${res.provider}`)
 				// 此处可以排除h5
 				if (res.provider) {
 					resolve(res.provider[0])
@@ -185,7 +183,6 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = (option) => {
-	console.log('调用登录')
 	return new Promise((resolve, reject) => {
 		getProvider().then(provider => {
 			// 调用登录接口
@@ -193,16 +190,12 @@ export const login = (option) => {
 				provider: provider,
 				success: function (loginRes) {
 					// 微信登录
-					console.log(`获取code | ${loginRes.code}`)
 					let code = loginRes.code;
 					// 检查授权， 检查用户信息授权
 					authorize('userInfo').then(() => {
 						uni.getUserInfo({
 							provider: provider,
 							success: function (user) {
-								console.log(user)
-								console.log(`用户昵称为 | ${user.userInfo.nickName}`);
-								console.log(`当前的环境 | ${Vue.prototype.$deviceType}`)
 								if (Vue.prototype.$deviceType == 'weixin') {
 									wxappAuth({
 										encryptedData: user.encryptedData,
@@ -212,23 +205,14 @@ export const login = (option) => {
 									}).then(({
 										data
 									}) => {
-										console.log('登录成功')
-										console.log(data)
-										console.log('登录成功1')
-
 										resolve(data)
-										console.log('登录成功3')
-
 										uni.hideLoading();
-										console.log('登录成功4')
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
-										console.log('登录成功5')
 										console.log(store)
 										handleGetUserInfo()
 
 									}).catch(error => {
 										reject()
-										console.log('微信登录失败')
 										console.log(error)
 										handleFail(option, '微信登录失败')
 									});
@@ -264,19 +248,13 @@ export const login = (option) => {
 }
 
 export const handleGetUserInfo = () => {
-	console.log('登录后请求用户信息')
 	getUser().then(res => {
-		console.log(res.data, '登录后的样式')
 		store.dispatch('setUserInfo', res.data)
-		console.log('登录成功6')
 		var pages = getCurrentPages() //获取加载的页面
-		console.log('登录成功7')
 
 		var currentPage = pages[pages.length - 1] //获取当前页面的对象
 		let url = "/pages/home/index"
 		let query = {}
-		console.log('登录成功8')
-		console.log(currentPage)
 
 		if (currentPage) {
 			// 获取到最后一个页面
@@ -297,11 +275,6 @@ export const handleGetUserInfo = () => {
 				}
 			}
 		}
-		console.log('登录成功9')
-		console.log({
-			path: url,
-			query
-		})
 		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
 			switchTab({
 				path: `${url}`,
@@ -363,7 +336,6 @@ export function auth() {
 	 *	userInfo只是用来限时用户信息，作用并不是很大
 	 * 	ps：只需要判断 token 是否存在即可
 	 */
-	console.log(cookie.get('login_status'), 'token')
 	if (cookie.get('login_status')) {
 		return true
 	}
@@ -372,7 +344,6 @@ export function auth() {
 
 
 export const handleLoginStatus = (location, complete, fail, success) => {
-	console.log(location, '开始检验权限')
 	// 不登录可访问的页面
 	let page = [{
 		path: '/pages/Loading/index',
@@ -405,7 +376,6 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 	if (!auth()) {
 		page.map((item) => {
-			console.log(item.path == path)
 			if (item.path == path) {
 				isAuth = true
 			}
@@ -416,14 +386,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 	return new Promise((resolve, reject) => {
 		if (isAuth) {
-			console.log('有权限')
 			// 登录了有权限
-			console.log({
-				url: parseUrl(location),
-				complete,
-				fail,
-				success
-			})
 			resolve({
 				url: parseUrl(location),
 				complete,
@@ -431,7 +394,6 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 				success
 			})
 		} else {
-			console.log('无权限')
 			// 未登录没有权限
 			replaceLogin()
 			reject()
@@ -443,7 +405,6 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 export function push(location, complete, fail, success) {
 	handleLoginStatus(location, complete, fail, success).then(params => {
-		console.log(params)
 		uni.navigateTo(params)
 	}).catch(error => {
 		// 没有权限
@@ -453,7 +414,6 @@ export function push(location, complete, fail, success) {
 
 export function replace(location, complete, fail, success) {
 	handleLoginStatus(location, complete, fail, success).then(params => {
-		console.log(params)
 		uni.redirectTo(params)
 	}).catch(error => {
 		// 没有权限
@@ -476,9 +436,7 @@ export function back() {
 }
 
 export function switchTab(location, complete, fail, success) {
-	console.log(location)
 	handleLoginStatus(location, complete, fail, success).then(params => {
-		console.log(params)
 		uni.switchTab(params)
 	}).catch(error => {
 		// 没有权限
@@ -529,14 +487,12 @@ const getImageInfo = (images) => {
 				src: item,
 				fail: function (res) {
 					imageAry[index] = null
-					console.log(res)
 					if (imageAry.length == images.length) {
 						resolve(imageAry)
 					}
 				},
 				success: function (res) {
 					imageAry[index] = res
-					console.log(res)
 					if (Object.keys(imageAry).length == images.length) {
 						resolve(imageAry)
 					}
@@ -562,7 +518,6 @@ export const PosterCanvas = (store, successCallBack) => {
 		mask: true
 	});
 	getImageInfo([store.image, store.code]).then(res => {
-		console.log(res)
 		let contentHh = 48 * 1.3
 		const ctx = uni.createCanvasContext('myCanvas')
 		ctx.clearRect(0, 0, 0, 0);
@@ -591,7 +546,6 @@ export const PosterCanvas = (store, successCallBack) => {
 		ctx.setTextAlign('center')
 		ctx.setFontSize(22);
 		ctx.setFillStyle('#333333');
-		console.log('长按识别二维码立即购买')
 		ctx.fillText('长按识别二维码立即购买', WIDTH / 2, 1167);
 		ctx.save();
 		ctx.draw(true, () => {

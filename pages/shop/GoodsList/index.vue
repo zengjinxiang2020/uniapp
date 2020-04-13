@@ -177,7 +177,6 @@ export default {
       // document.title = this.title || this.$yroute.meta.title;
     },
     get_product_list() {
-      console.log("请求李贝奥");
       var that = this;
       this.setWhere();
       // if (to.name !== "GoodsList") return;

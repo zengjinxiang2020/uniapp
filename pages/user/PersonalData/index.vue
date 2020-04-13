@@ -235,7 +235,7 @@ export default {
               })
               .catch(err => {});
           } else if (res.cancel) {
-            console.log("用户点击取消");
+            // console.log("用户点击取消");
           }
         }
       });

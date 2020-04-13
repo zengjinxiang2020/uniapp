@@ -285,7 +285,6 @@
 				this.current = index;
 			},
 			async submit() {
-				console.log("spread:" + cookie.get("spread"));
 				const {
 					account,
 					password

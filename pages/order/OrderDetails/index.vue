@@ -514,7 +514,6 @@ export default {
       });
     },
     goGroupRule(orderInfo) {
-      console.log(orderInfo)
       this.$yrouter.push({
         path: "/pages/activity/GroupRule/index",
         query: {

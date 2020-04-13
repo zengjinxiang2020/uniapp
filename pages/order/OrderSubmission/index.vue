@@ -345,7 +345,6 @@
 			},
 			changeUseIntegral: function(e) {
 				// this.computedPrice();
-				console.log(e)
 				this.useIntegral = e.mp.detail.value[0];
 			},
 			computedPrice() {
@@ -486,22 +485,6 @@
 				if (this.$deviceType == 'app') {
 					form.form = 'app'
 				}
-				console.log(this.orderGroupInfo.orderKey, {
-						realName: this.contacts,
-						phone: this.contactsTel,
-						addressId: this.addressInfo.id,
-						useIntegral: this.useIntegral ? 1 : 0,
-						couponId: this.usableCoupon.id || 0,
-						payType: this.active,
-						pinkId: this.pinkId,
-						seckillId: this.orderGroupInfo.seckill_id,
-						combinationId: this.orderGroupInfo.combination_id,
-						bargainId: this.orderGroupInfo.bargain_id,
-						from: this.from,
-						mark: this.mark || "",
-						shippingType: parseInt(shipping_type) + 1,
-						...form
-					})
 				createOrder(this.orderGroupInfo.orderKey, {
 						realName: this.contacts,
 						phone: this.contactsTel,
@@ -519,7 +502,6 @@
 						...form
 					})
 					.then(res => {
-						console.log(res)
 						uni.hideLoading();
 						const data = res.data;
 						switch (data.status) {
@@ -565,7 +547,6 @@
 								break;
 							case "WECHAT_PAY":
 								weappPay(data.result.jsConfig).then(res => {
-									console.log(res)
 									this.$yrouter.replace({
 										path: "/pages/order/OrderDetails/index",
 										query: {

@@ -50,7 +50,6 @@ Vue.mixin({
 		const {
 			$mp
 		} = this.$root
-		console.log($mp)
 		this._route = parseRoute($mp)
 		// this.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
 		this._data.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
@@ -84,7 +83,6 @@ store.commit('UPDATE_DEVICETYPE','h5')
 
 // #ifdef APP-PLUS
 // App平台编译的代码
-console.log('App平台编译的代码')
 Vue.prototype.$deviceType = 'app'
 store.commit('UPDATE_DEVICETYPE','app')
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
@@ -92,7 +90,6 @@ Vue.prototype.$platform = uni.getSystemInfoSync().platform
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
-console.log('微信小程序编译的代码')
 Vue.prototype.$deviceType = 'weixin'
 store.commit('UPDATE_DEVICETYPE','weixin')
 // #endif

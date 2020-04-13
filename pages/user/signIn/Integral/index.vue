@@ -132,7 +132,6 @@ export default {
           that.loadTitle = that.loaded ? "人家是有底线的" : "上拉加载更多";
           that.where.page = that.where.page + 1;
           that.list.push.apply(that.list, res.data);
-		  console.log(that.list)
         },
         err => {
           uni.showToast({

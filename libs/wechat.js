@@ -2,7 +2,6 @@
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
     // 吊起微信支付
-	console.log(option,9999)
     uni.requestPayment({
       ...option,
       timeStamp: option.timeStamp + '',

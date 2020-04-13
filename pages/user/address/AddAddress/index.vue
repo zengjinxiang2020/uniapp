@@ -133,7 +133,6 @@ export default {
       this.address.province = e.labelArr[0] || "";
       this.address.city = e.labelArr[1] || "";
       this.address.district = e.labelArr[2] || "";
-      console.log(this.pickerText);
     },
     getUserAddress: function() {
       if (!this.id) return false;

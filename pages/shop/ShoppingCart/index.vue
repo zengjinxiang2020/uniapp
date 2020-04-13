@@ -193,7 +193,6 @@ export default {
 	//   },
 	watch: {
 		userInfo(user) {
-			console.log(user, '用户信息，8585');
 			if (user.uid) {
 				this.carnum();
 				this.countMoney();
@@ -202,7 +201,6 @@ export default {
 			}
 		},
 		token(token) {
-			console.log(token, '用户token，8585');
 			if (this.userInfo.uid) {
 				this.carnum();
 				this.countMoney();
@@ -348,7 +346,6 @@ export default {
 				});
 				return;
 			}
-			console.log(id);
 			this.$yrouter.push({
 				path: '/pages/order/OrderSubmission/index',
 				query: {

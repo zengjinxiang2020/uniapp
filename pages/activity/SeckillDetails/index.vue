@@ -199,7 +199,6 @@ export default {
       if (that.attr.cartAttr == false) {
         that.attr.cartAttr = !this.attr.attrcartAttr;
       } else {
-        console.log(that.storeInfo);
         var data = {};
         data.productId = that.storeInfo.productId;
         data.cartNum = that.attr.productSelect.cart_num;
@@ -208,7 +207,6 @@ export default {
         data.new = 1;
         postCartAdd(data)
           .then(res => {
-            console.log(res);
             that.$yrouter.push({
               path: "/pages/order/OrderSubmission/index",
               query: { id: res.data.cartId }

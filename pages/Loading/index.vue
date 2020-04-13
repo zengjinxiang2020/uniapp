@@ -41,8 +41,6 @@ export default {
       this.toLaunch();
       return;
     }
-    console.log(this.$store.getters.token, '获取store里面的 token');
-    console.log(this.$store.getters.userInfo, '获取store里面的 userInfo');
     cookie.get("spread");
     // this.toLaunch();
     if (this.$deviceType == 'app') {
@@ -61,7 +59,6 @@ export default {
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
     toLaunch() {
-      console.log(this);
       this.changeAuthorization(false);
       this.$yrouter.switchTab({
         path: "/pages/home/index"

@@ -220,7 +220,6 @@ export default {
       this.$yrouter.push("/pages/user/PersonalData/index");
     },
     getPhoneNumber: function(e) {
-      console.log(e.mp.detail);
       // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
       if (e.mp.detail.errMsg == "getPhoneNumber:ok") {
         uni.showLoading({
@@ -230,7 +229,6 @@ export default {
         uni.getProvider({
           service: "oauth",
           success: function(res) {
-            console.log(res.provider);
             // 此处可以排除h5
             if (res.provider) {
               uni.login({
@@ -324,8 +322,6 @@ export default {
     }
   },
   onShow() {
-    console.log(this.$store.getters.token);
-    console.log(this.userInfo);
     if (this.$store.getters.token) {
       this.User();
       this.MenuUser();

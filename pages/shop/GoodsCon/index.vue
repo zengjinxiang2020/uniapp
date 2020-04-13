@@ -257,9 +257,7 @@ export default {
   },
   computed: mapGetters(["isLogin"]),
   mounted: function() {
-    console.log(this);
     let url = handleQrCode();
-    console.log(url);
     if (url && url.productId) {
       this.id = url.productId;
     } else {
@@ -329,7 +327,6 @@ export default {
       if (this.$deviceType == "app") {
         form.form = "app";
       }
-      console.log(form, 2222);
       getProductDetail(that.id, form)
         .then(res => {
           that.$set(that, "storeInfo", res.data.storeInfo);
@@ -500,7 +497,6 @@ export default {
     },
     changeattr: function(msg) {
       this.attr.cartAttr = msg;
-      console.log(this.attr, msg);
       this.isOpen = false;
     },
     //选择属性；

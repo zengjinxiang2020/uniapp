@@ -114,7 +114,6 @@ export default {
   },
   methods: {
     changeTime: function(index) {
-      console.log(index);
       this.active = index;
       this.getSeckillList();
     },

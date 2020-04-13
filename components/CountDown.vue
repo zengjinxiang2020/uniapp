@@ -43,7 +43,6 @@ export default {
     // this.show_time();
   },
   mounted: function() {
-    console.log(this)
     this.rtipText = this.$props.tipText;
     this.rdayText = this.$props.dayText;
     this.rhourText = this.$props.hourText;
@@ -51,7 +50,6 @@ export default {
     this.rsecondText = this.$props.secondText;
     this.rdatatime = this.$props.datatime;
     this.risDay = this.$props.isDay;
-    console.log(this.rdayText)
     this.show_time();
   },
   methods: {

@@ -213,7 +213,6 @@ export default {
 			title: '加载中'
 		});
 		getHomeData().then(res => {
-			console.log(res);
 			that.logoUrl = res.data.logoUrl;
 			that.$set(that, 'banner', res.data.banner);
 			that.$set(that, 'menus', res.data.menus);
@@ -246,7 +245,6 @@ export default {
 			});
 		},
 		goGoodsCon(item) {
-			console.log(item);
 			this.$yrouter.push({
 				path: '/pages/shop/GoodsCon/index',
 				query: { id: item.id }
