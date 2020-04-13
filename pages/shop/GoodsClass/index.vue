@@ -1,13 +1,12 @@
 <template>
   <view class="productSort">
-    <form @submit.prevent="submitForm">
-      <view class="header acea-row row-center-wrapper" ref="header">
-        <view class="acea-row row-between-wrapper input">
-          <text class="iconfont icon-sousuo"></text>
-          <input type="text" placeholder="搜索商品信息" v-model="search" />
+    <div class="index">
+      <view class="header acea-row row-center-wrapper">
+        <view @click="goGoodSearch()" class="search acea-row row-middle">
+          <text class="iconfont icon-xiazai5"></text>搜索商品
         </view>
       </view>
-    </form>
+    </div>
     <view class="aside">
       <view
         class="item acea-row row-center-wrapper"
@@ -74,6 +73,9 @@ export default {
     this.loadCategoryData();
   },
   methods: {
+    goGoodSearch() {
+      this.$yrouter.push("/pages/shop/GoodSearch/index");
+    },
     goGoodsList(child) {
       this.$yrouter.push({
         path: "/pages/shop/GoodsList/index",
