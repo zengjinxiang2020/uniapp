@@ -311,28 +311,6 @@
     </view>
   </view>
 </template>
-<script>
-export default {
-  methods: {
-    goGoodsReturn(orderInfo) {
-      this.$yrouter.push({
-        path: "/pages/order/GoodsReturn/index",
-        query: {
-          id: orderInfo.orderId
-        }
-      });
-    },
-    goGroupRule(orderInfo) {
-      this.$yrouter.push({
-        path: "/pages/activity/GroupRule/index",
-        query: {
-          id: orderInfo.pinkId
-        }
-      });
-    }
-  }
-};
-</script>
 <style scoped lang="less">
 .geoPage {
   position: fixed;
@@ -527,6 +505,23 @@ export default {
   },
   methods: {
     copyClipboard,
+    goGoodsReturn(orderInfo) {
+      this.$yrouter.push({
+        path: "/pages/order/GoodsReturn/index",
+        query: {
+          id: orderInfo.orderId
+        }
+      });
+    },
+    goGroupRule(orderInfo) {
+      console.log(orderInfo)
+      this.$yrouter.push({
+        path: "/pages/activity/GroupRule/index",
+        query: {
+          id: orderInfo.pinkId
+        }
+      });
+    },
     showChang: function() {
       // 这里判断是不是微信小程序
       if (isWeixin()) {

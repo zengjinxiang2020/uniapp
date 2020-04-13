@@ -320,6 +320,7 @@ export default {
 </script>
 
 <style scoped lang="less">
+
 .noCart {
   margin-top: 0.17 * 100rpx;
   padding-top: 0.1 * 100rpx;

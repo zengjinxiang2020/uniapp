@@ -11,7 +11,7 @@
       </view>
       <view class="item acea-row row-between-wrapper">
         <view class="name">所在地区</view>
-        <view class="picker acea-row row-between-wrapper select-value form-control" >
+        <view class="picker acea-row row-between-wrapper select-value form-control">
           <view class="address" @tap="openAddres2">
             <!-- <picker
               @columnchange="addRessColumnchange"
@@ -23,7 +23,7 @@
               <text class="uni-input" v-if="model2">{{model2}}</text>
               <text class="uni-input" v-else>请选择地区</text>
             </picker>-->
-            <text class="uni-input"  >{{model2||'请选择'}}</text>
+            <text class="uni-input">{{model2||'请选择'}}</text>
             <simple-address
               ref="simpleAddress"
               :pickerValueDefault="cityPickerValueDefault"
@@ -107,18 +107,28 @@ export default {
     },
     openAddres2() {
       // 根据 label 获取
-      
-      
-if(this.address.province){
-
-      var index = this.$refs.simpleAddress.queryIndex(
-        [this.address.province, this.address.city, this.address.district],
-        "label"
-      );
-      console.log(index);
-      this.cityPickerValueDefault = index.index;
-	  }
+      if (this.address.province) {
+        // 这个插件有个问题，直辖市的 city 必须得是 市辖区
+        let str = "市";
+        let city = this.address.city;
+        if (this.address.province.indexOf(str) != -1) {
+          city = "市辖区";
+        }
+        var index = this.$refs.simpleAddress.queryIndex(
+          [this.address.province, city, this.address.district],
+          "label"
+        );
+        console.log(index);
+        this.cityPickerValueDefault = index.index;
+      }
       this.$refs.simpleAddress.open();
+
+      // var index = this.$refs.simpleAddress.queryIndex(
+      //   [13, 1302, 130203],
+      //   "value"
+      // );
+      // this.cityPickerValueDefault = index.index;
+      // this.$refs.simpleAddress.open();
     },
     openAddres3() {
       // 根据value 获取
@@ -135,7 +145,7 @@ if(this.address.province){
       this.model2 = e.label;
       console.log(this.pickerText);
     },
-      getUserAddress: function() {
+    getUserAddress: function() {
       if (!this.id) return false;
       let that = this;
       getAddress(that.id).then(res => {
@@ -228,8 +238,8 @@ if(this.address.province){
 </script>
 
 <style lang="less">
-.address{
-  text{
+.address {
+  text {
     width: 100%;
     display: block;
   }

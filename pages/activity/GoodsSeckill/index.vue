@@ -177,6 +177,7 @@ export default {
       that.status = false;
       that.active = index;
       that.datatime = that.timeList[that.active].stop;
+      this.seckillList=[]
       that.getSeckillList();
     },
     getSeckillList: function() {
