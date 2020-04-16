@@ -330,6 +330,7 @@ export default {
       getProductDetail(that.id, form)
         .then(res => {
           that.$set(that, "storeInfo", res.data.storeInfo);
+          // 给 attr 赋值，将请求回来的规格赋值给 attr
           that.$set(that.attr, "productAttr", res.data.productAttr);
           that.$set(that, "productValue", res.data.productValue);
           that.$set(that, "replyCount", res.data.replyCount);
@@ -496,11 +497,15 @@ export default {
       this.isOpen = true;
     },
     changeattr: function(msg) {
+      // 修改了规格
+      console.log(msg)
       this.attr.cartAttr = msg;
       this.isOpen = false;
     },
     //选择属性；
     ChangeAttr: function(res) {
+       // 修改了规格
+      console.log(res)
       let productSelect = this.productValue[res.value];
       if (productSelect) {
         this.attr.productAttr[res.indexw].index = res.indexn;

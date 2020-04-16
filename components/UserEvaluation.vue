@@ -10,7 +10,7 @@
           <view class="start" :class="'star' + item.star"></view>
         </view>
       </view>
-      <view class="time">{{ item.add_time }} {{ item.suk }}</view>
+      <view class="time">{{ dataFormat(item.addTime) }} {{ item.suk }}</view>
       <view class="evaluate-infor">{{ item.comment }}</view>
       <view class="imgList acea-row">
         <view class="pictrue" v-for="(itemn, eq) in item.picturesArr" :key="eq">
@@ -26,6 +26,8 @@
   </view>
 </template>
 <script>
+import {  dataFormat } from "@/utils";
+
 export default {
   name: "UserEvaluation",
   props: {
@@ -38,6 +40,8 @@ export default {
     return {};
   },
   mounted: function() {},
-  methods: {}
+  methods: {
+    dataFormat,
+  }
 };
 </script>

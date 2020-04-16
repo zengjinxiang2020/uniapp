@@ -66,6 +66,7 @@ export default {
     return {};
   },
   mounted: function() {
+    console.log(this);
   },
   methods: {
     closeAttr: function() {
@@ -81,7 +82,8 @@ export default {
       // 修改商品规格不生效的原因：
       // H5端下面写法，attr更新，但是除H5外其他端不支持，
       // 尽量避免下面的骚写法，不要在子组件内更新props
-      // this.attr.productAttr[res.indexw].index = res.indexn;
+      // 这里修改是为了能获取到被选中的属性
+      this.attr.productAttr[indexw].index = indexn;
       let that = this;
       let value = that
         .getCheckedValue()
@@ -100,6 +102,7 @@ export default {
     getCheckedValue: function() {
       let productAttr = this.attr.productAttr;
       let value = [];
+      console.log(productAttr)
       for (let i = 0; i < productAttr.length; i++) {
         for (let j = 0; j < productAttr[i].attrValueArr.length; j++) {
           if (productAttr[i].index === j) {
