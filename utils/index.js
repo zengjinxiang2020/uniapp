@@ -208,6 +208,7 @@ export const login = (option) => {
 										resolve(data)
 										uni.hideLoading();
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
+										store.dispatch('USERINFO', true)
 										console.log(store)
 										handleGetUserInfo()
 

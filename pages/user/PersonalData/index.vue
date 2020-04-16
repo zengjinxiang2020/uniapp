@@ -171,17 +171,17 @@ export default {
     getUserInfo: function() {
       let that = this;
       getUser().then(res => {
-        let switchUserInfo = res.data.switchUserInfo;
-        for (let i = 0; i < switchUserInfo.length; i++) {
-          if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
-          if (
-            !that.isWeixin &&
-            switchUserInfo[i].user_type != "h5" &&
-            switchUserInfo[i].phone === ""
-          )
-            switchUserInfo.splice(i, 1);
-        }
-        that.$set(this, "switchUserInfo", switchUserInfo);
+        // let switchUserInfo = res.data.switchUserInfo;
+        // for (let i = 0; i < switchUserInfo.length; i++) {
+        //   if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
+        //   if (
+        //     !that.isWeixin &&
+        //     switchUserInfo[i].user_type != "h5" &&
+        //     switchUserInfo[i].phone === ""
+        //   )
+        //     switchUserInfo.splice(i, 1);
+        // }
+        // that.$set(this, "switchUserInfo", switchUserInfo);
       });
     },
     imageuploaded(res) {

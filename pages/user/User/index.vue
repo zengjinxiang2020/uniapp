@@ -220,6 +220,7 @@ export default {
       this.$yrouter.push("/pages/user/PersonalData/index");
     },
     getPhoneNumber: function(e) {
+      let thit=this
       // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
       if (e.mp.detail.errMsg == "getPhoneNumber:ok") {
         uni.showLoading({
@@ -239,7 +240,9 @@ export default {
                     iv: e.mp.detail.iv
                   })
                     .then(res => {
-                      this.User();
+                      console.log(res);
+                      // this.User();
+                      thit.$store.dispatch("USERINFO", true);
                       uni.hideLoading();
                       uni.showToast({
                         title: res.msg,
@@ -248,15 +251,27 @@ export default {
                       });
                     })
                     .catch(error => {
+                      uni.hideLoading();
+                      thit.$store.dispatch("USERINFO", true);
+                      console.log(error);
                       uni.showToast({
-                        title: error.msg || error.response.data.msg,
+                        title:
+                          error.msg ||
+                          error.response.data.msg ||
+                          error.response.data.message,
                         icon: "none",
                         duration: 2000
                       });
                     });
+                },
+                fail() {
+                  reject("绑定失败");
                 }
               });
             }
+          },
+          fail() {
+            reject("获取环境服务商失败");
           }
         });
       } else {

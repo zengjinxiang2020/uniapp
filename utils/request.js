@@ -57,6 +57,7 @@ function baseRequest(options) {
   }).then(res => {
     const data = res.data || {};
     if (res.status !== 200) {
+      
       return Promise.reject({ msg: "请求失败", res, data });
     }
     if ([410000, 410001, 410002].indexOf(data.status) !== -1) {
