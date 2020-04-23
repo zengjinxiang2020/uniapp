@@ -286,7 +286,7 @@
 		data: function() {
 			return {
 				offlinePayStatus: 2,
-				from: "routine",
+				from: this.$deviceType,
 				// from: _isWeixin ? "weixin" : "weixinh5",
 				deduction: true,
 				isWeixin: _isWeixin,

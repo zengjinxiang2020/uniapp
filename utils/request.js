@@ -47,7 +47,7 @@ function baseRequest(options) {
     // 提示错误信息
     return Promise.reject({ msg: "未登录", toLogin: true });
   }
-
+console.log(options)
   // 结构请求需要的参数
   const { url, params, data, login, ...option } = options
 
@@ -55,6 +55,7 @@ function baseRequest(options) {
   return fly.request(url, params || data, {
     ...option
   }).then(res => {
+	  console.log(res)
     const data = res.data || {};
     if (res.status !== 200) {
       

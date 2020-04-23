@@ -71,6 +71,7 @@ export function delOrderHandle(orderId) {
 }
 
 export function payOrderHandle(orderId, type, from) {
+  console.log(orderId, type, from, '支付')
   return new Promise((resolve, reject) => {
     uni.showLoading({ title: '加载中' })
     payOrder(orderId, type, from)
@@ -94,6 +95,10 @@ export function payOrderHandle(orderId, type, from) {
             resolve(data);
             break;
           case "WECHAT_PAY":
+            weappPay(data.result.jsConfig).then(res => {
+              resolve(data);
+            });
+          case "WECHAT_APP_PAY":
             weappPay(data.result.jsConfig).then(res => {
               resolve(data);
             });

@@ -482,7 +482,7 @@ export default {
       status: {},
       pay: false,
       payType: ["yue", "weixin"],
-      from: "routine",
+      from: this.$deviceType,
       system_store: {},
       mapKay: "",
       mapShow: false
@@ -652,6 +652,7 @@ export default {
     },
     async toPay(type) {
       var that = this;
+      console.log(type, "支付方式");
       await payOrderHandle(this.orderInfo.orderId, type, that.from);
       that.getDetail();
     }

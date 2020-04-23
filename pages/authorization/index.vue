@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view v-if="!token">
-			<view v-if="$deviceType == 'weixin'">
+			<view v-if="$deviceType == 'routine'">
 				<view class="getUserInfo">
 					<text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
 					<button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>

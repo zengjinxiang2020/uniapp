@@ -90,8 +90,8 @@ Vue.prototype.$platform = uni.getSystemInfoSync().platform
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
-Vue.prototype.$deviceType = 'weixin'
-store.commit('UPDATE_DEVICETYPE','weixin')
+Vue.prototype.$deviceType = 'routine'
+store.commit('UPDATE_DEVICETYPE','routine')
 // #endif
 
 // !!! ps  不建议在 template 中使用 $deviceType 去判断当前环境，很有可能出现 $deviceType 为 undefined 导致判断出错的问题，可以在 script 模块中正常使用

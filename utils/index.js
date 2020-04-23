@@ -119,7 +119,7 @@ export const replaceLogin = (msg) => {
 	});
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
-	if (Vue.prototype.$deviceType == 'weixin') {
+	if (Vue.prototype.$deviceType == 'routine') {
 		// 如果是微信小程序，跳转到授权页
 		login({
 			fail: () => {
@@ -196,7 +196,7 @@ export const login = (option) => {
 						uni.getUserInfo({
 							provider: provider,
 							success: function (user) {
-								if (Vue.prototype.$deviceType == 'weixin') {
+								if (Vue.prototype.$deviceType == 'routine') {
 									wxappAuth({
 										encryptedData: user.encryptedData,
 										iv: user.iv,
