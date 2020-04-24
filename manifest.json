@@ -57,23 +57,24 @@
             "sdkConfigs" : {
                 "oauth" : {
                     "weixin" : {
-                        "appid" : "",
-                        "appsecret" : "",
+                        "appid" : "wx7c84ede33062d1e4",
+                        "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
                         "UniversalLinks" : ""
                     }
                 },
                 "payment" : {
                     "weixin" : {
-                        "appid" : "",
+                        "appid" : "wx7c84ede33062d1e4",
                         "UniversalLinks" : ""
                     }
                 },
                 "share" : {
                     "weixin" : {
-                        "appid" : "",
+                        "appid" : "wx7c84ede33062d1e4",
                         "UniversalLinks" : ""
                     }
-                }
+                },
+                "ad" : {}
             }
         }
     },

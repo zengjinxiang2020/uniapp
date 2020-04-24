@@ -145,11 +145,11 @@ export const replaceLogin = (msg) => {
 	}
 }
 
-export const getProvider = () => {
+export const getProvider = (service) => {
 	return new Promise((resolve, reject) => {
 		// 获取当前环境的服务商
 		uni.getProvider({
-			service: 'oauth',
+			service: service || 'oauth',
 			success: function (res) {
 				// 此处可以排除h5
 				if (res.provider) {

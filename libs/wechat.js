@@ -4,44 +4,48 @@ import { getProvider } from "@/utils";
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
     // 吊起微信支付
-    getProvider().then(provider => {
+    // getProvider('payment').then(provider => {
       let orderInfo = {
-        ...option,
-        timeStamp: option.timestamp + '',
+        appid: option.appid,
+        noncestr: option.noncestr,
+        package: option.package,
+        partnerid: option.partnerid,
+        prepayid: option.prepayid,
+        sign: option.sign,
+        timestamp: option.timestamp + '',
       }
       console.log({
-        provider: provider,
-        signType: "MD5",
-        timeStamp: orderInfo.timestamp,
-        nonceStr: orderInfo.noncestr,
-        package: orderInfo.prepayid,
-        signType: "MD5",
-        paySign: orderInfo.sign,
+        provider: 'wxpay',
+        // signType: "MD5",
+        // timeStamp: orderInfo.timeStamp,
+        // nonceStr: orderInfo.noncestr,
+        // package: orderInfo.prepayid,
+        // signType: "MD5",
+        // paySign: orderInfo.sign,
         orderInfo,
-      },'发起支付')
+      }, '发起支付')
       // 调用登录接口
       uni.requestPayment({
-        provider: provider,
-        signType: "MD5",
-        timeStamp: orderInfo.timeStamp,
-        nonceStr: orderInfo.noncestr,
-        package: orderInfo.prepayid,
-        signType: "MD5",
-        paySign: orderInfo.sign,
+        provider: 'wxpay',
+        // timeStamp: orderInfo.timeStamp,
+        // nonceStr: orderInfo.noncestr,
+        // package: orderInfo.prepayid,
+        // signType: "MD5",
+        // paySign: orderInfo.sign,
         orderInfo,
         success: (success) => {
-          console.log(error)
+          console.log(success)
           uni.showToast({
-            title: '支付成功', icon: 'success', duration: 2000
+            title: JSON.stringify(success), icon: 'success', duration: 5000
           });
           resolve(success)
         },
         fail: (error) => {
           console.log(error)
-          uni.showToast({ title: '支付失败', icon: 'none', duration: 2000 });
+          uni.showToast({ title: JSON.stringify(error), icon: 'none', duration: 5000 });
           reject(error)
         }
       })
-    })
+    // })
   })
 }

@@ -5,6 +5,7 @@
 				<text class="iconfont icon-xiazai5"></text>
 				搜索商品
 			</view>
+			<view class="qr" @click="startQr()"><image src="@/static/images/qr.png" /></view>
 		</view>
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0">
@@ -253,7 +254,15 @@ export default {
 		goGoodsPromotion() {
 			this.$yrouter.push('/pages/shop/GoodsPromotion/index');
 		},
-		setOpenShare: function() {}
+		setOpenShare: function() {},
+		startQr:function(){
+				uni.scanCode({
+					success:function(res){
+						console.log(JSON.stringify(res));
+					}
+				});
+			}
+
 	}
 };
 </script>

@@ -327,6 +327,7 @@
 		},
 		mounted: function() {
 			let that = this;
+			this.$store.dispatch('USERINFO', true)
 			that.getCartInfo();
 			if (that.$yroute.query.pinkid !== undefined)
 				that.pinkId = that.$yroute.query.pinkid;
@@ -535,6 +536,7 @@
 								});
 								break;
 							case "WECHAT_H5_PAY":
+								// H5支付
 								this.$yrouter.replace({
 									path: "/pages/order/OrderDetails/index",
 									query: {
@@ -546,6 +548,17 @@
 								}, 100);
 								break;
 							case "WECHAT_PAY":
+								// 小程序支付
+								weappPay(data.result.jsConfig).then(res => {
+									this.$yrouter.replace({
+										path: "/pages/order/OrderDetails/index",
+										query: {
+											id: data.result.orderId
+										}
+									});
+								});
+							case "WECHAT_APP_PAY":
+								// APP支付
 								weappPay(data.result.jsConfig).then(res => {
 									this.$yrouter.replace({
 										path: "/pages/order/OrderDetails/index",
