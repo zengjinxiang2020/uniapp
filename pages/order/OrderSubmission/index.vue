@@ -508,6 +508,18 @@
 						switch (data.status) {
 							case "ORDER_EXIST":
 							case "EXTEND_ORDER":
+								uni.showToast({
+									title: res.msg,
+									icon: "none",
+									duration: 2000
+								});
+								this.$yrouter.replace({
+									path: "/pages/order/OrderDetails/index",
+									query: {
+										id: data.result.orderId
+									}
+								});
+								break;
 							case "PAY_DEFICIENCY":
 							case "PAY_ERROR":
 								uni.showToast({
@@ -549,24 +561,24 @@
 								break;
 							case "WECHAT_PAY":
 								// 小程序支付
-								weappPay(data.result.jsConfig).then(res => {
+								weappPay(data.result.jsConfig).finally(()=>{
 									this.$yrouter.replace({
 										path: "/pages/order/OrderDetails/index",
 										query: {
 											id: data.result.orderId
 										}
 									});
-								});
+								})
 							case "WECHAT_APP_PAY":
 								// APP支付
-								weappPay(data.result.jsConfig).then(res => {
+								weappPay(data.result.jsConfig).finally(()=>{
 									this.$yrouter.replace({
 										path: "/pages/order/OrderDetails/index",
 										query: {
 											id: data.result.orderId
 										}
 									});
-								});
+								})
 
 								// 下面为原先微信支付方式，
 								// pay(data.result.jsConfig).finally(() => {
