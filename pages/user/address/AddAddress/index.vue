@@ -177,7 +177,7 @@ export default {
             phone: phone,
             address: this.address,
             detail: detail,
-            is_default: isDefault,
+            is_default: isDefault ? true : false,
             post_code: ""
           };
         postAddress(data).then(function() {
@@ -193,9 +193,9 @@ export default {
               icon: "none",
               duration: 2000
             });
-            that.$yrouter.replace({
-              path: "/pages/user/PersonalData/index"
-            });
+            // that.$yrouter.replace({
+            //   path: "/pages/user/PersonalData/index"
+            // });
           }
           that.$yrouter.go(-1);
         });

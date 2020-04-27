@@ -147,24 +147,24 @@ export default {
     !this.loading && this.get_product_list();
   },
   onHide() {
-    this.hostProduct = [];
-    this.productList = [];
-    this.Switch = true;
-    this.where = {
-      page: 1,
-      limit: 8,
-      keyword: s,
-      sid: id, //二级分类id
-      news: 0,
-      priceOrder: "",
-      salesOrder: ""
-    };
-    this.loadTitle = "";
-    this.loading = false;
-    this.loadend = false;
-    this.price = 0;
-    this.stock = 0;
-    this.nows = fals;
+    // this.hostProduct = [];
+    // this.productList = [];
+    // this.Switch = true;
+    // this.where = {
+    //   page: 1,
+    //   limit: 8,
+    //   keyword: s,
+    //   sid: id, //二级分类id
+    //   news: 0,
+    //   priceOrder: "",
+    //   salesOrder: ""
+    // };
+    // this.loadTitle = "";
+    // this.loading = false;
+    // this.loadend = false;
+    // this.price = 0;
+    // this.stock = 0;
+    // this.nows = fals;
   },
   methods: {
     goGoodsCon(item) {

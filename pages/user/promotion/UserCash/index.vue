@@ -89,6 +89,7 @@ export default {
   },
   methods: {
     swichNav: function(index, item) {
+      console.log(item);
       this.currentTab = index;
       this.post.extract_type = item.type;
     },
@@ -102,10 +103,10 @@ export default {
         },
         function(err) {
           uni.showToast({
-				title: err.msg || err.response.data.msg,
-				icon: 'none',
-				duration: 2000
-			});
+            title: err.msg || err.response.data.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
@@ -117,31 +118,45 @@ export default {
         cardnum = this.post.cardnum,
         weixin = this.post.weixin,
         that = this;
+      // console.log(parseFloat(money))
       if (
         parseFloat(money) > parseFloat(that.commissionCount) ||
         parseFloat(that.commissionCount) == 0
-      ) {
-        uni.showToast({
-          title: "余额不足",
-          icon: "none",
-          duration: 2000
-        });
-        return;
-      }
-      if (parseFloat(money) < parseFloat(that.minPrice)) {
-        uni.showToast({
-          title: "最低提现金额" + that.minPrice,
-          icon: "none",
-          duration: 2000
-        });
-        return;
-      }
+      )
+        return that.$dialog.message("余额不足");
+      if (parseFloat(money) < parseFloat(that.minPrice))
+        return that.$dialog.message("最低提现金额" + that.minPrice);
+      //console.log(that.post.extract_type)
       switch (that.post.extract_type) {
         case "alipay":
+          // if (!name) {
+          //   uni.showToast({
+          //     title: "请输入支付宝用户名",
+          //     icon: "none",
+          //     duration: 2000
+          //   });
+          //   return;
+          // }
+          // if (!alipay_code) {
+          //   uni.showToast({
+          //     title: "请输入支付宝账号",
+          //     icon: "none",
+          //     duration: 2000
+          //   });
+          //   return;
+          // }
+          // if (!money) {
+          //   uni.showToast({
+          //     title: "请输入提现金额",
+          //     icon: "none",
+          //     duration: 2000
+          //   });
+          //   return;
+          // }
           try {
             await this.$validator({
               name: [required(required.message("支付宝用户名"))],
-              alipayCode: [required(required.message("支付宝账号"))],
+              alipay_code: [required(required.message("支付宝账号"))],
               money: [required(required.message("提现金额"))]
             }).validate({ name, alipay_code, money });
             let save = {

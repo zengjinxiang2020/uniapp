@@ -76,13 +76,13 @@
           <input type="text" v-else value="未绑定" disabled class="id" />
         </view>
       </view>
-      <view class="item acea-row row-between-wrapper" @click="goChangePassword()">
+      <!-- <view class="item acea-row row-between-wrapper" @click="goChangePassword()">
         <view>密码</view>
         <view class="input acea-row row-between-wrapper">
           <text>点击修改密码</text>
           <text class="iconfont icon-suozi"></text>
         </view>
-      </view>
+      </view> -->
     </view>
     <!--<view class="modifyBnt bg-color-red" @click="submit">保存修改</view>-->
     <!-- <view
