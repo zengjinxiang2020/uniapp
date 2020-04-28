@@ -146,14 +146,11 @@
         </view>-->
       </view>
       <view class="by">
-        <text class="by-text">By@意象</text>
+        <text class="by-text">By@Yshop</text>
       </view>
       <view class="by">
         <view>
           <text class="by-text">Copyright © 2020</text>
-        </view>
-        <view>
-          <text class="by-text">漯河市大有前途网络科技有限公司</text>
         </view>
       </view>
       <view class="footer-line-height"></view>
@@ -220,7 +217,7 @@ export default {
       this.$yrouter.push("/pages/user/PersonalData/index");
     },
     getPhoneNumber: function(e) {
-      let thit=this
+      let thit = this;
       // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
       if (e.mp.detail.errMsg == "getPhoneNumber:ok") {
         uni.showLoading({
@@ -287,10 +284,10 @@ export default {
     },
     User: function() {
       let that = this;
-      // getUser().then(res => {
-      // 	that.user = res.data;
-      // 	that.orderStatusNum = res.data.orderStatusNum;
-      // });
+      getUser().then(res => {
+        that.user = res.data;
+        that.orderStatusNum = res.data.orderStatusNum;
+      });
     },
     MenuUser: function() {
       let that = this;
@@ -338,7 +335,9 @@ export default {
   },
   onShow() {
     if (this.$store.getters.token) {
-      this.User();
+      // 
+			this.$store.dispatch('getUser', true)
+      
       this.MenuUser();
       this.isWeixin = isWeixin();
     }

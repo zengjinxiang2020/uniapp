@@ -118,7 +118,7 @@
 
 							<checkbox-group @change="allChecked">
 								<label class="well-check">
-									<checkbox value :checked="isAllSelect && cartCount > 0"></checkbox>
+									<checkbox value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
 									<text class="checkAll">全选 ({{ cartCount }})</text>
 								</label>
 							</checkbox-group>
@@ -441,8 +441,10 @@ export default {
 		},
 		//全选
 		allChecked: function(e) {
+			console.log(e)
 			let that = this;
-			let selectAllStatus = e.mp.detail.value[0] ? true : false;
+			let selectAllStatus = e.mp.detail.value[0]=='allSelect' ? true : false;
+			console.log(selectAllStatus)
 			// let selectAllStatus = that.isAllSelect;
 			let checkedIds = [];
 			// for (let i = 0; i < array.length; i++) {
@@ -460,6 +462,7 @@ export default {
 			};
 			that.cartList = [];
 			that.cartList = cartList;
+			console.log(this.cartList)
 			this.$set(this, 'cartList', this.cartList);
 			this.$set(this, 'isAllSelect', selectAllStatus);
 			this.checkedIds = checkedIds;

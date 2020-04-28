@@ -327,7 +327,7 @@
 		},
 		mounted: function() {
 			let that = this;
-			this.$store.dispatch('USERINFO', true)
+			this.$store.dispatch('getUser', true)
 			that.getCartInfo();
 			if (that.$yroute.query.pinkid !== undefined)
 				that.pinkId = that.$yroute.query.pinkid;

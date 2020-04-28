@@ -6,7 +6,8 @@ const debug = process.env.NODE_ENV !== "production";
 
 import cookie from "@/utils/store/cookie";
 import {
-	getUserInfo
+	getUserInfo,
+	getUser
 } from "@/api/user";
 import dialog from "@/utils/dialog";
 
@@ -58,8 +59,13 @@ const vuexStore = new Vuex.Store({
 			state.color = color;
 			// document.body.style.backgroundColor = color;
 		},
-		UPDATE_USERINFO(state, userInfo) { 
+		UPDATE_USERINFO(state, userInfo) {
 			state.userInfo = userInfo;
+			if (userInfo) {
+				cookie.set('userInfo', userInfo)
+			} else {
+				cookie.set('userInfo', null)
+			}
 		},
 		UPDATE_AUTHORIZATIONPAGE(state, isAuthorizationPage) {
 			state.isAuthorizationPage = isAuthorizationPage;
@@ -72,13 +78,10 @@ const vuexStore = new Vuex.Store({
 		},
 	},
 	actions: {
-		USERINFO({
-			state,
-			commit
-		}, force) {
-			if (state.userInfo !== null && !force)
+		USERINFO({ state, commit }, force) {
+			if (state.userInfo !== null && !force) {
 				return Promise.resolve(state.userInfo);
-			else
+			} else {
 				return new Promise(reslove => {
 					getUserInfo().then(res => {
 						commit("UPDATE_USERINFO", res.data);
@@ -87,6 +90,19 @@ const vuexStore = new Vuex.Store({
 				}).catch(() => {
 					dialog.error("获取信息失败!");
 				});
+			}
+		},
+		getUser({ state, commit }) {
+			return new Promise(reslove => {
+				getUser().then(res => {
+					console.log(res)
+					commit("UPDATE_USERINFO", res.data);
+					reslove(res.data);
+				});
+			}).catch((error) => {
+				console.log(error)
+				dialog.error("获取信息失败!");
+			});
 		},
 		changeLogin({
 			state,
@@ -99,11 +115,6 @@ const vuexStore = new Vuex.Store({
 			commit
 		}, user) {
 			commit("UPDATE_USERINFO", user);
-			if (user) {
-				cookie.set('userInfo', user)
-			} else {
-				cookie.set('userInfo', null)
-			}
 		},
 		changeAuthorizationPage({
 			state,
