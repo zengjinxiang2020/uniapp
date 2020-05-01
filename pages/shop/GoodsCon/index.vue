@@ -135,6 +135,7 @@
       v-on:setPosterImageStatus="setPosterImageStatus"
       :posterImageStatus="posterImageStatus"
       :posterData="posterData"
+      :goodId="id"
     ></StorePoster>
     <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
     <view class="generate-posters acea-row row-middle" :class="posters ? 'on' : ''">
@@ -258,6 +259,7 @@ export default {
   computed: mapGetters(["isLogin"]),
   mounted: function() {
     let url = handleQrCode();
+    console.log(url);
     if (url && url.productId) {
       this.id = url.productId;
     } else {
@@ -327,6 +329,7 @@ export default {
       if (this.$deviceType == "app") {
         form.form = "app";
       }
+      uni.showLoading({ title: "加载中", mask: true });
       getProductDetail(that.id, form)
         .then(res => {
           that.$set(that, "storeInfo", res.data.storeInfo);
@@ -370,6 +373,9 @@ export default {
             icon: "none",
             duration: 2000
           });
+        })
+        .finally(() => {
+          uni.hideLoading();
         });
     },
     //默认选中属性；
@@ -498,14 +504,14 @@ export default {
     },
     changeattr: function(msg) {
       // 修改了规格
-      console.log(msg)
+      console.log(msg);
       this.attr.cartAttr = msg;
       this.isOpen = false;
     },
     //选择属性；
     ChangeAttr: function(res) {
-       // 修改了规格
-      console.log(res)
+      // 修改了规格
+      console.log(res);
       let productSelect = this.productValue[res.value];
       if (productSelect) {
         this.attr.productAttr[res.indexw].index = res.indexn;

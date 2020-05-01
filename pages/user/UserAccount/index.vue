@@ -75,7 +75,7 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg,
+				title: err.msg || err.response.data.msg|| err.response.data.message,
 				icon: 'none',
 				duration: 2000
 			});
@@ -92,7 +92,7 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg,
+				title: err.msg || err.response.data.msg|| err.response.data.message,
 				icon: 'none',
 				duration: 2000
 			});

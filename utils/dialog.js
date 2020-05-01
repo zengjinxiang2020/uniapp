@@ -27,9 +27,9 @@ const dialog = {
 	// notify,
 	loading: {
 		open: () => {
-			uni.showLoading({
-				title: '加载中'
-			})
+			// uni.showLoading({
+			// 	title: '加载中'
+			// })
 		},
 		close: () => {
 			uni.hideLoading()

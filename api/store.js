@@ -72,6 +72,14 @@ export function getGroomList(type) {
 		login: true
 	});
 }
+/*
+ * 获取商品海报
+ * */
+export function getProductPoster(id) {
+	return request.get("/product/poster/" + id, {}, {
+		login: true
+	});
+}
 
 /*
  * 购物车 添加

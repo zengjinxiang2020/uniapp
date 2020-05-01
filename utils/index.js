@@ -459,25 +459,42 @@ export function handleQrCode() {
 	try {
 		var urlSpread = parseQuery()["q"];
 		if (urlSpread) {
-			// 通过海报二维码进来
-			urlSpread = urlSpread
-				.split("%3F")[1]
-				.replace(/%3D/g, ":")
-				.replace(/%26/g, ",")
-				.split(",")
-				.map((item, index) => {
-					item = item.split(":");
-					return `"${item[0]}":"${item[1]}"`;
-				})
-				.join(",");
-			urlSpread = JSON.parse("{" + urlSpread + "}");
-			return urlSpread
+			if (urlSpread.indexOf('%3F') != -1) {
+				// 通过海报二维码进来
+				urlSpread = urlSpread
+					.split("%3F")[1]
+					.replace(/%3D/g, ":")
+					.replace(/%26/g, ",")
+					.split(",")
+					.map((item, index) => {
+						item = item.split(":");
+						return `"${item[0]}":"${item[1]}"`;
+					})
+					.join(",");
+				urlSpread = JSON.parse("{" + urlSpread + "}");
+				return urlSpread
+			} else {
+				return handleUrlParam(urlSpread)
+			}
 		}
 		return null
 	} catch {
 		return null
 	}
 
+}
+
+export function handleUrlParam(path) {
+	console.log(path)
+
+	var url = path.split("?")[1]; //获取url中"?"符后的字串  
+	console.log(url)
+	var theRequest = new Object();
+	let strs = url.split("&");
+	for (var i = 0; i < strs.length; i++) {
+		theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+	}
+	return theRequest;
 }
 
 const getImageInfo = (images) => {

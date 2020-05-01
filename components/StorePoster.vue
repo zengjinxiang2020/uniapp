@@ -47,6 +47,80 @@
     <view class="mask"></view>
   </view>
 </template>
+
+<script>
+// import html2canvas from "html2canvas";
+import { PosterCanvas } from "@/utils";
+import { getProductPoster } from "@/api/store";
+
+export default {
+  name: "StorePoster",
+  props: {
+    posterImageStatus: Boolean,
+    posterData: Object,
+    goodId: String
+  },
+  data: function() {
+    return {
+      canvasStatus: false,
+      posterImage: ""
+    };
+  },
+  watch: {
+    posterImageStatus: function() {
+      var that = this;
+      if (that.posterImageStatus === true) {
+        that.$nextTick(function() {
+          that.savePosterPath();
+        });
+      }
+    }
+  },
+  mounted: function() {},
+  methods: {
+    posterImageClose: function() {
+      this.posterImageStatus = false;
+      this.canvasStatus = false;
+      this.$emit("setPosterImageStatus");
+    },
+    savePosterPath: function() {
+      const that = this;
+
+      uni.showLoading({ title: "海报生成中", mask: true });
+      getProductPoster(this.goodId)
+        .then(res => {
+          this.canvasStatus = true;
+          this.posterImage = res.data;
+        })
+        .finally(() => {
+          uni.hideLoading();
+        });
+      // return;
+      // //清空图片重新生成
+      // that.posterImage = "";
+      // uni.showLoading({ title: "海报生成中", mask: true });
+      // console.log(this);
+      // var prodId = that.$yrouter.currentRoute.query.id;
+      // uni.downloadFile({
+      //   url:
+      //     this.$VUE_APP_API_URL +
+      //     "/shareImg/" +
+      //     prodId +
+      //     "?shareImgName=" +
+      //     this.posterData.code,
+      //   fail: function(res) {},
+      //   success: function(res) {
+      //     console.log(res);
+      //     that.canvasStatus = true;
+      //     that.posterImage = res.tempFilePath;
+      //     uni.hideLoading();
+      //   }
+      // });
+    }
+  }
+};
+</script>
+
 <style scoped lang="less" lang="less">
 .poster-first {
   overscroll-behavior: contain;
@@ -135,45 +209,3 @@
   z-index: 9;
 }
 </style>
-<script>
-// import html2canvas from "html2canvas";
-import { PosterCanvas } from "@/utils";
-
-export default {
-  name: "StorePoster",
-  props: {
-    posterImageStatus: Boolean,
-    posterData: Object
-  },
-  data: function() {
-    return {
-      canvasStatus: false,
-      posterImage: ""
-    };
-  },
-  watch: {
-    posterImageStatus: function() {
-      var that = this;
-      if (that.posterImageStatus === true) {
-        that.$nextTick(function() {
-          that.savePosterPath();
-        });
-      }
-    }
-  },
-  mounted: function() {},
-  methods: {
-    posterImageClose: function() {
-      this.posterImageStatus = false;
-      this.canvasStatus = false;
-      this.$emit("setPosterImageStatus");
-    },
-    savePosterPath: function() {
-      PosterCanvas(this.posterData, posterImage => {
-        this.canvasStatus = true;
-        this.posterImage = posterImage;
-      });
-    }
-  }
-};
-</script>
