@@ -75,6 +75,13 @@
                     }
                 },
                 "ad" : {}
+            },
+            "splashscreen" : {
+                "ios" : {
+                    "iphone" : {
+                        "portrait-896h@3x" : "/Users/piao/Downloads/意(1)/1242+2688.png"
+                    }
+                }
             }
         }
     },

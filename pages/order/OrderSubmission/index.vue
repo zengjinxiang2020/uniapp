@@ -90,8 +90,8 @@
 				</view>
 			</view>
 			<view class="item">
-				<view>备注信息</view>
-				<textarea placeholder="请添加备注（150字以内）" v-model="mark"></textarea>
+				<view>备注信息（150字以内）</view>
+				<textarea v-model="mark"></textarea>
 			</view>
 		</view>
 		<view class="wrapper">

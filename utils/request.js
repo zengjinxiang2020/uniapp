@@ -10,10 +10,12 @@ fly.config.baseURL = VUE_APP_API_URL
 
 fly.interceptors.response.use(
   response => {
+    console.log(response)
     // 定时刷新access-token
     return response;
   },
   error => {
+    console.log(error)
     if (error.toString() == 'Error: Network Error') {
       toLogin();
       return Promise.reject({ msg: "未登录", toLogin: true });
@@ -47,7 +49,6 @@ function baseRequest(options) {
     // 提示错误信息
     return Promise.reject({ msg: "未登录", toLogin: true });
   }
-console.log(options)
   // 结构请求需要的参数
   const { url, params, data, login, ...option } = options
 
@@ -55,10 +56,8 @@ console.log(options)
   return fly.request(url, params || data, {
     ...option
   }).then(res => {
-	  console.log(res)
     const data = res.data || {};
     if (res.status !== 200) {
-      
       return Promise.reject({ msg: "请求失败", res, data });
     }
     if ([410000, 410001, 410002].indexOf(data.status) !== -1) {
