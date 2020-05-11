@@ -101,6 +101,7 @@
 			};
 		},
 		mounted: function() {
+			uni.showLoading({ title: "加载中", mask: true });
 			this.signUser();
 			this.signConfig();
 			this.getSignList();
@@ -129,6 +130,7 @@
 				postSignUser({
 					sign: 1
 				}).then(res => {
+					uni.hideLoading();
 					res.data.integral = parseInt(res.data.integral);
 					var sumSginDay = res.data.sumSignDay;
 					that.userInfo = res.data;

@@ -44,8 +44,7 @@
         <view class="item" v-for="(item, vipCompleteIndex) in vipComplete" :key="vipCompleteIndex">
           <view class="top acea-row row-between-wrapper">
             <view class="name">
-              {{ item.name
-              }}
+              {{ item.name}}
               <text class="iconfont icon-wenti" v-if="item.illustrate" @click="showGrow(item)"></text>
             </view>
             <view>{{ item.finish ? "已满足条件" : "未满足条件" }}</view>
@@ -165,7 +164,8 @@ export default {
         },
         err => {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });
@@ -182,7 +182,8 @@ export default {
         },
         err => {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });

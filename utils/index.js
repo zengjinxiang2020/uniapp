@@ -114,17 +114,19 @@ export const replaceLogin = (msg) => {
 	uni.hideLoading();
 	if (msg) {
 		uni.showToast({
-			title: msg,
+			title: '重新登录中...',
 			icon: 'none',
 			duration: 2000
 		});
 	}
-	// 这里代表已经失去登录状态以及401强制退出登录了
+	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
+	console.log('如果是微信小程序，跳转到授权页', Vue.prototype.$deviceType, msg)
 	if (Vue.prototype.$deviceType == 'routine') {
 		// 如果是微信小程序，跳转到授权页
 		login({
 			fail: () => {
+				console.log('如果是微信小程序，跳转到授权页')
 				replace({
 					path: '/pages/authorization/index',
 					query: {
@@ -176,6 +178,10 @@ export const authorize = (authorizeStr) => {
 				resolve('获取授权成功')
 			},
 			fail() {
+				switchTab({
+					path: '/pages/home/index',
+					// query
+				});				
 				reject('获取授权失败')
 			}
 		})
@@ -252,13 +258,14 @@ export const login = (option) => {
 
 export const handleGetUserInfo = () => {
 	getUser().then(res => {
+		console.log('获取用户信息')
 		store.dispatch('setUserInfo', res.data)
 		var pages = getCurrentPages() //获取加载的页面
 
 		var currentPage = pages[pages.length - 1] //获取当前页面的对象
 		let url = "/pages/home/index"
 		let query = {}
-
+		console.log('currentPage')
 		if (currentPage) {
 			// 获取到最后一个页面
 			if (
@@ -278,16 +285,21 @@ export const handleGetUserInfo = () => {
 				}
 			}
 		}
+		console.log(url)
 		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
 			switchTab({
 				path: `${url}`,
 				query
 			});
 		} else {
-			push({
-				path: `${url}`,
-				query
-			})
+			switchTab({
+				path: '/pages/home/index',
+				// query
+			});
+			// push({
+			// 	path: `${url}`,
+			// 	query
+			// })
 		}
 	})
 }

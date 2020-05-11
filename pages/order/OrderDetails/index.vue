@@ -542,8 +542,6 @@ export default {
       }
     },
     goBack() {
-      const history = this.app.history,
-        last = history[history.length - 1] || {};
       if (last.name === "MyOrder") return this.$yrouter.back();
       else
         return this.$yrouter.replace({

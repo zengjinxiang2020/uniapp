@@ -39,7 +39,9 @@ export const weappPay = (option) => {
       },
       fail: (error) => {
         console.log(error)
-        uni.showToast({ title: JSON.stringify(error), icon: 'none', duration: 5000 });
+        if (error.errMsg == 'requestPayment:fail cancel') {
+          uni.showToast({ title: '已取消支付', icon: 'none', duration: 5000 });
+        }
         reject(error)
       }
     })
