@@ -112,12 +112,14 @@ export const copyClipboard = (data) => {
 
 export const replaceLogin = (msg) => {
 	uni.hideLoading();
-	uni.showToast({
-		title: msg,
-		icon: 'none',
-		duration: 2000
-	});
-	// 这里代表已经失去登录状态以及401强制推出登录了
+	if (msg) {
+		uni.showToast({
+			title: msg,
+			icon: 'none',
+			duration: 2000
+		});
+	}
+	// 这里代表已经失去登录状态以及401强制退出登录了
 	store.commit('LOGOUT')
 	if (Vue.prototype.$deviceType == 'routine') {
 		// 如果是微信小程序，跳转到授权页
