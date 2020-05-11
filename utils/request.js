@@ -10,12 +10,11 @@ fly.config.baseURL = VUE_APP_API_URL
 
 fly.interceptors.response.use(
   response => {
-    console.log(response)
+    // console.log(response)
     // 定时刷新access-token
     return response;
   },
   error => {
-    console.log(error)
     if (error.toString() == 'Error: Network Error') {
       toLogin();
       return Promise.reject({ msg: "未登录", toLogin: true });

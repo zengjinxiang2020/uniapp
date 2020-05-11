@@ -112,22 +112,21 @@ export const copyClipboard = (data) => {
 
 export const replaceLogin = (msg) => {
 	uni.hideLoading();
-	if (msg) {
-		uni.showToast({
-			title: '重新登录中...',
-			icon: 'none',
-			duration: 2000
-		});
-	}
+	console.log('尝试开始重新登录')
+	uni.showToast({
+		title: '重新登录中...',
+		icon: 'none',
+		duration: 2000
+	});
 	// 这里代表已经失去登录状态以及401强制推出登录了
 	store.commit('LOGOUT')
-	console.log('如果是微信小程序，跳转到授权页', Vue.prototype.$deviceType, msg)
 	if (Vue.prototype.$deviceType == 'routine') {
+		console.log('当前是微信小程序，开始调用登录方法')
 		// 如果是微信小程序，跳转到授权页
 		login({
 			fail: () => {
-				console.log('如果是微信小程序，跳转到授权页')
-				replace({
+				console.log('自动登录失败，重定向授权页面')
+				reLaunch({
 					path: '/pages/authorization/index',
 					query: {
 						redirect: `/${getCurrentPageUrl()}`,
@@ -139,6 +138,7 @@ export const replaceLogin = (msg) => {
 
 	} else {
 		// 如果不是小程序跳转到登录页
+		console.log('当前是app，跳转到登录页面')
 		push({
 			path: '/pages/user/Login/index',
 			query: {
@@ -178,10 +178,12 @@ export const authorize = (authorizeStr) => {
 				resolve('获取授权成功')
 			},
 			fail() {
+
+				console.log('授权失败跳转首页')
 				switchTab({
 					path: '/pages/home/index',
 					// query
-				});				
+				});
 				reject('获取授权失败')
 			}
 		})
@@ -191,19 +193,28 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = (option) => {
+	console.log('开始登录 ————————————————————')
 	return new Promise((resolve, reject) => {
+		console.log('获取环境商')
 		getProvider().then(provider => {
 			// 调用登录接口
+			console.log('调用登录接口')
 			uni.login({
 				provider: provider,
 				success: function (loginRes) {
 					// 微信登录
+					console.log('登录接口调用成功')
+					console.log('开始检查用户信息授权')
 					let code = loginRes.code;
 					// 检查授权， 检查用户信息授权
 					authorize('userInfo').then(() => {
+						console.log('授权通过')
+						console.log('开始获取用户信息')
 						uni.getUserInfo({
 							provider: provider,
 							success: function (user) {
+								console.log('获取用户信息成功')
+								console.log('开始调用登录接口')
 								if (Vue.prototype.$deviceType == 'routine') {
 									wxappAuth({
 										encryptedData: user.encryptedData,
@@ -213,14 +224,16 @@ export const login = (option) => {
 									}).then(({
 										data
 									}) => {
+										console.log('登录接口调用成功')
+										console.log('开始处理登录信息保存，并获取用户详情')
 										resolve(data)
 										uni.hideLoading();
 										store.commit("LOGIN", data.token, dayjs(data.expires_time));
 										store.dispatch('USERINFO', true)
 										console.log(store)
 										handleGetUserInfo()
-
 									}).catch(error => {
+										console.log('登录接口调用失败')
 										reject()
 										console.log(error)
 										handleFail(option, '微信登录失败')
@@ -228,29 +241,34 @@ export const login = (option) => {
 								}
 							},
 							fail() {
+								console.log('获取用户信息失败')
 								// 获取用户信息失败
 								reject()
 								handleFail(option, '获取用户信息失败')
 							}
 						});
 					}).catch(error => {
+						console.log('用户未授权')
 						reject()
 						console.log(error)
-						handleFail(option, '拒绝授权')
+						handleFail(option, '用户未授权')
 					})
 				},
 				fail() {
+					console.log('调用登录接口失败')
 					// 调用登录接口失败
 					reject()
 					handleFail(option, '登录失败')
 				}
 			});
 		}).catch(error => {
+			handleFail(option, '获取环境服务商失败')
 			reject()
 			console.log(error)
 			handleFail(option, '获取环境服务商失败')
 		})
 	}).catch(error => {
+		handleFail(option, '登录失败')
 		console.log(error)
 		handleFail(option, '登录失败')
 	})
@@ -265,25 +283,29 @@ export const handleGetUserInfo = () => {
 		var currentPage = pages[pages.length - 1] //获取当前页面的对象
 		let url = "/pages/home/index"
 		let query = {}
-		console.log('currentPage')
 		if (currentPage) {
+			const {
+				redirect,
+				...querys
+			} = currentPage.options
 			// 获取到最后一个页面
 			if (
 				currentPage.route != 'pages/Loading/index' &&
 				currentPage.route != 'pages/user/Login/index'
 			) {
 				url = currentPage.route
+				query = {
+					...querys
+				}
 			}
 			if (currentPage.route == 'pages/authorization/index') {
-				const {
-					redirect,
-					...querys
-				} = currentPage.options
+
 				url = redirect
 				query = {
 					...querys
 				}
 			}
+
 		}
 		console.log(url)
 		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
@@ -292,10 +314,27 @@ export const handleGetUserInfo = () => {
 				query
 			});
 		} else {
-			switchTab({
+			console.log('获取用户信息后跳转回显的页面')
+			// 为了防止返回上一页是授权页面，先重定向到首页，再跳转
+			console.log({
+				path: `/${url}`,
+				query
+			})
+			reLaunch({
 				path: '/pages/home/index',
 				// query
 			});
+
+			setTimeout(() => {
+				if (url.indexOf('/') == 0) {
+					url = url.slice(1)
+				}
+				push({
+					path: `/${url}`,
+					query
+				})
+			})
+
 			// push({
 			// 	path: `${url}`,
 			// 	query
@@ -307,7 +346,6 @@ export const handleGetUserInfo = () => {
 
 const handleFail = (option, msg) => {
 	// 此处是处理登录失效的问题的
-	console.log(store)
 	option && option.fail ? option.fail() : replaceLogin('登录失败，请重新登录')
 }
 
@@ -429,7 +467,18 @@ export function push(location, complete, fail, success) {
 
 export function replace(location, complete, fail, success) {
 	handleLoginStatus(location, complete, fail, success).then(params => {
+		console.log(params)
 		uni.redirectTo(params)
+	}).catch(error => {
+		// 没有权限
+
+	})
+}
+
+export function reLaunch(location, complete, fail, success) {
+	handleLoginStatus(location, complete, fail, success).then(params => {
+		console.log(params)
+		uni.reLaunch(params)
 	}).catch(error => {
 		// 没有权限
 
