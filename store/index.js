@@ -53,7 +53,10 @@ const vuexStore = new Vuex.Store({
 		LOGOUT(state) {
 			state.token = null;
 			state.userInfo = null
+			let spread = cookie.get('spread')
+			console.log(spread, 'spread')
 			cookie.clearAll()
+			cookie.set('spread', spread)
 		},
 		BACKGROUND_COLOR(state, color) {
 			state.color = color;

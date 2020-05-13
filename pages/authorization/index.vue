@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view v-if="!token">
+			<!-- 小程序 -->
 			<view v-if="$deviceType == 'routine'">
 				<view class="getUserInfo">
 					<text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
@@ -9,6 +10,7 @@
 					<button @click="back">取消微信登录授权</button>
 				</view>
 			</view>
+			<!-- app -->
 			<view v-if="$deviceType == 'app'">
 				<view class="getUserInfo">
 					<text>请先登录</text>

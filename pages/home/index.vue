@@ -10,7 +10,7 @@
 			</view>
 		</view>
 		<view class="slider-banner banner">
-			<swiper indicatorDots="true" v-if="banner.length > 0">
+			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular >
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
 					<swiper-item>
 						<view @click="item.url ? $yrouter.push('/' + item.url) : ''" class="swiper-item">
@@ -28,7 +28,7 @@
 				<swiper class="swiper-wrapper" v-if="roll.length > 0" :indicator-dots="false" autoplay circular vertical>
 					<block v-for="(item, rollIndex) in roll" :key="rollIndex">
 						<swiper-item class="swiper-slide">
-							<view @click="item.uniapp_url ? $yrouter.push(item.uniapp_url) : ''" class="swiper-item acea-row row-between-wrapper">
+							<view @click="goRoll(item)" class="swiper-item acea-row row-between-wrapper">
 								<view class="text acea-row row-between-wrapper">
 									<view class="label" v-if="item.show === '是'">最新</view>
 									<view class="newsTitle line1">{{ item.info }}</view>
@@ -257,6 +257,11 @@
 			});
 		},
 		methods: {
+			goRoll(item){
+				if(item.uniapp_url){
+					this.$yrouter.push(item.uniapp_url)	
+				} 
+			},
 			goGoodSearch() {
 				this.$yrouter.push('/pages/shop/GoodSearch/index');
 			},
