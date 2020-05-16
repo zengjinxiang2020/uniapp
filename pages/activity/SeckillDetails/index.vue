@@ -26,7 +26,7 @@
     <view class="wrapperRush">
       <view class="introduce acea-row row-between">
         <view class="infor" v-text="storeInfo.title"></view>
-        <view class="iconfont icon-fenxiang" @click="setPosterImageStatus"></view>
+        <!-- <view class="iconfont icon-fenxiang" @click="setPosterImageStatus"></view> -->
       </view>
       <view class="label acea-row row-middle">
         <view class="stock" v-text="'库存:' + storeInfo.stock + '件'"></view>

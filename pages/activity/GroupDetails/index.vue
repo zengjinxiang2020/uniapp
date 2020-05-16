@@ -216,7 +216,11 @@ export default {
   },
   methods: {
     openAlone: function() {
-      this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
+      this.$yrouter.push({
+        path: "/pages/shop/GoodsCon/index",
+        query: { id: this.$yroute.query.id }
+      });
+      // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
     },
     //收藏商品
     setCollect: function() {
@@ -338,7 +342,8 @@ export default {
           })
           .catch(err => {
             uni.showToast({
-              title: err.msg || err.response.data.msg|| err.response.data.message,
+              title:
+                err.msg || err.response.data.msg || err.response.data.message,
               icon: "none",
               duration: 2000
             });
