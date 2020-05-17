@@ -197,7 +197,7 @@ export default {
     goGoodsDeliver(orderInfo) {
       this.$yrouter.push({
         path: "/pages/orderAdmin/GoodsDeliver/index",
-        query: { id: orderInfo.orderId }
+        query: { oid: orderInfo.orderId }
       });
     },
     copyClipboard,

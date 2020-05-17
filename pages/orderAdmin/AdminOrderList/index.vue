@@ -136,7 +136,7 @@
 				this.$yrouter.push({
 					path: "/pages/orderAdmin/GoodsDeliver/index",
 					query: {
-						id: item.orderId
+						oid: item.orderId
 					}
 				});
 			},

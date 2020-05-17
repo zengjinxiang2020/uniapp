@@ -1,6 +1,6 @@
 <template>
 	<view class="quality-recommend">
-		<view class="slider-banner swiper">
+		<!-- <view class="slider-banner swiper">
 			<swiper indicatorDots="true" v-if="banner.length > 0">
 				<block v-for="(item, imgUrlsIndex) in imgUrls" :key="imgUrlsIndex">
 					<swiper-item>
@@ -8,7 +8,7 @@
 					</swiper-item>
 				</block>
 			</swiper>
-		</view>
+		</view> -->
 		<view class="title acea-row row-center-wrapper">
 			<view class="line"></view>
 			<view class="name">

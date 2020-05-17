@@ -14,16 +14,6 @@ export const weappPay = (option) => {
       sign: option.sign,
       timestamp: option.timestamp + '',
     }
-    console.log({
-      provider: 'wxpay',
-      // signType: "MD5",
-      // timeStamp: orderInfo.timeStamp,
-      // nonceStr: orderInfo.noncestr,
-      // package: orderInfo.prepayid,
-      // signType: "MD5",
-      // paySign: orderInfo.sign,
-      orderInfo,
-    }, '发起支付')
     // 调用登录接口
     uni.requestPayment({
       provider: 'wxpay',
@@ -33,7 +23,7 @@ export const weappPay = (option) => {
       success: (success) => {
         console.log(success)
         uni.showToast({
-          title: JSON.stringify(success), icon: 'success', duration: 5000
+          title: '支付成功', icon: 'success', duration: 5000
         });
         resolve(success)
       },

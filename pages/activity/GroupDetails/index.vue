@@ -218,7 +218,7 @@ export default {
     openAlone: function() {
       this.$yrouter.push({
         path: "/pages/shop/GoodsCon/index",
-        query: { id: this.$yroute.query.id }
+        query: { id: this.storeInfo.productId }
       });
       // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
     },
