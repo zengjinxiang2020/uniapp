@@ -309,13 +309,13 @@
 		{
 			"path": "pages/orderAdmin/AdminOrderList/index",
 			"style": {
-				"navigationBarTitleText": "AdminOrderList"
+				"navigationBarTitleText": "订单"
 			}
 		},
 		{
 			"path": "pages/orderAdmin/GoodsDeliver/index",
 			"style": {
-				"navigationBarTitleText": "GoodsDeliver"
+				"navigationBarTitleText": "发货"
 			}
 		},
 		{
