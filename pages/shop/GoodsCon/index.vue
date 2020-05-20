@@ -1,5 +1,5 @@
 <template>
-  <view :class="[posterImageStatus ? 'noscroll product-con' : 'product-con']">
+  <view :class="productConClass">
     <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper>
     <view class="wrapper">
       <view class="share acea-row row-between row-bottom">
@@ -58,7 +58,6 @@
             </view>
           </view>
         </view>
-        <!-- <a class="iconfont icon-dadianhua01 font-color-red" :href="'tel:' + system_store.phone"></a> -->
       </view>
     </view>
     <view class="userEvaluation" v-if="replyCount">
@@ -102,19 +101,21 @@
     </view>
     <view style="height:100rpx;"></view>
     <view class="footer acea-row row-between-wrapper">
-      <!--<view class="item" @click="goCustomerList()">-->
-      <!--<view class="iconfont icon-kefu"></view>-->
-      <!--<view>客服</view>-->
-      <!--</view>-->
-      <view class="item" @click="setCollect">
-        <view class="iconfont" :class="storeInfo.userCollect ? 'icon-shoucang1' : 'icon-shoucang'"></view>
+      <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
+        <view class="iconfont icon-shoucang1"></view>
         <text>收藏</text>
       </view>
-      <view
-        @click="goShoppingCart()"
-        class="item animated"
-        :class="animated === true ? 'bounceIn' : ''"
-      >
+      <view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
+        <view class="iconfont icon-shoucang"></view>
+        <text>收藏</text>
+      </view>
+      <view @click="goShoppingCart()" v-if="animated" class="item animated bounceIn">
+        <view class="iconfont icon-gouwuche1">
+          <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
+        </view>
+        <text>购物车</text>
+      </view>
+      <view @click="goShoppingCart()" class="item animated" v-if="!animated">
         <view class="iconfont icon-gouwuche1">
           <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
         </view>
@@ -138,14 +139,16 @@
       :goodId="id"
     ></StorePoster>
     <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
-    <view class="generate-posters acea-row row-middle" :class="posters ? 'on' : ''">
-      <view class="item" v-if="weixinStatus === true" @click="setShareInfoStatus">
-        <view class="iconfont icon-weixin3"></view>
-        <view class>发送给朋友</view>
-      </view>
+    <view class="generate-posters acea-row row-middle on" v-if="posters">
       <view class="item" @click="setPosterImageStatus">
         <view class="iconfont icon-haibao"></view>
-        <view class>生成海报</view>
+        <view >生成海报</view>
+      </view>
+    </view>
+   <view class="generate-posters acea-row row-middle" v-if="!posters">
+      <view class="item" @click="setPosterImageStatus">
+        <view class="iconfont icon-haibao"></view>
+        <view >生成海报</view>
       </view>
     </view>
     <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
@@ -158,9 +161,9 @@
         :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +system_store.latitude +',' +system_store.longitude +'&referer=' +mapKey"
       ></iframe>
     </view>
-    <div class="posterCanvasWarp">
+    <view class="posterCanvasWarp">
       <canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
-    </div>
+    </view>
   </view>
 </template>
 
@@ -253,7 +256,8 @@ export default {
       },
       goodList: [],
       system_store: {},
-      qqmapsdk: null
+      qqmapsdk: null,
+      productConClass: "product-con"
     };
   },
   computed: mapGetters(["isLogin"]),
@@ -266,6 +270,16 @@ export default {
       this.id = this._route.query.id;
     }
     this.productCon();
+  },
+  watch: {
+    posterImageStatus(status) {
+      console.log(status);
+      if (status) {
+        this.productConClass = "noscroll product-con";
+      } else {
+        this.productConClass = "product-con";
+      }
+    }
   },
   methods: {
     goShoppingCart() {

@@ -5,15 +5,19 @@
     </view>
     <scroll-view scroll-y="false" scroll-x="true">
       <view class="timeScroll">
-        <view class v-for="(item, index) in timeList" :key="index">
-          <view :class="{'timeItem':true,'active':active==index}" @click="setTime(index)">
+        <view v-for="(item, index) in timeList" :key="index">
+          <view v-if="active==index" class="timeItem active" @click="setTime(index)">
+            <view class="time">{{ item.time }}</view>
+            <view class="state">{{ item.state }}</view>
+          </view>
+          <view v-if="active!=index" class="timeItem" @click="setTime(index)">
             <view class="time">{{ item.time }}</view>
             <view class="state">{{ item.state }}</view>
           </view>
         </view>
       </view>
     </scroll-view>
-    <view class v-for="(item, index) in timeList" :key="index">
+    <view v-for="(item, index) in timeList" :key="index">
       <view v-if="active == index">
         <view class="countDown font-color-red acea-row row-center-wrapper">
           <view v-if="item.status === 0" class="activity">活动已结束</view>
@@ -70,12 +74,6 @@
         </view>
       </view>
     </view>
-    <!-- 
-		<vant-tabs :active="active" @change="setTime" :sticky="sticky" animated line-height="2" :ellipsis="false">
-			<vant-tab :ellipsis="false" :title="[title[index]]">
-				
-			</vant-tab>
-    </vant-tabs>-->
   </view>
 </template>
 <script>
@@ -176,7 +174,7 @@ export default {
       that.status = false;
       that.active = index;
       that.datatime = that.timeList[that.active].stop;
-      this.seckillList=[]
+      this.seckillList = [];
       that.getSeckillList();
     },
     getSeckillList: function() {
