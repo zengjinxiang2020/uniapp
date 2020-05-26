@@ -142,13 +142,13 @@
     <view class="generate-posters acea-row row-middle on" v-if="posters">
       <view class="item" @click="setPosterImageStatus">
         <view class="iconfont icon-haibao"></view>
-        <view >生成海报</view>
+        <view>生成海报</view>
       </view>
     </view>
-   <view class="generate-posters acea-row row-middle" v-if="!posters">
+    <view class="generate-posters acea-row row-middle" v-if="!posters">
       <view class="item" @click="setPosterImageStatus">
         <view class="iconfont icon-haibao"></view>
-        <view >生成海报</view>
+        <view>生成海报</view>
       </view>
     </view>
     <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
@@ -475,6 +475,9 @@ export default {
         if (num.cart_num < 1) {
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "cart_num", 1);
+        } else {
+          this.$set(this.attr.productSelect, "cart_num", num.cart_num);
+          this.$set(this, "cart_num", num.cart_num);
         }
       }
     },
