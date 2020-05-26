@@ -542,15 +542,21 @@ export default {
       }
     },
     goBack() {
-      if (last.name === "MyOrder") return this.$yrouter.back();
-      else
-        return this.$yrouter.replace({
-          path: "/order/list/"
+      if (this.name === "MyOrder") {
+        this.$yrouter.back();
+        return;
+      } else {
+        console.log(this)
+        this.$yrouter.replace({
+          path: "/pages/order/MyOrder/index"
         });
+        return;
+      }
     },
     cancelOrder() {
       cancelOrderHandle(this.orderInfo.orderId)
         .then(() => {
+          
           setTimeout(() => this.goBack(), 300);
         })
         .catch(() => {

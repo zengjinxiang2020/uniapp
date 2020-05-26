@@ -15,7 +15,7 @@
     <!-- <view class="chart">
       <view class="company">{{ where.type === 1 ? "单位（元）" : "单位（份）" }}</view>
       <ECharts :options="polar"></ECharts>
-    </view> -->
+    </view>-->
     <view class="public-wrapper">
       <view class="title">
         <text class="iconfont icon-xiangxishuju"></text>详细数据
@@ -58,7 +58,7 @@
           :end="[2049, 5, 20]"
         />
       </view>
-    </view> -->
+    </view>-->
     <view class="mask" @touchmove.prevent v-show="current === true" @click="close"></view>
     <Loading :loaded="loaded" :loading="loading"></Loading>
   </view>
@@ -161,7 +161,10 @@ export default {
         },
         animationDuration: 2000
       },
-      value: [[year, month, day - 1], [year, month, day]],
+      value: [
+        [year, month, day - 1],
+        [year, month, day]
+      ],
       isrange: true,
       weekSwitch: false,
       ismulti: false,
@@ -238,11 +241,11 @@ export default {
           that.time_price = res.data.time;
         },
         error => {
-           uni.showToast({
-                          title: error.msg,
-                          icon: "none",
-                          duration: 2000
-                        });;
+          uni.showToast({
+            title: error.msg,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
@@ -285,7 +288,10 @@ export default {
       }
     },
     clickSomeThing(data) {
-      this.value = [[2019, 4, 1], [2019, 4, 8]];
+      this.value = [
+        [2019, 4, 1],
+        [2019, 4, 8]
+      ];
     },
     setMonthRange() {
       this.monthRange = this.monthRange.length ? [] : ["2019-4", "2020-1"];
@@ -316,14 +322,20 @@ export default {
     multiMode() {
       this.ismulti = true;
       this.isrange = false;
-      this.value = [[year, month, 16], [year, month, 18]];
+      this.value = [
+        [year, month, 16],
+        [year, month, 18]
+      ];
       this.handelRenderValues();
       // this.$refs.calendar.renderer(year, month);
     },
     rangeMode() {
       this.ismulti = false;
       this.isrange = true;
-      this.value = [[year, month, 16], [year, month, 22]];
+      this.value = [
+        [year, month, 16],
+        [year, month, 22]
+      ];
       this.handelRenderValues();
       // this.$refs.calendar.renderer(year, month);
     },
@@ -334,14 +346,10 @@ export default {
       this.handelRenderValues();
       // this.$refs.calendar.renderer(year, month);
     },
-    selectMonth(month, year) {
-    },
-    prev(y, m, w) {
-    },
-    next(year, month, week) {
-    },
-    selectYear(year) {
-    },
+    selectMonth(month, year) {},
+    prev(y, m, w) {},
+    next(year, month, week) {},
+    selectYear(year) {},
     setToday() {
       // this.$refs.calendar.setToday();
     },
@@ -395,15 +403,17 @@ export default {
         res => {
           that.loading = false;
           that.loaded = res.data.length < that.filter.limit;
-          that.list.push.apply(that.list, res.data);
+          // that.list.push.apply(that.list, res.data);
+          that.list = res.data;
           that.filter.page = that.filter.page + 1;
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     }
@@ -413,7 +423,7 @@ export default {
 <style scoped lang="less">
 .echarts {
   width: 100%;
-  height: 5.5*100rpx;
+  height: 5.5 * 100rpx;
 }
 .calendar-wrapper {
   position: fixed;
@@ -428,7 +438,7 @@ export default {
   transform: translate3d(0, 0, 0);
 }
 .statistical-page .wrapper .increase {
-  font-size: 0.26*100rpx;
+  font-size: 0.26 * 100rpx;
 }
 .statistical-page .wrapper .increase .iconfont {
   margin-left: 0;
