@@ -1,5 +1,9 @@
 # 使用说明
 
+## Hbuilderx(ps:因HBuilderX经常会更新，如无必要请勿更新HBuilderX为2.7.5及以上)
+
+- 目前已知  HBuilderX v2.7.5 版本不支持 :class 里面写 object 和 arraw 
+
 ## 小程序安装步骤
 - 先从私服上clone下来项目
 - 下载uni的开发者工具 https://www.dcloud.io/hbuilderx.html
