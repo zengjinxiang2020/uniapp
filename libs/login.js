@@ -4,11 +4,11 @@ import cookie from "@/utils/store/cookie";
 import {
 	isWeixin,
 	login,
-	replaceLogin,
 	getCurrentPageUrl,
 	getCurrentPageUrlWithArgs,
 	parseQuery,
 	replace,
+	routerPermissions,
 	handleQrCode
 } from "@/utils";
 
@@ -41,11 +41,11 @@ export default function toLogin(push, backUrl) {
 			})
 		} else {
 			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
-			replaceLogin()
+			routerPermissions()
 		}
 	} else {
 		console.log('无特殊情况，重新登录')
-		replaceLogin()
+		routerPermissions()
 	}
 	store.commit("UPDATE_AUTHORIZATION", false);
 	store.commit("UPDATE_AUTHORIZATIONPAGE", true);

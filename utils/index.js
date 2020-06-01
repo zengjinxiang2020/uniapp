@@ -109,46 +109,6 @@ export const copyClipboard = (data) => {
 	})
 }
 
-
-export const replaceLogin = (msg) => {
-	uni.hideLoading();
-	console.log('尝试开始重新登录')
-	uni.showToast({
-		title: '重新登录中...',
-		icon: 'none',
-		duration: 2000
-	});
-	// 这里代表已经失去登录状态以及401强制推出登录了
-	store.commit('LOGOUT')
-	if (Vue.prototype.$deviceType == 'routine') {
-		console.log('当前是微信小程序，开始调用登录方法')
-		// 如果是微信小程序，跳转到授权页
-		login({
-			fail: () => {
-				console.log('自动登录失败，重定向授权页面')
-				reLaunch({
-					path: '/pages/authorization/index',
-					query: {
-						redirect: `/${getCurrentPageUrl()}`,
-						...parseQuery()
-					}
-				})
-			}
-		})
-
-	} else {
-		// 如果不是小程序跳转到登录页
-		console.log('当前是app，跳转到登录页面')
-		push({
-			path: '/pages/user/Login/index',
-			query: {
-				redirect: `/${getCurrentPageUrl()}`,
-				...parseQuery()
-			}
-		})
-	}
-}
-
 export const getProvider = (service) => {
 	return new Promise((resolve, reject) => {
 		// 获取当前环境的服务商
@@ -172,27 +132,26 @@ export const getProvider = (service) => {
 
 export const authorize = (authorizeStr) => {
 	return new Promise((resolve, reject) => {
+		console.log('检验授权')
 		uni.authorize({
 			scope: `scope.${authorizeStr}`,
 			success() {
+				console.log('检验授权____授权成功')
 				resolve('获取授权成功')
 			},
 			fail() {
-
-				console.log('授权失败跳转首页')
-				switchTab({
-					path: '/pages/home/index',
-					// query
-				});
+				console.log('检验授权____授权失败')
+				// switchTab({
+				// 	path: '/pages/home/index',
+				// 	// query
+				// });
 				reject('获取授权失败')
 			}
 		})
-	}).catch(error => {
-		console.log(error)
 	})
 }
 
-export const login = (option) => {
+export const login = () => {
 	console.log('开始登录 ————————————————————')
 	return new Promise((resolve, reject) => {
 		console.log('获取环境商')
@@ -215,62 +174,48 @@ export const login = (option) => {
 							success: function (user) {
 								console.log('获取用户信息成功')
 								console.log('开始调用登录接口')
-								if (Vue.prototype.$deviceType == 'routine') {
-									wxappAuth({
-										encryptedData: user.encryptedData,
-										iv: user.iv,
-										code: code,
-										spread: cookie.get("spread")
-									}).then(({
-										data
-									}) => {
-										console.log('登录接口调用成功')
-										console.log('开始处理登录信息保存，并获取用户详情')
-										resolve(data)
-										uni.hideLoading();
-										store.commit("LOGIN", data.token, dayjs(data.expires_time));
-										store.dispatch('USERINFO', true)
-										console.log(store)
-										handleGetUserInfo()
+								wxappAuth({
+									encryptedData: user.encryptedData,
+									iv: user.iv,
+									code: code,
+									spread: cookie.get("spread")
+								}).then(({ data }) => {
+									console.log('登录接口调用成功')
+									console.log('开始处理登录信息保存，并获取用户详情')
+									uni.hideLoading();
+									store.commit("LOGIN", data.token, dayjs(data.expires_time));
+									store.dispatch('USERINFO', true)
+									getUser().then(user => {
+										console.log('获取用户信息成功')
+										store.dispatch('setUserInfo', user.data)
+										resolve(user)
 									}).catch(error => {
-										console.log('登录接口调用失败')
-										reject()
-										console.log(error)
-										handleFail(option, '微信登录失败')
+										console.log('获取用户信息失败')
+										reject('获取用户信息失败')
 									});
-								}
+								}).catch(error => {
+									console.log('登录接口调用失败')
+									reject('登录接口调用失败')
+								});
 							},
 							fail() {
 								console.log('获取用户信息失败')
-								// 获取用户信息失败
-								reject()
-								handleFail(option, '获取用户信息失败')
+								reject('获取用户信息失败')
 							}
 						});
 					}).catch(error => {
 						console.log('用户未授权')
-						reject()
-						console.log(error)
-						handleFail(option, '用户未授权')
+						reject('用户未授权')
 					})
 				},
 				fail() {
 					console.log('调用登录接口失败')
-					// 调用登录接口失败
-					reject()
-					handleFail(option, '登录失败')
+					reject('调用登录接口失败')
 				}
 			});
 		}).catch(error => {
-			handleFail(option, '获取环境服务商失败')
-			reject()
-			console.log(error)
-			handleFail(option, '获取环境服务商失败')
+			reject('获取环境服务商失败')
 		})
-	}).catch(error => {
-		handleFail(option, '登录失败')
-		console.log(error)
-		handleFail(option, '登录失败')
 	})
 }
 
@@ -343,18 +288,13 @@ export const handleGetUserInfo = () => {
 	})
 }
 
-
-const handleFail = (option, msg) => {
-	// 此处是处理登录失效的问题的
-	option && option.fail ? option.fail() : replaceLogin('登录失败，请重新登录')
-}
-
 export function parseUrl(location) {
 	if (typeof location === 'string') return location
 	const {
 		path,
 		query
 	} = location
+
 	const queryStr = stringify(query)
 
 	if (!queryStr) {
@@ -419,6 +359,8 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	// 是否可以访问
 	let isAuth = false
 
+	console.log('即将跳转', location, parseUrl(location))
+
 	// 从 location 中获取当前url，location typeof string || object
 	let path = ''
 	if (typeof location === 'string') {
@@ -427,6 +369,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 		path = location.path
 	}
 
+	// 判断用户是否有token
 	if (!auth()) {
 		page.map((item) => {
 			if (item.path == path) {
@@ -439,7 +382,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 	return new Promise((resolve, reject) => {
 		if (isAuth) {
-			// 登录了有权限
+			// 有token
 			resolve({
 				url: parseUrl(location),
 				complete,
@@ -447,13 +390,62 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 				success
 			})
 		} else {
-			// 未登录没有权限
-			replaceLogin()
+			// 没有token，先校验用户是否授权，如果授权了，进行自动登录
+			routerPermissions(parseUrl(location))
 			reject()
 		}
 	}).catch(error => {
 		console.log(error)
 	})
+}
+
+// export function checkPermissions(){
+
+// }
+
+export function routerPermissions(url) {
+	let path = url
+	if (!path) {
+		path = getCurrentPageUrlWithArgs()
+	}
+	if (Vue.prototype.$deviceType == 'routine') {
+		console.log('当前是微信小程序，开始处理小程序登录方法')
+		// 如果是微信小程序，跳转到授权页
+		// 先校验用户是否授权，如果授权了，进行自动登录
+		authorize('userInfo').then(() => {
+			// 自动登录
+			login().then(res => {
+				// 登录成功，跳转到需要跳转的页面
+				push({
+					path,
+				})
+			}).catch(error => {
+				uni.showToast({
+					title: error,
+					icon: "none",
+					duration: 2000
+				});
+				reLaunch({
+					path: '/pages/authorization/index',
+				})
+				cookie.set('redirect', path)
+			})
+		}).catch(error => {
+			// 跳转到登录页面或者授权页面
+			reLaunch({
+				path: '/pages/authorization/index',
+			})
+			cookie.set('redirect', path)
+		})
+	} else {
+		// 如果不是小程序跳转到登录页
+		console.log('当前是app，开始处理app登录方法')
+		push({
+			path: '/pages/user/Login/index',
+		})
+		cookie.set('redirect', path)
+	}
+
 }
 
 export function push(location, complete, fail, success) {
