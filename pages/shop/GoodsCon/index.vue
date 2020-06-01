@@ -266,6 +266,7 @@ export default {
     console.log(url);
     if (url && url.productId) {
       this.id = url.productId;
+      
     } else {
       this.id = this._route.query.id;
     }
