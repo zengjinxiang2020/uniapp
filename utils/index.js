@@ -654,3 +654,94 @@ export const PosterCanvas = (store, successCallBack) => {
 	//   }
 	// })
 }
+
+
+
+export const handleLoginFailure = () => {
+
+	// token 失效
+	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
+	if (store.getters.isAuthorizationPage || getCurrentPageUrl() == '/pages/user/Login/index') {
+		console.log('已经是登录页面或者授权页面，跳出方法')
+		return
+	}
+
+	store.commit("LOGOUT");
+	store.commit("UPDATE_AUTHORIZATION", false);
+	store.commit("UPDATE_AUTHORIZATIONPAGE", true);
+
+	let path = getCurrentPageUrlWithArgs()
+
+	// 判断是不是拼团进来的
+	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
+		console.log('是拼团进来的')
+		let url = handleQrCode();
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.pinkId,
+				}
+			})
+			// cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('是拼团进来的,但是没有获取到参数')
+			switchTab({
+				path: '/pages/home/index',
+			});
+		}
+	}
+
+	// 判断是不是扫描的砍价海报进来的
+	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleQrCode()) {
+		console.log('是扫描的砍价海报进来的')
+		let url = handleQrCode();
+		console.log(url)
+		// bargainId: "36"
+// bargainUserUid: 1404
+		
+// bargainId: "36"
+// codeType: "routine"
+// pageType: "dargain"
+// spread: "1404"
+// uid: "1404"
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.bargainId,
+					partake: url.uid
+				}
+			})
+			// cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
+			switchTab({
+				path: '/pages/home/index',
+			});
+		}
+	}
+
+	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
+		console.log('是扫描的商品详情')
+		let url = handleQrCode();
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.productId,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			switchTab({
+				path: '/pages/home/index',
+			});
+			console.log('是扫描的商品详情进来的,但是没有获取到参数')
+		}
+	}
+
+	routerPermissions(path)
+}
