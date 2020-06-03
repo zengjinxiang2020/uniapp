@@ -2,7 +2,7 @@
   <view class="container">
     <view v-if="!token">
       <!-- 小程序 -->
-      <view v-if="$deviceType == 'routine'&&!authorize">
+      <view v-if="$deviceType == 'routine'&&authorize">
         <view class="getUserInfo">
           <text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
           <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>
@@ -11,10 +11,15 @@
         </view>
       </view>
       <!-- app -->
-      <view v-if="$deviceType == 'app'&&!authorize">
+      <view v-if="$deviceType == 'app'&&authorize">
         <view class="getUserInfo">
           <text>请先登录</text>
           <button type="primary" @click="this.toLogin">去登录</button>
+        </view>
+      </view>
+      <view v-if="!authorize">
+        <view class="getUserInfo">
+          <text>登录中</text>
         </view>
       </view>
     </view>
@@ -33,7 +38,7 @@ import { login, authorize } from "@/utils";
 export default {
   data() {
     return {
-      authorize: true
+      authorize: false
     };
   },
   computed: {
@@ -41,19 +46,25 @@ export default {
   },
   onShow() {
     this.UPDATE_AUTHORIZATIONPAGE(true);
-    // 先校验用户是否授权，如果没有授权，显示授权按钮
+    // // 先校验用户是否授权，如果没有授权，显示授权按钮
+    console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
     authorize("userInfo")
-      .then(() => {})
+      .then(res => {
+        console.log(res);
+      })
       .catch(error => {
+        console.log(error);
         // 用户未授权，显示授权按钮
         this.authorize = true;
       });
   },
   onHide() {
+    console.log("离开授权页面,11111");
     this.UPDATE_AUTHORIZATIONPAGE(false);
     this.changeAuthorization(false);
   },
   onUnload() {
+    console.log("离开授权页面,11111");
     this.UPDATE_AUTHORIZATIONPAGE(false);
     this.changeAuthorization(false);
   },
@@ -85,7 +96,7 @@ export default {
         .catch(error => {
           console.log(error);
           uni.showToast({
-            title: "登录失败",
+            title: error,
             icon: "none",
             duration: 2000
           });
@@ -98,8 +109,27 @@ export default {
       });
     }
   },
-  onUnload() {},
-  mounted() {}
+  onUnload() {
+    console.log("离开授权页面,11111");
+    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.changeAuthorization(false);
+  },
+  mounted() {
+    // console.log("当前是授权页面,11111");
+    // this.UPDATE_AUTHORIZATIONPAGE(true);
+    // // 先校验用户是否授权，如果没有授权，显示授权按钮
+    // console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
+    // authorize("userInfo")
+    //   .then(res => {
+    //     console.log(res);
+    //     this.authorize = false;
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     // 用户未授权，显示授权按钮
+    //     this.authorize = true;
+    //   });
+  }
 };
 </script>
 

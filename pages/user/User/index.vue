@@ -297,6 +297,7 @@ export default {
           that.MyMenus = res.data.routine_my_menus;
         })
         .catch(error => {
+          uni.hideLoading();
           console.log(error);
         });
     },
@@ -342,7 +343,7 @@ export default {
     if (this.$store.getters.token) {
       //
       uni.showLoading({
-        title: "绑定中"
+        title: "加载中"
       });
       this.$store.dispatch("getUser", true);
       this.MenuUser();

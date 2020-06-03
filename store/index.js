@@ -51,6 +51,7 @@ const vuexStore = new Vuex.Store({
 			cookie.set(LOGIN_KEY, token, expires_time);
 		},
 		LOGOUT(state) {
+			console.log('清除数据')
 			state.token = null;
 			state.userInfo = null
 			let spread = cookie.get('spread')

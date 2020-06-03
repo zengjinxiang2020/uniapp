@@ -132,22 +132,21 @@ export const getProvider = (service) => {
 
 export const authorize = (authorizeStr) => {
 	return new Promise((resolve, reject) => {
-		console.log('检验授权')
-		uni.authorize({
-			scope: `scope.${authorizeStr}`,
-			success() {
-				console.log('检验授权____授权成功')
-				resolve('获取授权成功')
+		console.log('检验授权', `scope.${authorizeStr}`)
+		uni.getSetting({
+			success(res) {
+				console.log(res.authSetting)
+				if (res.authSetting[`scope.${authorizeStr}`]) {
+					resolve('获取授权成功')
+				} else {
+					reject('获取授权失败')
+				}
 			},
 			fail() {
-				console.log('检验授权____授权失败')
-				// switchTab({
-				// 	path: '/pages/home/index',
-				// 	// query
-				// });
-				reject('获取授权失败')
+				reject('获取设置失败')
 			}
 		})
+
 	})
 }
 
@@ -383,6 +382,13 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	return new Promise((resolve, reject) => {
 		if (isAuth) {
 			// 有token
+			if (path == '/pages/home/index' || path == '/pages/shop/GoodsClass/index' || path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
+				// switchTab({
+				// 	path: parseUrl(location),
+				// })
+				// return
+			}
+
 			resolve({
 				url: parseUrl(location),
 				complete,
@@ -404,6 +410,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 // }
 
 export function routerPermissions(url, type) {
+	console.log('routerPermissions', url)
 	let path = url
 	if (!path) {
 		path = getCurrentPageUrlWithArgs()
@@ -416,6 +423,11 @@ export function routerPermissions(url, type) {
 			// 自动登录
 			login().then(res => {
 				// 登录成功，跳转到需要跳转的页面
+				console.log('登录成功，跳转页面')
+				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
+				if (path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
+					return
+				}
 				if (type == 'reLaunch') {
 					reLaunch({
 						path,
@@ -438,6 +450,13 @@ export function routerPermissions(url, type) {
 			})
 		}).catch(error => {
 			// 跳转到登录页面或者授权页面
+			if (path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
+				switchTab({
+					path,
+				})
+				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
+				return
+			}
 			reLaunch({
 				path: '/pages/authorization/index',
 			})
@@ -664,6 +683,8 @@ export const PosterCanvas = (store, successCallBack) => {
 
 
 export const handleLoginFailure = () => {
+	store.commit("LOGOUT");
+	store.commit("UPDATE_AUTHORIZATION", false);
 
 	// token 失效
 	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
@@ -672,8 +693,8 @@ export const handleLoginFailure = () => {
 		return
 	}
 
-	store.commit("LOGOUT");
-	store.commit("UPDATE_AUTHORIZATION", false);
+	console.log('当前是授权页面')
+	console.log(store.getters)
 	store.commit("UPDATE_AUTHORIZATIONPAGE", true);
 
 	let path = getCurrentPageUrlWithArgs()
@@ -734,6 +755,8 @@ export const handleLoginFailure = () => {
 			console.log('是扫描的商品详情进来的,但是没有获取到参数')
 		}
 	}
+
+
 
 	routerPermissions(path, 'reLaunch')
 }
