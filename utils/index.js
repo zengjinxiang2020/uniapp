@@ -403,7 +403,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 // }
 
-export function routerPermissions(url) {
+export function routerPermissions(url, type) {
 	let path = url
 	if (!path) {
 		path = getCurrentPageUrlWithArgs()
@@ -416,9 +416,15 @@ export function routerPermissions(url) {
 			// 自动登录
 			login().then(res => {
 				// 登录成功，跳转到需要跳转的页面
-				push({
-					path,
-				})
+				if (type == 'reLaunch') {
+					reLaunch({
+						path,
+					})
+				} else {
+					push({
+						path,
+					})
+				}
 			}).catch(error => {
 				uni.showToast({
 					title: error,
@@ -687,9 +693,7 @@ export const handleLoginFailure = () => {
 			// cookie.set("spread", url.spread || 0);
 		} else {
 			console.log('是拼团进来的,但是没有获取到参数')
-			switchTab({
-				path: '/pages/home/index',
-			});
+			handleNoParameters()
 		}
 	}
 
@@ -697,15 +701,6 @@ export const handleLoginFailure = () => {
 	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleQrCode()) {
 		console.log('是扫描的砍价海报进来的')
 		let url = handleQrCode();
-		console.log(url)
-		// bargainId: "36"
-// bargainUserUid: 1404
-		
-// bargainId: "36"
-// codeType: "routine"
-// pageType: "dargain"
-// spread: "1404"
-// uid: "1404"
 		if (url) {
 			path = parseUrl({
 				path: `/${getCurrentPageUrl()}`,
@@ -716,10 +711,9 @@ export const handleLoginFailure = () => {
 			})
 			// cookie.set("spread", url.spread || 0);
 		} else {
+			handleNoParameters()
 			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
-			switchTab({
-				path: '/pages/home/index',
-			});
+
 		}
 	}
 
@@ -736,12 +730,24 @@ export const handleLoginFailure = () => {
 			})
 			cookie.set("spread", url.spread || 0);
 		} else {
-			switchTab({
-				path: '/pages/home/index',
-			});
+			handleNoParameters()
 			console.log('是扫描的商品详情进来的,但是没有获取到参数')
 		}
 	}
 
-	routerPermissions(path)
+	routerPermissions(path, 'reLaunch')
+}
+
+const handleNoParameters = () => {
+	uni.showToast({
+		title: '未获取到必要参数，即将跳转首页',
+		icon: 'success',
+		duration: 2000
+	})
+	setTimeout(() => {
+		clearTimeout()
+		switchTab({
+			path: '/pages/home/index',
+		});
+	}, 1500)
 }

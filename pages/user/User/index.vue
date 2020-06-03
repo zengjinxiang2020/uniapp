@@ -291,9 +291,14 @@ export default {
     },
     MenuUser: function() {
       let that = this;
-      getMenuUser().then(res => {
-        that.MyMenus = res.data.routine_my_menus;
-      });
+      getMenuUser()
+        .then(res => {
+          uni.hideLoading();
+          that.MyMenus = res.data.routine_my_menus;
+        })
+        .catch(error => {
+          console.log(error);
+        });
     },
     goPages: function(index) {
       let url = this.MyMenus[index].uniapp_url;
@@ -335,9 +340,11 @@ export default {
   },
   onShow() {
     if (this.$store.getters.token) {
-      // 
-			this.$store.dispatch('getUser', true)
-      
+      //
+      uni.showLoading({
+        title: "绑定中"
+      });
+      this.$store.dispatch("getUser", true);
       this.MenuUser();
       this.isWeixin = isWeixin();
     }

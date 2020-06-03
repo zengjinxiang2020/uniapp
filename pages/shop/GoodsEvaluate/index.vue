@@ -196,12 +196,22 @@
 							icon: "success",
 							duration: 2000
 						});
-						this.$yrouter.push({
-							path: "/pages/order/OrderDetails/index",
-							query: {
-								id: this.orderCon.orderId
-							}
-						});
+						
+						// ? 回跳到上一页
+						this.$yrouter.back()
+						
+						// ? 默认跳转到详情页
+						// this.$yrouter.push({
+						// 	path: "/pages/order/OrderDetails/index",
+						// 	query: {
+						// 		id: this.orderCon.orderId
+						// 	}
+						// });
+						
+						// ? 可选重定向到详情页，这时左上角会有一个返回首页的图标
+						// this.$yrouter.reLaunch({
+						// 	path: "/pages/home/index",
+						// });
 					})
 					.catch(err => {
 						uni.showToast({

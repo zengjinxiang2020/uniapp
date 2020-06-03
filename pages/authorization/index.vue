@@ -2,7 +2,7 @@
   <view class="container">
     <view v-if="!token">
       <!-- 小程序 -->
-      <view v-if="$deviceType == 'routine'">
+      <view v-if="$deviceType == 'routine'&&!authorize">
         <view class="getUserInfo">
           <text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
           <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>
@@ -11,7 +11,7 @@
         </view>
       </view>
       <!-- app -->
-      <view v-if="$deviceType == 'app'">
+      <view v-if="$deviceType == 'app'&&!authorize">
         <view class="getUserInfo">
           <text>请先登录</text>
           <button type="primary" @click="this.toLogin">去登录</button>
@@ -28,17 +28,26 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import { wxappAuth, getUser } from "@/api/user";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
-import { login } from "@/utils";
+import { login, authorize } from "@/utils";
 
 export default {
   data() {
-    return {};
+    return {
+      authorize: true
+    };
   },
   computed: {
     ...mapState(["isAuthorization", "$deviceType", "token"])
   },
   onShow() {
     this.UPDATE_AUTHORIZATIONPAGE(true);
+    // 先校验用户是否授权，如果没有授权，显示授权按钮
+    authorize("userInfo")
+      .then(() => {})
+      .catch(error => {
+        // 用户未授权，显示授权按钮
+        this.authorize = true;
+      });
   },
   onHide() {
     this.UPDATE_AUTHORIZATIONPAGE(false);

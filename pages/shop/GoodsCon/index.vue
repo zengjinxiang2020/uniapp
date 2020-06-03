@@ -340,12 +340,12 @@ export default {
     //产品详情接口；
     productCon: function() {
       let that = this;
-      let form = {};
+      let from = {};
       if (this.$deviceType == "app") {
-        form.form = "app";
+        from.from = "app";
       }
       uni.showLoading({ title: "加载中", mask: true });
-      getProductDetail(that.id, form)
+      getProductDetail(that.id, from)
         .then(res => {
           that.$set(that, "storeInfo", res.data.storeInfo);
           // 给 attr 赋值，将请求回来的规格赋值给 attr
