@@ -164,11 +164,11 @@
   </view>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { getUser, getMenuUser, bindingPhone } from "@/api/user";
 import { isWeixin, VUE_APP_RESOURCES_URL } from "@/utils";
 import SwitchWindow from "@/components/SwitchWindow";
 import Authorization from "@/pages/authorization/index";
-import { mapGetters } from "vuex";
 
 const NAME = "User";
 
@@ -188,6 +188,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   methods: {
+    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
     },
@@ -349,6 +350,10 @@ export default {
       this.MenuUser();
       this.isWeixin = isWeixin();
     }
+  },
+  onHide() {
+    console.log('离开用户中心')
+    this.UPDATE_AUTHORIZATIONPAGE(false);
   }
 };
 </script>

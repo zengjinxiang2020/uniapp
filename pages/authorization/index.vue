@@ -115,20 +115,18 @@ export default {
     this.changeAuthorization(false);
   },
   mounted() {
-    // console.log("当前是授权页面,11111");
-    // this.UPDATE_AUTHORIZATIONPAGE(true);
+    this.UPDATE_AUTHORIZATIONPAGE(true);
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
-    // console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
-    // authorize("userInfo")
-    //   .then(res => {
-    //     console.log(res);
-    //     this.authorize = false;
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //     // 用户未授权，显示授权按钮
-    //     this.authorize = true;
-    //   });
+    console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
+    authorize("userInfo")
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+        // 用户未授权，显示授权按钮
+        this.authorize = true;
+      });
   }
 };
 </script>
