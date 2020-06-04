@@ -164,11 +164,11 @@
   </view>
 </template>
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 import { getUser, getMenuUser, bindingPhone } from "@/api/user";
 import { isWeixin, VUE_APP_RESOURCES_URL } from "@/utils";
 import SwitchWindow from "@/components/SwitchWindow";
 import Authorization from "@/pages/authorization/index";
-import { mapGetters } from "vuex";
 
 const NAME = "User";
 
@@ -188,6 +188,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   methods: {
+    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
     },
@@ -291,9 +292,15 @@ export default {
     },
     MenuUser: function() {
       let that = this;
-      getMenuUser().then(res => {
-        that.MyMenus = res.data.routine_my_menus;
-      });
+      getMenuUser()
+        .then(res => {
+          uni.hideLoading();
+          that.MyMenus = res.data.routine_my_menus;
+        })
+        .catch(error => {
+          uni.hideLoading();
+          console.log(error);
+        });
     },
     goPages: function(index) {
       let url = this.MyMenus[index].uniapp_url;
@@ -335,12 +342,18 @@ export default {
   },
   onShow() {
     if (this.$store.getters.token) {
-      // 
-			this.$store.dispatch('getUser', true)
-      
+      //
+      uni.showLoading({
+        title: "加载中"
+      });
+      this.$store.dispatch("getUser", true);
       this.MenuUser();
       this.isWeixin = isWeixin();
     }
+  },
+  onHide() {
+    console.log('离开用户中心')
+    this.UPDATE_AUTHORIZATIONPAGE(false);
   }
 };
 </script>

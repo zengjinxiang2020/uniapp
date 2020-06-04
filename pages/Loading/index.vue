@@ -43,22 +43,23 @@ export default {
     }
     cookie.get("spread");
     // this.toLaunch();
-    if (this.$deviceType == 'app') {
-    	// this.toLaunch();
-    	this.$yrouter.switchTab({
-    		path: '/pages/home/index',
-    	});
-    	return
+    if (this.$deviceType == "app") {
+      // this.toLaunch();
+      this.$yrouter.switchTab({
+        path: "/pages/home/index"
+      });
+      return;
     }
-    login({
-    	fail: () => {
-    		this.toLaunch();
-    	}
+    login().finally(() => {
+      this.$yrouter.switchTab({
+        path: "/pages/home/index"
+      });
     });
   },
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
     toLaunch() {
+      console.log("loading home");
       this.changeAuthorization(false);
       this.$yrouter.switchTab({
         path: "/pages/home/index"

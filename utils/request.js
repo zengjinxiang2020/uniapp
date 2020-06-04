@@ -1,6 +1,6 @@
 import Fly from "flyio/dist/npm/wx";
 import $store from "../store";
-import toLogin from "@/libs/login";
+import { handleLoginFailure } from "@/utils";
 import { VUE_APP_API_URL } from "@/config";
 import cookie from "@/utils/store/cookie";
 
@@ -16,11 +16,11 @@ fly.interceptors.response.use(
   },
   error => {
     if (error.toString() == 'Error: Network Error') {
-      toLogin();
+      handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }
     if (error.status == 401) {
-      toLogin();
+      handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }
     return Promise.reject(error);
@@ -44,7 +44,7 @@ function baseRequest(options) {
   // 如果需要登录才可访问的接口没有拿到 token 视为登录失效
   if (options.login === true && !token) {
     // 跳转到登录或授权页面
-    toLogin();
+    handleLoginFailure();
     // 提示错误信息
     return Promise.reject({ msg: "未登录", toLogin: true });
   }
@@ -60,7 +60,7 @@ function baseRequest(options) {
       return Promise.reject({ msg: "请求失败", res, data });
     }
     if ([410000, 410001, 410002].indexOf(data.status) !== -1) {
-      toLogin();
+      handleLoginFailure();
       return Promise.reject({ msg: res.data.msg, res, data, toLogin: true });
     } else if (data.status === 200) {
       return Promise.resolve(data, res);

@@ -199,17 +199,19 @@ export default {
     DataFormat
   },
   computed: mapGetters(["userInfo"]),
-  watch: {
-    $yroute(n) {
-      if (n.name === NAME) {
-        const type = parseInt(this.$yroute.query.type) || 0;
-        if (this.type !== type) {
-          this.changeType(type);
-        }
-        this.getOrderData();
-      }
-    },
-    type() {}
+  onShow: function() {
+    console.log(this)
+    this.type = parseInt(this.$yroute.query.type) || 0;
+    this.changeType(this.type);
+    this.getOrderData();
+    this.getOrderList();
+  },
+  onHide: function() {
+    this.orderList = [];
+    this.page = 1;
+    this.limit = 20;
+    this.loaded = false;
+    this.loading = false;
   },
   methods: {
     goLogistics(order) {
@@ -308,11 +310,7 @@ export default {
     },
     toPay() {}
   },
-  mounted() {
-    this.type = parseInt(this.$yroute.query.type) || 0;
-    this.getOrderData();
-    this.getOrderList();
-  },
+  mounted() {},
   onReachBottom() {
     !this.loading && this.getOrderList();
   }
@@ -320,7 +318,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
 .noCart {
   margin-top: 0.17 * 100rpx;
   padding-top: 0.1 * 100rpx;

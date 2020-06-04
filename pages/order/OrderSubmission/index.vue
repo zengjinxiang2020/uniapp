@@ -482,9 +482,9 @@
 				uni.showLoading({
 					title: "生成订单中"
 				});
-				let form = {}
+				let from = {}
 				if (this.$deviceType == 'app') {
-					form.form = 'app'
+					from.from = 'app'
 				}
 				createOrder(this.orderGroupInfo.orderKey, {
 						realName: this.contacts,
@@ -500,7 +500,7 @@
 						from: this.from,
 						mark: this.mark || "",
 						shippingType: parseInt(shipping_type) + 1,
-						...form
+						...from
 					})
 					.then(res => {
 						uni.hideLoading();

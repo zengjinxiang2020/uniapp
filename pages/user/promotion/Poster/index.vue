@@ -64,11 +64,11 @@ export default {
   methods: {
     getIndex: function() {
       let that = this;
-      let form = {};
+      let from = {};
       if (this.$deviceType == "app") {
-        form.form = "app";
+        from.from = "app";
       }
-      getSpreadImg(form).then(
+      getSpreadImg(from).then(
         res => {
           that.info = res.data;
         },

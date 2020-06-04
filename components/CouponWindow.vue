@@ -29,7 +29,7 @@
 	import {
 		mapGetters
 	} from "vuex";
-	import toLogin from "@/libs/login";
+	import {handleLoginFailure} from "@/utils";
 	import {
 		couponReceiveBatch
 	} from "@/api/user";
@@ -52,7 +52,7 @@
 		methods: {
 			checked() {
 				const isLogin = this.isLogin;
-				if (!isLogin) return toLogin();
+				if (!isLogin) return handleLoginFailure();
 
 				const ids = this.couponList.reduce((initial, coupon) => {
 					initial.push(coupon.id);
