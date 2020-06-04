@@ -413,7 +413,7 @@ export function routerPermissions(url, type) {
 	console.log('routerPermissions', url)
 	let path = url
 	if (!path) {
-		path = getCurrentPageUrlWithArgs()
+		path = '/'+getCurrentPageUrlWithArgs()
 	}
 	if (Vue.prototype.$deviceType == 'routine') {
 		console.log('当前是微信小程序，开始处理小程序登录方法')
@@ -423,7 +423,7 @@ export function routerPermissions(url, type) {
 			// 自动登录
 			login().then(res => {
 				// 登录成功，跳转到需要跳转的页面
-				console.log('登录成功，跳转页面')
+				console.log('登录成功，跳转页面', type)
 				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
 				if (path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
 					return
@@ -431,8 +431,17 @@ export function routerPermissions(url, type) {
 				if (type == 'reLaunch') {
 					reLaunch({
 						path,
+						
 					})
-				} else {
+					return 
+				}
+				if (type == 'replace') {
+					replace({
+						path,
+					})
+					return 
+				}
+				{
 					push({
 						path,
 					})
@@ -697,7 +706,7 @@ export const handleLoginFailure = () => {
 	console.log(store.getters)
 	store.commit("UPDATE_AUTHORIZATIONPAGE", true);
 
-	let path = getCurrentPageUrlWithArgs()
+	let path = '/'+getCurrentPageUrlWithArgs()
 
 	// 判断是不是拼团进来的
 	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
