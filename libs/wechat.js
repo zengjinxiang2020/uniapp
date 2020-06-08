@@ -14,7 +14,7 @@ export const weappPay = (option) => {
       sign: option.sign,
       timestamp: option.timestamp + '',
     }
-    // 调用登录接口
+    // 调用只接口
     uni.requestPayment({
       provider: 'wxpay',
       ...option,
@@ -23,9 +23,12 @@ export const weappPay = (option) => {
       success: (success) => {
         console.log(success)
         uni.showToast({
-          title: '支付成功', icon: 'success', duration: 5000
+          title: '支付成功', icon: 'success', duration: 5000,
         });
-        resolve(success)
+        let time = setTimeout(() => {
+          clearTimeout(time)
+          resolve(success)
+        }, 3000)
       },
       fail: (error) => {
         console.log(error)

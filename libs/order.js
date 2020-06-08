@@ -98,10 +98,12 @@ export function payOrderHandle(orderId, type, from) {
             weappPay(data.result.jsConfig).then(res => {
               resolve(data);
             });
+            break;
           case "WECHAT_APP_PAY":
             weappPay(data.result.jsConfig).then(res => {
               resolve(data);
             });
+            break;
         }
       })
       .catch(err => {

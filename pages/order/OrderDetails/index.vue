@@ -660,6 +660,6 @@ export default {
       await payOrderHandle(this.orderInfo.orderId, type, that.from);
       that.getDetail();
     }
-  }
+  },
 };
 </script>

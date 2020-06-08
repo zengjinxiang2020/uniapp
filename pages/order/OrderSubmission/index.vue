@@ -521,6 +521,8 @@
 								});
 								break;
 							case "PAY_DEFICIENCY":
+								break;
+								
 							case "PAY_ERROR":
 								uni.showToast({
 									title: res.msg,
@@ -569,6 +571,8 @@
 										}
 									});
 								})
+								break;
+								
 							case "WECHAT_APP_PAY":
 								// APP支付
 								weappPay(data.result.jsConfig).finally(()=>{
@@ -579,7 +583,7 @@
 										}
 									});
 								})
-
+								break;
 								// 下面为原先微信支付方式，
 								// pay(data.result.jsConfig).finally(() => {
 								//   this.$yrouter.replace({
