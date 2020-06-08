@@ -45,9 +45,8 @@ export default {
     ...mapState(["isAuthorization", "$deviceType", "token"])
   },
   onShow() {
-    this.UPDATE_AUTHORIZATIONPAGE(true);
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
-    console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
+    console.log("onShow 先校验用户是否授权，如果没有授权，显示授权按钮");
     authorize("userInfo")
       .then(res => {
         console.log(res);
@@ -71,6 +70,7 @@ export default {
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
     ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+    
     back() {
       this.$yrouter.switchTab({
         path: "/pages/home/index",
@@ -115,9 +115,8 @@ export default {
     this.changeAuthorization(false);
   },
   mounted() {
-    this.UPDATE_AUTHORIZATIONPAGE(true);
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
-    console.log("先校验用户是否授权，如果没有授权，显示授权按钮");
+    console.log("mounted 先校验用户是否授权，如果没有授权，显示授权按钮");
     authorize("userInfo")
       .then(res => {
         console.log(res);

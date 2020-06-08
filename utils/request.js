@@ -16,10 +16,16 @@ fly.interceptors.response.use(
   },
   error => {
     if (error.toString() == 'Error: Network Error') {
+      console.log('————————')
+      console.log('发送请求失败', error)
+      console.log('————————')
       handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }
     if (error.status == 401) {
+      console.log('————————')
+      console.log('登录失效 401', error)
+      console.log('————————')
       handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }

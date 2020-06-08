@@ -151,7 +151,9 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = () => {
-	console.log('开始登录 ————————————————————')
+	console.log('————————————————————')
+	console.log('开始登录')
+	console.log('————————————————————')
 	return new Promise((resolve, reject) => {
 		console.log('获取环境商')
 		getProvider().then(provider => {
@@ -411,21 +413,37 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 export function routerPermissions(url, type) {
 	console.log('routerPermissions', url)
+	console.log('————————')
+	console.log(url, type, 'routerPermissions')
+	console.log('————————')
 	let path = url
 	if (!path) {
 		path = getCurrentPageUrlWithArgs()
 	}
 	if (Vue.prototype.$deviceType == 'routine') {
+		console.log('————————')
 		console.log('当前是微信小程序，开始处理小程序登录方法')
+		console.log('————————')
 		// 如果是微信小程序，跳转到授权页
 		// 先校验用户是否授权，如果授权了，进行自动登录
+		console.log('————————')
+		console.log('开始校验权限')
+		console.log('————————')
 		authorize('userInfo').then(() => {
 			// 自动登录
+			console.log('————————')
+			console.log('自动登录')
+			console.log('————————')
 			login().then(res => {
 				// 登录成功，跳转到需要跳转的页面
+				console.log('————————')
 				console.log('登录成功，跳转页面')
+				console.log('————————')
 				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
 				if (path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
+					console.log('————————')
+					console.log('当前是购物车，或者个人中心')
+					console.log('————————')
 					return
 				}
 				if (type == 'reLaunch') {
@@ -438,6 +456,9 @@ export function routerPermissions(url, type) {
 					})
 				}
 			}).catch(error => {
+				console.log('————————')
+				console.log('自动登录失败，跳转到授权页面')
+				console.log('————————')
 				uni.showToast({
 					title: error,
 					icon: "none",
@@ -683,25 +704,35 @@ export const PosterCanvas = (store, successCallBack) => {
 
 
 export const handleLoginFailure = () => {
+
+	console.log('————————')
+	console.log('退出登录，标记当前页面为授权页面，防止多次跳转')
+	console.log('————————')
+
 	store.commit("LOGOUT");
 	store.commit("UPDATE_AUTHORIZATION", false);
 
 	// token 失效
 	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
 	if (store.getters.isAuthorizationPage || getCurrentPageUrl() == '/pages/user/Login/index') {
-		console.log('已经是登录页面或者授权页面，跳出方法')
+		console.log(store.getters.isAuthorizationPage, getCurrentPageUrl(), '已经是登录页面或者授权页面，跳出方法')
 		return
 	}
 
+	console.log('————————')
 	console.log('当前是授权页面')
 	console.log(store.getters)
+	console.log('————————')
 	store.commit("UPDATE_AUTHORIZATIONPAGE", true);
 
 	let path = getCurrentPageUrlWithArgs()
 
 	// 判断是不是拼团进来的
 	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
+		console.log('————————')
 		console.log('是拼团进来的')
+		console.log('————————')
+
 		let url = handleQrCode();
 		console.log(url)
 		if (url) {
@@ -713,14 +744,18 @@ export const handleLoginFailure = () => {
 			})
 			// cookie.set("spread", url.spread || 0);
 		} else {
+			console.log('————————')
 			console.log('是拼团进来的,但是没有获取到参数')
+			console.log('————————')
 			handleNoParameters()
 		}
 	}
 
 	// 判断是不是扫描的砍价海报进来的
 	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleQrCode()) {
+		console.log('————————')
 		console.log('是扫描的砍价海报进来的')
+		console.log('————————')
 		let url = handleQrCode();
 		if (url) {
 			path = parseUrl({
@@ -733,13 +768,19 @@ export const handleLoginFailure = () => {
 			// cookie.set("spread", url.spread || 0);
 		} else {
 			handleNoParameters()
+			console.log('————————')
 			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
+			console.log('————————')
+
 
 		}
 	}
 
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
+		console.log('————————')
 		console.log('是扫描的商品详情')
+		console.log('————————')
+
 		let url = handleQrCode();
 		console.log(url)
 		if (url) {
@@ -752,12 +793,16 @@ export const handleLoginFailure = () => {
 			cookie.set("spread", url.spread || 0);
 		} else {
 			handleNoParameters()
+			console.log('————————')
 			console.log('是扫描的商品详情进来的,但是没有获取到参数')
+			console.log('————————')
 		}
 	}
 
 
-
+	console.log('————————')
+	console.log(path, '重定向页面地址')
+	console.log('————————')
 	routerPermissions(path, 'reLaunch')
 }
 
