@@ -53,6 +53,7 @@ export default {
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
     ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+    
     back() {
       this.$yrouter.switchTab({
         path: "/pages/home/index",

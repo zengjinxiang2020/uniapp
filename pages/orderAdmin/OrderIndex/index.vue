@@ -1,5 +1,6 @@
 <template>
   <view class="order-index" ref="container">
+    <image src="@/static/images/orderIndex.png" mode="widthFix" class="image" />
     <view class="header acea-row">
       <view class="item" @click="goAdminOrderList(0)">
         <view class="num">{{ census.orderCount.unpaidCount }}</view>
@@ -130,10 +131,11 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
@@ -150,10 +152,11 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         },
         300
       );
