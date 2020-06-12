@@ -184,8 +184,8 @@ export const login = () => {
 									console.log('登录接口调用成功')
 									console.log('开始处理登录信息保存，并获取用户详情')
 									uni.hideLoading();
-									store.commit("LOGIN", data.token, dayjs(data.expires_time));
-									store.dispatch('USERINFO', true)
+									store.commit("login", data.token, dayjs(data.expires_time));
+									store.dispatch('userInfo', true)
 									getUser().then(user => {
 										console.log('获取用户信息成功')
 										store.dispatch('setUserInfo', user.data)
@@ -439,7 +439,7 @@ export function routerPermissions(url, type) {
 				console.log('————————')
 				console.log('登录成功，跳转页面')
 				console.log('————————')
-				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
+				store.commit("updateAuthorizationPage", false);
 				if (path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
 					console.log('————————')
 					console.log('当前是购物车，或者个人中心')
@@ -475,7 +475,7 @@ export function routerPermissions(url, type) {
 				switchTab({
 					path,
 				})
-				store.commit("UPDATE_AUTHORIZATIONPAGE", false);
+				store.commit("updateAuthorizationPage", false);
 				return
 			}
 			reLaunch({
@@ -709,8 +709,8 @@ export const handleLoginFailure = () => {
 	console.log('退出登录，标记当前页面为授权页面，防止多次跳转')
 	console.log('————————')
 
-	store.commit("LOGOUT");
-	store.commit("UPDATE_AUTHORIZATION", false);
+	store.commit("logout");
+	store.commit("updateAuthorization", false);
 
 	// token 失效
 	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
@@ -723,7 +723,7 @@ export const handleLoginFailure = () => {
 	console.log('当前是授权页面')
 	console.log(store.getters)
 	console.log('————————')
-	store.commit("UPDATE_AUTHORIZATIONPAGE", true);
+	store.commit("updateAuthorizationPage", true);
 
 	let path = getCurrentPageUrlWithArgs()
 

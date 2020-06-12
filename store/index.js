@@ -11,7 +11,7 @@ import {
 } from "@/api/user";
 import dialog from "@/utils/dialog";
 
-const LOGIN_KEY = "login_status";
+const loginKey = "login_status";
 
 const vuexStore = new Vuex.Store({
 	state: {
@@ -20,37 +20,20 @@ const vuexStore = new Vuex.Store({
 		// 是否授权
 		isAuthorization: false,
 		// 不建议从这里取 token，但是删除掉会影响其他的页面
-		token: cookie.get(LOGIN_KEY) || null,
+		token: cookie.get(loginKey) || null,
 		userInfo: cookie.get('userInfo'),
 		$deviceType: null,
+		location: {
+			latitude: '',
+			longitude: ''
+		}
 	},
 	mutations: {
-		SHOW_FOOTER(state) {
-			state.footer = true;
-		},
-		HIDE_FOOTER(state) {
-			state.footer = false;
-		},
-		SHOW_HOME(state) {
-			state.home = true;
-		},
-		HIDE_HOME(state) {
-			state.home = false;
-		},
-		OPEN_HOME(state) {
-			state.homeActive = true;
-		},
-		CLOSE_HOME(state) {
-			state.homeActive = false;
-		},
-		CHANGE_TABTAR(state, index) {
-			state.tabtarIndex = index;
-		},
-		LOGIN(state, token, expires_time) {
+		login(state, token, expires_time) {
 			state.token = token;
-			cookie.set(LOGIN_KEY, token, expires_time);
+			cookie.set(loginKey, token, expires_time);
 		},
-		LOGOUT(state) {
+		logout(state) {
 			console.log('清除数据')
 			state.token = null;
 			state.userInfo = null
@@ -59,11 +42,11 @@ const vuexStore = new Vuex.Store({
 			cookie.clearAll()
 			cookie.set('spread', spread)
 		},
-		BACKGROUND_COLOR(state, color) {
+		backgroundColor(state, color) {
 			state.color = color;
 			// document.body.style.backgroundColor = color;
 		},
-		UPDATE_USERINFO(state, userInfo) {
+		updateUserInfo(state, userInfo) {
 			state.userInfo = userInfo;
 			if (userInfo) {
 				cookie.set('userInfo', userInfo)
@@ -71,24 +54,40 @@ const vuexStore = new Vuex.Store({
 				cookie.set('userInfo', null)
 			}
 		},
-		UPDATE_AUTHORIZATIONPAGE(state, isAuthorizationPage) {
+		updateAuthorizationPage(state, isAuthorizationPage) {
 			state.isAuthorizationPage = isAuthorizationPage;
 		},
-		UPDATE_AUTHORIZATION(state, isAuthorization) {
+		updateAuthorization(state, isAuthorization) {
 			state.isAuthorization = isAuthorization;
 		},
-		UPDATE_DEVICETYPE(state, $deviceType) {
+		updateDevicetype(state, $deviceType) {
 			state.$deviceType = $deviceType;
 		},
+		setLocation(state, location) {
+			console.log(location, '定位')
+			state.location = location
+		}
 	},
 	actions: {
-		USERINFO({ state, commit }, force) {
+		getLocation({ state, commit }, force) {
+			uni.getLocation({
+				type: 'wgs84',
+				success: function (res) {
+					console.log(res)
+					commit("setLocation", {
+						longitude: res.longitude,
+						latitude: res.latitude,
+					});
+				}
+			});
+		},
+		userInfo({ state, commit }, force) {
 			if (state.userInfo !== null && !force) {
 				return Promise.resolve(state.userInfo);
 			} else {
 				return new Promise(reslove => {
 					getUserInfo().then(res => {
-						commit("UPDATE_USERINFO", res.data);
+						commit("updateUserInfo", res.data);
 						reslove(res.data);
 					});
 				}).catch(() => {
@@ -100,7 +99,7 @@ const vuexStore = new Vuex.Store({
 			return new Promise(reslove => {
 				getUser().then(res => {
 					console.log(res)
-					commit("UPDATE_USERINFO", res.data);
+					commit("updateUserInfo", res.data);
 					reslove(res.data);
 				});
 			}).catch((error) => {
@@ -112,25 +111,25 @@ const vuexStore = new Vuex.Store({
 			state,
 			commit
 		}, data, date) {
-			commit("LOGIN", data, date);
+			commit("login", data, date);
 		},
 		setUserInfo({
 			state,
 			commit
 		}, user) {
-			commit("UPDATE_USERINFO", user);
+			commit("updateUserInfo", user);
 		},
 		changeAuthorizationPage({
 			state,
 			commit
 		}, index) {
-			commit("UPDATE_AUTHORIZATIONPAGE", index);
+			commit("updateAuthorizationPage", index);
 		},
 		changeAuthorization({
 			state,
 			commit
 		}, index) {
-			commit("UPDATE_AUTHORIZATION", index);
+			commit("updateAuthorization", index);
 		},
 	},
 	getters: {
@@ -139,6 +138,7 @@ const vuexStore = new Vuex.Store({
 		token: state => state.token,
 		isLogin: state => !!state.token,
 		userInfo: state => state.userInfo || {},
+		location: state => state.location,
 	},
 	strict: debug
 });

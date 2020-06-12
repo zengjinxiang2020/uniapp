@@ -130,7 +130,7 @@ export default {
       if (that.login_type === "h5") {
         cookie.set("loginType", "wechat", 60);
         uni.hideLoading();
-        this.$store.commit("LOGOUT");
+        this.$store.commit("logout");
         this.$emit("changeswitch", false);
         location.reload();
       } else {
@@ -138,7 +138,7 @@ export default {
           .then(({ data }) => {
             uni.hideLoading();
             const expires_time = dayjs(data.expires_time);
-            store.commit("LOGIN", data.token, expires_time);
+            store.commit("login", data.token, expires_time);
             this.$emit("changeswitch", false);
             location.reload();
           })

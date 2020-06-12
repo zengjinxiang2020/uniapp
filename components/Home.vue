@@ -40,9 +40,6 @@ export default {
 			// else if (top < 55) top = 55;
 			this.top = 55;
 		},
-		open: function() {
-			this.homeActive ? this.$store.commit('CLOSE_HOME') : this.$store.commit('OPEN_HOME');
-		}
 	}
 };
 </script>

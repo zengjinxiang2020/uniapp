@@ -130,6 +130,7 @@
 </template>
 <script>
 	// import { swiper, swiperSlide } from "vue-awesome-swiper";
+	import { mapState, mapMutations, mapActions } from 'vuex';
 
 	import GoodList from '@/components/GoodList';
 	import PromotionGood from '@/components/PromotionGood';
@@ -233,6 +234,7 @@
 			};
 		},
 		onShow: function() {
+			this.getLocation()
 			let that = this;
 			uni.showLoading({
 				title: '加载中'
@@ -257,6 +259,7 @@
 			});
 		},
 		methods: {
+			...mapActions(["getLocation"]),
 			goRoll(item){
 				if(item.uniapp_url){
 					this.$yrouter.push(item.uniapp_url)	

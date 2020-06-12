@@ -59,17 +59,17 @@ export default {
   },
   onHide() {
     console.log("离开授权页面,11111");
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
     this.changeAuthorization(false);
   },
   onUnload() {
     console.log("离开授权页面,11111");
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
     this.changeAuthorization(false);
   },
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
-    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+    ...mapMutations(["updateAuthorizationPage",]),
     
     back() {
       this.$yrouter.switchTab({
@@ -111,7 +111,7 @@ export default {
   },
   onUnload() {
     console.log("离开授权页面,11111");
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
     this.changeAuthorization(false);
   },
   mounted() {
