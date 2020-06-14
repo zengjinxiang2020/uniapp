@@ -61,6 +61,12 @@
 			}
 		},
 		{
+			"path": "pages/shop/StoreList/index",
+			"style": {
+				"navigationBarTitleText": "商家列表"
+			}
+		},
+		{
 			"path": "pages/shop/GoodsList/index",
 			"style": {
 				"navigationBarTitleText": "商品列表"

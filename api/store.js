@@ -56,11 +56,11 @@ export function toCollect(id, category) {
 export function getHostProducts(page, limit) {
 	return request.get(
 		"/product/hot", {
-			page: page,
-			limit: limit
-		}, {
-			login: false
-		}
+		page: page,
+		limit: limit
+	}, {
+		login: false
+	}
 	);
 }
 
@@ -165,5 +165,11 @@ export function postOrderProduct(unique) {
 export function postOrderComment(data) {
 	return request.post("/order/comment", data, {
 		login: true
+	});
+}
+
+export function storeListApi(data) {
+	return request.get("store_list", data, {
+		login: false
 	});
 }

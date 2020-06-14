@@ -186,7 +186,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   methods: {
-    ...mapMutations(["updateAuthorizationPage", "CHANGE_TABTAR"]),
+    ...mapMutations(["updateAuthorizationPage", ]),
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
     },

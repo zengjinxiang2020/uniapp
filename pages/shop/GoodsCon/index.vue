@@ -46,7 +46,7 @@
     <view class="store-info">
       <view class="title acea-row row-between-wrapper">
         <view>门店信息</view>
-        <text @click="goEvaluateList(id)" class="praise">
+        <text @click="goStoreList()" class="praise">
           更多
           <text class="iconfont icon-jiantou"></text>
         </text>
@@ -300,6 +300,11 @@ export default {
     goCustomerList() {
       this.$yrouter.push({
         path: "/pages/user/CustomerList/index"
+      });
+    },
+    goStoreList() {
+      this.$yrouter.push({
+        path: "/pages/shop/StoreList/index"
       });
     },
     goEvaluateList(id) {
