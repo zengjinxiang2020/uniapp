@@ -8,6 +8,7 @@
               <view>总资产(元)</view>
               <view class="money">{{ now_money }}</view>
             </view>
+            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator>
           </view>
           <view class="cumulative acea-row row-top">
             <view class="item">
@@ -57,13 +58,16 @@ export default {
       }
     };
   },
-  mounted: function() {
+  onShow: function() {
     this.getIndex();
     this.getActivity();
   },
   methods: {
     goUserBill(types) {
-      this.$yrouter.push({ path: "/pages/user/UserBill/index", query: { types } });
+      this.$yrouter.push({
+        path: "/pages/user/UserBill/index",
+        query: { types }
+      });
     },
     getIndex: function() {
       let that = this;
@@ -75,10 +79,11 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     },
@@ -92,10 +97,11 @@ export default {
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         }
       );
     }

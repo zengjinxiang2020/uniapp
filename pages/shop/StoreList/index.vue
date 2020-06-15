@@ -61,7 +61,7 @@
         "
       ></iframe>
     </div> -->
-  </div>
+  </view>
 </template>
 
 <script>

@@ -409,3 +409,8 @@ export function getBrokerageRank(q) {
 export function setDetection() {
 	return request.get("user/level/detection");
 }
+
+
+export function getRechargeApi() {
+  return request.get("recharge/index");
+}
