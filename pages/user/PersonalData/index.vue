@@ -149,7 +149,7 @@ export default {
           .then(({ data }) => {
             uni.hideLoading();
             const expires_time = dayjs(data.expires_time);
-            store.commit("LOGIN", data.token, expires_time);
+            store.commit("login", data.token, expires_time);
             that.$emit("changeswitch", false);
             location.reload();
           })
@@ -164,7 +164,7 @@ export default {
       } else {
         cookie.set("loginType", "wechat", 60);
         uni.hideLoading();
-        this.$store.commit("LOGOUT");
+        this.$store.commit("logout");
         this.$emit("changeswitch", false);
       }
     },
@@ -204,7 +204,7 @@ export default {
         avatar: userInfo.avatar
       }).then(
         res => {
-          this.$store.dispatch("USERINFO", true);
+          this.$store.dispatch("userInfo", true);
           this.$uni.showToast({
             title: res.msg,
             icon: "none",
@@ -229,7 +229,7 @@ export default {
           if (res.confirm) {
             getLogout()
               .then(res => {
-                this.$store.commit("LOGOUT");
+                this.$store.commit("logout");
                 clearAuthStatus();
                 location.href = location.origin;
               })

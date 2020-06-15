@@ -115,9 +115,6 @@
           </view>
         </view>
         <view class="myService">
-          <view class="title acea-row row-middle">
-            <text>我的服务</text>
-          </view>
           <view class="serviceList acea-row row-middle">
             <template v-for="(item, MyMenusIndex) in MyMenus">
               <view
@@ -129,7 +126,8 @@
                 <view class="pictrue">
                   <image :src="item.pic" />
                 </view>
-                <view>{{ item.name }}</view>
+                <view class="cell">{{ item.name }}</view>
+                <text class="iconfont icon-jiantou"></text>
               </view>
             </template>
           </view>
@@ -188,7 +186,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   methods: {
-    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+    ...mapMutations(["updateAuthorizationPage", ]),
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
     },
@@ -240,7 +238,7 @@ export default {
                     .then(res => {
                       console.log(res);
                       // this.User();
-                      thit.$store.dispatch("USERINFO", true);
+                      thit.$store.dispatch("userInfo", true);
                       uni.hideLoading();
                       uni.showToast({
                         title: res.msg,
@@ -250,7 +248,7 @@ export default {
                     })
                     .catch(error => {
                       uni.hideLoading();
-                      thit.$store.dispatch("USERINFO", true);
+                      thit.$store.dispatch("userInfo", true);
                       console.log(error);
                       uni.showToast({
                         title:
@@ -353,7 +351,7 @@ export default {
   },
   onHide() {
     console.log('离开用户中心')
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
   }
 };
 </script>

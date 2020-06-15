@@ -43,19 +43,32 @@
       </view>
       <view class="iconfont icon-jiantou"></view>
     </view>
-    <view class="store-info" v-if="system_store.id !== undefined">
-      <text class="title">门店信息</text>
+    <view class="store-info">
+      <view class="title acea-row row-between-wrapper">
+        <view>门店信息</view>
+        <text @click="goStoreList()" class="praise">
+          更多
+          <text class="iconfont icon-jiantou"></text>
+        </text>
+      </view>
       <view class="info acea-row row-between-wrapper">
         <view class="picTxt acea-row row-between-wrapper">
           <view class="pictrue">
-            <image :src="system_store.image" />
+            <image :src="systemStore.image" />
           </view>
           <view class="text">
-            <view class="name line1">{{ system_store.name }}</view>
+            <view class="name line1">{{ systemStore.name }}</view>
             <view class="address acea-row row-middle" @click="showChang">
-              <text class="addressTxt line1">{{system_store._detailed_address}}</text>
+              <text class="addressTxt">{{systemStore.address}}</text>
               <text class="iconfont icon-youjian"></text>
             </view>
+          </view>
+          <view class="addressBox">
+            <a
+              :href="'tel:'+systemStore.phone"
+              class="iconfont icon-dadianhua01 font-color-red phone"
+            ></a>
+            <view class="addressTxt corlor-yshop">距离{{systemStore.distance}}千米</view>
           </view>
         </view>
       </view>
@@ -158,7 +171,7 @@
         height="100%"
         frameborder="0"
         scrolling="no"
-        :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +system_store.latitude +',' +system_store.longitude +'&referer=' +mapKey"
+        :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +systemStore.latitude +',' +systemStore.longitude +'&referer=' +mapKey"
       ></iframe>
     </view>
     <view class="posterCanvasWarp">
@@ -255,18 +268,16 @@ export default {
         observeParents: true
       },
       goodList: [],
-      system_store: {},
+      systemStore: {},
       qqmapsdk: null,
       productConClass: "product-con"
     };
   },
-  computed: mapGetters(["isLogin"]),
+  computed: mapGetters(["isLogin", "location"]),
   mounted: function() {
     let url = handleQrCode();
-    console.log(url);
     if (url && url.productId) {
       this.id = url.productId;
-      
     } else {
       this.id = this._route.query.id;
     }
@@ -291,6 +302,11 @@ export default {
         path: "/pages/user/CustomerList/index"
       });
     },
+    goStoreList() {
+      this.$yrouter.push({
+        path: "/pages/shop/StoreList/index"
+      });
+    },
     goEvaluateList(id) {
       this.$yrouter.push({
         path: "/pages/shop/EvaluateList/index",
@@ -299,25 +315,22 @@ export default {
         }
       });
     },
-    showChang: function() {
-      if (isWeixin()) {
-        let config = {
-          latitude: this.system_store.latitude,
-          longitude: this.system_store.longitude,
-          name: this.system_store.name,
-          address: this.system_store._detailed_address
-        };
-      } else {
-        if (!this.mapKey) {
-          uni.showToast({
-            title: "暂无法使用查看地图，请配置您的腾讯地图key",
-            icon: "none",
-            duration: 2000
-          });
-          return;
-        }
-        this.mapShow = true;
+    showChang: function(data) {
+      let config = {
+        latitude: data.latitude,
+        longitude: data.longitude,
+        name: data.name,
+        address: data._detailed_address
+      };
+      if (!this.mapKey) {
+        uni.showToast({
+          title: "暂无法使用查看地图，请配置您的腾讯地图key",
+          icon: "none",
+          duration: 2000
+        });
+        return;
       }
+      this.mapShow = true;
     },
     updateTitle() {
       // document.title = this.storeInfo.storeName || this.$yroute.meta.title;
@@ -340,13 +353,14 @@ export default {
     //产品详情接口；
     productCon: function() {
       let that = this;
-      let from = {};
+      let from = this.location;
       if (this.$deviceType == "app") {
         from.from = "app";
       }
       uni.showLoading({ title: "加载中", mask: true });
       getProductDetail(that.id, from)
         .then(res => {
+          console.log(res);
           that.$set(that, "storeInfo", res.data.storeInfo);
           // 给 attr 赋值，将请求回来的规格赋值给 attr
           that.$set(that.attr, "productAttr", res.data.productAttr);
@@ -365,7 +379,7 @@ export default {
           }
           that.posterData.price = that.storeInfo.price;
           that.posterData.code = that.storeInfo.codeBase;
-          // that.system_store = res.data.system_store;
+          that.systemStore = res.data.systemStore;
           let good_list = res.data.goodList || [];
           let goodArray = [];
           let count = Math.ceil(good_list.length / 6);
@@ -706,12 +720,16 @@ export default {
 }
 
 .product-con .store-info .info .picTxt {
-  width: 6.15 * 100rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .product-con .store-info .info .picTxt .pictrue {
   width: 0.76 * 100rpx;
   height: 0.76 * 100rpx;
+  margin-right: 0.2 * 100rpx;
+  
 }
 
 .product-con .store-info .info .picTxt .pictrue image {
@@ -721,7 +739,7 @@ export default {
 }
 
 .product-con .store-info .info .picTxt .text {
-  width: 5.22 * 100rpx;
+  flex: 1;
 }
 
 .product-con .store-info .info .picTxt .text .name {
@@ -741,12 +759,25 @@ export default {
   margin-left: 0.1 * 100rpx;
 }
 
-.product-con .store-info .info .picTxt .text .address .addressTxt {
-  width: 4.8 * 100rpx;
+.product-con .store-info .info .picTxt .addressBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.product-con .store-info .info .picTxt .addressBox .iconfont {
+  font-size: 0.4 * 100rpx;
+}
+.product-con .store-info .info .picTxt .addressBox .addressTxt {
+  font-size: 0.24 * 100rpx;
+  color: #00c17b;
 }
 
-.product-con .store-info .info .iconfont {
-  font-size: 0.4 * 100rpx;
+.product-con .store-info .praise {
+  font-size: 0.28 * 100rpx;
+  color: #808080;
+}
+.product-con .store-info .praise .iconfont {
+  font-size: 0.28 * 100rpx;
 }
 
 .product-con .superior {

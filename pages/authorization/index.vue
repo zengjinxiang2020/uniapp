@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
-    ...mapMutations(["UPDATE_AUTHORIZATIONPAGE", "CHANGE_TABTAR"]),
+    ...mapMutations(["updateAuthorizationPage",]),
     
     back() {
       this.$yrouter.switchTab({

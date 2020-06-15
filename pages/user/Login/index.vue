@@ -174,7 +174,7 @@ export default {
       })
         .then(res => {
           var data = res.data;
-          that.$store.commit("LOGIN", data.token, dayjs(data.expires_time));
+          that.$store.commit("login", data.token, dayjs(data.expires_time));
           handleGetUserInfo();
         })
         .catch(err => {
@@ -305,7 +305,7 @@ export default {
         spread: cookie.get("spread")
       })
         .then(({ data }) => {
-          this.$store.commit("LOGIN", data.token, dayjs(data.expires_time));
+          this.$store.commit("login", data.token, dayjs(data.expires_time));
           handleGetUserInfo();
           // let replace=this.$yroute.query.replace
           // if(replace){
