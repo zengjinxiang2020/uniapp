@@ -26,7 +26,9 @@ const vuexStore = new Vuex.Store({
 		location: {
 			latitude: '',
 			longitude: ''
-		}
+		},
+		storeItems: cookie.get("storeItems") || null,
+		goName: cookie.get("goName") || ""
 	},
 	mutations: {
 		login(state, token, expires_time) {
@@ -64,8 +66,15 @@ const vuexStore = new Vuex.Store({
 			state.$deviceType = $deviceType;
 		},
 		setLocation(state, location) {
-			console.log(location, '定位')
 			state.location = location
+		},
+		get_store(state, storeItems) {
+			state.storeItems = storeItems;
+			cookie.set("storeItems", storeItems);
+		},
+		get_to(state, goName) {
+			state.goName = goName;
+			cookie.set("goName", goName);
 		}
 	},
 	actions: {
@@ -139,6 +148,8 @@ const vuexStore = new Vuex.Store({
 		isLogin: state => !!state.token,
 		userInfo: state => state.userInfo || {},
 		location: state => state.location,
+		storeItems: state => state.storeItems,
+		goName: state => state.goName,
 	},
 	strict: debug
 });

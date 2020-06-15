@@ -31,6 +31,12 @@
           </view>
           <view>消费记录</view>
         </view>
+        <view class="item" @click="goUserBill(2)">
+          <view class="pictrue">
+            <image src="@/static/images/record3.png" />
+          </view>
+          <view>充值记录</view>
+        </view>
       </view>
       <view class="advert acea-row row-between-wrapper"></view>
     </view>

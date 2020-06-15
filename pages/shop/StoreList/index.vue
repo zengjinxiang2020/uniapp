@@ -60,7 +60,7 @@
             mapKey
         "
       ></iframe>
-    </div> -->
+    </div>-->
   </view>
 </template>
 
@@ -77,7 +77,7 @@ const MAPKEY = "mapKey";
 export default {
   name: "storeList",
   components: { Loading },
-  computed: mapGetters(["location"]),
+  computed: mapGetters(["location", "goName"]),
   data() {
     return {
       page: 1,
@@ -101,8 +101,8 @@ export default {
     // 选中门店
     checked(e) {
       if (this.goName === "orders") {
-        this.$router.go(-1); //返回上一层
-        this.$store.commit("GET_STORE", e);
+        this.$store.commit("get_store", e);
+        this.$yrouter.back();
       }
     },
     // 获取门店列表数据
@@ -141,14 +141,14 @@ export default {
 }
 .storeBox {
   background-color: #fff;
-  padding: 0 0.3*100rpx;
+  padding: 0 0.3 * 100rpx;
 }
 .storeBox-box {
   width: 100%;
   height: auto;
   display: flex;
   align-items: center;
-  padding: 0.23*100rpx 0;
+  padding: 0.23 * 100rpx 0;
   justify-content: space-between;
   border-bottom: 1px solid #eee;
 }
@@ -159,15 +159,15 @@ export default {
 }
 .store-cent-left {
   width: 45%;
-  text{
+  text {
     display: block;
   }
 }
 .store-img {
-  width: 1.2*100rpx;
-  height: 1.2*100rpx;
-  border-radius: 0.06*100rpx;
-  margin-right: 0.22*100rpx;
+  width: 1.2 * 100rpx;
+  height: 1.2 * 100rpx;
+  border-radius: 0.06 * 100rpx;
+  margin-right: 0.22 * 100rpx;
 }
 .store-img img {
   width: 100%;
@@ -175,31 +175,31 @@ export default {
 }
 .store-name {
   color: #282828;
-  font-size: 0.3*100rpx;
-  margin-bottom: 0.22*100rpx;
+  font-size: 0.3 * 100rpx;
+  margin-bottom: 0.22 * 100rpx;
   font-weight: 800;
 }
 .store-address {
   color: #666666;
-  font-size: 0.24*100rpx;
+  font-size: 0.24 * 100rpx;
 }
 .store-phone {
-  width: 0.5*100rpx;
-  height: 0.5*100rpx;
+  width: 0.5 * 100rpx;
+  height: 0.5 * 100rpx;
   color: #fff;
   border-radius: 50%;
   display: block;
   text-align: center;
-  line-height: 0.5*100rpx;
+  line-height: 0.5 * 100rpx;
   background-color: #e83323;
-  margin-bottom: 0.22*100rpx;
+  margin-bottom: 0.22 * 100rpx;
 }
 .store-distance {
-  font-size: 0.22*100rpx;
+  font-size: 0.22 * 100rpx;
   color: #e83323;
 }
 .iconfont {
-  font-size: 0.2*100rpx;
+  font-size: 0.2 * 100rpx;
 }
 .row-right {
   display: flex;

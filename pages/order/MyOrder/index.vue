@@ -38,13 +38,14 @@
       <view class="item" v-for="(order,orderListIndex) in orderList" :key="orderListIndex">
         <view class="title acea-row row-between-wrapper">
           <view class="acea-row row-middle">
-            <text
+            <span
               class="sign cart-color acea-row row-center-wrapper"
               v-if="order.combinationId > 0"
-            >拼团</text>
-            <text class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</text>
-            <text class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</text>
-            <data-format :date="order.addTime"></data-format>
+            >拼团</span>
+            <span class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</span>
+            <span class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</span>
+            <span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span>
+            {{ dataFormat(order.addTime) }}
           </view>
           <view class="font-color-red">{{ getStatus(order) }}</view>
         </view>
@@ -200,7 +201,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   onShow: function() {
-    console.log(this)
+    console.log(this);
     this.type = parseInt(this.$yroute.query.type) || 0;
     this.changeType(this.type);
     this.getOrderData();

@@ -45,7 +45,7 @@
               'bg-color-red':
                 status.type > 1 && status.type != 6 && status.type != 9
             }"
-            v-if="orderInfo.shipping_type === 1"
+            v-if="orderInfo.shippingType === 1"
           ></view>
           <view
             class="iconfont"
@@ -91,66 +91,60 @@
           ></view>
         </view>
       </view>
-      <!--<view-->
-      <!--class="writeOff"-->
-      <!--v-if="orderInfo.shipping_type === 2 && orderInfo.paid === 1"-->
-      <!--&gt;-->
-      <!--<view class="title">核销信息</view>-->
-      <!--<view class="grayBg">-->
-      <!--<view class="pictrue"><image :src="orderInfo.code" /></view>-->
-      <!--</view>-->
-      <!--<view class="gear"><image src="@/static/images/writeOff.jpg" /></view>-->
-      <!--<view class="num">{{ orderInfo._verify_code }}</view>-->
-      <!--<!--<!--<!--<text class="rules">-->
-      <!--<!--<!--<text class="item">-->
-      <!--<!--<text class="rulesTitle acea-row row-middle">-->
-      <!--<text class="iconfont icon-shijian"></text>核销时间-->
-      <!--</!--<text>-->
-      <!--<view class="info">-->
-      <!--{{ system_store._valid_time-->
-      <!--}}<text class="time">{{ system_store.day_time }}</text>-->
-      <!--</view>-->
-      <!--</!--<!--<text>-->
-      <!--<view class="item">-->
-      <!--<view class="rulesTitle acea-row row-middle">-->
-      <!--<text class="iconfont icon-shuoming1"></text>使用说明-->
-      <!--</view>-->
-      <!--<view class="info">可将二维码出示给店员扫描或提供数字核销码</view>-->
-      <!--</view>-->
-      <!--</!--<!--<!--<text>-->
-      <!--</!--<!--<!--<!--<text>-->
-      <!--<view-->
-      <!--class="map acea-row row-between-wrapper"-->
-      <!--v-if="orderInfo.shipping_type === 2 && orderInfo.paid === 1"-->
-      <!--&gt;-->
-      <!--<view>自提地址信息</view>-->
-      <!--<view-->
-      <!--class="place cart-color acea-row row-center-wrapper"-->
-      <!--@click="showChang"-->
-      <!--&gt;-->
-      <!--<text class="iconfont icon-weizhi"></text>查看位置-->
-      <!--</view>-->
-      <!--</view>-->
+      <div class="writeOff" v-if="orderInfo.shippingType === 2 && orderInfo.paid === 1">
+        <div class="title">核销信息</div>
+        <div class="grayBg">
+          <div class="pictrue">
+            <img :src="orderInfo.code" />
+          </div>
+        </div>
+        <div class="gear">
+          <img src="@/static/images/writeOff.jpg" />
+        </div>
+        <div class="num">{{ orderInfo.verifyCode }}</div>
+        <div class="rules">
+          <div class="item">
+            <div class="rulesTitle acea-row row-middle">
+              <span class="iconfont icon-shijian"></span>核销时间
+            </div>
+            <div class="info">
+              每日：
+              <span class="time">{{ system_store.dayTime }}</span>
+            </div>
+          </div>
+          <div class="item">
+            <div class="rulesTitle acea-row row-middle">
+              <span class="iconfont icon-shuoming1"></span>使用说明
+            </div>
+            <div class="info">可将二维码出示给店员扫描或提供数字核销码</div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="map acea-row row-between-wrapper"
+        v-if="orderInfo.shippingType === 2 && orderInfo.paid === 1"
+      >
+        <div>自提地址信息</div>
+        <div class="place cart-color acea-row row-center-wrapper" @click="showChang">
+          <span class="iconfont icon-weizhi"></span>查看位置
+        </div>
+      </div>
       <view class="address" v-if="orderInfo.shippingType === 1">
         <view class="name">
-          {{ orderInfo.realName
-          }}
+          {{ orderInfo.realName }}
           <text class="phone">{{ orderInfo.userPhone }}</text>
           <text class="iconfont icon-tonghua font-color-red"></text>
         </view>
         <view>{{ orderInfo.userAddress }}</view>
       </view>
-      <!--<view class="address" v-else>-->
-      <!--<view class="name">-->
-      <!--{{ system_store.name-->
-      <!--}}<text class="phone">{{ system_store.phone }}</text>-->
-      <!--<a-->
-      <!--class="iconfont icon-tonghua font-color-red"-->
-      <!--:href="'tel:' + system_store.phone"-->
-      <!--&gt;</a>-->
-      <!--</view>-->
-      <!--<view>{{ system_store._detailed_address }}</view>-->
-      <!--</view>-->
+      <div class="address" v-else>
+        <div class="name">
+          {{ system_store.name}}
+          <span class="phone">{{ system_store.phone }}</span>
+          <span class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></span>
+        </div>
+        <div>{{ system_store.address }}</div>
+      </div>
       <view class="line" v-if="orderInfo.shippingType === 1">
         <image src="@/static/images/line.jpg" />
       </view>
@@ -160,8 +154,7 @@
       <view class="item acea-row row-between">
         <view>订单编号：</view>
         <view class="conter acea-row row-middle row-right">
-          {{ orderInfo.orderId
-          }}
+          {{ orderInfo.orderId }}
           <text class="copy copy-data" @click="copyClipboard(orderInfo.orderId)">复制</text>
         </view>
       </view>
@@ -272,9 +265,7 @@
       <template v-if="status.type == 2">
         <view
           class="bnt default"
-          @click="
-            $yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})
-          "
+          @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})"
         >查看物流</view>
         <view class="bnt bg-color-red" @click="takeOrder">确认收货</view>
       </template>
@@ -319,13 +310,11 @@
   top: 0;
   z-index: 10000;
 }
-
 .order-details .writeOff {
   background-color: #fff;
   margin-top: 0.13 * 100rpx;
   padding-bottom: 0.3 * 100rpx;
 }
-
 .order-details .writeOff .title {
   font-size: 0.3 * 100rpx;
   color: #282828;
@@ -334,7 +323,6 @@
   padding: 0 0.3 * 100rpx;
   line-height: 0.87 * 100rpx;
 }
-
 .order-details .writeOff .grayBg {
   background-color: #f2f5f7;
   width: 5.9 * 100rpx;
@@ -343,31 +331,26 @@
   margin: 0.5 * 100rpx auto 0 auto;
   padding-top: 0.55 * 100rpx;
 }
-
 .order-details .writeOff .grayBg .pictrue {
   width: 2.9 * 100rpx;
   height: 2.9 * 100rpx;
   margin: 0 auto;
 }
-
-.order-details .writeOff .grayBg .pictrue image {
+.order-details .writeOff .grayBg .pictrue img {
   width: 100%;
   height: 100%;
   display: block;
 }
-
 .order-details .writeOff .gear {
   width: 5.9 * 100rpx;
   height: 0.3 * 100rpx;
   margin: 0 auto;
 }
-
-.order-details .writeOff .gear image {
+.order-details .writeOff .gear img {
   width: 100%;
   height: 100%;
   display: block;
 }
-
 .order-details .writeOff .num {
   background-color: #f0c34c;
   width: 5.9 * 100rpx;
@@ -379,50 +362,42 @@
   text-align: center;
   padding-top: 0.04 * 100rpx;
 }
-
 .order-details .writeOff .rules {
   margin: 0.46 * 100rpx 0.3 * 100rpx 0 0.3 * 100rpx;
   border-top: 0.01 * 100rpx solid #f0f0f0;
   padding-top: 0.1 * 100rpx;
 }
-
 .order-details .writeOff .rules .item {
   margin-top: 0.15 * 100rpx;
 }
-
 .order-details .writeOff .rules .item .rulesTitle {
   font-size: 0.28 * 100rpx;
   color: #282828;
 }
-
 .order-details .writeOff .rules .item .rulesTitle .iconfont {
   font-size: 0.3 * 100rpx;
   color: #333;
   margin-right: 0.08 * 100rpx;
   margin-top: 0.05 * 100rpx;
 }
-
 .order-details .writeOff .rules .item .info {
   font-size: 0.28 * 100rpx;
   color: #999;
   margin-top: 0.05 * 100rpx;
 }
-
 .order-details .writeOff .rules .item .info .time {
   margin-left: 0.2 * 100rpx;
 }
-
 .order-details .map {
   height: 0.86 * 100rpx;
   font-size: 0.3 * 100rpx;
   color: #282828;
   line-height: 0.86 * 100rpx;
-  border-bottom: 1rpx solid #f0f0f0;
+  border-bottom: 0.01 * 100rpx solid #f0f0f0;
   margin-top: 0.13 * 100rpx;
   background-color: #fff;
   padding: 0 0.3 * 100rpx;
 }
-
 .order-details .map .place {
   font-size: 0.26 * 100rpx;
   width: 1.76 * 100rpx;
@@ -431,14 +406,12 @@
   line-height: 0.5 * 100rpx;
   text-align: center;
 }
-
 .order-details .map .place .iconfont {
   font-size: 0.27 * 100rpx;
   height: 0.27 * 100rpx;
   line-height: 0.27 * 100rpx;
   margin: 0.02 * 100rpx 0.03 * 100rpx 0 0;
 }
-
 .order-details .address .name .iconfont {
   font-size: 0.34 * 100rpx;
   margin-left: 0.1 * 100rpx;
@@ -528,7 +501,7 @@ export default {
           latitude: this.system_store.latitude,
           longitude: this.system_store.longitude,
           name: this.system_store.name,
-          address: this.system_store._detailed_address
+          address: this.system_store.address
         };
       } else {
         if (!this.mapKey)
@@ -546,7 +519,7 @@ export default {
         this.$yrouter.back();
         return;
       } else {
-        console.log(this)
+        console.log(this);
         this.$yrouter.replace({
           path: "/pages/order/MyOrder/index"
         });
@@ -556,7 +529,6 @@ export default {
     cancelOrder() {
       cancelOrderHandle(this.orderInfo.orderId)
         .then(() => {
-          
           setTimeout(() => this.goBack(), 300);
         })
         .catch(() => {
@@ -582,9 +554,7 @@ export default {
     },
     getOrderStatus: function() {
       let orderInfo = this.orderInfo || {},
-        _status = orderInfo._status || {
-          _type: 0
-        },
+        _status = orderInfo._status || { _type: 0 },
         status = {};
       let type = parseInt(_status._type),
         delivery_type = orderInfo.deliveryType,
@@ -642,7 +612,7 @@ export default {
             this.orderTypeName = "秒杀订单";
             this.orderTypeNameStatus = false;
           }
-          this.system_store = res.data.system_store || {};
+          this.system_store = res.data.systemStore || {};
           this.mapKey = res.data.mapKay;
           this.setOfflinePayStatus(this.orderInfo.offlinePayStatus);
         })
@@ -660,6 +630,6 @@ export default {
       await payOrderHandle(this.orderInfo.orderId, type, that.from);
       that.getDetail();
     }
-  },
+  }
 };
 </script>

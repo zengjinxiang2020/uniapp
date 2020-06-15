@@ -3,6 +3,7 @@
     <view class="nav acea-row">
       <view class="item" :class="types == 0 ? 'on' : ''" @click="changeTypes(0)">全部</view>
       <view class="item" :class="types == 1 ? 'on' : ''" @click="changeTypes(1)">消费</view>
+      <view class="item" :class="types == 2 ? 'on' : ''" @click="changeTypes(2)">充值</view>
     </view>
     <view class="sign-record">
       <view class="list">
