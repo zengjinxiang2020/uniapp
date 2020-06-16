@@ -144,14 +144,10 @@
         </view>-->
       </view>
       <view class="by">
-        <text class="by-text">By@Yshop</text>
-      </view>
-      <view class="by">
         <view>
-          <text class="by-text">Copyright © 2020</text>
+          <text class="by-text">www.yixiang.co提供技术支持</text>
         </view>
       </view>
-      <view class="footer-line-height"></view>
       <!-- <SwitchWindow
         v-on:changeswitch="changeswitch"
         :switchActive="switchActive"
@@ -396,10 +392,11 @@ export default {
 
 .by {
   text-align: center;
-  margin-top: 30rpx;
+  padding: 30rpx 0;
+  
 }
 .by-text {
   text-align: center;
-  font-size: 30rpx;
+  font-size: 24rpx;
 }
 </style>
