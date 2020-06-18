@@ -522,6 +522,7 @@ export default {
       if (this.$deviceType == "app") {
         from.from = "app";
       }
+      console.log(this.storeItems, this.systemStore);
       createOrder(this.orderGroupInfo.orderKey, {
         realName: this.contacts,
         phone: this.contactsTel,
@@ -536,7 +537,7 @@ export default {
         from: this.from,
         mark: this.mark || "",
         shippingType: parseInt(shipping_type) + 1,
-        storeId: this.storeItems.id || this.systemStore.id,
+        storeId: this.storeItems ? this.storeItems.id : this.systemStore.id,
         ...from
       })
         .then(res => {

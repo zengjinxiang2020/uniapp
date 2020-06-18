@@ -13,7 +13,7 @@
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular >
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
 					<swiper-item>
-						<view @click="item.url ? $yrouter.push('/' + item.url) : ''" class="swiper-item">
+						<view @click="goRoll(item)" class="swiper-item">
 							<image :src="item.pic" />
 						</view>
 					</swiper-item>
