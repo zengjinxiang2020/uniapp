@@ -1,6 +1,6 @@
 <template>
 	<view class="index">
-		<view class="header acea-row row-center-wrapper">
+		<view class="header fixed-header acea-row row-center-wrapper">
 			<view @click="goGoodSearch()" class="search acea-row row-middle">
 				<text class="iconfont icon-xiazai5"></text>
 				搜索商品
@@ -9,6 +9,7 @@
 				<image src="@/static/images/qr.png" />
 			</view>
 		</view>
+		<view class="fixed-header-box"></view>
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular >
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
@@ -50,7 +51,7 @@
 		</view>
 		<view class="wrapper hot" v-if="bastList.length > 0">
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
-			<view class="title acea-row row-between-wrapper">
+			<view class="title no-border acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name line1">热门榜单</view>
 				</view>
@@ -74,7 +75,7 @@
 			</view>
 		</view>
 		<view class="wrapper" v-if="bastList.length > 0">
-			<view class="title acea-row row-between-wrapper">
+			<view class="title no-border acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name line1">精品推荐</view>
 				</view>
@@ -341,5 +342,19 @@
 
 	.swiper-item {
 		height: 100%;
+	}
+	
+	.fixed-header{
+		position: fixed;
+		z-index: 99;
+		top:0;
+		left:0;
+		right:0;
+		background: #fff;
+		box-shadow: 0 0 20rpx -10rpx #aaa;
+
+		&+.fixed-header-box{
+			height:98rpx
+		}
 	}
 </style>
