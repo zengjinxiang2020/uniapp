@@ -1,181 +1,187 @@
 <template>
   <view :class="productConClass">
-    <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper>
-    <view class="wrapper">
-      <view class="share acea-row row-between row-bottom">
-        <view class="money font-color-red">
-          <text>￥</text>
-          <text class="num">{{ storeInfo.price }}</text>
-          <text
-            class="vip-money"
-            v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
-          >￥{{ storeInfo.vipPrice }}</text>
-          <image
-            src="@/static/images/vip.png"
-            class="image"
-            v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
-          />
+    <view v-if="storeInfo.id">
+      <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper>
+      <view class="wrapper">
+        <view class="share acea-row row-between row-bottom">
+          <view class="money font-color-red">
+            <text>￥</text>
+            <text class="num">{{ storeInfo.price }}</text>
+            <text
+              class="vip-money"
+              v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
+            >￥{{ storeInfo.vipPrice }}</text>
+            <image
+              src="@/static/images/vip.png"
+              class="image"
+              v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0"
+            />
+          </view>
+          <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
         </view>
-        <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
+        <view class="introduce">{{ storeInfo.storeName }}</view>
+        <view class="label acea-row row-between-wrapper">
+          <text>原价:￥{{ storeInfo.otPrice }}</text>
+          <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
+          <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
+        </view>
+        <view
+          class="coupon acea-row row-between-wrapper"
+          @click="couponTap"
+          v-if="couponList.length"
+        >
+          <text class="hide line1 acea-row">
+            <text>优惠券：</text>
+            <text
+              class="activity"
+              v-for="(item, couponListEq) in couponList"
+              :key="couponListEq"
+            >满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
+          </text>
+          <view class="iconfont icon-jiantou"></view>
+        </view>
       </view>
-      <view class="introduce">{{ storeInfo.storeName }}</view>
-      <view class="label acea-row row-between-wrapper">
-        <text>原价:￥{{ storeInfo.otPrice }}</text>
-        <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
-        <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
-      </view>
-      <view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
-        <text class="hide line1 acea-row">
-          <text>优惠券：</text>
-          <text
-            class="activity"
-            v-for="(item, couponListEq) in couponList"
-            :key="couponListEq"
-          >满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
-        </text>
+      <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
+        <view>
+          <text>{{ attrTxt }}：</text>
+          <text class="atterTxt">{{ attrValue }}</text>
+        </view>
         <view class="iconfont icon-jiantou"></view>
       </view>
-    </view>
-    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
-      <view>
-        <text>{{ attrTxt }}：</text>
-        <text class="atterTxt">{{ attrValue }}</text>
-      </view>
-      <view class="iconfont icon-jiantou"></view>
-    </view>
-    <view class="store-info">
-      <view class="title acea-row row-between-wrapper">
-        <view>门店信息</view>
-        <text @click="goStoreList()" class="praise">
-          更多
-          <text class="iconfont icon-jiantou"></text>
-        </text>
-      </view>
-      <view class="info acea-row row-between-wrapper">
-        <view class="picTxt acea-row row-between-wrapper">
-          <view class="pictrue">
-            <image :src="systemStore.image" />
-          </view>
-          <view class="text">
-            <view class="name line1">{{ systemStore.name }}</view>
-            <view class="address acea-row row-middle" @click="showChang">
-              <text class="addressTxt">{{systemStore.address}}</text>
-              <text class="iconfont icon-youjian"></text>
+      <view class="store-info">
+        <view class="title acea-row row-between-wrapper">
+          <view>门店信息</view>
+          <text @click="goStoreList()" class="praise">
+            更多
+            <text class="iconfont icon-jiantou"></text>
+          </text>
+        </view>
+        <view class="info acea-row row-between-wrapper">
+          <view class="picTxt acea-row row-between-wrapper">
+            <view class="pictrue">
+              <image :src="systemStore.image" />
+            </view>
+            <view class="text">
+              <view class="name line1">{{ systemStore.name }}</view>
+              <view class="address acea-row row-middle" @click="showChang">
+                <text class="addressTxt">{{systemStore.address}}</text>
+                <text class="iconfont icon-youjian"></text>
+              </view>
+            </view>
+            <view class="addressBox">
+              <a
+                :href="'tel:'+systemStore.phone"
+                class="iconfont icon-dadianhua01 font-color-red phone"
+              ></a>
+              <view class="addressTxt corlor-yshop">距离{{systemStore.distance}}千米</view>
             </view>
           </view>
-          <view class="addressBox">
-            <a
-              :href="'tel:'+systemStore.phone"
-              class="iconfont icon-dadianhua01 font-color-red phone"
-            ></a>
-            <view class="addressTxt corlor-yshop">距离{{systemStore.distance}}千米</view>
+        </view>
+      </view>
+      <view class="userEvaluation" v-if="replyCount">
+        <view class="title acea-row row-between-wrapper">
+          <view>用户评价({{ replyCount }})</view>
+          <text @click="goEvaluateList(id)" class="praise">
+            <text class="font-color-red">{{ replyChance }}%</text>好评率
+            <text class="iconfont icon-jiantou"></text>
+          </text>
+        </view>
+        <user-evaluation :reply="reply"></user-evaluation>
+      </view>
+      <view class="superior">
+        <view class="title acea-row row-center-wrapper">
+          <image src="@/static/images/ling.png" />
+          <text class="titleTxt">优品推荐</text>
+          <image src="@/static/images/ling.png" />
+        </view>
+        <template>
+          <view class="slider-banner banner">
+            <swiper :options="swiperRecommend" v-if="goodList.length > 0">
+              <swiper-slide v-for="(item, eq2) in goodList" :key="eq2">
+                <view class="list acea-row row-middle">
+                  <view class="item" v-for="val in item.list" :key="val.image">
+                    <view class="pictrue">
+                      <image :src="val.image" />
+                    </view>
+                    <view class="name line1">{{ val.store_name }}}</view>
+                    <view class="money font-color-red">¥{{ val.price }}</view>
+                  </view>
+                </view>
+              </swiper-slide>
+              <view class="swiper-pagination" slot="pagination"></view>
+            </swiper>
+          </view>
+        </template>
+      </view>
+      <view class="product-intro">
+        <text class="title">产品介绍</text>
+        <view class="conter" v-html="storeInfo.description"></view>
+      </view>
+      <view style="height:100rpx;"></view>
+      <view class="footer acea-row row-between-wrapper">
+        <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
+          <view class="iconfont icon-shoucang1"></view>
+          <text>收藏</text>
+        </view>
+        <view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
+          <view class="iconfont icon-shoucang"></view>
+          <text>收藏</text>
+        </view>
+        <view @click="goShoppingCart()" v-if="animated" class="item animated bounceIn">
+          <view class="iconfont icon-gouwuche1">
+            <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
+          </view>
+          <text>购物车</text>
+        </view>
+        <view @click="goShoppingCart()" class="item animated" v-if="!animated">
+          <view class="iconfont icon-gouwuche1">
+            <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
+          </view>
+          <text>购物车</text>
+        </view>
+        <view class="bnt acea-row">
+          <view class="joinCart" @click="joinCart">
+            <text>加入购物车</text>
+          </view>
+          <view class="buy" @click="tapBuy">
+            <text>立即购买</text>
           </view>
         </view>
       </view>
-    </view>
-    <view class="userEvaluation" v-if="replyCount">
-      <view class="title acea-row row-between-wrapper">
-        <view>用户评价({{ replyCount }})</view>
-        <text @click="goEvaluateList(id)" class="praise">
-          <text class="font-color-red">{{ replyChance }}%</text>好评率
-          <text class="iconfont icon-jiantou"></text>
-        </text>
-      </view>
-      <user-evaluation :reply="reply"></user-evaluation>
-    </view>
-    <view class="superior">
-      <view class="title acea-row row-center-wrapper">
-        <image src="@/static/images/ling.png" />
-        <text class="titleTxt">优品推荐</text>
-        <image src="@/static/images/ling.png" />
-      </view>
-      <template>
-        <view class="slider-banner banner">
-          <swiper :options="swiperRecommend" v-if="goodList.length > 0">
-            <swiper-slide v-for="(item, eq2) in goodList" :key="eq2">
-              <view class="list acea-row row-middle">
-                <view class="item" v-for="val in item.list" :key="val.image">
-                  <view class="pictrue">
-                    <image :src="val.image" />
-                  </view>
-                  <view class="name line1">{{ val.store_name }}}</view>
-                  <view class="money font-color-red">¥{{ val.price }}</view>
-                </view>
-              </view>
-            </swiper-slide>
-            <view class="swiper-pagination" slot="pagination"></view>
-          </swiper>
-        </view>
-      </template>
-    </view>
-    <view class="product-intro">
-      <text class="title">产品介绍</text>
-      <view class="conter" v-html="storeInfo.description"></view>
-    </view>
-    <view style="height:100rpx;"></view>
-    <view class="footer acea-row row-between-wrapper">
-      <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
-        <view class="iconfont icon-shoucang1"></view>
-        <text>收藏</text>
-      </view>
-      <view class="item" @click="setCollect" v-if="!storeInfo.userCollect">
-        <view class="iconfont icon-shoucang"></view>
-        <text>收藏</text>
-      </view>
-      <view @click="goShoppingCart()" v-if="animated" class="item animated bounceIn">
-        <view class="iconfont icon-gouwuche1">
-          <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
-        </view>
-        <text>购物车</text>
-      </view>
-      <view @click="goShoppingCart()" class="item animated" v-if="!animated">
-        <view class="iconfont icon-gouwuche1">
-          <text class="num bg-color-red" v-if="CartCount > 0">{{CartCount}}</text>
-        </view>
-        <text>购物车</text>
-      </view>
-      <view class="bnt acea-row">
-        <view class="joinCart" @click="joinCart">
-          <text>加入购物车</text>
-        </view>
-        <view class="buy" @click="tapBuy">
-          <text>立即购买</text>
+      <CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
+      <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
+      <StorePoster
+        v-on:setPosterImageStatus="setPosterImageStatus"
+        :posterImageStatus="posterImageStatus"
+        :posterData="posterData"
+        :goodId="id"
+      ></StorePoster>
+      <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
+      <view class="generate-posters acea-row row-middle on" v-if="posters">
+        <view class="item" @click="setPosterImageStatus">
+          <view class="iconfont icon-haibao"></view>
+          <view>生成海报</view>
         </view>
       </view>
-    </view>
-    <CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
-    <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
-    <StorePoster
-      v-on:setPosterImageStatus="setPosterImageStatus"
-      :posterImageStatus="posterImageStatus"
-      :posterData="posterData"
-      :goodId="id"
-    ></StorePoster>
-    <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
-    <view class="generate-posters acea-row row-middle on" v-if="posters">
-      <view class="item" @click="setPosterImageStatus">
-        <view class="iconfont icon-haibao"></view>
-        <view>生成海报</view>
+      <view class="generate-posters acea-row row-middle" v-if="!posters">
+        <view class="item" @click="setPosterImageStatus">
+          <view class="iconfont icon-haibao"></view>
+          <view>生成海报</view>
+        </view>
       </view>
-    </view>
-    <view class="generate-posters acea-row row-middle" v-if="!posters">
-      <view class="item" @click="setPosterImageStatus">
-        <view class="iconfont icon-haibao"></view>
-        <view>生成海报</view>
+      <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
+      <view class="geoPage" v-if="mapShow">
+        <iframe
+          width="100%"
+          height="100%"
+          frameborder="0"
+          scrolling="no"
+          :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +systemStore.latitude +',' +systemStore.longitude +'&referer=' +mapKey"
+        ></iframe>
       </view>
-    </view>
-    <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
-    <view class="geoPage" v-if="mapShow">
-      <iframe
-        width="100%"
-        height="100%"
-        frameborder="0"
-        scrolling="no"
-        :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +systemStore.latitude +',' +systemStore.longitude +'&referer=' +mapKey"
-      ></iframe>
-    </view>
-    <view class="posterCanvasWarp">
-      <canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
+      <view class="posterCanvasWarp">
+        <canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
+      </view>
     </view>
   </view>
 </template>
@@ -729,7 +735,6 @@ export default {
   width: 0.76 * 100rpx;
   height: 0.76 * 100rpx;
   margin-right: 0.2 * 100rpx;
-  
 }
 
 .product-con .store-info .info .picTxt .pictrue image {
