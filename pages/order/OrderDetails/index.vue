@@ -125,7 +125,7 @@
         v-if="orderInfo.shippingType === 2 && orderInfo.paid === 1"
       >
         <div>自提地址信息</div>
-        <div class="place cart-color acea-row row-center-wrapper" @click="showChang">
+        <div class="place cart-color acea-row row-center-wrapper" @click="showChang(orderInfo.systemStore)">
           <span class="iconfont icon-weizhi"></span>查看位置
         </div>
       </div>
@@ -494,25 +494,29 @@ export default {
         }
       });
     },
-    showChang: function() {
+    showChang: function(data) {
       // 这里判断是不是微信小程序
-      if (isWeixin()) {
-        let config = {
-          latitude: this.system_store.latitude,
-          longitude: this.system_store.longitude,
-          name: this.system_store.name,
-          address: this.system_store.address
-        };
-      } else {
-        if (!this.mapKey)
-          uni.showToast({
-            title: "暂无法使用查看地图，请配置您的腾讯地图key",
-            icon: "none",
-            duration: 2000
-          });
-        return;
-        this.mapShow = true;
-      }
+      this.$yrouter.push({
+        path: "/pages/map/index",
+        query: data
+      });
+      // if (isWeixin()) {
+      //   let config = {
+      //     latitude: this.system_store.latitude,
+      //     longitude: this.system_store.longitude,
+      //     name: this.system_store.name,
+      //     address: this.system_store.address
+      //   };
+      // } else {
+      //   if (!this.mapKey)
+      //     uni.showToast({
+      //       title: "暂无法使用查看地图，请配置您的腾讯地图key",
+      //       icon: "none",
+      //       duration: 2000
+      //     });
+      //   return;
+      //   this.mapShow = true;
+      // }
     },
     goBack() {
       if (this.name === "MyOrder") {

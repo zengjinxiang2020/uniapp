@@ -29,38 +29,6 @@
       </view>
       <Loading :loaded="loaded" :loading="loading"></Loading>
     </view>
-    <!-- <div>
-      <iframe
-        v-if="locationShow && !isWeixin"
-        ref="geoPage"
-        width="0"
-        height="0"
-        frameborder="0"
-        style="display:none;"
-        scrolling="no"
-        :src="
-          'https://apis.map.qq.com/tools/geolocation?key=' +
-            mapKey +
-            '&referer=myapp'
-        "
-      ></iframe>
-    </div>
-    <div class="geoPage" v-if="mapShow">
-      <iframe
-        width="100%"
-        height="100%"
-        frameborder="0"
-        scrolling="no"
-        :src="
-          'https://apis.map.qq.com/uri/v1/geocoder?coord=' +
-            system_store.latitude +
-            ',' +
-            system_store.longitude +
-            '&referer=' +
-            mapKey
-        "
-      ></iframe>
-    </div>-->
   </view>
 </template>
 
@@ -98,6 +66,12 @@ export default {
     !this.loading && this.getOrderList();
   },
   methods: {
+    showMaoLocation(data) {
+      this.$yrouter.push({
+        path: "/pages/map/index",
+        query: data
+      });
+    },
     // 选中门店
     checked(e) {
       if (this.goName === "orders") {
