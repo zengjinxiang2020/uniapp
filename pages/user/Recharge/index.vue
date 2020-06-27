@@ -32,7 +32,6 @@
           </view>
           <view
             class="pic-box pic-box-color acea-row row-center-wrapper"
-            :class="activePic == picList.length ? 'pic-box-color-active' : ''"
             @click="picCharge(picList.length, money)"
           >
             <input
@@ -40,7 +39,6 @@
               placeholder="其他"
               v-model="money"
               class="pic-box-money pic-number-pic"
-              :class="activePic == picList.length ? 'pic-box-color-active' : ''"
             />
           </view>
         </view>

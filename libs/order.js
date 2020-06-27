@@ -87,7 +87,7 @@ export function payOrderHandle(orderId, type, from) {
           case "EXTEND_ORDER":
           case "PAY_ERROR":
           case "PAY_DEFICIENCY":
-            dialog.toast({ mes: res.msg });
+            uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
             reject(data);
             break;
           case "SUCCESS":
@@ -108,7 +108,9 @@ export function payOrderHandle(orderId, type, from) {
       })
       .catch(err => {
         uni.hideLoading()
-        dialog.toast({ mes: "订单支付失败" });
+        uni.showToast({
+          title: '订单支付失败', icon: 'none', duration: 2000
+        });
       });
   });
 }

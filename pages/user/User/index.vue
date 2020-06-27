@@ -130,6 +130,11 @@
                 <text class="iconfont icon-jiantou"></text>
               </view>
             </template>
+            <!-- <view class="item" @click="goPages2()">
+              <view class="pictrue"></view>
+              <view class="cell">hexiao</view>
+              <text class="iconfont icon-jiantou"></text>
+            </view> -->
           </view>
         </view>
         <!--<view -->
@@ -182,7 +187,7 @@ export default {
   },
   computed: mapGetters(["userInfo"]),
   methods: {
-    ...mapMutations(["updateAuthorizationPage", ]),
+    ...mapMutations(["updateAuthorizationPage"]),
     goReturnList() {
       this.$yrouter.push("/pages/order/ReturnList/index");
     },
@@ -327,6 +332,11 @@ export default {
       this.$yrouter.push({
         path: this.MyMenus[index].uniapp_url
       });
+    },
+    goPages2: function() {
+      this.$yrouter.push({
+        path: "/pages/orderAdmin/OrderCancellation/index"
+      });
     }
   },
   watch: {
@@ -346,7 +356,7 @@ export default {
     }
   },
   onHide() {
-    console.log('离开用户中心')
+    console.log("离开用户中心");
     this.updateAuthorizationPage(false);
   }
 };
@@ -393,7 +403,6 @@ export default {
 .by {
   text-align: center;
   padding: 30rpx 0;
-  
 }
 .by-text {
   text-align: center;

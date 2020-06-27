@@ -24,9 +24,13 @@
       ></count-down>
     </view>
     <view class="wrapper">
-      <view class="pictxt acea-row row-between-wrapper">
+      <view class="pictxt acea-row row-between-wrapper" @click="openAlone">
         <view class="pictrue">
           <image :src="bargain.image" />
+          <view class="bargain_view">
+            查看商品
+            <view class="iconfont icon-jiantou iconfonts"></view>
+          </view>
         </view>
         <view class="text acea-row row-column-around">
           <view class="line2" v-text="bargain.title"></view>
@@ -52,29 +56,68 @@
         <view v-else v-text="'还剩' + surplusPrice + '元'"></view>
       </view>
       <!-- 帮助砍价、帮砍成功：-->
-      <!--<view class='bargainSuccess'><text class='iconfont icon-xiaolian'></text>已成功帮助好友砍价</view>-->
-      <view class="bargainBnts">
-        <view
-          class="bargainBnt"
-          @click="goPoster"
-          v-if="bargainPartake === userInfo.uid && surplusPrice > 0"
-        >邀请好友帮砍价</view>
-        <view
-          class="bargainBnt"
-          @click="getBargainHelp"
-          v-else-if="bargainPartake != userInfo.uid"
-        >帮好友砍一刀</view>
-        <view class="bargainBnt" @click="getBargainStart" v-if="bargainPartake != userInfo.uid">开启砍价</view>
-        <view
-          class="bargainBnt"
-          @click="goPay"
-          v-if="surplusPrice === 0 && bargainPartake === userInfo.uid && userBargainStatus === 1"
-        >立即支付</view>
-        <view class="bargainBnt on" @click="goList">抢更多商品</view>
+      <view
+        class="bargainSuccess"
+        v-if="bargainPartake != userInfo.uid && !statusUser && !helpListLoading"
+      >
+        <span class="iconfont icon-xiaolian"></span>已成功帮助好友砍价
       </view>
+      <!-- 砍价成功：-->
+      <view
+        class="bargainSuccess"
+        v-if="
+          surplusPrice === 0 &&
+            bargainPartake === userInfo.uid &&
+            userBargainStatus === 1 &&
+            !helpListLoading
+        "
+      >
+        <span class="iconfont icon-xiaolian"></span>恭喜您砍价成功，快去支付吧~
+      </view>
+      <view
+        v-if="userBargainStatus == 0 && bargainPartake === userInfo.uid"
+        class="bargainBnt"
+        @click="goParticipate"
+      >立即参与砍价</view>
+      <view
+        class="bargainBnt"
+        @click="goPoster"
+        v-if="
+          surplusPrice > 0 &&
+            bargainPartake === userInfo.uid &&
+            userBargainStatus === 1 &&
+            !helpListLoading
+        "
+      >邀请好友帮砍价</view>
+      <view
+        class="bargainBnt"
+        @click="getBargainHelp"
+        v-else-if="
+          bargainPartake != userInfo.uid &&
+            userBargainStatus == 1 &&
+            statusUser &&
+            !helpListLoading
+        "
+      >帮好友砍一刀</view>
+      <view
+        class="bargainBnt"
+        @click="getBargainStart"
+        v-if="bargainPartake != userInfo.uid && !statusUser && !helpListLoading"
+      >我也要参与</view>
+      <view
+        class="bargainBnt"
+        @click="goPay"
+        v-if="
+          surplusPrice === 0 &&
+            bargainPartake === userInfo.uid &&
+            userBargainStatus === 1
+        "
+      >立即支付</view>
+      <view class="bargainBnt on" @click="goList">抢更多商品</view>
       <view class="tip">
         已有
-        <text class="font-color-red" v-text="helpCount"></text>位好友成功帮您砍价
+        <span class="font-color-red" v-text="helpCount"></span>
+        位好友成功帮您砍价
       </view>
       <view class="lock"></view>
     </view>
@@ -84,9 +127,9 @@
           <image src="@/static/images/left.png" />
         </view>
         <view class="titleCon">砍价帮</view>
-        <!-- <view class="pictrue on">
+        <view class="pictrue on">
           <image src="@/static/images/left.png" />
-        </view> -->
+        </view>
       </view>
       <view class="list">
         <view
@@ -145,7 +188,7 @@
       <!-- <view class="pictrue">
         <image src="@/static/images/bargainBg.jpg" />
         <view class="iconfont icon-guanbi" @click="close"></view>
-      </view> -->
+      </view>-->
       <view class="cutOff" v-if="bargainPartake === userInfo.uid">
         您已砍掉
         <text class="font-color-red" v-text="bargainHelpPrice"></text>元，听说分享次数越多砍价成功的机会越大哦！
@@ -210,7 +253,8 @@ export default {
       alreadyPrice: 0, //已砍掉价格
       pricePercent: 0, //砍价进度条
       bargainUserInfo: [], //砍价 开启砍价用户信息
-      userBargainStatus: 2 //砍价状态
+      userBargainStatus: 2, //砍价状态
+      statusUser: false // 是否帮别人砍,没砍是true，砍了false
     };
   },
   computed: mapGetters(["userInfo", "isLogin"]),
@@ -230,6 +274,15 @@ export default {
     }, 500);
   },
   methods: {
+      //参与砍价
+    goParticipate() {
+      if (this.bargainPartake === this.userInfo.uid) this.getBargainStart();
+      else this.getBargainStartUser();
+      this.getBargainHelpCount();
+    },
+    openAlone: function() {
+      this.$yrouter.push({ path: "/detail/" + this.bargain.productId });
+    },
     mountedStart: function() {
       var that = this;
       let url = handleQrCode();
@@ -256,11 +309,12 @@ export default {
       that.getBargainHelpCountStart();
       that.getBargainDetail();
       that.getBargainShare(0);
-      if (that.bargainPartake === that.userInfo.uid) that.getBargainStart();
-      else that.getBargainStartUser();
-    },
-    updateTitle() {
-      // document.title = this.bargain.title || this.$yroute.meta.title;
+      // if (that.bargainPartake !== that.userInfo.uid) that.getBargainStartUser();
+      if (that.bargainPartake === that.userInfo.uid) {
+        // that.getBargainStart();
+      } else {
+        that.getBargainStartUser();
+      }
     },
     goPay: function() {
       var data = {};
@@ -279,7 +333,8 @@ export default {
         })
         .catch(err => {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });
@@ -507,12 +562,35 @@ export default {
 </script>
 
 <style lang="less">
-.bargain{
-  background: #00c17b;
+page{
+  background-color: #00c17b;
 }
-.bargainBnts {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
+.bargainBnt_hui {
+  font-size: 0.3rem;
+  font-weight: bold;
+  color: #fff;
+  width: 6rem;
+  height: 0.8rem;
+  border-radius: 0.4rem;
+  background: #bbb;
+  text-align: center;
+  line-height: 0.8rem;
+  margin-top: 0.32rem;
+}
+.bargain_view {
+  width: 1.8rem;
+  height: 0.48rem;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  border-radius: 0 0 0.06rem 0.06rem;
+  position: absolute;
+  bottom: 0;
+  font-size: 0.22rem;
+  color: #fff;
+  text-align: center;
+  line-height: 0.48rem;
+}
+.iconfonts {
+  font-size: 0.22rem;
 }
 </style>

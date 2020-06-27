@@ -1,6 +1,8 @@
 <template>
   <view class="OrderCancellation">
-    <view class="header"></view>
+    <view class="header">
+      <image mode="aspectFit" src="@/static/images/writeOffBg.jpg" @click="openQRCode" />
+    </view>
     <view class="whiteBg">
       <view class="input">
         <input type="number" placeholder="0" v-model="verify_code" />
@@ -13,63 +15,7 @@
     <WriteOff :iShidden="iShidden" :orderInfo="orderInfo" @cancel="cancel" @confirm="confirm"></WriteOff>
   </view>
 </template>
-<style scoped lang="less">
-.OrderCancellation .header {
-  background: url("https://h5.dayouqiantu.cn/static/images/writeOffBg.jpg")
-    no-repeat;
-  width: 100%;
-  height: 3 * 100rpx;
-  background-size: 100% 100%;
-}
 
-.OrderCancellation .whiteBg {
-  width: 6.9 * 100rpx;
-  background-color: #fff;
-  margin: -0.93 * 100rpx auto 0 auto;
-  padding-top: 0.8 * 100rpx;
-  border-radius: 0.06 * 100rpx 0.06 * 100rpx 0 0;
-}
-
-.OrderCancellation .whiteBg .input {
-  width: 5.8 * 100rpx;
-  margin: 0 auto;
-  border-bottom: 0.01 * 100rpx solid #eee;
-}
-
-.OrderCancellation .whiteBg .input input {
-  padding-bottom: 0.25 * 100rpx;
-  font-size: 0.6 * 100rpx;
-  color: #282828;
-  width: 100%;
-  text-align: center;
-}
-
-.OrderCancellation .whiteBg .bnt {
-  font-size: 0.32 * 100rpx;
-  color: #fff;
-  width: 5.8 * 100rpx;
-  height: 0.86 * 100rpx;
-  border-radius: 0.43 * 100rpx;
-  background-image: linear-gradient(to right, #f67a38 0%, #f11b09 100%);
-  background-image: -webkit-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
-  background-image: -moz-linear-gradient(to right, #f67a38 0%, #f11b09 100%);
-  text-align: center;
-  line-height: 0.86 * 100rpx;
-  margin: 0.55 * 100rpx auto 0 auto;
-}
-
-.OrderCancellation .scan {
-  width: 3 * 100rpx;
-  height: 3 * 100rpx;
-  margin: 1.1 * 100rpx auto 0 auto;
-}
-
-.OrderCancellation .scan image {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-</style>
 <script>
 import WriteOff from "@/components/WriteOff";
 import { isWeixin } from "@/utils";
@@ -154,3 +100,68 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="less">
+.OrderCancellation .header {
+  width: 100%;
+  height: 3 * 100rpx;
+  background-size: 100% 100%;
+  image{
+    width: 100%;
+  height: 3 * 100rpx;
+    
+  }
+}
+
+.OrderCancellation .whiteBg {
+  width: 6.9 * 100rpx;
+  background-color: #fff;
+  margin: -0.93 * 100rpx auto 0 auto;
+  padding-top: 0.8 * 100rpx;
+  padding-bottom: 30rpx;
+  z-index: 99;
+  position: relative;
+  border-radius: 0.06 * 100rpx 0.06 * 100rpx 0 0;
+}
+
+.OrderCancellation .whiteBg .input {
+  width: 5.8 * 100rpx;
+  margin: 0 auto;
+  border-bottom: 0.01 * 100rpx solid #eee;
+}
+
+.OrderCancellation .whiteBg .input input {
+  padding-bottom: 0.25 * 100rpx;
+  font-size: 0.6 * 100rpx;
+  height:auto;
+  color: #282828;
+  width: 100%;
+  text-align: center;
+}
+
+.OrderCancellation .whiteBg .bnt {
+  font-size: 0.32 * 100rpx;
+  color: #fff;
+  width: 5.8 * 100rpx;
+  height: 0.86 * 100rpx;
+  border-radius: 0.43 * 100rpx;
+  background-image: linear-gradient(to right, #00c17b 0%, #00c17b 100%);
+  background-image: -webkit-linear-gradient(to right, #00c17b 0%, #00c17b 100%);
+  background-image: -moz-linear-gradient(to right, #00c17b 0%, #00c17b 100%);
+  text-align: center;
+  line-height: 0.86 * 100rpx;
+  margin: 0.55 * 100rpx auto 0 auto;
+}
+
+.OrderCancellation .scan {
+  width: 3 * 100rpx;
+  height: 3 * 100rpx;
+  margin: 1.1 * 100rpx auto 0 auto;
+}
+
+.OrderCancellation .scan image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>

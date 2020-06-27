@@ -63,7 +63,7 @@
             </view>
             <view class="text">
               <view class="name line1">{{ systemStore.name }}</view>
-              <view class="address acea-row row-middle" @click="showChang">
+              <view class="address acea-row row-middle" @click="showChang(systemStore)">
                 <text class="addressTxt">{{systemStore.address}}</text>
                 <text class="iconfont icon-youjian"></text>
               </view>
@@ -170,15 +170,6 @@
         </view>
       </view>
       <view class="mask" @touchmove.prevent @click="listenerActionClose" v-show="posters"></view>
-      <view class="geoPage" v-if="mapShow">
-        <iframe
-          width="100%"
-          height="100%"
-          frameborder="0"
-          scrolling="no"
-          :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' +systemStore.latitude +',' +systemStore.longitude +'&referer=' +mapKey"
-        ></iframe>
-      </view>
       <view class="posterCanvasWarp">
         <canvas class="posterCanvas" canvas-id="myCanvas"></canvas>
       </view>
@@ -276,7 +267,7 @@ export default {
       goodList: [],
       systemStore: {},
       qqmapsdk: null,
-      productConClass: "product-con"
+      productConClass: "product-con",
     };
   },
   computed: mapGetters(["isLogin", "location"]),
@@ -322,21 +313,10 @@ export default {
       });
     },
     showChang: function(data) {
-      let config = {
-        latitude: data.latitude,
-        longitude: data.longitude,
-        name: data.name,
-        address: data._detailed_address
-      };
-      if (!this.mapKey) {
-        uni.showToast({
-          title: "暂无法使用查看地图，请配置您的腾讯地图key",
-          icon: "none",
-          duration: 2000
-        });
-        return;
-      }
-      this.mapShow = true;
+      this.$yrouter.push({
+        path: "/pages/map/index",
+        query: data
+      });
     },
     updateTitle() {
       // document.title = this.storeInfo.storeName || this.$yroute.meta.title;

@@ -395,6 +395,12 @@
 			"style": {
 				"navigationBarTitleText": "秒杀详情"
 			}
+		},
+		{
+			"path": "pages/map/index",
+			"style": {
+				"navigationBarTitleText": "地图"
+			}
 		}
 	],
 	"globalStyle": {
