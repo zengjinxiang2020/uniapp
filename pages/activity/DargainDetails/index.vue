@@ -274,7 +274,7 @@ export default {
     }, 500);
   },
   methods: {
-      //参与砍价
+    //参与砍价
     goParticipate() {
       if (this.bargainPartake === this.userInfo.uid) this.getBargainStart();
       else this.getBargainStartUser();
@@ -562,7 +562,7 @@ export default {
 </script>
 
 <style lang="less">
-page{
+page {
   background-color: #00c17b;
 }
 .bargainBnt_hui {
