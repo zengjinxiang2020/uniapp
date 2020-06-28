@@ -8,12 +8,6 @@
     </view>
   </view>
 </template>
-<style scoped lang="less">
-.poster-poster {
-  height: unset !important;
-}
-</style>
-
 <script>
 import { getBargainPoster, getCombinationPoster } from "@/api/activity";
 
@@ -74,3 +68,12 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="less">
+page {
+  background-color: #00c17b;
+}
+.poster-poster {
+  height: unset !important;
+}
+</style>

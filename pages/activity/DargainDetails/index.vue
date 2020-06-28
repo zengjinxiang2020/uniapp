@@ -369,8 +369,7 @@ export default {
       var that = this;
       getBargainDetail(that.bargainId)
         .then(res => {
-          that.$set(that, "bargain", res.data.bargain);
-          that.updateTitle();
+          that.bargain = res.data.bargain;
           that.datatime = that.bargain.stopTime;
           that.getBargainHelpCount();
         })
@@ -503,9 +502,16 @@ export default {
       })
         .then(() => {})
         .catch(() => {
-          // that.$yrouter.push({
-          //   path: "/pages/activity/DargainDetails/index",
-          //   query: { id: that.bargainId, partake: that.userInfo.uid }
+          this.$yrouter.push({
+            path: "/pages/activity/DargainDetails/index",
+            query: { id: that.bargainId, partake: that.userInfo.uid }
+          });
+          // that.$router.push({
+          //   path:
+          //     "/activity/dargain_detail/" +
+          //     that.bargainId +
+          //     "/" +
+          //     that.userInfo.uid
           // });
         });
     },
@@ -522,6 +528,7 @@ export default {
           that.alreadyPrice = res.data.alreadyPrice;
           that.pricePercent = res.data.pricePercent;
           that.price = (that.bargain.price - that.alreadyPrice).toFixed(2);
+          console.log(that);
         })
         .catch(() => {
           that.bargainPartake = that.userInfo.uid;
@@ -566,31 +573,32 @@ page {
   background-color: #00c17b;
 }
 .bargainBnt_hui {
-  font-size: 0.3rem;
+  font-size: 0.3*100rpx;
   font-weight: bold;
   color: #fff;
-  width: 6rem;
-  height: 0.8rem;
-  border-radius: 0.4rem;
+  width: 6*100rpx;
+  height: 0.8*100rpx;
+  border-radius: 0.4*100rpx;
   background: #bbb;
   text-align: center;
-  line-height: 0.8rem;
-  margin-top: 0.32rem;
+  line-height: 0.8*100rpx;
+  margin-top: 0.32*100rpx;
 }
 .bargain_view {
-  width: 1.8rem;
-  height: 0.48rem;
+  left:0;
+  right:0;
+  height: 0.48*100rpx;
   background: rgba(0, 0, 0, 0.5);
   opacity: 1;
-  border-radius: 0 0 0.06rem 0.06rem;
+  border-radius: 0 0 0.06*100rpx 0.06*100rpx;
   position: absolute;
   bottom: 0;
-  font-size: 0.22rem;
+  font-size: 0.22*100rpx;
   color: #fff;
   text-align: center;
-  line-height: 0.48rem;
+  line-height: 0.48*100rpx;
 }
 .iconfonts {
-  font-size: 0.22rem;
+  font-size: 0.22*100rpx;
 }
 </style>

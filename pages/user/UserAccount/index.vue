@@ -8,7 +8,7 @@
               <view>总资产(元)</view>
               <view class="money">{{ now_money }}</view>
             </view>
-            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator>
+            <!-- <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator> -->
           </view>
           <view class="cumulative acea-row row-top">
             <view class="item">
@@ -31,12 +31,12 @@
           </view>
           <view>消费记录</view>
         </view>
-        <view class="item" @click="goUserBill(2)">
+        <!-- <view class="item" @click="goUserBill(2)">
           <view class="pictrue">
             <image src="@/static/images/record3.png" />
           </view>
           <view>充值记录</view>
-        </view>
+        </view> -->
       </view>
       <view class="advert acea-row row-between-wrapper"></view>
     </view>

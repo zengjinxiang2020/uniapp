@@ -88,9 +88,22 @@ export default {
           uni.hideLoading();
           this.orderInfo = res.data;
           this.iShidden = false;
+          uni.showToast({
+            title: res.msg,
+            icon: "success",
+            duration: 2000
+          });
         })
-        .catch(() => {
+        .catch(error => {
           uni.hideLoading();
+          uni.showToast({
+            title:
+              error.msg ||
+              error.response.data.msg ||
+              error.response.data.message,
+            icon: "none",
+            duration: 2000
+          });
         });
     },
     openQRCode: function() {
@@ -106,10 +119,9 @@ export default {
   width: 100%;
   height: 3 * 100rpx;
   background-size: 100% 100%;
-  image{
+  image {
     width: 100%;
-  height: 3 * 100rpx;
-    
+    height: 3 * 100rpx;
   }
 }
 
@@ -133,7 +145,7 @@ export default {
 .OrderCancellation .whiteBg .input input {
   padding-bottom: 0.25 * 100rpx;
   font-size: 0.6 * 100rpx;
-  height:auto;
+  height: auto;
   color: #282828;
   width: 100%;
   text-align: center;
