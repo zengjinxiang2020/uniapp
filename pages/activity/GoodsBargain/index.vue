@@ -79,6 +79,6 @@ export default {
 
 <style >
 page{
-    background: #00c17b;
+    background: #eb3729;
 }
 </style>

@@ -193,7 +193,7 @@ export default {
   display: none;
 }
 .pic-box-color-active {
-  background-color: #00c17b !important;
+  background-color: #eb3729 !important;
   color: #fff !important;
 }
 .picList {
@@ -288,7 +288,7 @@ export default {
 .payment-top {
   width: 100%;
   height: 3.5 * 100rpx;
-  background-color: #00c17b;
+  background-color: #eb3729;
 }
 .payment-top .name {
   font-size: 0.26 * 100rpx;

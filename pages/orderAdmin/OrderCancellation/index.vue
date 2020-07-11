@@ -157,9 +157,9 @@ export default {
   width: 5.8 * 100rpx;
   height: 0.86 * 100rpx;
   border-radius: 0.43 * 100rpx;
-  background-image: linear-gradient(to right, #00c17b 0%, #00c17b 100%);
-  background-image: -webkit-linear-gradient(to right, #00c17b 0%, #00c17b 100%);
-  background-image: -moz-linear-gradient(to right, #00c17b 0%, #00c17b 100%);
+  background-image: linear-gradient(to right, #eb3729 0%, #eb3729 100%);
+  background-image: -webkit-linear-gradient(to right, #eb3729 0%, #eb3729 100%);
+  background-image: -moz-linear-gradient(to right, #eb3729 0%, #eb3729 100%);
   text-align: center;
   line-height: 0.86 * 100rpx;
   margin: 0.55 * 100rpx auto 0 auto;

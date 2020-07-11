@@ -205,13 +205,13 @@
 
 .order-submission .allAddress {
   width: 100%;
-  background-image: linear-gradient(to bottom, #00c17b 0%, #00c17b 100%);
+  background-image: linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
   background-image: -webkit-linear-gradient(
     to bottom,
-    #00c17b 0%,
-    #00c17b 100%
+    #eb3729 0%,
+    #eb3729 100%
   );
-  background-image: -moz-linear-gradient(to bottom, #00c17b 0%, #00c17b 100%);
+  background-image: -moz-linear-gradient(to bottom, #eb3729 0%, #eb3729 100%);
   padding-top: 1 * 100rpx;
 }
 
@@ -279,9 +279,10 @@
 }
 
 .order-submission .allAddress .address {
-  width: 7.1 * 100rpx;
+  width: 6.91 * 100rpx;
   height: 1.5 * 100rpx;
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .order-submission .allAddress .line {

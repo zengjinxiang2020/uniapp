@@ -71,7 +71,7 @@ export default {
 
 <style scoped lang="less">
 page {
-  background-color: #00c17b;
+  background-color: #eb3729;
 }
 .poster-poster {
   height: unset !important;

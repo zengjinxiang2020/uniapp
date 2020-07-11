@@ -4,7 +4,8 @@ import request from "@/utils/request";
  * 省市区
  */
 export function district(data) {
-	return request.get("/citys", data, {
+	return request.get("/city_list", data, {
+		// return request.get("/citys", data, {
 		login: false
 	});
 }
@@ -412,5 +413,5 @@ export function setDetection() {
 
 
 export function getRechargeApi() {
-  return request.get("recharge/index");
+	return request.get("recharge/index");
 }

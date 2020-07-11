@@ -223,11 +223,11 @@ export default {
 
   &.active {
     .time {
-      color: #00c17b;
+      color: #eb3729;
     }
 
     .state {
-      background-color: #00c17b;
+      background-color: #eb3729;
       color: #fff;
       opacity: 1;
       border-radius: 30rpx;

@@ -570,7 +570,7 @@ export default {
 
 <style lang="less">
 page {
-  background-color: #00c17b;
+  background-color: #eb3729;
 }
 .bargainBnt_hui {
   font-size: 0.3*100rpx;

@@ -64,7 +64,7 @@ export default {
     };
   },
   mounted: function() {
-    // document.querySelector('body').setAttribute('style', 'background-color:#00c17b');
+    // document.querySelector('body').setAttribute('style', 'background-color:#eb3729');
     this.getCombinationList();
   },
   onReachBottom() {

@@ -61,7 +61,7 @@
 				</view>
 			</view>
 			<view class="newProducts">
-				<scroll-view scroll-y="false" scroll-x="true">
+				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
 					<view class="newProductsScroll">
 						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, likeInfoIndex) in likeInfo" :key="likeInfoIndex">
 							<view class="img-box">
@@ -101,7 +101,7 @@
 				</view>
 			</view>
 			<view class="newProducts">
-				<scroll-view scroll-y="false" scroll-x="true">
+				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
 					<view class="newProductsScroll">
 						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, firstListIndex) in firstList" :key="firstListIndex">
 							<view class="img-box">
@@ -246,8 +246,10 @@
 				that.$set(that, 'menus', res.data.menus);
 				that.$set(that, 'roll', res.data.roll);
 				that.$set(that, 'activity', res.data.activity);
+				if(res.data.activity){
 				var activityOne = res.data.activity.shift();
 				that.$set(that, 'activityOne', activityOne);
+				}
 				that.$set(that, 'info', res.data.info);
 				that.$set(that, 'firstList', res.data.firstList);
 				that.$set(that, 'bastList', res.data.bastList);

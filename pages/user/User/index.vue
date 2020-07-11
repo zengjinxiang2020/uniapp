@@ -369,14 +369,14 @@ export default {
 .order-status-num {
   min-width: 0.33 * 100rpx;
   background-color: #fff;
-  color: #00c17b;
+  color: #eb3729;
   border-radius: 15px;
   position: absolute;
   right: -0.14 * 100rpx;
   top: -0.15 * 100rpx;
   font-size: 0.2 * 100rpx;
   padding: 0 0.08 * 100rpx;
-  border: 1px solid #00c17b;
+  border: 1px solid #eb3729;
 }
 
 .pictrue {

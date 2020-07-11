@@ -754,7 +754,7 @@ export default {
 }
 .product-con .store-info .info .picTxt .addressBox .addressTxt {
   font-size: 0.24 * 100rpx;
-  color: #00c17b;
+  color: #eb3729;
 }
 
 .product-con .store-info .praise {
@@ -842,7 +842,7 @@ export default {
 }
 
 .footer .icon-shoucang1 {
-  color: #00c17b;
+  color: #eb3729;
 }
 
 .product-con .product-intro .conter view {

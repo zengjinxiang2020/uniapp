@@ -97,6 +97,9 @@ export default {
     // document.title = !id ? "添加地址" : "修改地址";
     this.getUserAddress();
     district().then(res => {
+      // city_list 市
+      // county_list 区
+      // province_list 省
       this.districts = res.data;
     });
   },
