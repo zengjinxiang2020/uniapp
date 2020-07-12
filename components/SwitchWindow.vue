@@ -1,10 +1,8 @@
 <template>
   <view>
     <view class="switchWindow" :class="switchActive === true ? 'on' : ''">
-      <!-- @/static/images/public.png -->
       <view class="pictrue">
-        <image v-if="login_type === 'h5'" src="@/static/images/h5.png" />
-        <image src="@/static/images/h5.png" alt v-else />
+        
       </view>
       <!-- 是否选择切换到小程序账户？ -->
       <view class="info">

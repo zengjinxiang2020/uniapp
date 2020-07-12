@@ -1,57 +1,24 @@
 <template>
   <view class="personal-data">
     <view class="wrapper">
-      <view class="title">管理我的账号</view>
       <view class="wrapList">
-        <view
-          class="item acea-row row-between-wrapper"
-          :class="item.uid === userInfo.uid ? 'on' : ''"
-          v-for="(item, switchUserInfoIndex) in switchUserInfo"
-          :key="switchUserInfoIndex"
-        >
+        <view class="item acea-row row-between-wrapper on">
           <view class="picTxt acea-row row-between-wrapper">
-            <view class="pictrue">
-              <!-- <VueCoreImageUpload
-                class="btn btn-primary"
-                :crop="false"
-                compress="80"
-                @imageuploaded="imageuploaded"
-                :headers="headers"
-                :max-file-size="5242880"
-                :credentials="false"
-                inputAccept="image/*"
-                inputOfFile="file"
-                :url="url"
-                ref="upImg"
-                v-if="item.uid === userInfo.uid"
-              >
-                <view class="pictrue">
-                  <image :src="item.avatar" />
-                </view>
-              </VueCoreImageUpload>-->
-              <!-- <view class="pictrue" v-else>
-                <image :src="item.avatar" />
-              </view>-->
-              <image
-                src="@/static/images/alter.png"
-                class="alter"
-                v-if="item.uid === userInfo.uid"
-              />
+            <view class="pictrue" @tap="chooseImage">
+              <div class="pictrue">
+                <img :src="avatar" />
+              </div>
+              <image src="@/static/images/alter.png" class="alter" />
             </view>
             <view class="text">
-              <view class="name line1">{{ item.nickname }}</view>
-              <view class="phone">绑定手机号：{{ item.phone }}</view>
+              <view class="name line1">{{ userInfo.nickname }}</view>
+              <view class="phone">
+                绑定手机号：
+                <text v-if="userInfo.phone">{{ userInfo.phone }}</text>
+                <text v-else>未绑定</text>
+              </view>
             </view>
           </view>
-          <view
-            class="currentBnt acea-row row-center-wrapper font-color-red"
-            v-if="item.uid === userInfo.uid"
-          >当前账号</view>
-          <view
-            class="bnt font-color-red acea-row row-center-wrapper"
-            v-else
-            @click="switchAccounts(index)"
-          >使用账号</view>
         </view>
       </view>
     </view>
@@ -82,23 +49,26 @@
           <text>点击修改密码</text>
           <text class="iconfont icon-suozi"></text>
         </view>
-      </view> -->
+      </view>-->
     </view>
-    <!--<view class="modifyBnt bg-color-red" @click="submit">保存修改</view>-->
-    <!-- <view
+    <view class="modifyBnt bg-color-red" @click="submit">保存修改</view>
+    <view
       class="logOut cart-color acea-row row-center-wrapper"
       @click="logout"
-      v-if="!isWeixin"
-    >
-      退出登录
-    </view>-->
+      v-if="$deviceType=='app'"
+    >退出登录</view>
   </view>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { trim, isWeixin } from "@/utils";
+import { trim, isWeixin, chooseImage } from "@/utils";
 import { VUE_APP_API_URL } from "@/config";
-import { postUserEdit, getLogout, switchH5Login, getUser } from "@/api/user";
+import {
+  postUserEdit,
+  getLogout,
+  switchH5Login,
+  getUserInfo
+} from "@/api/user";
 import cookie from "@/utils/store/cookie";
 import store from "@//store";
 import dayjs from "dayjs";
@@ -110,10 +80,6 @@ export default {
   },
   data: function() {
     return {
-      url: `${VUE_APP_API_URL}/upload/image`,
-      headers: {
-        Authorization: "Bearer " + this.$store.state.token
-      },
       avatar: "",
       isWeixin: false,
       currentAccounts: 0,
@@ -156,7 +122,8 @@ export default {
           .catch(err => {
             uni.hideLoading();
             uni.showToast({
-              title: err.msg || err.response.data.msg|| err.response.data.message,
+              title:
+                err.msg || err.response.data.msg || err.response.data.message,
               icon: "none",
               duration: 2000
             });
@@ -170,7 +137,7 @@ export default {
     },
     getUserInfo: function() {
       let that = this;
-      getUser().then(res => {
+      getUserInfo().then(res => {
         // let switchUserInfo = res.data.switchUserInfo;
         // for (let i = 0; i < switchUserInfo.length; i++) {
         //   if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
@@ -184,24 +151,18 @@ export default {
         // that.$set(this, "switchUserInfo", switchUserInfo);
       });
     },
-    imageuploaded(res) {
-      if (res.status !== 200) {
-        uni.showToast({
-          title: res.msg || res.response.data.msg,
-          icon: "none",
-          duration: 2000
-        });
-        return;
-      }
-      if (this.switchUserInfo[this.userIndex] === undefined) return;
-      this.$set(this.switchUserInfo[this.userIndex], "avatar", res.data.url);
+    chooseImage() {
+      chooseImage(img => {
+        console.log(img)
+        this.avatar = img;
+      });
     },
 
     submit: function() {
-      let userInfo = this.switchUserInfo[this.userIndex];
+      let userInfo = this.userInfo;
       postUserEdit({
         nickname: trim(this.userInfo.nickname),
-        avatar: userInfo.avatar
+        avatar: this.avatar
       }).then(
         res => {
           this.$store.dispatch("userInfo", true);
@@ -214,7 +175,8 @@ export default {
         },
         err => {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });
@@ -230,8 +192,10 @@ export default {
             getLogout()
               .then(res => {
                 this.$store.commit("logout");
-                clearAuthStatus();
-                location.href = location.origin;
+                this.$yrouter.replace({
+                  path: "/pages/user/Login/index",
+                  query: {}
+                });
               })
               .catch(err => {});
           } else if (res.cancel) {

@@ -27,7 +27,7 @@
             :hourText="' : '"
             :minuteText="' : '"
             :secondText="false"
-            :datatime="pinkT.stopTime"
+            :datatime="pinkT.stopTime/1000"
           ></count-down>
           <text>结束</text>
         </view>
@@ -155,7 +155,8 @@ export default {
         })
         .catch(err => {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });
@@ -239,8 +240,8 @@ export default {
 </script>
 
 <style lang="less">
-	.tips-warp{
-		text-align: center;
-		margin-top: 20rpx;
-	}
+.tips-warp {
+  text-align: center;
+  margin-top: 20rpx;
+}
 </style>

@@ -106,7 +106,7 @@ const vuexStore = new Vuex.Store({
 		},
 		getUser({ state, commit }) {
 			return new Promise(reslove => {
-				getUser().then(res => {
+				getUserInfo().then(res => {
 					console.log(res)
 					commit("updateUserInfo", res.data);
 					reslove(res.data);

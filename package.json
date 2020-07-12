@@ -12,6 +12,7 @@
   "dependencies": {
     "animate.css": "^3.7.2",
     "async-validator": "^3.2.4",
-    "dayjs": "^1.8.22"
+    "dayjs": "^1.8.22",
+    "vue-ydui": "^1.2.6"
   }
 }

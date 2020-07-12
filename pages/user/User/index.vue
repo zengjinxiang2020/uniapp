@@ -117,11 +117,7 @@
         <view class="myService">
           <view class="serviceList acea-row row-middle">
             <template v-for="(item, MyMenusIndex) in MyMenus">
-              <view
-                class="item"
-                :key="MyMenusIndex"
-                @click="goPages(MyMenusIndex)"
-              >
+              <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)">
                 <view class="pictrue">
                   <image :src="item.pic" />
                 </view>
@@ -133,19 +129,9 @@
               <view class="pictrue"></view>
               <view class="cell">hexiao</view>
               <text class="iconfont icon-jiantou"></text>
-            </view> -->
+            </view>-->
           </view>
         </view>
-        <!--<view -->
-        <!--class="item"-->
-        <!--@click="changeswitch(true)"-->
-        <!--v-if="userInfo.phone && isWeixin"-->
-        <!--&gt;-->
-        <!--<view class="pictrue"><image src="@/static/images/switch.png" /></view>-->
-        <!--<view>账号切换</!--<view>-->
-        <!--</!--<view>-->
-        <!-- </view>
-        </view>-->
       </view>
       <view class="by">
         <view>
@@ -163,7 +149,7 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
-import { getUser, getMenuUser, bindingPhone } from "@/api/user";
+import { getUserInfo, getMenuUser, bindingPhone } from "@/api/user";
 import { isWeixin, VUE_APP_RESOURCES_URL } from "@/utils";
 import SwitchWindow from "@/components/SwitchWindow";
 import Authorization from "@/pages/authorization/index";
@@ -283,7 +269,7 @@ export default {
     },
     User: function() {
       let that = this;
-      getUser().then(res => {
+      getUserInfo().then(res => {
         that.user = res.data;
         that.orderStatusNum = res.data.orderStatusNum;
       });

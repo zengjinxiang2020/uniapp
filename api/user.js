@@ -3,9 +3,16 @@ import request from "@/utils/request";
 /**
  * 省市区
  */
-export function district(data) {
+export function getCity(data) {
 	return request.get("/city_list", data, {
 		// return request.get("/citys", data, {
+		login: false
+	});
+}
+
+export function district(data) {
+	// return request.get("/city_list", data, {
+	return request.get("/citys", data, {
 		login: false
 	});
 }

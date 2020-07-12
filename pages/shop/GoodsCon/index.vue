@@ -41,6 +41,12 @@
           <view class="iconfont icon-jiantou"></view>
         </view>
       </view>
+        <div class="attribute acea-row row-between-wrapper">
+      <div>
+        运费：<span class="atterTxt">{{ tempName }}</span>
+      </div>
+    </div>
+    
       <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
         <view>
           <text>{{ attrTxt }}：</text>
@@ -268,6 +274,8 @@ export default {
       systemStore: {},
       qqmapsdk: null,
       productConClass: "product-con",
+      tempName: '全国包邮'
+      
     };
   },
   computed: mapGetters(["isLogin", "location"]),
@@ -356,6 +364,7 @@ export default {
           that.reply = res.data.reply ? [res.data.reply] : [];
           that.$set(that, "reply", that.reply);
           that.$set(that, "priceName", res.data.priceName);
+          that.$set(that, "tempName", res.data.tempName);
           that.posterData.image = that.storeInfo.image;
           if (that.storeInfo.storeName.length > 30) {
             that.posterData.title =

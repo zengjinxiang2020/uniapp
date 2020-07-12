@@ -9,6 +9,7 @@ import store from "../store";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
 import stringify from "@/utils/querystring";
+import { VUE_APP_API_URL } from "@/config";
 
 export function dataFormat(time, option) {
 	time = +time * 1000;
@@ -186,7 +187,7 @@ export const login = () => {
 									uni.hideLoading();
 									store.commit("login", data.token, dayjs(data.expires_time));
 									store.dispatch('userInfo', true)
-									getUser().then(user => {
+									getUserInfo().then(user => {
 										console.log('获取用户信息成功')
 										store.dispatch('setUserInfo', user.data)
 										resolve(user)
@@ -221,7 +222,7 @@ export const login = () => {
 }
 
 export const handleGetUserInfo = () => {
-	getUser().then(res => {
+	getUserInfo().then(res => {
 		console.log('获取用户信息')
 		store.dispatch('setUserInfo', res.data)
 		var pages = getCurrentPages() //获取加载的页面
@@ -418,7 +419,7 @@ export function routerPermissions(url, type) {
 	console.log('————————')
 	let path = url
 	if (!path) {
-		path = '/'+getCurrentPageUrlWithArgs()
+		path = '/' + getCurrentPageUrlWithArgs()
 	}
 	if (Vue.prototype.$deviceType == 'routine') {
 		console.log('————————')
@@ -449,15 +450,15 @@ export function routerPermissions(url, type) {
 				if (type == 'reLaunch') {
 					reLaunch({
 						path,
-						
+
 					})
-					return 
+					return
 				}
 				if (type == 'replace') {
 					replace({
 						path,
 					})
-					return 
+					return
 				}
 				{
 					push({
@@ -734,7 +735,7 @@ export const handleLoginFailure = () => {
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
 
-	let path = '/'+getCurrentPageUrlWithArgs()
+	let path = '/' + getCurrentPageUrlWithArgs()
 
 	// 判断是不是拼团进来的
 	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
@@ -827,4 +828,53 @@ const handleNoParameters = () => {
 			path: '/pages/home/index',
 		});
 	}, 1500)
+}
+
+
+export function chooseImage(callback) {
+	uni.chooseImage({
+		count: 1,
+		sourceType: ["album"],
+		success: res => {
+			uni.getImageInfo({
+				src: res.tempFilePaths[0],
+				success: image => {
+					console.log(image);
+					uni.showLoading({ title: "图片上传中", mask: true });
+					uni.uploadFile({
+						url: `${VUE_APP_API_URL}/api/upload`,
+						file: image,
+						filePath: image.path,
+						header: {
+							Authorization: "Bearer " + store.getters.token
+						},
+						name: "file",
+						success: res => {
+							console.log(res);
+							if (callback) {
+								callback(JSON.parse(res.data).link)
+							}
+						},
+						fail: err => {
+							uni.showToast({
+								title: "上传图片失败",
+								icon: "none",
+								duration: 2000
+							});
+						},
+						complete: res => {
+							uni.hideLoading()
+						}
+					});
+				},
+				fail: err => {
+					uni.showToast({
+						title: "获取图片信息失败",
+						icon: "none",
+						duration: 2000
+					});
+				}
+			});
+		}
+	});
 }

@@ -245,11 +245,6 @@
 				that.$set(that, 'banner', res.data.banner);
 				that.$set(that, 'menus', res.data.menus);
 				that.$set(that, 'roll', res.data.roll);
-				that.$set(that, 'activity', res.data.activity);
-				if(res.data.activity){
-				var activityOne = res.data.activity.shift();
-				that.$set(that, 'activityOne', activityOne);
-				}
 				that.$set(that, 'info', res.data.info);
 				that.$set(that, 'firstList', res.data.firstList);
 				that.$set(that, 'bastList', res.data.bastList);
@@ -269,6 +264,7 @@
 				} 
 			},
 			goGoodSearch() {
+				// this.$yrouter.push('/pages/shop/GoodsEvaluate/index');
 				this.$yrouter.push('/pages/shop/GoodSearch/index');
 			},
 			goWxappUrl(item) {

@@ -12,29 +12,13 @@
       <view class="item acea-row row-between-wrapper">
         <view class="name">所在地区</view>
         <view class="picker acea-row row-between-wrapper select-value form-control">
-          <view class="address" @tap="openAddres">
-            <!-- <picker
-              @columnchange="addRessColumnchange"
-              @change="changeAddress"
-              range-key="name"
-              mode="multiSelector"
-              :range="district"
-            >
-              <text class="uni-input" v-if="model2">{{model2}}</text>
-              <text class="uni-input" v-else>请选择地区</text>
-            </picker>-->
-            <text class="uni-input">{{model2||'请选择'}}</text>
-            <simple-address
-              ref="simpleAddress"
-              :pickerValueDefault="cityPickerValueDefault"
-              @onConfirm="onConfirm"
-              themeColor="#007AFF"
-            ></simple-address>
-            <!-- <view slot="right" @click.stop="show2 = true">{{ model2 || "请选择收货地址" }}</view> -->
-            <!-- <vant-popup :show="show2" position="bottom" @close="closeaArea">
-							<vant-area :area-list="district" columns-num="3" :columns-placeholder="['请选择', '请选择', '请选择']" title="请选择"
-							 @confirm="result2" />
-            </vant-popup>-->
+          <view class="address">
+            <CitySelect
+              ref="cityselect"
+              :defaultValue="addressText"
+              @callback="result"
+              :items="district"
+            ></CitySelect>
           </view>
           <view class="iconfont icon-dizhi font-color-red"></view>
         </view>
@@ -57,92 +41,63 @@
       </view>
     </view>
     <view></view>
-    <view class="keepBnt bg-color-red" @click="submit">立即保存</view>
+    <view class="keepBnt bg-color-red" @tap="submit">立即保存</view>
     <view class="wechatAddress" v-if="isWechat && !id" @click="getAddress">导入微信地址</view>
   </view>
 </template>
+
 <script type="text/babel">
-// import { CitySelect } from "vue-ydui/dist/lib.rem/cityselect";
-// import District from "@/utils/area";
-import simpleAddress from "@/components/simple-address/simple-address.nvue";
-import { getAddress, postAddress, district } from "@/api/user";
+import CitySelect from "@/components/CitySelect";
+import { getAddress, postAddress, getCity } from "@/api/user";
 import attrs, { required, chs_phone } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
 // import { openAddress } from "@/libs/wechat";
 import { isWeixin } from "@/utils";
 
 export default {
+  name: "AddAddress",
   components: {
-    // CitySelect
-    simpleAddress
+    CitySelect
   },
   data() {
     return {
-      show2: false,
-      model2: "",
-      districts: [],
       district: [],
       id: 0,
       userAddress: { isDefault: 0 },
       address: {},
       isWechat: isWeixin(),
-      selectAddressValue: null,
-      cityPickerValueDefault: [0, 0, 1],
-      pickerText: ""
+      addressText: ""
     };
   },
   mounted: function() {
     let id = this.$yroute.query.id;
     this.id = id;
-    // document.title = !id ? "添加地址" : "修改地址";
     this.getUserAddress();
-    district().then(res => {
-      // city_list 市
-      // county_list 区
-      // province_list 省
-      this.districts = res.data;
-    });
+    this.getCityList();
+  },
+  watch: {
+    addressText(nextModel2) {
+      console.log(nextModel2, 8585858585);
+    }
   },
   methods: {
-    openAddres() {
-      // 根据 label 获取
-      if (this.address.province) {
-        // 这个插件有个问题，直辖市的 city 必须得是 市辖区
-        try {
-          let str = "市";
-          let city = this.address.city;
-          if (this.address.province.indexOf(str) != -1) {
-            city = "市辖区";
-          }
-          var index = this.$refs.simpleAddress.queryIndex(
-            [this.address.province, city, this.address.district],
-            "label"
-          );
-          this.cityPickerValueDefault = index.index;
-        } catch (error) {}
-      }
-      this.$refs.simpleAddress.open();
-
-      // var index = this.$refs.simpleAddress.queryIndex(
-      //   [13, 1302, 130203],
-      //   "value"
-      // );
-      // this.cityPickerValueDefault = index.index;
-      // this.$refs.simpleAddress.open();
-    },
-    onConfirm(e) {
-      this.pickerText = JSON.stringify(e);
-      this.model2 = e.label;
-      this.address.province = e.labelArr[0] || "";
-      this.address.city = e.labelArr[1] || "";
-      this.address.district = e.labelArr[2] || "";
+    getCityList: function() {
+      let that = this;
+      getCity()
+        .then(res => {
+          that.district = res.data;
+          that.ready = true;
+        })
+        .catch(err => {
+          that.$dialog.error(err.msg);
+        });
     },
     getUserAddress: function() {
       if (!this.id) return false;
       let that = this;
       getAddress(that.id).then(res => {
         that.userAddress = res.data;
-        that.model2 =
+        that.addressText =
           res.data.province + " " + res.data.city + " " + res.data.district;
         that.address.province = res.data.province;
         that.address.city = res.data.city;
@@ -151,9 +106,12 @@ export default {
     },
     getAddress() {},
     async submit() {
+      console.log(this);
+      console.log(this.address);
+      console.log(this.addressText);
       let name = this.userAddress.realName,
         phone = this.userAddress.phone,
-        model2 = this.model2,
+        addressText = this.addressText,
         detail = this.userAddress.detail,
         isDefault = this.userAddress.isDefault;
       try {
@@ -166,9 +124,9 @@ export default {
             required(required.message("联系电话")),
             chs_phone(chs_phone.message())
           ],
-          model2: [required("请选择地址")],
+          addressText: [required("请选择地址")],
           detail: [required(required.message("具体地址"))]
-        }).validate({ name, phone, model2, detail });
+        }).validate({ name, phone, addressText, detail });
       } catch (e) {
         return validatorDefaultCatch(e);
       }
@@ -204,7 +162,7 @@ export default {
         });
       } catch (err) {
         uni.showToast({
-          title: err.msg || err.response.data.msg|| err.response.data.message,
+          title: err.msg || err.response.data.msg || err.response.data.message,
           icon: "none",
           duration: 2000
         });
@@ -213,17 +171,17 @@ export default {
     ChangeIsDefault: function() {
       this.userAddress.isDefault = !this.userAddress.isDefault;
     },
-    closeaArea() {
-      this.show2 = false;
-    },
-    result2(ret) {
-      let values = ret.mp.detail.values;
-      this.closeaArea();
-      this.address.province = values[0].name || "";
-      this.address.city = values[1].name || "";
-      this.address.district = values[2].name || "";
-      this.model2 =
-        this.address.province + this.address.city + this.address.district;
+    result(values) {
+      console.log(this);
+      console.log(values);
+      this.address = {
+        province: values.province.name || "",
+        city: values.city.name || "",
+        district: values.district.name || ""
+      };
+      this.addressText = `${this.address.province}${this.address.city}${this.address.district}`;
+      // this.addressText =
+      //   this.address.province + this.address.city + this.address.district;
     }
   }
 };

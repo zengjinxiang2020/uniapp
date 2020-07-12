@@ -370,7 +370,7 @@ export default {
       getBargainDetail(that.bargainId)
         .then(res => {
           that.bargain = res.data.bargain;
-          that.datatime = that.bargain.stopTime;
+          that.datatime = that.bargain.stopTime / 1000;
           that.getBargainHelpCount();
         })
         .catch(res => {
@@ -573,32 +573,32 @@ page {
   background-color: #eb3729;
 }
 .bargainBnt_hui {
-  font-size: 0.3*100rpx;
+  font-size: 0.3 * 100rpx;
   font-weight: bold;
   color: #fff;
-  width: 6*100rpx;
-  height: 0.8*100rpx;
-  border-radius: 0.4*100rpx;
+  width: 6 * 100rpx;
+  height: 0.8 * 100rpx;
+  border-radius: 0.4 * 100rpx;
   background: #bbb;
   text-align: center;
-  line-height: 0.8*100rpx;
-  margin-top: 0.32*100rpx;
+  line-height: 0.8 * 100rpx;
+  margin-top: 0.32 * 100rpx;
 }
 .bargain_view {
-  left:0;
-  right:0;
-  height: 0.48*100rpx;
+  left: 0;
+  right: 0;
+  height: 0.48 * 100rpx;
   background: rgba(0, 0, 0, 0.5);
   opacity: 1;
-  border-radius: 0 0 0.06*100rpx 0.06*100rpx;
+  border-radius: 0 0 0.06 * 100rpx 0.06 * 100rpx;
   position: absolute;
   bottom: 0;
-  font-size: 0.22*100rpx;
+  font-size: 0.22 * 100rpx;
   color: #fff;
   text-align: center;
-  line-height: 0.48*100rpx;
+  line-height: 0.48 * 100rpx;
 }
 .iconfonts {
-  font-size: 0.22*100rpx;
+  font-size: 0.22 * 100rpx;
 }
 </style>

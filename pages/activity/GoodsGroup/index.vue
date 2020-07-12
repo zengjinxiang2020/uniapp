@@ -1,8 +1,5 @@
 <template>
   <view class="group-list" ref="container">
-    <!-- <view class="header">
-      <image src="@/static/images/group.png" class="image" />
-    </view>-->
     <view class="list" v-if="combinationList.length>0">
       <view
         class="item acea-row row-between-wrapper"
