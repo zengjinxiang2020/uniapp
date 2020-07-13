@@ -12,7 +12,7 @@
           class="item font-color-red"
           :class="shipping_type === 1 ? 'on' : 'on2'"
           @click="addressType(1)"
-          v-if="storeSelfMention"
+          v-if="systemStore"
         ></view>
       </view>
       <view
@@ -634,7 +634,11 @@ export default {
         .catch(err => {
           uni.hideLoading();
           uni.showToast({
-            title: err.response.data.msg || "创建订单失败",
+            title:
+              err.msg ||
+              err.response.data.msg ||
+              err.response.data.message ||
+              "创建订单失败",
             icon: "none",
             duration: 2000
           });

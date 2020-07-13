@@ -313,6 +313,14 @@ export default {
         });
         return;
       }
+      if (url === "/pages/orderAdmin/OrderCancellation/index" && !this.userInfo.checkStatus) {
+        uni.showToast({
+          title: "您没有核销权限,请后台店员设置！！",
+          icon: "none",
+          duration: 2000
+        });
+        return;
+      }
 
       this.$yrouter.push({
         path: this.MyMenus[index].uniapp_url

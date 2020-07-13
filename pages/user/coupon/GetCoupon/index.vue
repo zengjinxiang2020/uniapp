@@ -1,30 +1,35 @@
 <template>
   <view ref="container">
-    <view class="coupon-list" v-if="couponsList.length > 0">
-      <view
+    <div class="coupon-list" v-if="couponsList.length > 0">
+      <div
         class="item acea-row row-center-wrapper"
-        v-for="(item, couponsListIndex) in couponsList"
-        :key="couponsListIndex"
+        v-for="(item, index) in couponsList"
+        :key="index"
       >
-        <view class="money" :class="item.isUse ? 'moneyGray' : ''">
-          ￥
-          <text class="num">{{ item.couponPrice }}</text>
-        </view>
-        <view class="text">
-          <view class="condition line1">购物满{{ item.useMinPrice }}元可用</view>
-          <view class="data acea-row row-between-wrapper">
-            <view v-if="item.endTime !== 0">
-              <data-format-t :date="item.startTime"></data-format-t>-
-              <data-format-t :date="item.endTime"></data-format-t>
-            </view>
-            <view v-else>不限时</view>
-            <view class="bnt gray" v-if="item.isUse === true">已领取</view>
-            <view class="bnt gray" v-else-if="item.isUse === 2">已领完</view>
-            <view class="bnt bg-color-red" v-else @click="getCoupon(item.id, couponsListIndex)">立即领取</view>
-          </view>
-        </view>
-      </view>
-    </view>
+        <div class="money" :class="item.isUse ? 'moneyGray' : ''">
+          <div>
+            ￥
+            <span class="num">{{ item.couponPrice }}</span>
+          </div>
+          <div class="pic-num">满{{ item.useMinPrice }}元可用</div>
+        </div>
+        <div class="text">
+          <div class="condition line1">
+            <span class="line-title bg-color-check" v-if="item.ctype === 0">通用劵</span>
+            <span class="line-title bg-color-check" v-else-if="item.ctype === 1">商品券</span>
+            <span class="line-title bg-color-check" v-else>未知</span>
+            <span>{{ item.cname }}</span>
+          </div>
+          <div class="data acea-row row-between-wrapper">
+            <div v-if="item.endTime !== 0">{{ item.startTime }}-{{ item.endTime }}</div>
+            <div v-else>不限时</div>
+            <div class="bnt gray" v-if="item.isUse === true">已领取</div>
+            <div class="bnt gray" v-else-if="item.isUse === 2">已领完</div>
+            <div class="bnt bg-color-red" v-else @click="getCoupon(item.id, index)">立即领取</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <Loading :loaded="loadend" :loading="loading"></Loading>
     <!--暂无优惠券-->
@@ -76,7 +81,8 @@ export default {
         })
         .catch(function(err) {
           uni.showToast({
-            title: err.msg || err.response.data.msg|| err.response.data.message,
+            title:
+              err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
             duration: 2000
           });
