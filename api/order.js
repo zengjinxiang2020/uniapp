@@ -29,8 +29,8 @@ export function postOrderComputed(key, data) {
  * @param price
  * @returns {*}
  */
-export function getOrderCoupon(price) {
-	return request.get("/coupons/order/" + (parseFloat(price) || 0));
+export function getOrderCoupon(cartId) {
+	return request.get("/coupons/order/" + cartId);
 }
 
 /**

@@ -161,7 +161,7 @@
       <view class="item acea-row row-between">
         <view>下单时间：</view>
         <view class="conter">
-          <data-format :date="orderInfo.addTime"></data-format>
+          {{ orderInfo.createTime }}
         </view>
       </view>
       <view class="item acea-row row-between">

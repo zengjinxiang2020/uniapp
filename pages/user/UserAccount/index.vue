@@ -8,7 +8,7 @@
               <view>总资产(元)</view>
               <view class="money">{{ now_money }}</view>
             </view>
-            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator>
+            <!-- <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator> -->
           </view>
           <view class="cumulative acea-row row-top">
             <view class="item">

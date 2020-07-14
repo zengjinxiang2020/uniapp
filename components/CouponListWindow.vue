@@ -7,29 +7,31 @@
       </view>
       <view v-if="couponList.length > 0">
         <view class="coupon-list">
-          <view
+          <div
             class="item acea-row row-center-wrapper"
             v-for="coupon in couponList"
             :key="coupon.id"
             @click="click(coupon)"
           >
-            <view class="money">
-              ￥
-              <text class="num">{{ coupon.couponPrice }}</text>
-            </view>
-            <view class="text">
-              <view class="condition line1">{{ coupon.couponTitle }}</view>
-              <view class="data acea-row row-between-wrapper">
-                <view v-if="coupon.endTime === 0">不限时</view>
-                <view v-else><data-format-t :date="coupon.addTime"></data-format-t> - <data-format-t :date="coupon.endTime"></data-format-t></view>
-                <view
+            <div class="money">
+              <div>
+                ￥<span class="num">{{ coupon.couponPrice }}</span>
+              </div>
+              <div class="pic-num">满{{ coupon.useMinPrice }}元可用</div>
+            </div>
+            <div class="text">
+              <div class="condition line1">{{ coupon.couponTitle }}</div>
+              <div class="data acea-row row-between-wrapper">
+                <div v-if="coupon.endTime === 0">不限时</div>
+                <div v-else>截止:{{ coupon.endTime }}</div>
+                <div
                   class="iconfont icon-xuanzhong1 font-color-red"
                   v-if="checked === coupon.id"
-                ></view>
-                <view class="iconfont icon-weixuanzhong" v-else></view>
-              </view>
-            </view>
-          </view>
+                ></div>
+                <div class="iconfont icon-weixuanzhong" v-else></div>
+              </div>
+            </div>
+          </div>
         </view>
         <view class="couponNo bg-color-red" @click="couponNo">不使用优惠券</view>
       </view>
@@ -39,12 +41,7 @@
         </view>
       </view>
     </view>
-    <view
-      class="mask"
-      @touchmove.prevent
-      :hidden="value === false"
-      @click="close"
-    ></view>
+    <view class="mask" @touchmove.prevent :hidden="value === false" @click="close"></view>
   </view>
 </template>
 <style scoped lang="less">
@@ -78,6 +75,10 @@ export default {
     price: {
       type: [Number, String],
       default: undefined
+    },
+    cartid: {
+      type: String,
+      default: ""
     }
   },
   data: function() {
@@ -90,6 +91,10 @@ export default {
     price(n) {
       if (n === undefined || n == null) return;
       this.getCoupon();
+    },
+    cartid(n) {
+      if (n === undefined || n == null) return;
+      this.getCoupon();
     }
   },
   mounted: function() {},
@@ -99,7 +104,7 @@ export default {
       this.$emit("close");
     },
     getCoupon() {
-      getOrderCoupon(this.price).then(res => {
+      getOrderCoupon(this.cartid).then(res => {
         this.couponList = res.data;
         this.loaded = true;
       });

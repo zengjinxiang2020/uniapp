@@ -182,6 +182,7 @@
       :price="orderPrice.totalPrice"
       :checked="usableCoupon.id"
       @checked="changeCoupon"
+      :cartid="cartid"
     ></CouponListWindow>
     <AddressWindow
       @checked="changeAddress"
@@ -341,7 +342,8 @@ export default {
       shipping_type: 0,
       contacts: "",
       contactsTel: "",
-      storeSelfMention: 0
+      storeSelfMention: 0,
+      cartid: ""
     };
   },
   computed: mapGetters(["userInfo", "storeItems"]),
@@ -360,8 +362,14 @@ export default {
     let that = this;
     this.$store.dispatch("getUser", true);
     that.getCartInfo();
-    if (that.$yroute.query.pinkid !== undefined)
+    console.log(that.$yroute);
+    if (that.$yroute.query.pinkid !== undefined) {
       that.pinkId = that.$yroute.query.pinkid;
+    }
+    if (that.$yroute.query.id !== undefined) {
+      that.cartid = that.$yroute.query.id;
+      console.log(that.cartid)
+    }
   },
   methods: {
     showStoreList() {

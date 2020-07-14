@@ -43,11 +43,11 @@ export default {
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
   },
   onHide() {
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
     this.changeAuthorization(false);
   },
   onUnload() {
-    this.UPDATE_AUTHORIZATIONPAGE(false);
+    this.updateAuthorizationPage(false);
     this.changeAuthorization(false);
   },
   methods: {

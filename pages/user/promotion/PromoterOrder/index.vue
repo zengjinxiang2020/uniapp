@@ -5,7 +5,7 @@
         <view>
           <text class="name">累计推广订单</text>
           <view>
-            <text class="num">{{ count }}</text>
+            <text class="num">{{ count||'0' }}</text>
             <text>单</text>
           </view>
         </view>

@@ -196,6 +196,7 @@ export const login = () => {
 										reject('获取用户信息失败')
 									});
 								}).catch(error => {
+									console.log(error)
 									console.log('登录接口调用失败')
 									reject('登录接口调用失败')
 								});

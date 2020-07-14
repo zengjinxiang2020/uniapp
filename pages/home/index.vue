@@ -51,15 +51,7 @@
 			</view>
 		</view> -->
 		<!-- <view class="wrapper hot" v-if="likeInfo.length > 0"> -->
-		<view class="nav acea-row">
-			<view @click="goWxappUrl(item)" class="item" v-for="(item, menusIndex) in menus" :key="menusIndex">
-				<view class="pictrue">
-					<image :src="item.pic" />
-				</view>
-				<view>{{ item.name }}</view>
-			</view>
-		</view>
-		<uni-notice-bar scrollable="true" single="true" speed="30" showIcon="true" :text="singNew.info"></uni-notice-bar>
+		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" speed="10" showIcon="true" :text="singNew.info"></uni-notice-bar>
 		<view class="wrapper hot" v-if="bastList.length > 0">
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
 			<view class="title no-border acea-row row-between-wrapper">
@@ -130,17 +122,17 @@
 			</view>
 		</view>
 		<view class="wrapper" v-if="benefit.length > 0">
-			<view class="title acea-row row-between-wrapper">
-				<view class="text">
+			<view class="title acea-row row-center">
+				<view class="text text-center">
 					<div class="name line1 new-name">
               <span class="iconfont icon-shoucang"></span>
               <span class="txt">猜你喜欢</span>
             </div>
 				</view>
-				<view @click="goGoodsPromotion(4)" class="more">
+				<!-- <view @click="goGoodsPromotion(4)" class="more">
 					更多
 					<text class="iconfont icon-jiantou"></text>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<PromotionGood :benefit="benefit"></PromotionGood>

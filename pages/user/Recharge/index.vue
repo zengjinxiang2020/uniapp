@@ -67,7 +67,9 @@ export default {
       picList: [],
       activePic: 0,
       numberPic: "",
-      paid_price: ""
+      paid_price: "",
+      rechar_id: 0
+      
     };
   },
   computed: mapGetters(["userInfo"]),
@@ -84,6 +86,7 @@ export default {
         .then(res => {
           this.picList = res.data.recharge_price_ways || [];
           if (this.picList[0]) {
+            this.rechar_id = this.picList[0].id;
             this.paid_price = this.picList[0].value.price;
             this.numberPic = this.picList[0].value.give_price;
           }
@@ -103,10 +106,12 @@ export default {
     picCharge(idx, item) {
       this.activePic = idx;
       if (idx == this.picList.length) {
+        this.rechar_id = 0;
         this.paid_price = "";
         this.numberPic = "";
       } else {
         this.money = "";
+        this.rechar_id = item.id;
         this.paid_price = item.value.give_price;
         this.numberPic = item.value.price;
       }
@@ -140,9 +145,9 @@ export default {
       }
       rechargeWechat({
         price: prices,
-        // from: that.from,
         from: that.from,
-        paidPrice: paid_price
+        paid_price: paid_price,
+        rechar_id: that.rechar_id
       })
         .then(res => {
           console.log(res);
