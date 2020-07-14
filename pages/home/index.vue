@@ -11,7 +11,7 @@
 		</view>
 		<view class="fixed-header-box"></view>
 		<view class="slider-banner banner">
-			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular >
+			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular>
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
 					<swiper-item>
 						<view @click="goRoll(item)" class="swiper-item">
@@ -21,7 +21,16 @@
 				</block>
 			</swiper>
 		</view>
-		<view class="news acea-row row-between-wrapper">
+
+		<view class="nav acea-row">
+			<view @click="goWxappUrl(item)" class="item" v-for="(item, menusIndex) in menus" :key="menusIndex">
+				<view class="pictrue">
+					<image :src="item.pic" />
+				</view>
+				<view>{{ item.name }}</view>
+			</view>
+		</view>
+		<view class="news acea-row ">
 			<view class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
 				<image src="@/static/images/news.png" />
 			</view>
@@ -41,20 +50,13 @@
 				</swiper>
 			</view>
 		</view>
-		<view class="nav acea-row">
-			<view @click="goWxappUrl(item)" class="item" v-for="(item, menusIndex) in menus" :key="menusIndex">
-				<view class="pictrue">
-					<image :src="item.pic" />
-				</view>
-				<view>{{ item.name }}</view>
-			</view>
-		</view>
-		<view class="wrapper hot" v-if="bastList.length > 0">
+		<view class="wrapper hot" v-if="likeInfo.length > 0">
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
 			<view class="title no-border acea-row row-between-wrapper">
-				<view class="text">
-					<view class="name line1">热门榜单</view>
-				</view>
+				<div class="text line1">
+					<span class="iconfont icon-remen"></span>
+					<span class="label">热门榜单</span>
+				</div>
 				<view @click="goHotNewGoods(2)" class="more">
 					更多
 					<text class="iconfont icon-jiantou"></text>
@@ -77,7 +79,10 @@
 		<view class="wrapper" v-if="bastList.length > 0">
 			<view class="title no-border acea-row row-between-wrapper">
 				<view class="text">
-					<view class="name line1">精品推荐</view>
+					<div class="name line1">
+						 <span class="iconfont icon-jingpintuijian"></span>
+			  <span class="label">精品推荐</span>
+					</div>
 				</view>
 				<view @click="goHotNewGoods(1)" class="more">
 					更多
@@ -91,8 +96,8 @@
 			<view class="title acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name line1">
-						首发新品
-						<text class="new font-color-red">NEW~</text>
+						 <span class="iconfont icon-xinpin"></span>
+			  			  <span class="label">首发新品</span>
 					</view>
 				</view>
 				<view @click="goHotNewGoods(3)" class="more">
@@ -117,7 +122,10 @@
 		<view class="wrapper" v-if="benefit.length > 0">
 			<view class="title acea-row row-between-wrapper">
 				<view class="text">
-					<view class="name line1">促销单品</view>
+					<div class="name line1 new-name">
+              <span class="iconfont icon-shoucang"></span>
+              <span class="txt">猜你喜欢</span>
+            </div>
 				</view>
 				<view @click="goGoodsPromotion(4)" class="more">
 					更多
@@ -131,7 +139,11 @@
 </template>
 <script>
 	// import { swiper, swiperSlide } from "vue-awesome-swiper";
-	import { mapState, mapMutations, mapActions } from 'vuex';
+	import {
+		mapState,
+		mapMutations,
+		mapActions
+	} from 'vuex';
 
 	import GoodList from '@/components/GoodList';
 	import PromotionGood from '@/components/PromotionGood';
@@ -258,10 +270,10 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
-			goRoll(item){
-				if(item.uniapp_url){
-					this.$yrouter.push(item.uniapp_url)	
-				} 
+			goRoll(item) {
+				if (item.uniapp_url) {
+					this.$yrouter.push(item.uniapp_url)
+				}
 			},
 			goGoodSearch() {
 				// this.$yrouter.push('/pages/shop/GoodsEvaluate/index');
@@ -292,37 +304,49 @@
 			setOpenShare: function() {},
 			startQr: function() {
 				uni.scanCode({
-					success: (res) =>{
+					success: (res) => {
 						let option = handleUrlParam(res.result)
 						console.log(option)
-						
-						
+
+
 						// {productId: "19", spread: "21", codeType: "routine"}
 						// {productId: "19", spread: "21", pageType: "good", codeType: "routine"}
 						switch (option.pageType) {
 							case 'good':
 								// 跳转商品详情
-								this.$yrouter.push({path:'/pages/shop/GoodsCon/index',query:{
-									q:res.result
-								}});
+								this.$yrouter.push({
+									path: '/pages/shop/GoodsCon/index',
+									query: {
+										q: res.result
+									}
+								});
 								break;
 							case 'group':
 								// 跳转团购
-								this.$yrouter.push({path:'/pages/activity/GroupRule/index',query:{
-									q:res.result
-								}});
+								this.$yrouter.push({
+									path: '/pages/activity/GroupRule/index',
+									query: {
+										q: res.result
+									}
+								});
 								break;
 							case 'dargain':
 								// 跳转砍价
-								this.$yrouter.push({path:'/pages/activity/DargainDetails/index',query:{
-									q:res.result
-								}});
+								this.$yrouter.push({
+									path: '/pages/activity/DargainDetails/index',
+									query: {
+										q: res.result
+									}
+								});
 								break;
 							default:
 								// 跳转分销
-								this.$yrouter.push({path:'/pages/Loading/index',query:{
-									
-								}});
+								this.$yrouter.push({
+									path: '/pages/Loading/index',
+									query: {
+
+									}
+								});
 								break;
 						}
 
@@ -341,18 +365,18 @@
 	.swiper-item {
 		height: 100%;
 	}
-	
-	.fixed-header{
+
+	.fixed-header {
 		position: fixed;
 		z-index: 99;
-		top:0;
-		left:0;
-		right:0;
+		top: 0;
+		left: 0;
+		right: 0;
 		background: #fff;
 		box-shadow: 0 0 20rpx -10rpx #aaa;
 
-		&+.fixed-header-box{
-			height:98rpx
+		&+.fixed-header-box {
+			height: 98rpx
 		}
 	}
 </style>

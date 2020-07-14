@@ -29,11 +29,11 @@
       </view>
       <view class="load font-color-red" v-if="!status" @click="getBargainList">点击加载更多</view>
     </view>
-    <view class="noCommodity" style="background-color: #fff;" v-if="bargainLis.length === 0">
+    <!-- <view class="noCommodity" style="background-color: #fff;" v-if="bargainLis.length === 0">
       <view class="noPictrue">
         <image src="@/static/images/noGood.png" class="image" />
       </view>
-    </view>
+    </view> -->
   </view>
 </template>
 <script>
@@ -79,6 +79,6 @@ export default {
 
 <style >
 page{
-    background: #eb3729;
+    background-color: rgb(245, 245, 245);
 }
 </style>
