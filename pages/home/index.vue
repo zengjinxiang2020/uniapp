@@ -30,7 +30,7 @@
 				<view>{{ item.name }}</view>
 			</view>
 		</view>
-		<view class="news acea-row ">
+		<!-- <view class="news acea-row ">
 			<view class="pictrue" v-if="$VUE_APP_RESOURCES_URL">
 				<image src="@/static/images/news.png" />
 			</view>
@@ -49,8 +49,18 @@
 					</block>
 				</swiper>
 			</view>
+		</view> -->
+		<!-- <view class="wrapper hot" v-if="likeInfo.length > 0"> -->
+		<view class="nav acea-row">
+			<view @click="goWxappUrl(item)" class="item" v-for="(item, menusIndex) in menus" :key="menusIndex">
+				<view class="pictrue">
+					<image :src="item.pic" />
+				</view>
+				<view>{{ item.name }}</view>
+			</view>
 		</view>
-		<view class="wrapper hot" v-if="likeInfo.length > 0">
+		<uni-notice-bar scrollable="true" single="true" speed="30" showIcon="true" :text="singNew.info"></uni-notice-bar>
+		<view class="wrapper hot" v-if="bastList.length > 0">
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
 			<view class="title no-border acea-row row-between-wrapper">
 				<div class="text line1">
@@ -148,6 +158,7 @@
 	import GoodList from '@/components/GoodList';
 	import PromotionGood from '@/components/PromotionGood';
 	import CouponWindow from '@/components/CouponWindow';
+	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar.vue'
 	import {
 		getHomeData,
 		getShare
@@ -165,6 +176,7 @@
 		components: {
 			// swiper,
 			// swiperSlide,
+			uniNoticeBar,
 			GoodList,
 			PromotionGood,
 			CouponWindow
@@ -246,6 +258,11 @@
 				}
 			};
 		},
+		  computed:{
+    singNew() {
+      return this.roll.length > 0 ? this.roll[0] : "你还没添加通知哦！";
+    }
+  },
 		onShow: function() {
 			this.getLocation()
 			let that = this;

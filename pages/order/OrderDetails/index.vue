@@ -5,7 +5,7 @@
       <view class="data" :class="refundOrder ? 'on' : ''">
         <view class="state">{{ orderInfo._status._msg }}</view>
         <view>
-          <data-format :date="orderInfo.addTime"></data-format>
+          {{ orderInfo.createTime }}
         </view>
       </view>
     </view>

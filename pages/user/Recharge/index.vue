@@ -24,13 +24,13 @@
           >
             <view class="pic-number-pic">
               <text>
-                {{ item.price }}
+                {{ item.value.price }}
                 <text class="pic-number">元</text>
               </text>
             </view>
-            <view class="pic-number">赠送：{{ item.give_price }} 元</view>
+            <view class="pic-number" v-if="item.value.give_price > 0">赠送：{{ item.value.give_price }} 元</view>
           </view>
-          <view
+          <!-- <view
             class="pic-box pic-box-color acea-row row-center-wrapper"
             @click="picCharge(picList.length, money)"
           >
@@ -40,7 +40,7 @@
               v-model="money"
               class="pic-box-money pic-number-pic"
             />
-          </view>
+          </view> -->
         </view>
         <view class="tip">提示：充值后帐户的金额不能提现</view>
         <view class="pay-btn bg-color-red" @click="recharge">立即充值</view>
@@ -84,8 +84,8 @@ export default {
         .then(res => {
           this.picList = res.data.recharge_price_ways || [];
           if (this.picList[0]) {
-            this.paid_price = this.picList[0].price;
-            this.numberPic = this.picList[0].give_price;
+            this.paid_price = this.picList[0].value.price;
+            this.numberPic = this.picList[0].value.give_price;
           }
         })
         .catch(res => {
@@ -107,8 +107,8 @@ export default {
         this.numberPic = "";
       } else {
         this.money = "";
-        this.paid_price = item.give_price;
-        this.numberPic = item.price;
+        this.paid_price = item.value.give_price;
+        this.numberPic = item.value.price;
       }
     },
     recharge: function() {

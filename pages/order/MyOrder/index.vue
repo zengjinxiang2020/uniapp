@@ -4,11 +4,7 @@
       <view class="picTxt acea-row row-between-wrapper">
         <view class="text">
           <view class="name">订单信息</view>
-          <view>
-            累计订单：{{ orderData.orderCount || 0 }} 总消费：￥{{
-            orderData.sumPrice || 0
-            }}
-          </view>
+          <view>累计订单：{{ orderData.orderCount || 0 }} 总消费：￥{{orderData.sumPrice || 0 }}</view>
         </view>
       </view>
     </view>
@@ -45,7 +41,7 @@
             <span class="sign cart-color acea-row row-center-wrapper" v-if="order.seckillId > 0">秒杀</span>
             <span class="sign cart-color acea-row row-center-wrapper" v-if="order.bargainId > 0">砍价</span>
             <span class="sign cart-color acea-row row-center-wrapper" v-if="order.storeId > 0">门店</span>
-            {{ dataFormat(order.addTime) }}
+            {{ order.createTime }}
           </view>
           <view class="font-color-red">{{ getStatus(order) }}</view>
         </view>

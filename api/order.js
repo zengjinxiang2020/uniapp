@@ -97,9 +97,9 @@ export function postOrderRefund(data) {
  * 确认收货
  * @returns {*}
  */
-export function takeOrder(uni) {
+export function takeOrder(orderId) {
 	return request.post("/order/take", {
-		uni
+		orderId
 	});
 }
 
@@ -107,9 +107,9 @@ export function takeOrder(uni) {
  * 删除订单
  * @returns {*}
  */
-export function delOrder(uni) {
+export function delOrder(orderId) {
 	return request.post("/order/del", {
-		uni
+		orderId
 	});
 }
 
@@ -125,9 +125,9 @@ export function express(params) {
  * 订单查询物流信息
  * @returns {*}
  */
-export function payOrder(uni, paytype, from) {
+export function payOrder(orderId, paytype, from) {
 	return request.post("order/pay", {
-		uni,
+		orderId,
 		paytype,
 		from
 	});

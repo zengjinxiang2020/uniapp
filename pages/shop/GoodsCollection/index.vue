@@ -14,7 +14,7 @@
           <view class="infor line1">{{ item.storeName }}</view>
           <view class="acea-row row-between-wrapper">
             <view class="money font-color-red">￥{{ item.price }}</view>
-            <view class="delete" @click.prevent="delCollection(collectProductListIndex)">删除</view>
+            <view class="delete" @tap.stop="delCollection(collectProductListIndex)">删除</view>
           </view>
         </view>
       </view>
@@ -86,7 +86,7 @@ export default {
         category = that.collectProductList[index].category;
       getCollectDel(id, category).then(function() {
         uni.showToast({
-          title: "添加购物车成功",
+          title: "删除成功",
           icon: "success",
           duration: 2000,
           complete: () => {
