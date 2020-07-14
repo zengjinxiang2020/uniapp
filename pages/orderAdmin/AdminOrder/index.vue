@@ -34,7 +34,7 @@
           </view>
           <view class="text acea-row row-between row-column">
             <view class="info line2">{{ item.productInfo.storeName }}</view>
-            <view class="attr">{{ item.productInfo.suk }}</view>
+            <view class="attr">{{ item.productInfo.sku }}</view>
           </view>
         </view>
         <view class="money">

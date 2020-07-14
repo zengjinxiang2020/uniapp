@@ -49,7 +49,7 @@
                 <view
                   class="infor line1"
                   v-if="item.productInfo.attrInfo"
-                >属性：{{ item.productInfo.attrInfo.suk }}</view>
+                >属性：{{ item.productInfo.attrInfo.sku }}</view>
                 <view class="money">￥{{ item.truePrice }}</view>
               </view>
               <view class="carnum acea-row row-center-wrapper">
@@ -107,7 +107,7 @@
                   <view
                     class="infor line1"
                     v-if="item.productInfo.attrInfo"
-                  >属性：{{ item.productInfo.attrInfo.suk }}</view>
+                  >属性：{{ item.productInfo.attrInfo.sku }}</view>
                   <view class="acea-row row-between-wrapper">
                     <view class="end">该商品已下架</view>
                   </view>

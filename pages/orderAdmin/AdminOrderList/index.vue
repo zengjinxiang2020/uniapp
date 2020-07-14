@@ -25,7 +25,7 @@
 							</view>
 							<view class="text acea-row row-between row-column">
 								<view class="info line2">{{ val.productInfo.storeName }}</view>
-								<view class="attr" v-if="val.productInfo.suk">{{ val.productInfo.suk }}</view>
+								<view class="attr" v-if="val.productInfo.sku">{{ val.productInfo.sku }}</view>
 							</view>
 						</view>
 						<view class="money">
