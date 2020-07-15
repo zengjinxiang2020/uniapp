@@ -56,7 +56,7 @@
                 :hourText="':'"
                 :minuteText="':'"
                 :secondText="false"
-                :datatime="item.stopTime"
+                :datatime="item.stopTime/1000"
               ></count-down>
             </view>
             <view class="spellBnt" @click="groupRule(item.id)">
