@@ -3,7 +3,7 @@ import Vue from 'vue'
 // Vue.use(MpvueRouterPatch)
 import {
 	wxappAuth,
-	getUser
+	getUserInfo
 } from "@/api/user";
 import store from "../store";
 import dayjs from "dayjs";
