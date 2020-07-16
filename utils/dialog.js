@@ -14,7 +14,7 @@ const dialog = {
 		uni.showModal({
 			title: '提示',
 			content: options.mes,
-			success() {
+			success(res) {
 				if (res.confirm) {
 					opts()
 				} else if (res.cancel) {}
