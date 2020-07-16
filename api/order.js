@@ -136,9 +136,7 @@ export function payOrder(orderId, paytype, from) {
  * 订单核销
  * @returns {*}
  */
-export function orderVerific(verifyCode, orderVerific) {
-	return request.post("order/order_verific", {
-		verifyCode,
-		orderVerific
-	});
+
+export function orderVerific(verifyCode, isConfirm) {
+	return request.post("order/order_verific", { verifyCode, isConfirm });
 }
