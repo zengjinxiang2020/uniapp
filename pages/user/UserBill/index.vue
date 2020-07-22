@@ -70,7 +70,7 @@ export default {
     that.getIndex();
   },
   onReachBottom() {
-    !that.loading && that.getIndex();
+    !this.loading && this.getIndex();
   },
   methods: {
     code: function() {

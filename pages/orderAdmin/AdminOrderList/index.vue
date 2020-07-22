@@ -129,7 +129,7 @@
 			that.getIndex();
 		},
 		onReachBottom() {
-			!that.loading && that.getIndex();
+			!this.loading && this.getIndex();
 		},
 		methods: {
 			goGoodsDeliver(item) {
