@@ -131,6 +131,10 @@ export default {
       let id = that.$yroute.query.id;
       that.datatime = parseInt(that.$yroute.query.time);
       getSeckillDetail(id).then(res => {
+         res.data.storeInfo.description = res.data.storeInfo.description.replace(
+          /\<img/gi,
+          '<img style="max-width:100%;height:auto;"'
+        );
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "replyCount", res.data.replyCount);

@@ -369,6 +369,10 @@ export default {
       var that = this;
       getBargainDetail(that.bargainId)
         .then(res => {
+          res.data.bargain = res.data.bargain.replace(
+            /\<img/gi,
+            '<img style="max-width:100%;height:auto;"'
+          );
           that.bargain = res.data.bargain;
           that.datatime = that.bargain.stopTime / 1000;
           that.getBargainHelpCount();

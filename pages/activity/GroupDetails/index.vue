@@ -242,6 +242,10 @@ export default {
       let id = that.$yroute.query.id;
       getCombinationDetail(id).then(res => {
         that.userCollect = res.data.userCollect;
+        res.data.storeInfo.description = res.data.storeInfo.description.replace(
+          /\<img/gi,
+          '<img style="max-width:100%;height:auto;"'
+        );
         that.$set(that, "storeInfo", res.data.storeInfo);
         that.$set(that, "imgUrls", res.data.storeInfo.sliderImageArr);
         that.$set(that, "itemNew", res.data.pinkOkList);

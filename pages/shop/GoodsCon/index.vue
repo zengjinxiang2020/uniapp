@@ -354,12 +354,10 @@ export default {
       uni.showLoading({ title: "加载中", mask: true });
       getProductDetail(that.id, from)
         .then(res => {
-          res.data.storeInfo.description.replace(
+          res.data.storeInfo.description = res.data.storeInfo.description.replace(
             /\<img/gi,
             '<img style="max-width:100%;height:auto;"'
           );
-          console.log(res);
-          
           that.$set(that, "storeInfo", res.data.storeInfo);
           // 给 attr 赋值，将请求回来的规格赋值给 attr
           that.$set(that.attr, "productAttr", res.data.productAttr);
