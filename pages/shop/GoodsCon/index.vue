@@ -41,12 +41,13 @@
           <view class="iconfont icon-jiantou"></view>
         </view>
       </view>
-        <div class="attribute acea-row row-between-wrapper">
-      <div>
-        运费：<span class="atterTxt">{{ tempName }}</span>
+      <div class="attribute acea-row row-between-wrapper">
+        <div>
+          运费：
+          <span class="atterTxt">{{ tempName }}</span>
+        </div>
       </div>
-    </div>
-    
+
       <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
         <view>
           <text>{{ attrTxt }}：</text>
@@ -274,8 +275,7 @@ export default {
       systemStore: {},
       qqmapsdk: null,
       productConClass: "product-con",
-      tempName: '全国包邮'
-      
+      tempName: "全国包邮"
     };
   },
   computed: mapGetters(["isLogin", "location"]),
@@ -354,7 +354,10 @@ export default {
       uni.showLoading({ title: "加载中", mask: true });
       getProductDetail(that.id, from)
         .then(res => {
-          console.log(res);
+          res.data.storeInfo.description = res.data.storeInfo.description.replace(
+            /\<img/gi,
+            '<img style="max-width:100%;height:auto;"'
+          );
           that.$set(that, "storeInfo", res.data.storeInfo);
           // 给 attr 赋值，将请求回来的规格赋值给 attr
           that.$set(that.attr, "productAttr", res.data.productAttr);

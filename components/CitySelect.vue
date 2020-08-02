@@ -196,6 +196,9 @@ export default {
   z-index: 1502;
   position: relative;
   height: 800rpx;
+  padding-bottom: 0;  
+  padding-bottom: constant(safe-area-inset-bottom);  
+  padding-bottom: env(safe-area-inset-bottom);  
   .cityScroll {
     height: 100%;
   }

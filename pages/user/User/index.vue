@@ -313,6 +313,7 @@ export default {
         });
         return;
       }
+      console.log(this.userInfo)
       if (url === "/pages/orderAdmin/OrderCancellation/index" && !this.userInfo.checkStatus) {
         uni.showToast({
           title: "您没有核销权限,请后台店员设置！！",
