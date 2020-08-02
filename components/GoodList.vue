@@ -20,7 +20,7 @@
 					</view>
 				</view>
 			</view> 
-			<view class="iconfont icon-gouwuche cart-color acea-row row-center-wrapper"></view>
+			<!-- <view class="iconfont icon-gouwuche cart-color acea-row row-center-wrapper"></view> -->
 		</view>
 	</view>
 </template>

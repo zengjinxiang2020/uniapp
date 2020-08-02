@@ -28,7 +28,10 @@
                 <text class="pic-number">元</text>
               </text>
             </view>
-            <view class="pic-number" v-if="item.value.give_price > 0">赠送：{{ item.value.give_price }} 元</view>
+            <view
+              class="pic-number"
+              v-if="item.value.give_price > 0"
+            >赠送：{{ item.value.give_price }} 元</view>
           </view>
           <!-- <view
             class="pic-box pic-box-color acea-row row-center-wrapper"
@@ -40,7 +43,7 @@
               v-model="money"
               class="pic-box-money pic-number-pic"
             />
-          </view> -->
+          </view>-->
         </view>
         <view class="tip">提示：充值后帐户的金额不能提现</view>
         <view class="pay-btn bg-color-red" @click="recharge">立即充值</view>
@@ -58,7 +61,7 @@ export default {
   name: "Recharge",
   components: {},
   props: {},
-  data: function() {
+  data: function () {
     return {
       active: 0,
       from: this.$deviceType,
@@ -68,12 +71,11 @@ export default {
       activePic: 0,
       numberPic: "",
       paid_price: "",
-      rechar_id: 0
-      
+      rechar_id: 0,
     };
   },
   computed: mapGetters(["userInfo"]),
-  mounted: function() {
+  mounted: function () {
     this.now_money = this.userInfo.nowMoney;
     this.getRecharge();
   },
@@ -83,7 +85,7 @@ export default {
      */
     getRecharge() {
       getRechargeApi()
-        .then(res => {
+        .then((res) => {
           this.picList = res.data.recharge_price_ways || [];
           if (this.picList[0]) {
             this.rechar_id = this.picList[0].id;
@@ -91,12 +93,12 @@ export default {
             this.numberPic = this.picList[0].value.give_price;
           }
         })
-        .catch(res => {
+        .catch((res) => {
           uni.showToast({
             title:
               err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         });
     },
@@ -116,21 +118,28 @@ export default {
         this.numberPic = item.value.price;
       }
     },
-    recharge: function() {
+    recharge: function () {
       let that = this,
         price = Number(this.money);
       if (this.picList.length == this.activePic && price === 0) {
         uni.showToast({
           title: "请输入您要充值的金额",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       } else if (this.picList.length == this.activePic && price < 0.01) {
         uni.showToast({
           title: "充值金额不能低于0.01",
           icon: "none",
-          duration: 2000
+          duration: 2000,
+        });
+        return;
+      } else if (this.picList.length == this.activePic && price > 99999) {
+        uni.showToast({
+          title: "充值金额不能大于99999",
+          icon: "none",
+          duration: 2000,
         });
         return;
       }
@@ -147,9 +156,9 @@ export default {
         price: prices,
         from: that.from,
         paid_price: paid_price,
-        rechar_id: that.rechar_id
+        rechar_id: that.rechar_id,
       })
-        .then(res => {
+        .then((res) => {
           console.log(res);
           var data = res.data.data;
           weappPay(res.data.data)
@@ -159,37 +168,37 @@ export default {
               uni.showToast({
                 title: "支付成功",
                 icon: "success",
-                duration: 2000
+                duration: 2000,
               });
               this.$yrouter.back();
             })
-            .finally(res => {
+            .finally((res) => {
               //if(typeof(res) == "undefined") return
               uni.showToast({
                 title: res,
                 icon: "none",
-                duration: 2000
+                duration: 2000,
               });
             })
-            .catch(function() {
+            .catch(function () {
               uni.showToast({
                 title: "支付失败",
                 icon: "none",
-                duration: 2000
+                duration: 2000,
               });
             });
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
           uni.showToast({
             title:
               err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
