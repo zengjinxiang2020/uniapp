@@ -1,7 +1,7 @@
 <template>
   <view v-if="shareInfoStatus" class="poster-first">
     <view class="mask-share">
-      <image src="@/static/images/s/share-info.png" @click="shareInfoClose" />
+      <!-- <image src="@/static/images/share-info.png" @click="shareInfoClose" /> -->
     </view>
   </view>
 </template>

@@ -158,6 +158,11 @@ export const login = () => {
 	return new Promise((resolve, reject) => {
 		console.log('获取环境商')
 		getProvider().then(provider => {
+			console.log('当前的环境商')
+			console.log(provider)
+			if (!provider) {
+				reject()
+			}
 			// 调用登录接口
 			console.log('调用登录接口')
 			uni.login({
@@ -496,7 +501,7 @@ export function routerPermissions(url, type) {
 		})
 	} else {
 		// 如果不是小程序跳转到登录页
-		console.log('当前是app，开始处理app登录方法')
+		console.log('当前无法自动登录，开始处理登录方法')
 		push({
 			path: '/pages/user/Login/index',
 		})

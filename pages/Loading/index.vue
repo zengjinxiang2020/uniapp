@@ -26,6 +26,7 @@ export default {
     return {};
   },
   onShow() {
+    
     var url = handleQrCode();
     // 判断是否是分销
     if (url) {
