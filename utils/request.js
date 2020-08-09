@@ -61,6 +61,10 @@ function baseRequest(options) {
   return fly.request(url, params || data, {
     ...option
   }).then(res => {
+    console.log("——————————— "+url+" —————————————")
+    console.log(params || data)
+    console.log(res.data)
+    console.log("—————————————— end ——————————")
     const data = res.data || {};
     if (res.status !== 200) {
       return Promise.reject({ msg: "请求失败", res, data });
