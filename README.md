@@ -21,6 +21,26 @@
 - 如需修改样式问题，请编辑.less的文件，请勿编辑.css的文件
 
 
+## git issuse 地址
+
+https://gitee.com/guchengwuyue/yshopmall
+
+### 请按照以下模板提交 issuse
+标题：
+H5/uni/后端代码/后台管理系统+简单描述
+
+问题端：
+H5/uni/后端代码/后台管理系统
+
+代码版本：
+v3.0
+
+代码运行环境：
+windows/macOS/Linux
+
+问题描述：
+Ps:如果是uni出现问题，请具体描述是运行那个端小程序/android/ios
+
 ## 声明
 - app测试版已上，请通过 `https://www.pgyer.com/yRYf` 安装测试。
 - 运行app项目ios需要安装xcode，安卓需要装安卓的sdk以及安卓模拟器，建议安卓安装genymotion  https://www.genymotion.com/  登录时可选择私人使用，勾选后无需付费

@@ -486,6 +486,7 @@ export default {
     },
     changeAddress(addressInfo) {
       this.addressInfo = addressInfo;
+      this.getCartInfo()
     },
     createOrder() {
       let shipping_type = this.shipping_type;

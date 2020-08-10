@@ -44,9 +44,7 @@
         >
           <view>
             <text class="state">{{ item.title }}</text>
-            <view>
-              <data-format :date="item.addTime"></data-format>
-            </view>
+            <div>{{ dataFormat(item.addTime) }}</div>
           </view>
           <text class="num" v-if="item.pm == 1">+{{ item.number }}</text>
           <text class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</text>
@@ -74,12 +72,12 @@
 <script>
 import { getIntegralList, postSignUser } from "@/api/user";
 import Loading from "@/components/Loading";
-import DataFormat from "@/components/DataFormat";
+import { dataFormat } from "@/utils";
+
 export default {
   name: "Integral",
   components: {
     Loading,
-    DataFormat
   },
   props: {},
   data: function() {
@@ -112,6 +110,7 @@ export default {
     !this.loading && this.getInfo();
   },
   methods: {
+    dataFormat,
     goSignIn() {
       this.$yrouter.push("/pages/user/signIn/Sign/index");
     },

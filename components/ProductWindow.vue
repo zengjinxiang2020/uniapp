@@ -9,7 +9,7 @@
           <view class="line1">{{ attr.productSelect.store_name }}</view>
           <view class="money font-color-red">
             ￥
-            <text class="num">{{ attr.productSelect.price }}</text>
+            <text class="num">{{ attr.productSelect.price+'' }}</text>
             <text class="stock">库存: {{ attr.productSelect.stock }}</text>
           </view>
         </view>
@@ -55,54 +55,51 @@ export default {
   props: {
     attr: {
       type: Object,
-      default: () => {}
+      default: () => {},
     },
     cartNum: {
       type: Number,
-      default: () => 1
-    }
+      default: () => 1,
+    },
   },
-  data: function() {
+  data: function () {
     return {};
   },
-  mounted: function() {
+  mounted: function () {
     console.log(this);
   },
   methods: {
-    closeAttr: function() {
+    closeAttr: function () {
       this.$emit("changeFun", { action: "changeattr", value: false });
     },
-    CartNumDes: function() {
+    CartNumDes: function () {
       this.$emit("changeFun", { action: "ChangeCartNum", value: false });
     },
-    CartNumAdd: function() {
+    CartNumAdd: function () {
       this.$emit("changeFun", { action: "ChangeCartNum", value: 1 });
     },
-    tapAttr: function(indexw, indexn) {
+    tapAttr: function (indexw, indexn) {
       // 修改商品规格不生效的原因：
       // H5端下面写法，attr更新，但是除H5外其他端不支持，
       // 尽量避免下面的骚写法，不要在子组件内更新props
       // 这里修改是为了能获取到被选中的属性
       this.attr.productAttr[indexw].index = indexn;
       let that = this;
-      let value = that
-        .getCheckedValue()
-        .sort()
-        .join(",");
+      let value = that.getCheckedValue().sort().join(",");
       that.$emit("changeFun", {
         action: "ChangeAttr",
         value: {
           value,
           indexw,
-          indexn
-        }
+          indexn,
+        },
       });
     },
     //获取被选中属性；
-    getCheckedValue: function() {
+    getCheckedValue: function () {
       let productAttr = this.attr.productAttr;
       let value = [];
-      console.log(productAttr)
+      console.log(productAttr);
       for (let i = 0; i < productAttr.length; i++) {
         for (let j = 0; j < productAttr[i].attrValueArr.length; j++) {
           if (productAttr[i].index === j) {
@@ -111,7 +108,7 @@ export default {
         }
       }
       return value;
-    }
-  }
+    },
+  },
 };
 </script>
