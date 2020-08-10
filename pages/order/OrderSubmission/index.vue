@@ -35,15 +35,24 @@
         </view>
         <view class="iconfont icon-jiantou"></view>
       </view>
-      <div class="address acea-row row-between-wrapper" v-else @click="showStoreList">
-        <div class="addressCon">
+      <div
+        class="address acea-row row-between-wrapper"
+        v-if="shipping_type === 1"
+        @click="showStoreList"
+      >
+        <div class="addressCon" v-if="storeItems">
           <div class="name">
-            {{ storeItems.name || systemStore.name }}
-            <span
-              class="phone"
-            >{{storeItems.phone || systemStore.phone}}</span>
+            {{ storeItems.name }}
+            <span class="phone">{{storeItems.phone }}</span>
           </div>
-          <div>{{ storeItems.address || systemStore.address }}</div>
+          <div>{{ storeItems.address}}</div>
+        </div>
+        <div class="addressCon" v-else>
+          <div class="name">
+            {{ systemStore.name }}
+            <span class="phone">{{systemStore.phone}}</span>
+          </div>
+          <div>{{ systemStore.address }}</div>
         </div>
         <div class="iconfont icon-jiantou"></div>
       </div>
@@ -92,7 +101,7 @@
           }}
         </view>
       </view>
-      <view v-else>
+      <view v-if="shipping_type === 1">
         <view class="item acea-row row-between-wrapper">
           <view>联系人</view>
           <view class="discount">
@@ -311,10 +320,10 @@ export default {
   components: {
     OrderGoods,
     CouponListWindow,
-    AddressWindow
+    AddressWindow,
   },
   props: {},
-  data: function() {
+  data: function () {
     return {
       offlinePayStatus: 2,
       from: this.$deviceType,
@@ -329,13 +338,13 @@ export default {
       addressInfo: {},
       couponId: 0,
       orderGroupInfo: {
-        priceGroup: {}
+        priceGroup: {},
       },
       usableCoupon: {},
       addressLoaded: false,
       useIntegral: false,
       orderPrice: {
-        payPrice: "计算中"
+        payPrice: "计算中",
       },
       mark: "",
       systemStore: {},
@@ -343,7 +352,7 @@ export default {
       contacts: "",
       contactsTel: "",
       storeSelfMention: 0,
-      cartid: ""
+      cartid: "",
     };
   },
   computed: mapGetters(["userInfo", "storeItems"]),
@@ -356,9 +365,9 @@ export default {
     },
     shipping_type() {
       this.computedPrice();
-    }
+    },
   },
-  mounted: function() {
+  mounted: function () {
     let that = this;
     this.$store.dispatch("getUser", true);
     that.getCartInfo();
@@ -368,28 +377,29 @@ export default {
     }
     if (that.$yroute.query.id !== undefined) {
       that.cartid = that.$yroute.query.id;
-      console.log(that.cartid)
+      console.log(that.cartid);
     }
   },
   methods: {
     showStoreList() {
       this.$store.commit("get_to", "orders");
       this.$yrouter.push({
-        path: "/pages/shop/StoreList/index"
+        path: "/pages/shop/StoreList/index",
       });
     },
-    addressType: function(index) {
+    addressType: function (index) {
       if (index && !this.systemStore.id) {
         uni.showToast({
           title: "暂无门店信息，您无法选择到店自提！",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       }
+      console.log(this);
       this.shipping_type = index;
     },
-    changeUseIntegral: function(e) {
+    changeUseIntegral: function (e) {
       // this.computedPrice();
       this.useIntegral = e.mp.detail.value[0];
     },
@@ -399,15 +409,15 @@ export default {
         addressId: this.addressInfo.id,
         useIntegral: this.useIntegral ? 1 : 0,
         couponId: this.usableCoupon.id || 0,
-        shipping_type: parseInt(shipping_type) + 1
-      }).then(res => {
+        shipping_type: parseInt(shipping_type) + 1,
+      }).then((res) => {
         const data = res.data;
         if (data.status === "EXTEND_ORDER") {
           this.$yrouter.replace({
             path: "/pages/order/OrderDetails/index",
             query: {
-              id: data.result.orderId
-            }
+              id: data.result.orderId,
+            },
           });
         } else {
           this.orderPrice = data.result;
@@ -420,17 +430,20 @@ export default {
         uni.showToast({
           title: "参数有误",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return this.$yrouter.back();
       }
       postOrderConfirm(cartIds)
-        .then(res => {
+        .then((res) => {
+          console.log(res, 999999);
+          console.log(res.data.systemStore || {}, 999999);
           this.offlinePayStatus = res.data.offline_pay_status;
           this.orderGroupInfo = res.data;
           this.deduction = res.data.deduction;
           this.usableCoupon = res.data.usableCoupon || {};
           this.addressInfo = res.data.addressInfo || {};
+          // 用来显示到店自提的店铺地址
           this.systemStore = res.data.systemStore || {};
           this.storeSelfMention = res.data.storeSelfMention;
           this.computedPrice();
@@ -439,11 +452,11 @@ export default {
           uni.showToast({
             title: "加载订单数据失败",
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         });
     },
-    addressTap: function() {
+    addressTap: function () {
       this.showAddress = true;
       if (!this.addressLoaded) {
         this.addressLoaded = true;
@@ -454,21 +467,21 @@ export default {
       this.addressLoaded = false;
       this.showAddress = false;
     },
-    couponTap: function() {
+    couponTap: function () {
       this.showCoupon = true;
     },
-    changeCoupon: function(coupon) {
+    changeCoupon: function (coupon) {
       if (!coupon) {
         this.usableCoupon = {
           couponTitle: "不使用优惠券",
-          id: 0
+          id: 0,
         };
       } else {
         this.usableCoupon = coupon;
       }
       this.computedPrice();
     },
-    payItem: function(index) {
+    payItem: function (index) {
       this.active = index;
     },
     changeAddress(addressInfo) {
@@ -480,7 +493,7 @@ export default {
         uni.showToast({
           title: "请选择支付方式",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       }
@@ -488,7 +501,7 @@ export default {
         uni.showToast({
           title: "请选择收货地址",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       }
@@ -501,7 +514,7 @@ export default {
           uni.showToast({
             title: "请填写联系人或联系人电话",
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
           return;
         }
@@ -510,7 +523,7 @@ export default {
           uni.showToast({
             title: "请填写正确的手机号",
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
           return;
         }
@@ -518,14 +531,14 @@ export default {
           uni.showToast({
             title: "请填写您的真实姓名",
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
           return;
         }
       }
 
       uni.showLoading({
-        title: "生成订单中"
+        title: "生成订单中",
       });
       let from = {};
       if (this.$deviceType == "app") {
@@ -547,9 +560,9 @@ export default {
         mark: this.mark || "",
         shippingType: parseInt(shipping_type) + 1,
         storeId: this.storeItems ? this.storeItems.id : this.systemStore.id,
-        ...from
+        ...from,
       })
-        .then(res => {
+        .then((res) => {
           uni.hideLoading();
           const data = res.data;
           switch (data.status) {
@@ -558,13 +571,13 @@ export default {
               uni.showToast({
                 title: res.msg,
                 icon: "none",
-                duration: 2000
+                duration: 2000,
               });
               this.$yrouter.replace({
                 path: "/pages/order/OrderDetails/index",
                 query: {
-                  id: data.result.orderId
-                }
+                  id: data.result.orderId,
+                },
               });
               break;
             case "PAY_DEFICIENCY":
@@ -574,26 +587,26 @@ export default {
               uni.showToast({
                 title: res.msg,
                 icon: "none",
-                duration: 2000
+                duration: 2000,
               });
               this.$yrouter.replace({
                 path: "/pages/order/OrderDetails/index",
                 query: {
-                  id: data.result.orderId
-                }
+                  id: data.result.orderId,
+                },
               });
               break;
             case "SUCCESS":
               uni.showToast({
                 title: res.msg,
                 icon: "none",
-                duration: 2000
+                duration: 2000,
               });
               this.$yrouter.replace({
                 path: "/pages/order/OrderDetails/index",
                 query: {
-                  id: data.result.orderId
-                }
+                  id: data.result.orderId,
+                },
               });
               break;
             case "WECHAT_H5_PAY":
@@ -601,8 +614,8 @@ export default {
               this.$yrouter.replace({
                 path: "/pages/order/OrderDetails/index",
                 query: {
-                  id: data.result.orderId
-                }
+                  id: data.result.orderId,
+                },
               });
               setTimeout(() => {
                 // location.href = data.result.jsConfig.mweb_url;
@@ -614,8 +627,8 @@ export default {
                 this.$yrouter.replace({
                   path: "/pages/order/OrderDetails/index",
                   query: {
-                    id: data.result.orderId
-                  }
+                    id: data.result.orderId,
+                  },
                 });
               });
               break;
@@ -626,8 +639,8 @@ export default {
                 this.$yrouter.replace({
                   path: "/pages/order/OrderDetails/index",
                   query: {
-                    id: data.result.orderId
-                  }
+                    id: data.result.orderId,
+                  },
                 });
               });
               break;
@@ -639,7 +652,7 @@ export default {
             // });
           }
         })
-        .catch(err => {
+        .catch((err) => {
           uni.hideLoading();
           uni.showToast({
             title:
@@ -648,10 +661,10 @@ export default {
               err.response.data.message ||
               "创建订单失败",
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         });
-    }
-  }
+    },
+  },
 };
 </script>

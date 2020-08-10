@@ -11,7 +11,7 @@
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : false,
+            "alwaysShowBeforeRender" : true,
             "waiting" : false,
             "autoclose" : true,
             "delay" : 0
@@ -59,22 +59,24 @@
                     "weixin" : {
                         "appid" : "wx7c84ede33062d1e4",
                         "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
-                        "UniversalLinks" : ""
+                        "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
                 "payment" : {
                     "weixin" : {
                         "appid" : "wx7c84ede33062d1e4",
-                        "UniversalLinks" : ""
+                        "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
                 "share" : {
                     "weixin" : {
                         "appid" : "wx7c84ede33062d1e4",
-                        "UniversalLinks" : ""
+                        "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
-                "ad" : {}
+                "ad" : {
+                    "csj" : {}
+                }
             },
             "splashscreen" : {
                 "ios" : {

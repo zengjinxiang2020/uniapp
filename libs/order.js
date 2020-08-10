@@ -76,6 +76,8 @@ export function payOrderHandle(orderId, type, from) {
     uni.showLoading({ title: '加载中' })
     payOrder(orderId, type, from)
       .then(res => {
+		  console.log(res)
+		  console.log('微信支付参数')
         const data = res.data;
         uni.hideLoading()
         switch (data.status) {

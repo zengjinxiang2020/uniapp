@@ -1,8 +1,8 @@
 # 使用说明
 
-## Hbuilderx(ps:因HBuilderX经常会更新，如无必要请勿更新HBuilderX为2.7.5及以上)
+## Hbuilderx
 
-- 目前已知  HBuilderX v2.7.5 版本不支持 :class 里面写 object 和 arraw 
+- 已支持HBuilderX最新版
 
 ## 小程序安装步骤
 - 先从私服上clone下来项目
@@ -13,11 +13,13 @@
 - uni会自动打开微信开发者工具并且打开uni的项目
 
 ## 注意事项
+- 目前并不支持H5运行，需要运行H5模式的，请自行调整兼容
 - manifest.json 中可以配置uni项目的一些信息
 - 打开manifest.json可配置小程序的 appid
 - 由于需要兼容app，公共样式由 main.js 迁移到了 App.vue，公共样式请在App.vue中进行编辑
 - 由于需要兼容app，尺寸单位由之前的rem改为rpx，由于修改样式工作量太大并且容易出错，已将.css更改为.less并在其中以之前rem的单位*100，获得新的rpx单位
 - 如需修改样式问题，请编辑.less的文件，请勿编辑.css的文件
+
 
 ## 声明
 - app测试版已上，请通过 `https://www.pgyer.com/yRYf` 安装测试。
