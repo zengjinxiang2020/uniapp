@@ -44,7 +44,7 @@
         >
           <view>
             <text class="state">{{ item.title }}</text>
-            <div>{{ dataFormat(item.addTime) }}</div>
+            <div>{{ item.createTime }}</div>
           </view>
           <text class="num" v-if="item.pm == 1">+{{ item.number }}</text>
           <text class="num font-color-red" v-if="item.pm == 0">-{{ item.number }}</text>

@@ -166,7 +166,7 @@ export default {
       }).then(
         res => {
           this.$store.dispatch("userInfo", true);
-          this.$uni.showToast({
+          uni.showToast({
             title: res.msg,
             icon: "none",
             duration: 2000

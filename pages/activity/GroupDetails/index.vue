@@ -263,6 +263,7 @@ export default {
         that.posterData.price = that.storeInfo.price;
         that.posterData.code = that.storeInfo.code_base;
         that.domStatus = true;
+        console.log(this.storeInfo)
         //that.getImageBase64();
       });
     },
@@ -321,10 +322,12 @@ export default {
       var attr = that.attr;
       attr.productSelect.image = that.storeInfo.image;
       attr.productSelect.store_name = that.storeInfo.title;
-      attr.productSelect.price = that.storeInfo.price;
+      attr.productSelect.price = that.storeInfo.price+'';
       attr.productSelect.stock = that.storeInfo.stock;
       attr.cartAttr = false;
+      console.log(that.storeInfo)
       that.$set(that, "attr", attr);
+      console.log(this)
     },
     openTeam: function() {
       var that = this;

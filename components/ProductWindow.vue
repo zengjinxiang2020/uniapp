@@ -9,7 +9,7 @@
           <view class="line1">{{ attr.productSelect.store_name }}</view>
           <view class="money font-color-red">
             ￥
-            <text class="num">{{ attr.productSelect.price+'' }}</text>
+            <text class="num">{{ attr.productSelect.price}}</text>
             <text class="stock">库存: {{ attr.productSelect.stock }}</text>
           </view>
         </view>
@@ -67,6 +67,11 @@ export default {
   },
   mounted: function () {
     console.log(this);
+  },
+  watch: {
+    attr(nextAttr) {
+      console.log(nextAttr);
+    },
   },
   methods: {
     closeAttr: function () {
