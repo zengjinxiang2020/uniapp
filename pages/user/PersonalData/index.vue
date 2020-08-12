@@ -55,7 +55,7 @@
     <view
       class="logOut cart-color acea-row row-center-wrapper"
       @click="logout"
-      v-if="$deviceType=='app'"
+      v-if="$deviceType!='routine'"
     >退出登录</view>
   </view>
 </template>
@@ -67,7 +67,7 @@ import {
   postUserEdit,
   getLogout,
   switchH5Login,
-  getUserInfo
+  getUserInfo,
 } from "@/api/user";
 import cookie from "@/utils/store/cookie";
 import store from "@//store";
@@ -78,17 +78,17 @@ export default {
   components: {
     // VueCoreImageUpload
   },
-  data: function() {
+  data: function () {
     return {
       avatar: "",
       isWeixin: false,
       currentAccounts: 0,
       switchUserInfo: [],
-      userIndex: 0
+      userIndex: 0,
     };
   },
   computed: mapGetters(["userInfo"]),
-  mounted: function() {
+  mounted: function () {
     this.avatar = this.userInfo.avatar;
     this.isWeixin = isWeixin();
     this.getUserInfo();
@@ -97,7 +97,7 @@ export default {
     goChangePassword() {
       this.$yrouter.push("/pages/user/ChangePassword/index");
     },
-    switchAccounts: function(index) {
+    switchAccounts: function (index) {
       let that = this;
       this.userIndex = index;
       let userInfo = this.switchUserInfo[this.userIndex];
@@ -106,7 +106,7 @@ export default {
         uni.showToast({
           title: "切换的账号不存在",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       }
@@ -119,13 +119,13 @@ export default {
             that.$emit("changeswitch", false);
             location.reload();
           })
-          .catch(err => {
+          .catch((err) => {
             uni.hideLoading();
             uni.showToast({
               title:
                 err.msg || err.response.data.msg || err.response.data.message,
               icon: "none",
-              duration: 2000
+              duration: 2000,
             });
           });
       } else {
@@ -135,9 +135,9 @@ export default {
         this.$emit("changeswitch", false);
       }
     },
-    getUserInfo: function() {
+    getUserInfo: function () {
       let that = this;
-      getUserInfo().then(res => {
+      getUserInfo().then((res) => {
         // let switchUserInfo = res.data.switchUserInfo;
         // for (let i = 0; i < switchUserInfo.length; i++) {
         //   if (switchUserInfo[i].uid == that.userInfo.uid) that.userIndex = i;
@@ -152,58 +152,58 @@ export default {
       });
     },
     chooseImage() {
-      chooseImage(img => {
-        console.log(img)
+      chooseImage((img) => {
+        console.log(img);
         this.avatar = img;
       });
     },
 
-    submit: function() {
+    submit: function () {
       let userInfo = this.userInfo;
       postUserEdit({
         nickname: trim(this.userInfo.nickname),
-        avatar: this.avatar
+        avatar: this.avatar,
       }).then(
-        res => {
+        (res) => {
           this.$store.dispatch("userInfo", true);
           uni.showToast({
             title: res.msg,
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
           this.$yrouter.back();
         },
-        err => {
+        (err) => {
           uni.showToast({
             title:
               err.msg || err.response.data.msg || err.response.data.message,
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         }
       );
     },
-    logout: function() {
+    logout: function () {
       uni.showModal({
         title: "提示",
         content: "确认退出登录?",
-        success: function(res) {
+        success: (res) => {
           if (res.confirm) {
             getLogout()
-              .then(res => {
+              .then((res) => {
                 this.$store.commit("logout");
                 this.$yrouter.replace({
                   path: "/pages/user/Login/index",
-                  query: {}
+                  query: {},
                 });
               })
-              .catch(err => {});
+              .catch((err) => {});
           } else if (res.cancel) {
             // console.log("用户点击取消");
           }
-        }
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -369,7 +369,7 @@ export default {
       var that = this;
       getBargainDetail(that.bargainId)
         .then(res => {
-          res.data.bargain = res.data.bargain.replace(
+          res.data.bargain.description = res.data.bargain.description.replace(
             /\<img/gi,
             '<img style="max-width:100%;height:auto;"'
           );
@@ -504,7 +504,9 @@ export default {
         bargainId: that.bargainId,
         bargainUserUid: that.bargainPartake
       })
-        .then(() => {})
+        .then(() => {
+          
+        })
         .catch(() => {
           this.$yrouter.push({
             path: "/pages/activity/DargainDetails/index",

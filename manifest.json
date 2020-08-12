@@ -74,9 +74,7 @@
                         "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
-                "ad" : {
-                    "csj" : {}
-                }
+                "ad" : {}
             },
             "splashscreen" : {
                 "ios" : {
