@@ -11,7 +11,6 @@
 		</view>
 		<view class="fixed-header-box"></view>
 		<button @click="testTemplate">测试模板消息</button>
-
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular>
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
