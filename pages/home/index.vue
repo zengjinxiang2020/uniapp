@@ -10,6 +10,8 @@
 			</view>
 		</view>
 		<view class="fixed-header-box"></view>
+		<button @click="testTemplate">测试模板消息</button>
+
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular>
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
@@ -82,8 +84,8 @@
 			<view class="title no-border acea-row row-between-wrapper">
 				<view class="text">
 					<div class="name line1">
-						 <span class="iconfont icon-jingpintuijian"></span>
-			  <span class="label">精品推荐</span>
+						<span class="iconfont icon-jingpintuijian"></span>
+						<span class="label">精品推荐</span>
 					</div>
 				</view>
 				<view @click="goHotNewGoods(1)" class="more">
@@ -98,8 +100,8 @@
 			<view class="title acea-row row-between-wrapper">
 				<view class="text">
 					<view class="name line1">
-						 <span class="iconfont icon-xinpin"></span>
-			  			  <span class="label">首发新品</span>
+						<span class="iconfont icon-xinpin"></span>
+						<span class="label">首发新品</span>
 					</view>
 				</view>
 				<view @click="goHotNewGoods(3)" class="more">
@@ -125,9 +127,9 @@
 			<view class="title acea-row row-center">
 				<view class="text text-center">
 					<div class="name line1 new-name">
-              <span class="iconfont icon-shoucang"></span>
-              <span class="txt">猜你喜欢</span>
-            </div>
+						<span class="iconfont icon-shoucang"></span>
+						<span class="txt">猜你喜欢</span>
+					</div>
 				</view>
 				<!-- <view @click="goGoodsPromotion(4)" class="more">
 					更多
@@ -250,11 +252,11 @@
 				}
 			};
 		},
-		  computed:{
-    singNew() {
-      return this.roll.length > 0 ? this.roll[0] : "你还没添加通知哦！";
-    }
-  },
+		computed: {
+			singNew() {
+				return this.roll.length > 0 ? this.roll[0] : "你还没添加通知哦！";
+			}
+		},
 		onShow: function() {
 			this.getLocation()
 			let that = this;
@@ -279,6 +281,14 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+			testTemplate() {
+				console.log('测试')
+				// 调用订阅
+				wx.requestSubscribeMessage({
+					tmplIds: [''],
+					success(res) {}
+				})
+			},
 			goRoll(item) {
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)
