@@ -13,6 +13,8 @@
     "animate.css": "^3.7.2",
     "async-validator": "^3.2.4",
     "dayjs": "^1.8.22",
-    "vue-ydui": "^1.2.6"
+    "jweixin-module": "^1.6.0",
+    "vue-ydui": "^1.2.6",
+    "wechat-jssdk": "^5.0.4"
   }
 }

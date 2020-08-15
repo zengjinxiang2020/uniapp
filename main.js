@@ -15,6 +15,12 @@ import cookie from "@/utils/store/cookie";
 // import "@/assets/css/reset.less";
 // import "@/assets/css/style.less";
 
+// // 引入微信jssdk
+// var jweixin = require('jweixin-module')  
+// jweixin.ready(function(){  
+//     // TODO  
+// });
+
 import {
 	parseRoute,
 	_router
@@ -27,7 +33,7 @@ import {
 Vue.config.productionTip = false;
 Vue.config.devtools = process.env.NODE_ENV !== "production";
 
-Vue.prototype.$validator = function(rule) {
+Vue.prototype.$validator = function (rule) {
 	return new schema(rule);
 };
 
@@ -77,21 +83,31 @@ Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 
 // #ifdef H5
 // H5编译的代码
-Vue.prototype.$deviceType = 'h5'
-store.commit('updateDevicetype','h5')
+
+import { wechat, oAuth } from '@/libs/wechat'
+import { isWeixin } from '@/utils'
+// 判断是否是微信浏览器
+if (isWeixin()) {
+	Vue.prototype.$deviceType = 'weixin'
+	store.commit('updateDevicetype', 'weixin')
+} else {
+	Vue.prototype.$deviceType = 'weixinh5'
+	store.commit('updateDevicetype', 'weixinh5')
+}
+
 // #endif
 
 // #ifdef APP-PLUS
 // App平台编译的代码
 Vue.prototype.$deviceType = 'app'
-store.commit('updateDevicetype','app')
+store.commit('updateDevicetype', 'app')
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
 // #endif
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
 Vue.prototype.$deviceType = 'routine'
-store.commit('updateDevicetype','routine')
+store.commit('updateDevicetype', 'routine')
 // #endif
 
 // !!! ps  不建议在 template 中使用 $deviceType 去判断当前环境，很有可能出现 $deviceType 为 undefined 导致判断出错的问题，可以在 script 模块中正常使用

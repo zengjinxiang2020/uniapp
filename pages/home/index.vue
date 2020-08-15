@@ -10,15 +10,6 @@
 			</view>
 		</view>
 		<view class="fixed-header-box"></view>
-		
-		
-		
-		
-		<button @click="testTemplate">测试模板消息</button>
-		
-		
-		
-		
 		<view class="slider-banner banner">
 			<swiper indicatorDots="true" v-if="banner.length > 0" autoplay circular>
 				<block v-for="(item, bannerIndex) in banner" :key="bannerIndex">
@@ -60,7 +51,7 @@
 			</view>
 		</view> -->
 		<!-- <view class="wrapper hot" v-if="likeInfo.length > 0"> -->
-		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" speed="10" showIcon="true" :text="singNew.info"></uni-notice-bar>
+		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true" :text="singNew.info"></uni-notice-bar>
 		<view class="wrapper hot" v-if="bastList.length > 0">
 			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
 			<view class="title no-border acea-row row-between-wrapper">
@@ -288,14 +279,6 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
-			testTemplate() {
-				console.log('测试')
-				// 调用订阅
-				wx.requestSubscribeMessage({
-					tmplIds: [''],
-					success(res) {}
-				})
-			},
 			goRoll(item) {
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)

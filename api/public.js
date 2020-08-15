@@ -61,11 +61,11 @@ export function getArticleDetails(id) {
  * @returns {*}
  */
 export function getWechatConfig() {
-  // return request.get(
-  //   "/wechat/config",
-  //   { url: document.location.href },
-  //   { login: false }
-  // );
+  return request.get(
+    "/wechat/config",
+    { url: document.location.href },
+    { login: false }
+  );
 }
 
 /**

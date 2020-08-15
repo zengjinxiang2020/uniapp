@@ -310,8 +310,9 @@ import CouponListWindow from "@/components/CouponListWindow";
 import AddressWindow from "@/components/AddressWindow";
 import { postOrderConfirm, postOrderComputed, createOrder } from "@/api/order";
 import { mapGetters } from "vuex";
+import { handleOrderPayResults } from "@/libs/order";
 import { weappPay } from "@/libs/wechat";
-import { isWeixin } from "@/utils";
+import { isWeixin, handleErrorMessage } from "@/utils";
 
 const NAME = "OrderSubmission",
   _isWeixin = isWeixin();
@@ -545,7 +546,6 @@ export default {
       if (this.$deviceType == "app") {
         from.from = "app";
       }
-      console.log(this.storeItems, this.systemStore);
       createOrder(this.orderGroupInfo.orderKey, {
         realName: this.contacts,
         phone: this.contactsTel,
@@ -565,105 +565,10 @@ export default {
       })
         .then((res) => {
           uni.hideLoading();
-          const data = res.data;
-          switch (data.status) {
-            case "ORDER_EXIST":
-            case "EXTEND_ORDER":
-              uni.showToast({
-                title: res.msg,
-                icon: "none",
-                duration: 2000,
-              });
-              this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/index",
-                query: {
-                  id: data.result.orderId,
-                },
-              });
-              break;
-            case "PAY_DEFICIENCY":
-              break;
-
-            case "PAY_ERROR":
-              uni.showToast({
-                title: res.msg,
-                icon: "none",
-                duration: 2000,
-              });
-              this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/index",
-                query: {
-                  id: data.result.orderId,
-                },
-              });
-              break;
-            case "SUCCESS":
-              uni.showToast({
-                title: res.msg,
-                icon: "none",
-                duration: 2000,
-              });
-              this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/index",
-                query: {
-                  id: data.result.orderId,
-                },
-              });
-              break;
-            case "WECHAT_H5_PAY":
-              // H5支付
-              this.$yrouter.replace({
-                path: "/pages/order/OrderDetails/index",
-                query: {
-                  id: data.result.orderId,
-                },
-              });
-              setTimeout(() => {
-                // location.href = data.result.jsConfig.mweb_url;
-              }, 100);
-              break;
-            case "WECHAT_PAY":
-              // 小程序支付
-              weappPay(data.result.jsConfig).finally(() => {
-                this.$yrouter.replace({
-                  path: "/pages/order/OrderDetails/index",
-                  query: {
-                    id: data.result.orderId,
-                  },
-                });
-              });
-              break;
-
-            case "WECHAT_APP_PAY":
-              // APP支付
-              weappPay(data.result.jsConfig).finally(() => {
-                this.$yrouter.replace({
-                  path: "/pages/order/OrderDetails/index",
-                  query: {
-                    id: data.result.orderId,
-                  },
-                });
-              });
-              break;
-            // 下面为原先微信支付方式，
-            // pay(data.result.jsConfig).finally(() => {
-            //   this.$yrouter.replace({
-            //     path: "/pages/order/OrderDetails/index" ,query: { id: data.result.orderId}
-            //   });
-            // });
-          }
+          handleOrderPayResults.call(this, res.data, "create");
         })
         .catch((err) => {
-          uni.hideLoading();
-          uni.showToast({
-            title:
-              err.msg ||
-              err.response.data.msg ||
-              err.response.data.message ||
-              "创建订单失败",
-            icon: "none",
-            duration: 2000,
-          });
+          handleErrorMessage(err, "创建订单失败");
         });
     },
   },

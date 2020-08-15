@@ -1,8 +1,8 @@
 <template>
   <view class="container">
     <view v-if="!token">
-      <!-- 小程序 -->
-      <view v-if="$deviceType == 'routine'">
+      <!-- #ifdef MP-WEIXIN -->
+      <view>
         <view class="getUserInfo">
           <text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
           <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>
@@ -10,21 +10,21 @@
           <button @click="back">取消微信登录授权</button>
         </view>
       </view>
-      <!-- app -->
-      <view v-if="$deviceType == 'app'">
+      <!-- #endif -->
+      <!-- #ifndef MP-WEIXIN -->
+      <view>
         <view class="getUserInfo">
           <text>请先登录</text>
-          <button type="primary" @click="this.toLogin">去登录</button>
+          <button type="primary" @tap="toLogin">去登录</button>
         </view>
       </view>
+      <!-- #endif -->
     </view>
   </view>
 </template>
 
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-// 组件
-// import request from "@//api/request";
 import { wxappAuth, getUser } from "@/api/user";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
@@ -33,11 +33,11 @@ import { login, authorize } from "@/utils";
 export default {
   data() {
     return {
-      authorize: false
+      authorize: false,
     };
   },
   computed: {
-    ...mapState(["isAuthorization", "$deviceType", "token"])
+    ...mapState(["isAuthorization", "$deviceType", "token"]),
   },
   onShow() {
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
@@ -52,12 +52,17 @@ export default {
   },
   methods: {
     ...mapActions(["changeAuthorization", "setUserInfo"]),
-    ...mapMutations(["updateAuthorizationPage",]),
-    
+    ...mapMutations(["updateAuthorizationPage"]),
+    toLogin() {
+      this.$yrouter.push({
+        path: "/pages/user/Login/index",
+        query: {},
+      });
+    },
     back() {
       this.$yrouter.switchTab({
         path: "/pages/home/index",
-        query: {}
+        query: {},
       });
     },
     getUserInfo(data) {
@@ -65,36 +70,28 @@ export default {
         uni.showToast({
           title: "取消授权",
           icon: "none",
-          duration: 2000
+          duration: 2000,
         });
         return;
       }
       uni.showLoading({
-        title: "登录中"
+        title: "登录中",
       });
       login()
-        .then(res => {
+        .then((res) => {
           this.$yrouter.replace({ path: cookie.get("redirect") });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
           uni.showToast({
             title: error,
             icon: "none",
-            duration: 2000
+            duration: 2000,
           });
         });
     },
-    toLogin() {
-      this.$yrouter.push({
-        path: "/pages/user/Login/index",
-        query: {}
-      });
-    }
   },
-  mounted() {
-    
-  }
+  mounted() {},
 };
 </script>
 

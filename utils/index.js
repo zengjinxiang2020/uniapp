@@ -10,6 +10,8 @@ import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
 import stringify from "@/utils/querystring";
 import { VUE_APP_API_URL } from "@/config";
+import { wechat, auth, oAuth } from '@/libs/wechat'
+
 
 export function dataFormat(time, option) {
 	time = +time * 1000;
@@ -59,7 +61,7 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	return false
+	return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
 }
 
 export function parseQuery() {
@@ -152,10 +154,36 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = () => {
-	console.log('————————————————————')
-	console.log('开始登录')
-	console.log('————————————————————')
+	console.log(Vue.prototype)
 	return new Promise((resolve, reject) => {
+		if (Vue.prototype.$deviceType == 'weixin') {
+			// 微信授权登录
+			wechat().then(() => oAuth().then((code) => {
+				// const { code } = parseQuery()
+				auth(code)
+					.then(() => {
+						// location.replace(
+						//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
+						// );
+						location.href = decodeURIComponent(
+							decodeURIComponent(this.$route.params.url)
+						);
+					})
+					.catch(() => {
+						reject('当前运行环境为微信浏览器')
+						location.replace("/pages/home/index");
+					});
+			}));
+			return
+		}
+		if (Vue.prototype.$deviceType == 'weixinh5') {
+
+			reject('当前运行环境为H5')
+			return
+		}
+		console.log('————————————————————')
+		console.log('开始登录')
+		console.log('————————————————————')
 		console.log('获取环境商')
 		getProvider().then(provider => {
 			console.log('当前的环境商')
@@ -328,7 +356,7 @@ export function parseRoute($mp) {
 	}
 }
 
-export function auth() {
+export function handleAuth() {
 	/**
 	 *	如何判断权限?
 	 *	用户如果登录了系统，会留下两个东西，一个是token，一个是userInfo
@@ -378,7 +406,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	}
 
 	// 判断用户是否有token
-	if (!auth()) {
+	if (!handleAuth()) {
 		page.map((item) => {
 			if (item.path == path) {
 				isAuth = true
@@ -882,5 +910,20 @@ export function chooseImage(callback) {
 				}
 			});
 		}
+	});
+}
+
+
+export function handleErrorMessage(err) {
+	console.log(err)
+	uni.hideLoading();
+	uni.showToast({
+		title:
+			err.msg ||
+			err.response.data.msg ||
+			err.response.data.message ||
+			"创建订单失败",
+		icon: "none",
+		duration: 2000,
 	});
 }

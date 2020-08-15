@@ -1,4 +1,11 @@
+// #ifndef MP-WEIXIN
+import Fly from "flyio/dist/npm/fly";
+// #endif
+
+// #ifdef MP-WEIXIN
 import Fly from "flyio/dist/npm/wx";
+// #endif
+
 import $store from "../store";
 import { handleLoginFailure } from "@/utils";
 import { VUE_APP_API_URL } from "@/config";
