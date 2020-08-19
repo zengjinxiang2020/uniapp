@@ -63,7 +63,7 @@ export function getArticleDetails(id) {
 export function getWechatConfig() {
   return request.get(
     "/wechat/config",
-    { url: document.location.href },
+    { url: location.href },
     { login: false }
   );
 }

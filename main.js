@@ -84,16 +84,45 @@ Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 // #ifdef H5
 // H5编译的代码
 
-import { wechat, oAuth } from '@/libs/wechat'
+import {
+	wechat,
+	clearAuthStatus,
+	oAuth,
+	auth,
+	toAuth,
+	pay,
+	openAddress,
+	openShareAll,
+	openShareAppMessage,
+	openShareTimeline,
+	wechatEvevt,
+	ready,
+	wxShowLocation,
+} from '@/libs/wechat'
 import { isWeixin } from '@/utils'
 // 判断是否是微信浏览器
 if (isWeixin()) {
 	Vue.prototype.$deviceType = 'weixin'
 	store.commit('updateDevicetype', 'weixin')
+	// wechat().then(() => oAuth());
 } else {
 	Vue.prototype.$deviceType = 'weixinh5'
 	store.commit('updateDevicetype', 'weixinh5')
 }
+
+Vue.prototype.wechat = wechat
+Vue.prototype.clearAuthStatus = clearAuthStatus
+Vue.prototype.oAuth = oAuth
+Vue.prototype.auth = auth
+Vue.prototype.toAuth = toAuth
+Vue.prototype.pay = pay
+Vue.prototype.openAddress = openAddress
+Vue.prototype.openShareAll = openShareAll
+Vue.prototype.openShareAppMessage = openShareAppMessage
+Vue.prototype.openShareTimeline = openShareTimeline
+Vue.prototype.wechatEvevt = wechatEvevt
+Vue.prototype.ready = ready
+Vue.prototype.wxShowLocation = wxShowLocation
 
 // #endif
 

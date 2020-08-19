@@ -80,7 +80,7 @@ const vuexStore = new Vuex.Store({
 	actions: {
 		getLocation({ state, commit }, force) {
 			uni.getLocation({
-				type: 'wgs84',
+				type: 'gcj02',
 				success: function (res) {
 					console.log(res)
 					commit("setLocation", {

@@ -52,9 +52,9 @@ export default {
       return;
     }
     login().finally(() => {
-      this.$yrouter.switchTab({
-        path: "/pages/home/index"
-      });
+      // this.$yrouter.switchTab({
+      //   path: "/pages/home/index"
+      // });
     });
   },
   methods: {

@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
 import stringify from "@/utils/querystring";
 import { VUE_APP_API_URL } from "@/config";
-import { wechat, auth, oAuth } from '@/libs/wechat'
+import { wechat, auth, oAuth, toAuth } from '@/libs/wechat'
 
 
 export function dataFormat(time, option) {
@@ -158,8 +158,8 @@ export const login = () => {
 	return new Promise((resolve, reject) => {
 		if (Vue.prototype.$deviceType == 'weixin') {
 			// 微信授权登录
-			wechat().then(() => oAuth().then((code) => {
-				// const { code } = parseQuery()
+			const { code } = parseQuery()
+			if (code) {
 				auth(code)
 					.then(() => {
 						// location.replace(
@@ -173,7 +173,34 @@ export const login = () => {
 						reject('当前运行环境为微信浏览器')
 						location.replace("/pages/home/index");
 					});
-			}));
+			} else {
+				wechat().then(() => oAuth());
+			}
+			// if (!code) {
+			// 	toAuth("wxc061dee8806ff712")
+			// } else {
+			// 	// wechat().then(() => oAuth().then((code) => {
+			// 	// 	// const { code } = parseQuery()
+			// 	// 	debugger
+			// 	// 	auth(code)
+			// 	// 		.then(() => {
+			// 	// 			// location.replace(
+			// 	// 			//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
+			// 	// 			// );
+			// 	// 			debugger
+			// 	// 			location.href = decodeURIComponent(
+			// 	// 				decodeURIComponent(this.$route.params.url)
+			// 	// 			);
+			// 	// 		})
+			// 	// 		.catch(() => {
+			// 	// 			reject('当前运行环境为微信浏览器')
+			// 	// 			location.replace("/pages/home/index");
+			// 	// 		});
+			// 	// })).catch(error => {
+			// 	// 	console.log(error)
+			// 	// 	reject('自动登录失败')
+			// 	// });
+			// }
 			return
 		}
 		if (Vue.prototype.$deviceType == 'weixinh5') {

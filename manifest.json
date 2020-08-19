@@ -152,8 +152,11 @@
     },
     "h5" : {
         "title" : "yshop",
-        "devServer": {
-            "disableHostCheck": true
+        "devServer" : {
+            "disableHostCheck" : true
+        },
+        "router" : {
+            "mode" : "history"
         }
     }
 }

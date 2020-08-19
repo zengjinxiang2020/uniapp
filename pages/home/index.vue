@@ -146,7 +146,6 @@
 		mapMutations,
 		mapActions
 	} from 'vuex';
-
 	import GoodList from '@/components/GoodList';
 	import PromotionGood from '@/components/PromotionGood';
 	import CouponWindow from '@/components/CouponWindow';
@@ -310,7 +309,20 @@
 			goGoodsPromotion() {
 				this.$yrouter.push('/pages/shop/GoodsPromotion/index');
 			},
-			setOpenShare: function() {},
+			setOpenShare: function() {
+				if (this.$deviceType == 'weixin') {
+					getShare().then(res => {
+						var data = res.data.data;
+						var configAppMessage = {
+							desc: data.synopsis,
+							title: data.title,
+							link: location.href,
+							imgUrl: data.img
+						};
+						this.openShareAll(configAppMessage);
+					})
+				}
+			},
 			startQr: function() {
 				uni.scanCode({
 					success: (res) => {
