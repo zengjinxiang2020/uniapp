@@ -141,6 +141,7 @@ export function handleOrderPayResults(data, type) {
       break;
     // APP支付
     case "WECHAT_APP_PAY":
+      
       weappPay(data.result.jsConfig).finally(() => {
         goOrderDetails(data.result.orderId, type)
       });

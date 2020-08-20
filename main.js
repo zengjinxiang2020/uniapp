@@ -104,7 +104,7 @@ import { isWeixin } from '@/utils'
 if (isWeixin()) {
 	Vue.prototype.$deviceType = 'weixin'
 	store.commit('updateDevicetype', 'weixin')
-	// wechat().then(() => oAuth());
+	wechat().then(() => oAuth());
 } else {
 	Vue.prototype.$deviceType = 'weixinh5'
 	store.commit('updateDevicetype', 'weixinh5')

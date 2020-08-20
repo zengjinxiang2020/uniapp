@@ -1,11 +1,12 @@
 import Vue from 'vue'
+
 // import MpvueRouterPatch from 'mpvue-router-patch'
 // Vue.use(MpvueRouterPatch)
 import {
 	wxappAuth,
 	getUserInfo
 } from "@/api/user";
-import store from "../store";
+import store from "@/store";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
 import stringify from "@/utils/querystring";
@@ -174,7 +175,7 @@ export const login = () => {
 						location.replace("/pages/home/index");
 					});
 			} else {
-				wechat().then(() => oAuth());
+				// wechat().then(() => oAuth());
 			}
 			// if (!code) {
 			// 	toAuth("wxc061dee8806ff712")

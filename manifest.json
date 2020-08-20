@@ -157,6 +157,13 @@
         },
         "router" : {
             "mode" : "history"
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : ""
+                }
+            }
         }
     }
 }

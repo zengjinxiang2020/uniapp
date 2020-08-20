@@ -150,15 +150,20 @@ export default {
             });
           } else {
             uni.showToast({
-              title: "已取消绑定",
+              title: "操作成功",
               icon: "none",
               duration: 2000
             });
+            // uni.showToast({
+            //   title: "已取消绑定",
+            //   icon: "none",
+            //   duration: 2000
+            // });
             // that.$yrouter.replace({
             //   path: "/pages/user/PersonalData/index"
             // });
           }
-          that.$yrouter.go(-1);
+          that.$yrouter.back();
         });
       } catch (err) {
         uni.showToast({

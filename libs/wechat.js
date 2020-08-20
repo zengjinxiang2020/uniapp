@@ -1,8 +1,38 @@
 import { getProvider } from "@/utils";
+import WechatJSSDK from "wechat-jssdk/dist/client.umd";
+import { getWechatConfig, wechatAuth } from "@/api/public";
+import { parseQuery } from "@/utils";
+import cookie from "@/utils/store/cookie";
+import store from "@/store";
+import dayjs from "dayjs";
 
 // 支付模块
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
+    console.log(option)
+    if (store.state.$deviceType == 'weixinh5') {
+      setTimeout(() => {
+        location.href = option.mweb_url;
+      }, 100);
+      resolve()
+      return
+    }
+    if (store.state.$deviceType == 'weixin') {
+      pay(option).then(() => {
+        uni.showToast({
+          title: '支付成功', icon: 'success', duration: 5000,
+        });
+        resolve()
+      })
+        .finally(res => {
+          //if(typeof(res) == "undefined") return
+        })
+        .catch(function () {
+          uni.showToast({ title: '支付失败', icon: 'none', duration: 5000 });
+          reject()
+        });
+      return
+    }
     // 吊起微信支付
     // getProvider('payment').then(provider => {
     let orderInfo = {
@@ -43,13 +73,6 @@ export const weappPay = (option) => {
 }
 
 
-
-import WechatJSSDK from "wechat-jssdk/dist/client.umd";
-import { getWechatConfig, wechatAuth } from "@/api/public";
-import { parseQuery } from "@/utils";
-import cookie from "@/utils/store/cookie";
-import store from "@/store";
-import dayjs from "dayjs";
 
 const STATE_KEY = "wx_authorize_state";
 const WX_AUTH = "wx_auth";
@@ -178,6 +201,7 @@ function toPromise(fn, config = {}) {
 }
 
 export function pay(config) {
+  console.log(instance)
   return toPromise(instance.chooseWXPay, config);
 }
 
