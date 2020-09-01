@@ -142,7 +142,6 @@ export function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    debugger
     wechatAuth(code, parseInt(cookie.get("spread")), loginType)
       .then(({ data }) => {
         console.log(data)
@@ -152,12 +151,10 @@ export function auth(code) {
         cookie.set(WX_AUTH, code, expires_time);
         cookie.remove(STATE_KEY);
         loginType && cookie.remove(LOGINTYPE);
-        debugger
         resolve();
       })
       .catch(reject);
   }).catch(error => {
-    debugger
     console.log(error)
   })
 }
