@@ -38,90 +38,6 @@
 		
 		<Menu :list="menus"></Menu>
 
-		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true" :text="singNew.info"></uni-notice-bar>
-		<view class="wrapper hot" v-if="bastList.length > 0">
-			<image class="bg" src="../../static/images/index-bg.png" mode="widthFix"></image>
-			<view class="title no-border acea-row row-between-wrapper">
-				<div class="text line1">
-					<span class="iconfont icon-remen"></span>
-					<span class="label">热门榜单</span>
-				</div>
-				<view @click="goHotNewGoods(2)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<view class="newProducts">
-				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
-					<view class="newProductsScroll">
-						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, likeInfoIndex) in likeInfo" :key="likeInfoIndex">
-							<view class="img-box">
-								<image :src="item.image" />
-							</view>
-							<view class="pro-info line1"><text>{{ item.storeName }}</text></view>
-							<view class="money font-color-red"><text>￥{{ item.price }}</text></view>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-		</view>
-		<view class="wrapper" v-if="bastList.length > 0">
-			<view class="title no-border acea-row row-between-wrapper">
-				<view class="text">
-					<div class="name line1">
-						<span class="iconfont icon-jingpintuijian"></span>
-						<span class="label">精品推荐</span>
-					</div>
-				</view>
-				<view @click="goHotNewGoods(1)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<Good-list :good-list="bastList" :is-sort="false"></Good-list>
-		</view>
-
-		<view class="wrapper" v-if="firstList.length > 0">
-			<view class="title acea-row row-between-wrapper">
-				<view class="text">
-					<view class="name line1">
-						<span class="iconfont icon-xinpin"></span>
-						<span class="label">首发新品</span>
-					</view>
-				</view>
-				<view @click="goHotNewGoods(3)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view>
-			</view>
-			<view class="newProducts">
-				<scroll-view :show-scrollbar="false" scroll-y="false" scroll-x="true">
-					<view class="newProductsScroll">
-						<view @click="goGoodsCon(item)" class="newProductsItem" v-for="(item, firstListIndex) in firstList" :key="firstListIndex">
-							<view class="img-box">
-								<image :src="item.image" />
-							</view>
-							<view class="pro-info line1">{{ item.storeName }}</view>
-							<view class="money font-color-red">￥{{ item.price }}</view>
-						</view>
-					</view>
-				</scroll-view>
-			</view>
-		</view>
-		<view class="wrapper" v-if="benefit.length > 0">
-			<view class="title acea-row row-center">
-				<view class="text text-center">
-					<div class="name line1 new-name">
-						<span class="iconfont icon-shoucang"></span>
-						<span class="txt">猜你喜欢</span>
-					</div>
-				</view>
-				<!-- <view @click="goGoodsPromotion(4)" class="more">
-					更多
-					<text class="iconfont icon-jiantou"></text>
-				</view> -->
-			</view>
-		</view>
 		<PromotionGood :benefit="benefit"></PromotionGood>
 		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window>
 	</view>
@@ -129,7 +45,6 @@
 <script>
 	import colorThief from 'miniapp-color-thief';
 
-	// import { swiper, swiperSlide } from "vue-awesome-swiper";
 	import {
 		mapState,
 		mapMutations,
@@ -161,7 +76,7 @@
 			GoodList,
 			PromotionGood,
 			CouponWindow,
-			Menu
+			Menu,
 		},
 		props: {},
 		data: function() {
@@ -179,6 +94,7 @@
 				logoUrl: '',
 				banner: [],
 				menus: [],
+				
 				roll: [],
 				activity: [],
 				activityOne: {},
