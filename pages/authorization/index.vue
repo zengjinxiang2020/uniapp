@@ -13,10 +13,11 @@
     </view>
     <!-- #endif -->
     <!-- #ifndef MP-WEIXIN -->
-    <view>
-      <view class="getUserInfo">
-        <text>请先登录</text>
-        <button type="primary" @tap="toLogin">去登录</button>
+    <view class="force-login-wrap">
+      <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image>
+      <view class="force-login__content y-f">
+        <view class="login-notice">为了提供更优质的服务，请先登录</view>
+        <button class="cu-btn author-btn" @tap="toLogin">去登录</button>
       </view>
     </view>
     <!-- #endif -->
@@ -158,7 +159,7 @@
         font-weight: 400;
         color: rgba(200, 150, 61, 1);
         line-height: 44rpx;
-        width: 400rpx;
+        width: 500rpx;
         text-align: center;
         margin-bottom: 80rpx;
       }
