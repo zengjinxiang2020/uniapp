@@ -3,7 +3,8 @@
 		<!-- 导航栏 -->
 		<view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">
 			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
-				<view class="cu-bar fixed" :style="customStyle" :class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
+				<view class="cu-bar fixed" :style="customStyle"
+					:class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
 					<view class="action">
 						<text class="nav-title shopro-selector-rect">{{ info.name || '商城' }}</text>
 					</view>
@@ -26,20 +27,25 @@
 		<view class="banner-swiper-box mb10" v-if="banner.length>0">
 			<canvas canvas-id="colorThief" class="hide-canvas"></canvas>
 			<swiper class="banner-carousel shopro-selector-rect" circular @change="swiperChange" :autoplay="true">
-				<swiper-item v-for="(item, index) in banner" :key="index" class="carousel-item " @tap="routerTo(item.path)">
-					<image class="swiper-image " :src="item.pic" @click="goRoll(item)" mode="widthFix" lazy-load></image>
+				<swiper-item v-for="(item, index) in banner" :key="index" class="carousel-item "
+					@tap="routerTo(item.path)">
+					<image class="swiper-image " :src="item.pic" @click="goRoll(item)" mode="widthFix" lazy-load>
+					</image>
 				</swiper-item>
 			</swiper>
 			<view class="banner-swiper-dots">
-				<text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'" v-for="(dot, index) in banner.length"
-				 :key="index"></text>
+				<text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'"
+					v-for="(dot, index) in banner.length" :key="index"></text>
 			</view>
 		</view>
-		
-		<Menu :list="menus"></Menu>
-
-		<PromotionGood :benefit="benefit"></PromotionGood>
-		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"></Coupon-window>
+		<view class="content_box">
+			<Menu :list="menus"></Menu>
+			<Adv />
+			<Groupon :detail="combinationList" />
+			<PromotionGood :benefit="benefit"></PromotionGood>
+		</view>
+		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose">
+		</Coupon-window>
 	</view>
 </template>
 <script>
@@ -54,7 +60,9 @@
 	import PromotionGood from '@/components/PromotionGood';
 	import CouponWindow from '@/components/CouponWindow';
 	import Menu from '@/components/Menu';
-	import uniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar'
+	import UniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar'
+	import Adv from '@/components/sh-adv'
+	import Groupon from '@/components/sh-groupon.vue'
 	import {
 		getHomeData,
 		getShare
@@ -72,14 +80,16 @@
 		components: {
 			// swiper,
 			// swiperSlide,
-			uniNoticeBar,
+			UniNoticeBar,
 			GoodList,
 			PromotionGood,
 			CouponWindow,
 			Menu,
+			Adv,
+			Groupon
 		},
 		props: {},
-		data: function() {
+		data: function () {
 			return {
 				CustomBar: this.CustomBar,
 				StatusBar: this.StatusBar,
@@ -94,7 +104,7 @@
 				logoUrl: '',
 				banner: [],
 				menus: [],
-				
+				combinationList: [],
 				roll: [],
 				activity: [],
 				activityOne: {},
@@ -180,7 +190,7 @@
 			},
 
 		},
-		onShow: function() {
+		onShow: function () {
 			this.getLocation()
 			let that = this;
 			uni.showLoading({
@@ -198,6 +208,7 @@
 				that.$set(that, 'lovely', res.data.lovely);
 				that.$set(that, 'benefit', res.data.benefit);
 				that.$set(that, 'couponList', res.data.couponList);
+				that.$set(that, 'combinationList', res.data.combinationList);
 				uni.hideLoading();
 				that.setOpenShare();
 				that.doColorThief()
@@ -236,7 +247,7 @@
 			goGoodsPromotion() {
 				this.$yrouter.push('/pages/shop/GoodsPromotion/index');
 			},
-			setOpenShare: function() {
+			setOpenShare: function () {
 				if (this.$deviceType == 'weixin') {
 					getShare().then(res => {
 						var data = res.data.data;
@@ -250,7 +261,7 @@
 					})
 				}
 			},
-			startQr: function() {
+			startQr: function () {
 				uni.scanCode({
 					success: (res) => {
 						let option = handleUrlParam(res.result)
@@ -307,9 +318,9 @@
 						that.webviewId = ctx.webviewId;
 						uni.getImageInfo({
 							src: bannerItem.pic,
-							success: function(image) {
+							success: function (image) {
 								ctx.drawImage(image.path, 0, 0, image.width, image.height);
-								ctx.draw(true, function(e) {
+								ctx.draw(true, function (e) {
 									uni.canvasGetImageData({
 										canvasId: 'colorThief',
 										x: 0,
@@ -317,7 +328,8 @@
 										width: parseInt(image.width),
 										height: parseInt(image.height),
 										success(res) {
-											let bgcolor = colorThief(res.data).color().getHex();
+											let bgcolor = colorThief(res.data).color()
+												.getHex();
 
 											that.bgcolorAry[that.swiperCurrent] = bgcolor
 											that.getbgcolor(bgcolor)
@@ -342,12 +354,16 @@
 				this.bgcolor = e;
 			},
 		},
-		created: async function() {
+		created: async function () {
 			await this.doColorThief();
 		},
 	};
 </script>
 <style scoped lang="less">
+	.content_box {
+		background: #f6f6f6;
+	}
+
 	.index {
 		background-color: #fff;
 	}
@@ -490,6 +506,4 @@
 			font-size: 15px;
 		}
 	}
-
-	
 </style>

@@ -62,7 +62,10 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
+	if(navigator&&navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1){
+		return true
+	}
+	return false
 }
 
 export function parseQuery() {
