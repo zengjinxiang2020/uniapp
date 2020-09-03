@@ -3,7 +3,8 @@
 		<view class="sh-title-card mb10">
 		<view class="title-box">
 			<image class="title-bg" src="@/static/images/title1.png" mode="aspectFill"></image>
-			<view class="title-text" :style="{ color: detail.color }">为你推荐</view>
+			<view class="title-text">为你推荐</view>
+			<!-- <view class="title-text" :style="{ color: detail.color }">为你推荐</view> -->
 		</view>
 	</view>
 	<view class="hot-goods mx20 mb10" v-if="benefit.length">

@@ -1,5 +1,5 @@
 <template>
-	<view class="min-goods" @tap="jump('/pages/goods/detail/index', { id: detail.id })">
+	<view class="min-goods" @tap="jump('/pages/activity/GroupDetails/index', { id: detail.id })">
 		<view class="img-box">
 			<view class="tag" >{{ detail.people}}人团</view>
 			<image class="img" :src="detail.image" mode="widthFix"></image>
@@ -26,8 +26,11 @@ export default {
 	computed: {},
 	methods: {
 		// 路由跳转
-		jump(path, parmas) {
-			this.$Router.push({ path: path, query: parmas });
+		jump(path, query) {
+			this.$yrouter.push({
+					path,
+					query
+				});
 		}
 	}
 };

@@ -4,9 +4,9 @@
 		<view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">
 			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
 				<view class="cu-bar fixed" :style="customStyle"
-					:class="[bgImage!=''?'none-bg text-white bg-img':'',bgColor]">
+					:class="[bgcolor]">
 					<view class="action">
-						<text class="nav-title shopro-selector-rect">{{ info.name || '商城' }}</text>
+						<text class="nav-title shopro-selector-rect">{{ 'yshop商城' }}</text>
 					</view>
 					<view class="content" :style="[{top:StatusBar + 'px'}]">
 
@@ -98,6 +98,7 @@
 				categoryCurrent: 0,
 				menuNum: 5,
 				bgcolor: '',
+				bgColor: '',
 				swiperCurrent: 0, //轮播下标
 				webviewId: 0,
 				showCoupon: false,
@@ -172,7 +173,8 @@
 					slidesPerView: 'auto',
 					observer: true,
 					observeParents: true
-				}
+				},
+				bgImage:''
 			};
 		},
 		computed: {
