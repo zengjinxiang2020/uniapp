@@ -62,10 +62,7 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	if(navigator&&navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1){
-		return true
-	}
-	return false
+	return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
 }
 
 export function parseQuery() {
@@ -185,11 +182,13 @@ export const login = () => {
 			// } else {
 			// 	// wechat().then(() => oAuth().then((code) => {
 			// 	// 	// const { code } = parseQuery()
+			// 	// 	debugger
 			// 	// 	auth(code)
 			// 	// 		.then(() => {
 			// 	// 			// location.replace(
 			// 	// 			//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
 			// 	// 			// );
+			// 	// 			debugger
 			// 	// 			location.href = decodeURIComponent(
 			// 	// 				decodeURIComponent(this.$route.params.url)
 			// 	// 			);

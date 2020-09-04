@@ -39,10 +39,7 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "yshop商城",
-					"navigationBarTextStyle": "white",
-					// "enablePullDownRefresh": true,
-					"navigationStyle": "custom"
+				"navigationBarTitleText": "yshop商城"
 			}
 		},
 		{
@@ -408,10 +405,9 @@
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "Yshop",
+		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8",
-		"navigationStyle": "default" 
+		"backgroundColor": "#F8F8F8"
 	},
 	"tabBar": {
 		"color": "#282828",

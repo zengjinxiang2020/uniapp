@@ -1,11 +1,5 @@
-// #ifdef H5
-// h5端
+// #ifndef MP-WEIXIN
 import Fly from "flyio/dist/npm/fly";
-// #endif
-
-// #ifdef APP-PLUS
-// app端
-import Fly from "flyio/dist/npm/wx";
 // #endif
 
 // #ifdef MP-WEIXIN

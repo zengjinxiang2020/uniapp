@@ -44,7 +44,7 @@ export default {
     }
     cookie.get("spread");
     // this.toLaunch();
-    if (this.$deviceType == "app"||this.$deviceType == "h5") {
+    if (this.$deviceType == "app") {
       // this.toLaunch();
       this.$yrouter.switchTab({
         path: "/pages/home/index"
@@ -52,9 +52,9 @@ export default {
       return;
     }
     login().finally(() => {
-      this.$yrouter.switchTab({
-        path: "/pages/home/index"
-      });
+      // this.$yrouter.switchTab({
+      //   path: "/pages/home/index"
+      // });
     });
   },
   methods: {

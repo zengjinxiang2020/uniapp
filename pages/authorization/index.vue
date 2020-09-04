@@ -1,193 +1,219 @@
 <template>
   <view class="container">
-    <!-- #ifdef MP-WEIXIN -->
-    <view v-if="!token" class="force-login-wrap">
-      <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image>
-      <view class="force-login__content y-f">
-        <open-data class="user-avatar" type="userAvatarUrl"></open-data>
-        <open-data class="user-name" type="userNickName"></open-data>
-        <view class="login-notice">为了提供更优质的服务，需要获取您的头像昵称</view>
-        <button class="cu-btn author-btn" @getuserinfo="getUserInfo" open-type="getUserInfo">授权并查看</button>
-        <button class="cu-btn close-btn" @tap="back">暂不授权</button>
+    <view v-if="!token">
+      <!-- #ifdef MP-WEIXIN -->
+      <view>
+        <view class="getUserInfo">
+          <text>您还未允许微信登录授权，请点击下方按钮允许微信授权登录。</text>
+          <button type="primary" open-type="getUserInfo" @getuserinfo="getUserInfo">允许微信登录授权</button>
+          <view style="height:20rpx"></view>
+          <button @click="back">取消微信登录授权</button>
+        </view>
       </view>
-    </view>
-    <!-- #endif -->
-    <!-- #ifndef MP-WEIXIN -->
-    <view class="force-login-wrap">
-      <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image>
-      <view class="force-login__content y-f">
-        <view class="login-notice">为了提供更优质的服务，请先登录</view>
-        <button class="cu-btn author-btn" @tap="toLogin">去登录</button>
+      <!-- #endif -->
+      <!-- #ifndef MP-WEIXIN -->
+      <view>
+        <view class="getUserInfo">
+          <text>请先登录</text>
+          <button type="primary" @tap="toLogin">去登录</button>
+        </view>
       </view>
+      <!-- #endif -->
     </view>
-    <!-- #endif -->
   </view>
 </template>
 
 <script>
-  import {
-    mapState,
-    mapMutations,
-    mapActions
-  } from "vuex";
-  import {
-    wxappAuth,
-    getUser
-  } from "@/api/user";
-  import dayjs from "dayjs";
-  import cookie from "@/utils/store/cookie";
-  import {
-    login,
-    authorize
-  } from "@/utils";
+import { mapState, mapMutations, mapActions } from "vuex";
+import { wxappAuth, getUser } from "@/api/user";
+import dayjs from "dayjs";
+import cookie from "@/utils/store/cookie";
+import { login, authorize } from "@/utils";
 
-  export default {
-    data() {
-      return {
-        authorize: false,
-      };
+export default {
+  data() {
+    return {
+      authorize: false,
+    };
+  },
+  computed: {
+    ...mapState(["isAuthorization", "$deviceType", "token"]),
+  },
+  onShow() {
+    // // 先校验用户是否授权，如果没有授权，显示授权按钮
+  },
+  onHide() {
+    this.updateAuthorizationPage(false);
+    this.changeAuthorization(false);
+  },
+  onUnload() {
+    this.updateAuthorizationPage(false);
+    this.changeAuthorization(false);
+  },
+  methods: {
+    ...mapActions(["changeAuthorization", "setUserInfo"]),
+    ...mapMutations(["updateAuthorizationPage"]),
+    toLogin() {
+      this.$yrouter.push({
+        path: "/pages/user/Login/index",
+        query: {},
+      });
     },
-    computed: {
-      ...mapState(["isAuthorization", "$deviceType", "token"]),
+    back() {
+      this.$yrouter.switchTab({
+        path: "/pages/home/index",
+        query: {},
+      });
     },
-    onShow() {
-      // // 先校验用户是否授权，如果没有授权，显示授权按钮
-    },
-    onHide() {
-      this.updateAuthorizationPage(false);
-      this.changeAuthorization(false);
-    },
-    onUnload() {
-      this.updateAuthorizationPage(false);
-      this.changeAuthorization(false);
-    },
-    methods: {
-      ...mapActions(["changeAuthorization", "setUserInfo"]),
-      ...mapMutations(["updateAuthorizationPage"]),
-      toLogin() {
-        this.$yrouter.push({
-          path: "/pages/user/Login/index",
-          query: {},
+    getUserInfo(data) {
+      if (data.detail.errMsg == "getUserInfo:fail auth deny") {
+        uni.showToast({
+          title: "取消授权",
+          icon: "none",
+          duration: 2000,
         });
-      },
-      back() {
-        this.$yrouter.switchTab({
-          path: "/pages/home/index",
-          query: {},
-        });
-      },
-      getUserInfo(data) {
-        if (data.detail.errMsg == "getUserInfo:fail auth deny") {
+        return;
+      }
+      uni.showLoading({
+        title: "登录中",
+      });
+      login()
+        .then((res) => {
+          this.$yrouter.replace({ path: cookie.get("redirect") });
+        })
+        .catch((error) => {
+          console.log(error);
           uni.showToast({
-            title: "取消授权",
+            title: error,
             icon: "none",
             duration: 2000,
           });
-          return;
-        }
-        uni.showLoading({
-          title: "登录中",
         });
-        login()
-          .then((res) => {
-            this.$yrouter.replace({
-              path: cookie.get("redirect")
-            });
-          })
-          .catch((error) => {
-            console.log(error);
-            uni.showToast({
-              title: error,
-              icon: "none",
-              duration: 2000,
-            });
-          });
-      },
     },
-    mounted() {},
-  };
+  },
+  mounted() {},
+};
 </script>
 
 <style lang="less">
-  .container {
+.sp-cell {
+  height: 20rpx;
+}
+
+.getUserInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+
+  text {
+    font-size: 30rpx;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+}
+
+.tab-bar {
+  font-size: 0;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  border-top: 1px solid rgba(248, 248, 248, 1);
+
+  .tab-bar-item {
     flex: 1;
+    height: 49px;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-  }
 
-  .force-login-wrap {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 11111;
-    top: 0;
-    background: linear-gradient(180deg, rgba(239, 196, 128, 1) 0%, rgba(248, 220, 165, 1) 25%, rgba(255, 255, 255, 1) 98%);
+    &.active {
+      text {
+        color: #ee7559;
+      }
 
-    .logo-bg {
-      width: 640rpx;
-      height: 300rpx;
+      .tab-bar-pic {
+        display: none;
+        background: #f9f9f9;
+
+        &.active {
+          display: block;
+        }
+      }
     }
 
-    .force-login__content {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
+    .tab-bar-pic {
+      display: block;
+      background: #f9f9f9;
 
-      .user-avatar {
-        width: 160rpx;
-        height: 160rpx;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-bottom: 40rpx;
-      }
-
-      .user-name {
-        font-size: 35rpx;
-        font-family: PingFang SC;
-        font-weight: bold;
-        color: rgba(132, 87, 8, 1);
-        margin-bottom: 30rpx;
-      }
-
-      .login-notice {
-        font-size: 28rpx;
-        font-family: PingFang SC;
-        font-weight: 400;
-        color: rgba(200, 150, 61, 1);
-        line-height: 44rpx;
-        width: 500rpx;
-        text-align: center;
-        margin-bottom: 80rpx;
-      }
-
-      .author-btn {
-        width: 630rpx;
-        height: 80rpx;
-        background: linear-gradient(90deg, rgba(233, 180, 97, 1), rgba(238, 204, 137, 1));
-        box-shadow: 0px 7rpx 6rpx 0px rgba(229, 138, 0, 0.22);
-        border-radius: 40rpx;
-        font-size: 30rpx;
-        font-family: PingFang SC;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 1);
-      }
-
-      .close-btn {
-        width: 630rpx;
-        height: 80rpx;
-        margin-top: 30rpx;
-        border-radius: 40rpx;
-        border: 2rpx solid rgba(233, 180, 97, 1);
-        background: none;
-        font-size: 30rpx;
-        font-family: PingFang SC;
-        font-weight: 500;
-        color: rgba(233, 180, 97, 1);
+      &.active {
+        display: none;
       }
     }
   }
+
+  .tab-bar-pic {
+    width: 25px;
+    height: 25px;
+    background: #f9f9f9;
+
+    image {
+      width: 25px;
+      height: 25px;
+    }
+  }
+
+  .tab-bar-pic-active {
+  }
+
+  text {
+    font-size: 10px;
+    color: rgb(160, 160, 160);
+    line-height: 10px;
+    margin-top: 5px;
+  }
+}
+
+.tab-bar-bg {
+  padding-top: 46px;
+  width: 100%;
+}
+
+.view-item {
+  display: none;
+  width: 100%;
+}
+
+.view-item-active {
+  display: block;
+}
+
+.getUserInfo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 30px;
+
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+._van-dialog {
+  z-index: 99999999999;
+}
 </style>
