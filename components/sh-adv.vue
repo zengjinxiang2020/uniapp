@@ -85,20 +85,20 @@
 					"list": [{
 						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/0669a6adec3f35d45ec66a082e03774f.png",
 						"name": "",
-						"path": "\/pages\/app\/coupon\/list",
-						"path_name": "优惠券-优惠劵中心",
+						"path": "/pages/user/coupon/UserCoupon/index",
+						"path_name": "优惠券",
 						"path_type": 1
 					}, {
 						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/cddb5d90a4241f6235d16368534bc730.png",
 						"name": "",
-						"path": "\/pages\/activity\/groupon\/list",
-						"path_name": "活动-今日必拼",
+						"path": "/pages/shop/GoodsList/index",
+						"path_name": "商品",
 						"path_type": 1
 					}, {
 						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/e047d312fb5930de972ae288b9b3bae7.png",
 						"name": "",
-						"path": "\/pages\/app\/score\/list",
-						"path_name": "应用-积分商城",
+						"path": "/pages/user/signIn/Integral/index",
+						"path_name": "积分",
 						"path_type": 1
 					}],
 					"name": "",
@@ -113,12 +113,8 @@
 			// 路由跳转
 			jump(path) {
 				this.$yrouter.push({
-					path: '/pages/shop/GoodsCon/index',
-					query: {
-						id: item.id
-					}
+					path
 				});
-				this.$tools.routerTo(path);
 			}
 		}
 	};

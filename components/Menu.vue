@@ -39,7 +39,7 @@ export default {
 			default: []
 		},
 		menu: {
-			default: 5
+			default: 4
 		},
 		imgW: {
 			type: Number,

@@ -1,4 +1,3 @@
-
 view,
 scroll-view,
 swiper,
@@ -8,7 +7,7 @@ textarea,
 label,
 navigator,
 image {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 page {
@@ -2738,11 +2737,23 @@ page {
   background-image: -moz-linear-gradient(to right, #eb3729 0%, #eb3729 100%);
 }
 
+
 .product-con .footer .bnt .buy {
   border-radius: 0 0.5*100rpx 0.5*100rpx 0;
   background-image: linear-gradient(to right, #eb3729 0%, #eb3729 100%);
   background-image: -moz-linear-gradient(to right, #eb3729 0%, #eb3729 100%);
 }
+
+.product-con .footer .bnt.seckill-bnt {
+  flex: 1;
+  margin-left: 20rpx;
+
+  .buy {
+    width: 100%;
+    border-radius: 50rpx;
+  }
+}
+
 
 /*订单提交*/
 .order-submission .line {
@@ -7021,8 +7032,7 @@ page {
 /*抢购详情页*/
 .product-con .nav {
   box-sizing: border-box;
-  background-image: url('https://h5.yixiang.co/static/images/rushBuy.jpg');
-  background-repeat: no-repeat;
+  background: url('https://h5.yixiang.co/static/images/rushBuy.jpg') #fc4141 no-repeat;
   background-size: 100% 100%;
   width: 100%;
   height: 1*100rpx;
@@ -8630,19 +8640,20 @@ rich-text {
 
 /*单行文本溢出省略号*/
 .one-t {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	transition: all linear 0.2s;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: all linear 0.2s;
 }
+
 /*多行文本溢出省略号*/
 .more-t {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	transition: all linear 0.2s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  transition: all linear 0.2s;
 }
 
 /* ==================
@@ -8650,67 +8661,77 @@ rich-text {
  ==================== */
 /* x水平排列*/
 .x-f {
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 }
+
 /*x两端且水平居中*/
 .x-bc {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 /*x平分且水平居中*/
 .x-ac {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
+
 /*x水平靠上对齐*/
 .x-start {
-	display: flex;
-	align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 }
+
 /*x水平靠下对齐*/
 .x-end {
-	display: flex;
-	align-items: flex-end;
+  display: flex;
+  align-items: flex-end;
 }
+
 /*上下左右居中*/
 .x-c {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 /*y竖直靠左*/
 .y-start {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
+
 /*y竖直靠右*/
 .y-end {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
+
 /*y竖直居中*/
 .y-f {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 // y竖直两端
 .y-b {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 /*y竖直两端居中*/
 .y-bc {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
 
@@ -9196,4 +9217,70 @@ rich-text {
 
 .pa30 {
   padding: 30rpx;
+}
+
+
+.min-goods {
+  width: 152rpx;
+  background: #fff;
+
+  .img-box {
+    width: 152rpx;
+    height: 152rpx;
+    overflow: hidden;
+    position: relative;
+
+    .tag {
+      position: absolute;
+      left: 0;
+      bottom: 0rpx;
+      z-index: 2;
+      line-height: 35rpx;
+      background: linear-gradient(132deg, rgba(243, 223, 177, 1), rgba(243, 223, 177, 1), rgba(236, 190, 96, 1));
+      border-radius: 0px 18rpx 18rpx 0px;
+      padding: 0 10rpx;
+      font-size: 24rpx;
+      font-family: PingFang SC;
+      font-weight: bold;
+      color: rgba(120, 79, 6, 1);
+    }
+
+    .img {
+      width: 100%;
+      background-color: #ccc;
+    }
+  }
+
+  .price-box {
+    width: 100%;
+    margin-top: 10rpx;
+
+    .seckill-current {
+      font-size: 30rpx;
+      font-weight: 500;
+      color: rgba(225, 33, 43, 1);
+    }
+
+    .original {
+      font-size: 20rpx;
+      font-weight: 400;
+      text-decoration: line-through;
+      color: rgba(153, 153, 153, 1);
+      margin-left: 14rpx;
+    }
+  }
+
+  .title {
+    font-size: 26rpx;
+  }
+}
+
+.contacButton {
+  padding: 0;
+  background-color: #fff;
+  line-height: 25rpx;
+}
+
+.contacButton::after {
+  border: 0;
 }

@@ -38,7 +38,7 @@
               <view class="line1" v-text="itemSeckill.title"></view>
               <view class="money">
                 限时价
-                <text class="num font-color-red" v-text="'￥' + itemSeckill.price"></text>
+                <text class="num font-color-red">￥{{itemSeckill.price||''}}</text>
               </view>
               <view class="progress cart-color">
                 <view class="bg-red" :style="{ width: loading ? itemSeckill.percent + '%' : '' }"></view>
@@ -48,7 +48,7 @@
             <view class="grab bg-color-red" v-if="item.status === 1 && itemSeckill.stock > 0"
               @click="goDetail(itemSeckill.id)">马上抢</view>
             <view class="grab" v-if="item.status === 1 && itemSeckill.stock <= 0">已售磬</view>
-            <view class="grab bg-color-red" v-if="item.status === 2">即将开始</view>
+            <view class="grab bg-color-red" @click="goDetail(itemSeckill.id)" v-if="item.status === 2">即将开始</view>
             <view class="grab bg-color-red" v-if="item.status === 0">已结束</view>
           </view>
         </view>
@@ -191,7 +191,7 @@
 </script>
 <style scoped lang="less">
   .flash-sale {
-    background: #f5f5f5!important;
+    background: #f5f5f5 !important;
     height: 100%;
   }
 
@@ -200,18 +200,21 @@
     align-items: center;
     flex-direction: row;
   }
-.list{
-  padding: 0 20rpx;
-  .item{
-    padding: .25*100rpx;
-    border-bottom: 1px solid #f0f0f0;
-    height: auto;
-    position: relative;
-    background: #fff;
-    margin-bottom: .2*100rpx;
-    border-radius: .2*100rpx;
+
+  .list {
+    padding: 0 20rpx;
+
+    .item {
+      padding: .25*100rpx;
+      border-bottom: 1px solid #f0f0f0;
+      height: auto;
+      position: relative;
+      background: #fff;
+      margin-bottom: .2*100rpx;
+      border-radius: .2*100rpx;
+    }
   }
-}
+
   .logoPic {
     width: 75rpx;
     height: 70rpx;
@@ -238,7 +241,7 @@
       }
 
       .state {
-        background: linear-gradient(90deg,#00c17b,#00c17b);
+        background: linear-gradient(90deg, #00c17b, #00c17b);
         color: #fff;
         opacity: 1;
         border-radius: 30rpx;

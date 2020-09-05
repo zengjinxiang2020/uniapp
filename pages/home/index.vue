@@ -3,8 +3,7 @@
 		<!-- 导航栏 -->
 		<view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">
 			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
-				<view class="cu-bar fixed" :style="customStyle"
-					:class="[bgcolor]">
+				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">
 					<view class="action">
 						<text class="nav-title shopro-selector-rect">{{ 'yshop商城' }}</text>
 					</view>
@@ -24,7 +23,7 @@
 			</view>
 		</view>
 
-		<view class="banner-swiper-box mb10" v-if="banner.length>0">
+		<view class="banner-swiper-box" v-if="banner.length>0">
 			<canvas canvas-id="colorThief" class="hide-canvas"></canvas>
 			<swiper class="banner-carousel shopro-selector-rect" circular @change="swiperChange" :autoplay="true">
 				<swiper-item v-for="(item, index) in banner" :key="index" class="carousel-item "
@@ -38,10 +37,26 @@
 					v-for="(dot, index) in banner.length" :key="index"></text>
 			</view>
 		</view>
-		<view class="content_box">
+		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true"
+			:text="singNew.info"></uni-notice-bar>
+		<view class="content_box home_content_box">
+			<!-- 菜单 -->
 			<Menu :list="menus"></Menu>
+			<!-- 滚动新闻 -->
+			<!-- 广告 -->
 			<Adv />
+			<!-- 热门榜单 -->
+			<HotCommodity :detail="likeInfo"></HotCommodity>
+			<!-- 超值拼团 -->
 			<Groupon :detail="combinationList" />
+			<!-- 首发新品->秒杀 -->
+			<FirstNewProduct :detail="firstList"></FirstNewProduct>
+			<!-- 精品推荐 -->
+			<ProductsRecommended :detail="bastList"></ProductsRecommended>
+			<!-- 促销单品
+			<PromoteProduct :detail="benefit"></PromoteProduct> -->
+			
+			<!-- 为您推荐 -->
 			<PromotionGood :benefit="benefit"></PromotionGood>
 		</view>
 		<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose">
@@ -63,6 +78,11 @@
 	import UniNoticeBar from '@/components/uni-notice-bar/uni-notice-bar'
 	import Adv from '@/components/sh-adv'
 	import Groupon from '@/components/sh-groupon.vue'
+
+	import HotCommodity from './components/HotCommodity';
+	import FirstNewProduct from './components/FirstNewProduct';
+	import ProductsRecommended from './components/ProductsRecommended';
+
 	import {
 		getHomeData,
 		getShare
@@ -86,7 +106,10 @@
 			CouponWindow,
 			Menu,
 			Adv,
-			Groupon
+			Groupon,
+			HotCommodity,
+			FirstNewProduct,
+			ProductsRecommended
 		},
 		props: {},
 		data: function () {
@@ -96,7 +119,7 @@
 				formatMenus: [],
 				bgcolorAry: [],
 				categoryCurrent: 0,
-				menuNum: 5,
+				menuNum: 4,
 				bgcolor: '',
 				bgColor: '',
 				swiperCurrent: 0, //轮播下标
@@ -174,7 +197,7 @@
 					observer: true,
 					observeParents: true
 				},
-				bgImage:''
+				bgImage: ''
 			};
 		},
 		computed: {
@@ -357,7 +380,7 @@
 			},
 		},
 		created: async function () {
-			await this.doColorThief();
+			// await this.doColorThief();
 		},
 	};
 </script>
@@ -452,7 +475,7 @@
 		left: 50%;
 		transform: translateX(-50%);
 		bottom: 20rpx;
-		z-index: 66;
+		z-index: 5;
 
 		.banner-dot {
 			width: 14rpx;
@@ -507,5 +530,8 @@
 			margin-left: 15px;
 			font-size: 15px;
 		}
+	}
+	.home_content_box{
+		margin-top: -10rpx;
 	}
 </style>

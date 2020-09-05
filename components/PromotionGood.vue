@@ -1,39 +1,39 @@
 <template>
-<view>
+	<view>
 		<view class="sh-title-card mb10">
-		<view class="title-box">
-			<image class="title-bg" src="@/static/images/title1.png" mode="aspectFill"></image>
-			<view class="title-text">为你推荐</view>
-			<!-- <view class="title-text" :style="{ color: detail.color }">为你推荐</view> -->
+			<view class="title-box">
+				<image class="title-bg" src="@/static/images/title1.png" mode="aspectFill"></image>
+				<view class="title-text">为你推荐</view>
+				<!-- <view class="title-text" :style="{ color: detail.color }">为你推荐</view> -->
+			</view>
 		</view>
-	</view>
-	<view class="hot-goods mx20 mb10" v-if="benefit.length">
-		<view class="goods-list x-f">
-			<view class="goods-item" v-for="(item, promotionGoodIndex) in benefit" :key="promotionGoodIndex">
-				<view class="goods-box" @tap="routerGo(item)">
-					<view class="img-box">
-						<!-- <image class="tag-img" :src="item.image" mode=""></image> -->
-						<image class="img" :src="item.image" lazy-load mode="aspectFill"></image>
-					</view>
-					<view class="tip one-t">{{ item.storeName }}</view>
-					<view class="title more-t">{{ item.storeName }}</view>
-					<view class="price-box">
-						<view class="flex x-bc align-end">
-							<view class="current">{{ item.activity_type === 'groupon' ? item.price : item.otPrice }}
-							</view>
-							<view class="sales miso-font">仅剩：{{ item.stock }}{{ item.unitName }}</view>
+		<view class="hot-goods mx20 mb10" v-if="benefit.length">
+			<view class="goods-list x-f">
+				<view class="goods-item" v-for="(item, promotionGoodIndex) in benefit" :key="promotionGoodIndex">
+					<view class="goods-box" @tap="routerGo(item)">
+						<view class="img-box">
+							<!-- <image class="tag-img" :src="item.image" mode=""></image> -->
+							<image class="img" :src="item.image" lazy-load mode="aspectFill"></image>
 						</view>
-						<view class="x-f tag-box">
-							<!-- <view class="discount">新人礼</view>
+						<view class="tip one-t">{{ item.storeName }}</view>
+						<view class="title more-t">{{ item.storeName }}</view>
+						<view class="price-box">
+							<view class="flex x-bc align-end">
+								<view class="current">{{ item.activity_type === 'groupon' ? item.price : item.otPrice }}
+								</view>
+								<view class="sales miso-font">仅剩：{{ item.stock }}{{ item.unitName }}</view>
+							</view>
+							<view class="x-f tag-box">
+								<!-- <view class="discount">新人礼</view>
 					<view class="discount">满100减60</view> -->
+							</view>
 						</view>
 					</view>
 				</view>
 			</view>
 		</view>
 	</view>
-</view>
-	
+
 </template>
 <script>
 	export default {
@@ -57,29 +57,31 @@
 </script>
 
 <style lang="scss">
-
-.sh-title-card {
-	width: 750rpx;
-}
-.title-box {
-	width: 710rpx;
-	height: 88rpx;
-	margin: 0 auto;
-	position: relative;
-	border-radius: 30rpx;
-
-	.title-bg {
-		width: 100%;
-		height: 100%;
+	.sh-title-card {
+		width: 750rpx;
 	}
-	.title-text {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		font-weight: bold;
+
+	.title-box {
+		width: 710rpx;
+		height: 88rpx;
+		margin: 0 auto;
+		position: relative;
+		border-radius: 30rpx;
+
+		.title-bg {
+			width: 100%;
+			height: 100%;
+		}
+
+		.title-text {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			font-weight: bold;
+		}
 	}
-}
+
 	.goods-box {
 		width: 345rpx;
 		background: #fff;
@@ -132,7 +134,7 @@
 		.price-box {
 			padding: 10rpx 20rpx 0;
 			width: 344rpx;
-box-sizing: border-box;
+			box-sizing: border-box;
 
 			.sales {
 				font-size: 20rpx;
@@ -189,8 +191,8 @@ box-sizing: border-box;
 
 	// 为你推荐
 	.hot-goods {
-		background: linear-gradient(#fff 200rpx, #f6f6f6 500rpx, #f6f6f6);
-		border-radius: 20rpx;
+		// background: linear-gradient(#fff 200rpx, #f6f6f6 500rpx, #f6f6f6);
+		// border-radius: 20rpx;
 
 		.goods-list {
 			flex-wrap: wrap;
