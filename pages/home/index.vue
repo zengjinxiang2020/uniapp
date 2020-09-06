@@ -55,7 +55,9 @@
 			<ProductsRecommended :detail="bastList"></ProductsRecommended>
 			<!-- 促销单品
 			<PromoteProduct :detail="benefit"></PromoteProduct> -->
-			
+			<!-- 直播 -->
+			<Live :detail="live"></Live>
+
 			<!-- 为您推荐 -->
 			<PromotionGood :benefit="benefit"></PromotionGood>
 		</view>
@@ -82,6 +84,7 @@
 	import HotCommodity from './components/HotCommodity';
 	import FirstNewProduct from './components/FirstNewProduct';
 	import ProductsRecommended from './components/ProductsRecommended';
+	import Live from './components/Live';
 
 	import {
 		getHomeData,
@@ -109,7 +112,8 @@
 			Groupon,
 			HotCommodity,
 			FirstNewProduct,
-			ProductsRecommended
+			ProductsRecommended,
+			Live
 		},
 		props: {},
 		data: function () {
@@ -141,6 +145,7 @@
 					bastList: []
 				},
 				likeInfo: [],
+				live: [],
 				lovely: [],
 				benefit: [],
 				couponList: [],
@@ -230,6 +235,7 @@
 				that.$set(that, 'firstList', res.data.firstList);
 				that.$set(that, 'bastList', res.data.bastList);
 				that.$set(that, 'likeInfo', res.data.likeInfo);
+				that.$set(that, 'live', res.data.live);
 				that.$set(that, 'lovely', res.data.lovely);
 				that.$set(that, 'benefit', res.data.benefit);
 				that.$set(that, 'couponList', res.data.couponList);
@@ -531,7 +537,8 @@
 			font-size: 15px;
 		}
 	}
-	.home_content_box{
+
+	.home_content_box {
 		margin-top: -10rpx;
 	}
 </style>
