@@ -66,7 +66,6 @@
                             success: function (image) {
                                 ctx.drawImage(image.path, 0, 0, image.width, image.height);
                                 ctx.draw(true, function (e) {
-                                    console.log(e)
                                     uni.canvasGetImageData({
                                         canvasId: 'colorThief',
                                         x: 0,
@@ -99,8 +98,6 @@
             swiperChange(e) {
                 this.swiperCurrent = e.detail.current;
                 this.doColorThief();
-                let bgcolor = this.bgcolorAry[this.swiperCurrent];
-                this.$emit('getbgcolor', bgcolor);
             },
 
             // 路由跳转
