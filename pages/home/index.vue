@@ -22,21 +22,7 @@
 				<image src="@/static/images/qr.png" />
 			</view>
 		</view>
-
-		<view class="banner-swiper-box" v-if="banner.length>0">
-			<canvas canvas-id="colorThief" class="hide-canvas"></canvas>
-			<swiper class="banner-carousel shopro-selector-rect" circular @change="swiperChange" :autoplay="true">
-				<swiper-item v-for="(item, index) in banner" :key="index" class="carousel-item "
-					@tap="routerTo(item.path)">
-					<image class="swiper-image " :src="item.pic" @click="goRoll(item)" mode="widthFix" lazy-load>
-					</image>
-				</swiper-item>
-			</swiper>
-			<view class="banner-swiper-dots">
-				<text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'"
-					v-for="(dot, index) in banner.length" :key="index"></text>
-			</view>
-		</view>
+		<Banner :banner="banner" @getbgcolor="getbgcolor"></Banner>
 		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true"
 			:text="singNew.info"></uni-notice-bar>
 		<view class="content_box home_content_box">
@@ -56,7 +42,7 @@
 			<!-- 促销单品
 			<PromoteProduct :detail="benefit"></PromoteProduct> -->
 			<!-- 直播 -->
-			<Live :detail="live"></Live>
+			<!-- <Live :detail="live"></Live> -->
 
 			<!-- 为您推荐 -->
 			<PromotionGood :benefit="benefit"></PromotionGood>
@@ -66,8 +52,6 @@
 	</view>
 </template>
 <script>
-	import colorThief from 'miniapp-color-thief';
-
 	import {
 		mapState,
 		mapMutations,
@@ -81,10 +65,11 @@
 	import Adv from '@/components/sh-adv'
 	import Groupon from '@/components/sh-groupon.vue'
 
+	import Banner from './components/Banner';
 	import HotCommodity from './components/HotCommodity';
 	import FirstNewProduct from './components/FirstNewProduct';
 	import ProductsRecommended from './components/ProductsRecommended';
-	import Live from './components/Live';
+	// import Live from './components/Live';
 
 	import {
 		getHomeData,
@@ -110,10 +95,11 @@
 			Menu,
 			Adv,
 			Groupon,
+			Banner,
 			HotCommodity,
 			FirstNewProduct,
 			ProductsRecommended,
-			Live
+			// Live
 		},
 		props: {},
 		data: function () {
@@ -121,7 +107,6 @@
 				CustomBar: this.CustomBar,
 				StatusBar: this.StatusBar,
 				formatMenus: [],
-				bgcolorAry: [],
 				categoryCurrent: 0,
 				menuNum: 4,
 				bgcolor: '',
@@ -242,7 +227,7 @@
 				that.$set(that, 'combinationList', res.data.combinationList);
 				uni.hideLoading();
 				that.setOpenShare();
-				that.doColorThief()
+				// that.doColorThief()
 			});
 		},
 		methods: {
@@ -334,52 +319,8 @@
 								});
 								break;
 						}
-
-
 					}
 				});
-			},
-			async doColorThief() {
-				let that = this;
-				let bannerItem = this.banner[this.swiperCurrent]
-				let bgcolorItem = this.bgcolorAry[this.swiperCurrent]
-				if (!bgcolorItem) {
-					let ctx = uni.createCanvasContext('colorThief', that);
-					if (0 === that.webviewId || ctx.webviewId === that.webviewId) {
-						that.webviewId = ctx.webviewId;
-						uni.getImageInfo({
-							src: bannerItem.pic,
-							success: function (image) {
-								ctx.drawImage(image.path, 0, 0, image.width, image.height);
-								ctx.draw(true, function (e) {
-									uni.canvasGetImageData({
-										canvasId: 'colorThief',
-										x: 0,
-										y: 0,
-										width: parseInt(image.width),
-										height: parseInt(image.height),
-										success(res) {
-											let bgcolor = colorThief(res.data).color()
-												.getHex();
-
-											that.bgcolorAry[that.swiperCurrent] = bgcolor
-											that.getbgcolor(bgcolor)
-										}
-									}, );
-								});
-							}
-						});
-					}
-				} else {
-					this.getbgcolor(bgcolorItem)
-
-				}
-			},
-			swiperChange(e) {
-				this.swiperCurrent = e.detail.current;
-				this.doColorThief();
-				let bgcolor = this.bgcolorAry[this.swiperCurrent];
-				this.getbgcolor(bgcolor)
 			},
 			getbgcolor(e) {
 				this.bgcolor = e;
@@ -439,64 +380,6 @@
 			font-family: PingFang SC;
 			font-weight: 500;
 			color: #fff;
-		}
-	}
-
-	.hide-canvas {
-		position: fixed !important;
-		top: -99999upx;
-		left: -99999upx;
-		z-index: -99999;
-	}
-
-	// 轮播
-	.banner-swiper-box {
-		background: #fff;
-	}
-
-	.banner-swiper-box,
-	.banner-carousel {
-		width: 750rpx;
-		height: 350upx;
-		position: relative;
-
-		.carousel-item {
-			width: 100%;
-			height: 100%;
-			// padding: 0 28upx;
-			overflow: hidden;
-		}
-
-		.swiper-image {
-			width: 100%;
-			height: 100%;
-			// border-radius: 10upx;
-			// background: #ccc;
-		}
-	}
-
-	.banner-swiper-dots {
-		display: flex;
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-		bottom: 20rpx;
-		z-index: 5;
-
-		.banner-dot {
-			width: 14rpx;
-			height: 14rpx;
-			background: rgba(255, 255, 255, 1);
-			border-radius: 50%;
-			margin-right: 10rpx;
-		}
-
-		.banner-dot-active {
-			width: 14rpx;
-			height: 14rpx;
-			background: #a8700d;
-			border-radius: 50%;
-			margin-right: 10rpx;
 		}
 	}
 
