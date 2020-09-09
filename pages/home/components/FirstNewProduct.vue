@@ -61,7 +61,6 @@
         created() {},
         watch: {
             detail(next) {
-                console.log(next)
                 this.goodsList = this.sortData(next, 4);
             }
         },

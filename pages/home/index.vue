@@ -36,13 +36,13 @@
 			<!-- 超值拼团 -->
 			<Groupon :detail="combinationList" />
 			<!-- 首发新品->秒杀 -->
-			<FirstNewProduct :detail="firstList"></FirstNewProduct>
+			<!-- <FirstNewProduct :detail="firstList"></FirstNewProduct> -->
 			<!-- 精品推荐 -->
-			<ProductsRecommended :detail="bastList"></ProductsRecommended>
+			<!-- <ProductsRecommended :detail="bastList"></ProductsRecommended> -->
 			<!-- 促销单品
 			<PromoteProduct :detail="benefit"></PromoteProduct> -->
 			<!-- 直播 -->
-			<!-- <Live :detail="live"></Live> -->
+			<Live :detail="live"></Live>
 
 			<!-- 为您推荐 -->
 			<PromotionGood :benefit="benefit"></PromotionGood>
@@ -69,7 +69,7 @@
 	import HotCommodity from './components/HotCommodity';
 	import FirstNewProduct from './components/FirstNewProduct';
 	import ProductsRecommended from './components/ProductsRecommended';
-	// import Live from './components/Live';
+	import Live from './components/Live';
 
 	import {
 		getHomeData,
@@ -99,7 +99,7 @@
 			HotCommodity,
 			FirstNewProduct,
 			ProductsRecommended,
-			// Live
+			Live
 		},
 		props: {},
 		data: function () {
@@ -220,7 +220,7 @@
 				that.$set(that, 'firstList', res.data.firstList);
 				that.$set(that, 'bastList', res.data.bastList);
 				that.$set(that, 'likeInfo', res.data.likeInfo);
-				that.$set(that, 'live', res.data.live);
+				that.$set(that, 'live', res.data.liveList);
 				that.$set(that, 'lovely', res.data.lovely);
 				that.$set(that, 'benefit', res.data.benefit);
 				that.$set(that, 'couponList', res.data.couponList);

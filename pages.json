@@ -404,6 +404,12 @@
 			"style": {
 				"navigationBarTitleText": "地图"
 			}
+		},
+		{
+			"path": "pages/shop/Live/LiveList/index",
+			"style": {
+				"navigationBarTitleText": "直播列表"
+			}
 		}
 	],
 	"globalStyle": {

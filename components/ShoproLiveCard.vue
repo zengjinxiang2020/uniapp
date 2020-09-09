@@ -1,30 +1,29 @@
 <template>
 	<view class="sp-live-card" :style="{ width: wh + 'rpx' }">
 		<view class="live-content" @tap="goRoom" :style="{ width: wh + 'rpx' }">
-			<image class="item-cover" :src="detail.share_img" mode="aspectFill"></image>
+			<image class="item-cover" :src="detail.shareImge" mode="aspectFill"></image>
 			<view class="item-status">
-				<image class="status-img" :src="liveStatus[detail.live_status].img" mode=""></image>
-				<text class="status-text">{{ liveStatus[detail.live_status].title }}</text>
+				<image class="status-img" :src="liveStatus[detail.liveStatus].img" mode=""></image>
+				<text class="status-text">{{ liveStatus[detail.liveStatus].title }}</text>
 			</view>
 			<view class="item-title" :style="{ width: wh + 'rpx' }">{{ detail.name }}</view>
-			<!-- 	<image v-if="detail.live_status == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
+			<!-- 	<image v-if="detail.liveStatus == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
 		</view>
 		<view class="live-bottom" :style="{ width: wh + 'rpx' }">
 			<view class="live-info">
 				<view class="info-box">
 					<!-- 	<image class="info-avatar" :src="detail.anchor_img" mode=""></image> -->
-					<view class="info-name">{{ detail.anchor_name }}</view>
+					<view class="info-name">{{ detail.anchorName }}</view>
 				</view>
 				<!-- 	<text class="views">15W观看</text> -->
 			</view>
 			<slot name="liveGoods">
-				<view class="live-goods" v-if="detail.goods.length">
-					<view class="live-goods__item" v-for="(goods, index) in detail.goods" :key="goods.id"
-						v-if="index < 3">
-						<image class="live-goods__img" :src="goods.cover_img" mode=""></image>
+				<view class="live-goods" v-if="detail.product.length">
+					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.id" v-if="index < 3">
+						<image class="live-goods__img" :src="goods.coverImgeUrl" mode=""></image>
 						<view class="live-goods__price" v-if="index < 2">￥{{ goods.price }}</view>
 						<view class="live-goods__mark" v-else>
-							<text>{{ detail.goods.length }}+</text>
+							<text>{{ detail.product.length }}+</text>
 						</view>
 					</view>
 				</view>
@@ -96,10 +95,10 @@
 			this.getLiveStatus();
 		},
 		mounted() {
-			let that = this;
-			timer = setInterval(() => {
-				that.getLiveStatus();
-			}, 60000);
+			// let that = this;
+			// timer = setInterval(() => {
+			// 	that.getLiveStatus();
+			// }, 60000);
 		},
 		beforeDestroy() {
 			timer = null;
@@ -108,31 +107,31 @@
 			goRoom() {
 				let that = this;
 				wx.navigateTo({
-					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${that.detail.room_id}`
+					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${that.detail.roomId}`
 				});
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				if (HAS_LIVE) {
-					let that = this;
-					let date = '';
-					if (that.detail.live_status == 102) {
-						date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-							'/');
-						that.liveStatus['102'].title = '预告 ' + date;
-					}
-					livePlayer
-						.getLiveStatus({
-							room_id: that.detail.room_id
-						})
-						.then(res => {
-							// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-							that.detail.live_status = res.liveStatus;
-						})
-						.catch(err => {
-							console.log('get live status', err);
-						});
-				}
+				// if (HAS_LIVE) {
+				// 	let that = this;
+				// 	let date = '';
+				// 	if (that.detail.liveStatus == 102) {
+				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+				// 			'/');
+				// 		that.liveStatus['102'].title = '预告 ' + date;
+				// 	}
+				// 	livePlayer
+				// 		.getLiveStatus({
+				// 			room_id: that.detail.room_id
+				// 		})
+				// 		.then(res => {
+				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+				// 			that.detail.liveStatus = res.liveStatus;
+				// 		})
+				// 		.catch(err => {
+				// 			console.log('get live status', err);
+				// 		});
+				// }
 			}
 		}
 	};

@@ -2,29 +2,30 @@
 	<view class="live-el mx20 mb10">
 		<view class="head">
 			<text class="head-title">热门直播</text>
-			<view class="head-more" @tap="$Router.push('/pages/app/live/list')">
+			<view class="head-more" @tap="$yrouter.push('/pages/shop/Live/LiveList/index')">
 				<text>更多</text>
 				<text class="cuIcon-right"></text>
 			</view>
 		</view>
-		<view class="content-one" v-if="detail.style == 1">
-			<view class="content-one__item" v-for="live in liveList" :key="live.id" @tap="goRoom(live)">
-				<image class="item-cover" :src="live.share_img" mode="widthFix"></image>
+		<view class="content-one">
+			<view class="content-one__item" v-for="live in detail" :key="live.id" @tap="goRoom(live)">
+				<image class="item-cover" :src="live.shareImge" mode="widthFix"></image>
 				<view class="item-status">
-					<image class="status-img" :src="liveStatus[live.live_status].img" mode=""></image>
-					<text class="status-text">{{ liveStatus[live.live_status].title }}</text>
+					<image class="status-img" :src="liveStatus[live.liveStatus].img" mode=""></image>
+					<text class="status-text">{{ liveStatus[live.liveStatus].title }}</text>
 				</view>
 				<view class="item-title">{{ live.name }}</view>
-				<!-- <image v-if="live.live_status == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
+				<image v-if="live.liveStatus == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif"
+					mode=""></image>
 			</view>
 		</view>
-		<view class="content-two" v-if="detail.style == 2">
+		<!-- <view class="content-two">
 			<view class="content-two__item" v-for="live in detail" :key="live.id">
 				<ShoproLiveCard :detail="live" :wh="320">
 					<block slot="liveGoods"><text></text></block>
 				</ShoproLiveCard>
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -88,7 +89,6 @@
 			detail: Array
 		},
 		created() {
-			this.getLiveList();
 		},
 		mounted() {
 			let that = this;
@@ -103,40 +103,40 @@
 		methods: {
 			// 直播列表
 			getLiveList() {
-				let that = this;
-				yxWechatLive({
-					page: 1,
-					size: 10,
-				}).then(res => {
-					console.log(res)
-				})
+				// let that = this;
+				// yxWechatLive({
+				// 	page: 1,
+				// 	size: 10,
+				// }).then(res => {
+				// 	console.log(res)
+				// })
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				if (HAS_LIVE) {
-					let that = this;
-					let date = '';
-					if (that.detail.live_status == 102) {
-						date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-							'/');
-						that.liveStatus['102'].title = '预告 ' + date;
-					}
-					livePlayer
-						.getLiveStatus({
-							room_id: that.detail.room_id
-						})
-						.then(res => {
-							// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-							that.detail.live_status = res.liveStatus;
-						})
-						.catch(err => {
-							console.log('get live status', err);
-						});
-				}
+				// if (HAS_LIVE) {
+				// 	let that = this;
+				// 	let date = '';
+				// 	if (that.detail.live_status == 102) {
+				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+				// 			'/');
+				// 		that.liveStatus['102'].title = '预告 ' + date;
+				// 	}
+				// 	livePlayer
+				// 		.getLiveStatus({
+				// 			room_id: that.detail.room_id
+				// 		})
+				// 		.then(res => {
+				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+				// 			that.detail.live_status = res.liveStatus;
+				// 		})
+				// 		.catch(err => {
+				// 			console.log('get live status', err);
+				// 		});
+				// }
 			},
 			goRoom(live) {
 				wx.navigateTo({
-					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${live.room_id}`
+					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${live.roomId}`
 				});
 			}
 		}

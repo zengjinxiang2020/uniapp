@@ -60,7 +60,6 @@
         created() {},
         watch: {
             detail(next) {
-                console.log(next)
                 this.goodsList = this.sortData(next, 4);
             }
         },
@@ -211,6 +210,10 @@
                     margin-right: 0;
                 }
             }
+        }
+        .min-goods{
+            margin-right: 22rpx;
+
         }
     }
 </style>
