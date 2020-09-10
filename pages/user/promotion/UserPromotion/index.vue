@@ -20,7 +20,7 @@
         </view>
       </view>
     </view>
-    <!-- <view class="bnt bg-color-red" @click="toCash">立即提现</view> -->
+    <view class="bnt bg-color-red" @click="toCash">立即提现</view>
     <view class="list acea-row row-between-wrapper">
       <view class="item acea-row row-center-wrapper row-column" @click="goPoster()">
         <text class="iconfont icon-erweima"></text>

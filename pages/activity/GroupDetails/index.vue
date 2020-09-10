@@ -316,7 +316,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", productSelect.image);
           this.$set(this.attr.productSelect, "price", productSelect.price);
@@ -329,7 +329,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
@@ -342,7 +342,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);

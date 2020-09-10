@@ -85,7 +85,7 @@
 					"list": [{
 						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/0669a6adec3f35d45ec66a082e03774f.png",
 						"name": "",
-						"path": "/pages/user/coupon/UserCoupon/index",
+						"path": "/pages/user/coupon/GetCoupon/index",
 						"path_name": "优惠券",
 						"path_type": 1
 					}, {

@@ -931,9 +931,7 @@
     filter: blur(2px);
   }
 
-  .footer .icon-shoucang1 {
-    color: #eb3729;
-  }
+  
 
   .product-con .product-intro .conter view {
     width: 100% !important;

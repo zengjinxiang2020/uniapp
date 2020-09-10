@@ -58,6 +58,7 @@
         ">
         <span class="iconfont icon-xiaolian"></span>恭喜您砍价成功，快去支付吧~
       </view>
+      
       <view v-if="userBargainStatus == 0 && bargainPartake === userInfo.uid" class="bargainBnt" @click="goParticipate">
         立即参与砍价</view>
       <view class="bargainBnt" @click="goPoster" v-if="
@@ -144,7 +145,7 @@
       </view>
       <view class="conter" v-html="bargain.rule"></view>
     </view>
-    <view class="bargainTip bargain-box" :class="active === true ? 'on' : ''">
+    <view class="bargainTip" :class="active === true ? 'on' : ''">
       <!-- <view class="pictrue">
         <image src="@/static/images/bargainBg.jpg" />
         <view class="iconfont icon-guanbi" @click="close"></view>
@@ -204,7 +205,8 @@
         partake: null,
         bargainSumCount: 0, //砍价成功人数
         activeMsg: "",
-        active: false,
+        // ssssss
+        active: true,
         loading: false,
         datatime: 0,
         lookCount: 0, //查看人数
@@ -345,11 +347,15 @@
         var that = this;
         getBargainDetail(that.bargainId)
           .then(res => {
-            res.data.bargain.description = res.data.bargain.description.replace(
+            that.bargain = res.data.bargain;
+            that.bargain.description = that.bargain.description.replace(
               /\<img/gi,
               '<img style="max-width:100%;height:auto;"'
             );
-            that.bargain = res.data.bargain;
+            that.bargain.rule = that.bargain.rule.replace(
+              /\<img/gi,
+              '<img style="max-width:100%;height:auto;"'
+            );
             that.datatime = that.bargain.stopTime / 1000;
             that.getBargainHelpCount();
           })
@@ -563,19 +569,20 @@
         width: auto;
         margin: 0 20rpx;
         border: 0;
-        
+
       }
 
       .header {
         height: auto;
         text-align: left;
-        .time{
+
+        .time {
           text-align: left;
           font-size: 24rpx;
 
           margin: 0;
-          padding:0;
-          padding:20rpx;
+          padding: 0;
+          padding: 20rpx;
           width: auto;
           height: auto;
         }

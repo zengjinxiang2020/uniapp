@@ -12,9 +12,9 @@
 			<view class="item" v-for="(item, listIndex) in list" :key="listIndex">
 				<view class="order-num acea-row row-middle" @click="toDetail(item)">
 					<text>订单号：{{ item.orderId }}</text>
-					<text class="time">
+					<text class="time acea-row row-between">
 						<text>下单时间：</text>
-						<data-format :date="item.addTime"></data-format>
+						<text class="conter">{{ item.createTime }}</text>
 					</text>
 				</view>
 				<view class="pos-order-goods" v-for="(val, key) in item.cartInfo" :key="key">
@@ -38,10 +38,7 @@
 				<view class="public-total">
 					共{{ item.totalNum }}件商品，应支付
 					<text class="money">￥{{ item.payPrice }}</text>
-					( 邮费 ¥{{
-          item.totalPostage
-          }}
-					)
+					( 邮费 ¥{{item.totalPostage}})
 				</view>
 				<view class="operation acea-row row-between-wrapper">
 					<view class="more">

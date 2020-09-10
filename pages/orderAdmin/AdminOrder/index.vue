@@ -66,9 +66,10 @@
       </view>
       <view class="item acea-row row-between">
         <view>下单时间：</view>
-        <view class="conter">
-          <data-format :date="orderInfo.addTime"></data-format>
-        </view>
+        <!-- <view class="conter"> -->
+          <view class="conter">{{ orderInfo.createTime }}</view>
+          <!-- <data-format :date="orderInfo.addTime"></data-format> -->
+        <!-- </view> -->
       </view>
       <view class="item acea-row row-between">
         <view>支付状态：</view>

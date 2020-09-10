@@ -96,7 +96,7 @@ export function handleOrderPayResults(data, type) {
     // 取消支付
     case "EXTEND_ORDER":
       uni.showToast({
-        title: res.msg,
+        title: data.msg,
         icon: "none",
         duration: 2000,
       });
@@ -107,7 +107,7 @@ export function handleOrderPayResults(data, type) {
     // 支付出错
     case "PAY_ERROR":
       uni.showToast({
-        title: res.msg,
+        title: data.msg,
         icon: "none",
         duration: 2000,
       });
@@ -116,7 +116,7 @@ export function handleOrderPayResults(data, type) {
     // 未传递支付环境
     case "SUCCESS":
       uni.showToast({
-        title: res.msg,
+        title: data.msg,
         icon: "none",
         duration: 2000,
       });

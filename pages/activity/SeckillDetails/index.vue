@@ -40,20 +40,9 @@
       <view class="title">产品介绍</view>
       <view class="conter" v-html="storeInfo.description"></view>
     </view>
-    <view style="height:100rpx;"></view>
-    <view class="footerRush acea-row row-between-wrapper">
-      <view class="item">
-        <button open-type="contact" class='contacButton'>
-          <view style="padding-bottom: 8rpx;" class="item">
-            <view class="iconfont icon-kefu"></view>
-            <text>客服</text>
-          </view>
-        </button>
-      </view>
-    </view>
 
-    <view style="height:100rpx;"></view>
     <!-- 操作栏 -->
+    <view style="height:100rpx;"></view>
     <view class="footer acea-row row-between-wrapper">
       <view class="item">
         <button open-type="contact" class='contacButton'>
@@ -62,35 +51,24 @@
             <text>客服</text>
           </view>
         </button>
+      </view>
+      <view class="item" @click="setCollect" v-if="userCollect">
+        <view class="iconfont icon-shoucang1"></view>
+        <text>收藏</text>
+      </view>
+      <view class="item" @click="setCollect" v-if="!userCollect">
+        <view class="iconfont icon-shoucang"></view>
+        <text>收藏</text>
       </view>
       <view class="bnt acea-row">
-        <view class="buy seckill-bnt" @click="tapBuy">
+        <view class="joinCart" @click="openAlone">
+          <text>单独购买</text>
+        </view>
+        <view class="buy" @click="tapBuy">
           <text>立即购买</text>
         </view>
       </view>
     </view>
-
-
-
-    <view style="height:100rpx;"></view>
-    <!-- 操作栏 -->
-    <view class="footer acea-row row-between-wrapper">
-      <view class="item">
-        <button open-type="contact" class='contacButton'>
-          <view style="padding-bottom: 8rpx;" class="item">
-            <view class="iconfont icon-kefu"></view>
-            <text>客服</text>
-          </view>
-        </button>
-      </view>
-      <view class="bnt seckill-bnt acea-row">
-        <view class="buy " @click="tapBuy">
-          <text>立即购买</text>
-        </view>
-      </view>
-    </view>
-
-
 
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster v-on:setPosterImageStatus="setPosterImageStatus" :posterImageStatus="posterImageStatus"
@@ -117,6 +95,12 @@
   import {
     imageBase64
   } from "@/api/public";
+  import {
+    getCoupon,
+    getCollectAdd,
+    getCollectDel,
+    getUserInfo
+  } from "@/api/user";
   const NAME = "SeckillDetails";
 
   export default {
@@ -152,7 +136,8 @@
           productAttr: [],
           productSelect: {},
         },
-        datatime: 0
+        datatime: 0,
+        userCollect: false
       };
     },
     watch: {
@@ -167,16 +152,41 @@
       this.mountedStart();
     },
     methods: {
+      openAlone: function () {
+        this.$yrouter.push({
+          path: "/pages/shop/GoodsCon/index",
+          query: {
+            id: this.storeInfo.productId
+          }
+        });
+        // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
+      },
       routerGo(item) {
         this.$yrouter.push({
           path: '/pages/user/CustomerList/index'
         })
+      },
+      //收藏商品
+      setCollect: function () {
+        let that = this,
+          id = that.storeInfo.id,
+          category = "product";
+        if (that.userCollect) {
+          getCollectDel(id, category).then(function () {
+            that.userCollect = !that.userCollect;
+          });
+        } else {
+          getCollectAdd(id, category).then(function () {
+            that.userCollect = !that.userCollect;
+          });
+        }
       },
       mountedStart: function () {
         var that = this;
         let id = that.$yroute.query.id;
         that.datatime = parseInt(that.$yroute.query.time);
         getSeckillDetail(id).then(res => {
+          that.userCollect = res.data.userCollect;
           res.data.storeInfo.description = res.data.storeInfo.description.replace(
             /\<img/gi,
             '<img style="max-width:100%;height:auto;"'
@@ -224,7 +234,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", productSelect.image);
           this.$set(this.attr.productSelect, "price", productSelect.price);
@@ -237,7 +247,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
@@ -250,7 +260,7 @@
           this.$set(
             this.attr.productSelect,
             "store_name",
-            this.storeInfo.storeName
+            this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
