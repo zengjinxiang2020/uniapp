@@ -19,7 +19,7 @@
 			</view>
 			<slot name="liveGoods">
 				<view class="live-goods" v-if="detail.product.length">
-					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.id" v-if="index < 3">
+					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.goodsId" v-if="index < 3">
 						<image class="live-goods__img" :src="goods.coverImgeUrl" mode=""></image>
 						<view class="live-goods__price" v-if="index < 2">￥{{ goods.price }}</view>
 						<view class="live-goods__mark" v-else>
@@ -95,10 +95,10 @@
 			this.getLiveStatus();
 		},
 		mounted() {
-			// let that = this;
-			// timer = setInterval(() => {
-			// 	that.getLiveStatus();
-			// }, 60000);
+			let that = this;
+			timer = setInterval(() => {
+				that.getLiveStatus();
+			}, 60000);
 		},
 		beforeDestroy() {
 			timer = null;
@@ -112,26 +112,26 @@
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				// if (HAS_LIVE) {
-				// 	let that = this;
-				// 	let date = '';
-				// 	if (that.detail.liveStatus == 102) {
-				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-				// 			'/');
-				// 		that.liveStatus['102'].title = '预告 ' + date;
-				// 	}
-				// 	livePlayer
-				// 		.getLiveStatus({
-				// 			room_id: that.detail.room_id
-				// 		})
-				// 		.then(res => {
-				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-				// 			that.detail.liveStatus = res.liveStatus;
-				// 		})
-				// 		.catch(err => {
-				// 			console.log('get live status', err);
-				// 		});
-				// }
+				if (HAS_LIVE) {
+					let that = this;
+					let date = '';
+					if (that.detail.liveStatus == 102) {
+						// date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+							// '/');
+						that.liveStatus['102'].title = '预告 ' ;
+					}
+					livePlayer
+						.getLiveStatus({
+							room_id: that.detail.roomId
+						})
+						.then(res => {
+							// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+							that.detail.liveStatus = res.liveStatus;
+						})
+						.catch(err => {
+							console.log('get live status', err);
+						});
+				}
 			}
 		}
 	};

@@ -11,7 +11,7 @@
     <view class="content_box">
       <scroll-view scroll-y="true" @scrolltolower="loadMore" class="scroll-box">
         <view class="list-box">
-          <block v-for="live in liveList" :key="live.id">
+          <block v-for="live in liveList" :key="live.roomId">
             <shopro-live-card :detail="live"></shopro-live-card>
           </block>
         </view>
@@ -40,6 +40,12 @@
             name: '全部',
             code: ''
           },
+		  {
+		    title: 'prevue',
+		    name: '预告',
+		    code: '102'
+		  
+		  },
           {
             title: 'living',
             name: '直播中',

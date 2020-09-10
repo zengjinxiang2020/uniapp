@@ -237,8 +237,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.seckillStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", value.sort().join(","));
@@ -250,7 +250,7 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -263,8 +263,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
-          this.$set(this.attr.productSelect, "stock", this.storeInfo.stock);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", this.storeInfo.seckillStock);
           this.$set(
             this.attr.productSelect,
             "unique",
@@ -289,7 +289,7 @@
       ChangeCartNum: function (res) {
         var that = this;
         if (res) {
-          if (that.attr.productSelect.cart_num < that.storeInfo.stock) {
+          if (that.attr.productSelect.cart_num < that.storeInfo.seckillStock) {
             that.attr.productSelect.cart_num++;
             this.cartNum++;
           }
@@ -307,15 +307,15 @@
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.seckillStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", res.value);
           this.$set(this, "attrTxt", "已选择");
         } else {
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);

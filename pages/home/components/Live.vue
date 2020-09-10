@@ -8,7 +8,7 @@
 			</view>
 		</view>
 		<view class="content-one">
-			<view class="content-one__item" v-for="live in detail" :key="live.id" @tap="goRoom(live)">
+			<view class="content-one__item" v-for="live in detail" :key="live.roomId" @tap="goRoom(live)">
 				<image class="item-cover" :src="live.shareImge" mode="widthFix"></image>
 				<view class="item-status">
 					<image class="status-img" :src="liveStatus[live.liveStatus].img" mode=""></image>
@@ -113,28 +113,29 @@
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				// if (HAS_LIVE) {
-				// 	let that = this;
-				// 	let date = '';
-				// 	if (that.detail.live_status == 102) {
-				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-				// 			'/');
-				// 		that.liveStatus['102'].title = '预告 ' + date;
-				// 	}
-				// 	livePlayer
-				// 		.getLiveStatus({
-				// 			room_id: that.detail.room_id
-				// 		})
-				// 		.then(res => {
-				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-				// 			that.detail.live_status = res.liveStatus;
-				// 		})
-				// 		.catch(err => {
-				// 			console.log('get live status', err);
-				// 		});
-				// }
+			// 	if (HAS_LIVE) {
+			// 		let that = this;
+			// 		let date = '';
+			// 		if (that.detail.liveStatus == 102) {
+			// 			date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+			// 				'/');
+			// 			that.liveStatus['102'].title = '预告 ' + date;
+			// 		}
+			// 		livePlayer
+			// 			.getLiveStatus({
+			// 				room_id: that.detail.roomId
+			// 			})
+			// 			.then(res => {
+			// 				// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+			// 				that.detail.liveStatus = res.liveStatus;
+			// 			})
+			// 			.catch(err => {
+			// 				console.log('get live status', err);
+			// 			});
+			// 	}
 			},
 			goRoom(live) {
+				console.log(live.roomId,9999)
 				wx.navigateTo({
 					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${live.roomId}`
 				});
