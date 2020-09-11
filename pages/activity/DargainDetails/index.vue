@@ -206,7 +206,7 @@
         bargainSumCount: 0, //砍价成功人数
         activeMsg: "",
         // ssssss
-        active: true,
+        active: false,
         loading: false,
         datatime: 0,
         lookCount: 0, //查看人数

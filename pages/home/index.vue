@@ -5,7 +5,7 @@
 			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
 				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">
 					<view class="action">
-						<text class="nav-title shopro-selector-rect">{{ 'yshop商城' }}</text>
+						<text class="nav-title Shop-selector-rect">{{ 'yshop商城' }}</text>
 					</view>
 					<view class="content" :style="[{top:StatusBar + 'px'}]">
 

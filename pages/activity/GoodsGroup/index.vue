@@ -35,15 +35,15 @@
           </view>
         </view>
         <!-- 空白 -->
-<!--        <shopro-empty v-if="!grouponList.length && !isLoading" :emptyData="emptyData"></shopro-empty>-->
+<!--        <Shop-empty v-if="!grouponList.length && !isLoading" :emptyData="emptyData"></Shop-empty>-->
         <!-- 加载更多 -->
         <view v-if="grouponList.length" class="cu-load text-gray" :class="loadStatus"></view>
         <!-- loading -->
-        <shopro-load v-model="isLoading"></shopro-load>
+        <Shop-load v-model="isLoading"></Shop-load>
       </scroll-view>
     </view>
     <!-- 自定义底部导航 -->
-    <shopro-tabbar></shopro-tabbar>
+    <Shop-tabbar></Shop-tabbar>
   </view>
 </template>
 
