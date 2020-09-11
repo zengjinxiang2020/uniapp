@@ -4,7 +4,7 @@
       <scroll-view class="scroll-box" scroll-y enable-back-to-top scroll-with-animation @scrolltolower="loadMore">
         <view class="group-wrap">
           <view class="group-head x-bc">
-            <text class="group-head__title">爆款推荐</text>
+            <text class="group-head__title">爆款拼团</text>
             <text class="group-head__notice">省钱省心限时拼</text>
           </view>
           <view class="group-box">
@@ -129,7 +129,7 @@ export default {
 
 <style lang="scss">
 .group-wrap {
-  background: url('~@/static/images/group_list_bg.png') no-repeat;
+  background: url('~@/static/images/index-bg.png') no-repeat;
   background-size: 100% 374rpx;
 }
 .group-head {
