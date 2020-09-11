@@ -16,7 +16,7 @@
         </view>
         <view class="row-right">
           <view>
-            <a class="store-phone" :href="'tel:' + item.phone">
+            <a class="store-phone" @click="telPhone(item.phone)">
               <text class="iconfont icon-dadianhua01"></text>
             </a>
           </view>
@@ -35,7 +35,7 @@
 <script>
 import Loading from "@/components/Loading";
 import { storeListApi } from "@/api/store";
-import { isWeixin } from "@/utils/index";
+import { isWeixin,tel } from "@/utils/index";
 import { wechatEvevt, wxShowLocation } from "@/libs/wechat";
 import { mapGetters } from "vuex";
 import cookie from "@/utils/store/cookie";
@@ -78,6 +78,15 @@ export default {
         this.$store.commit("get_store", e);
         this.$yrouter.back();
       }
+    },
+    //拨打电话
+    telPhone(phoneNumber) {
+      uni.makePhoneCall({
+        phoneNumber: phoneNumber,
+        fail() {
+          console.log("取消拨打");
+        }
+      });
     },
     // 获取门店列表数据
     getList: function() {

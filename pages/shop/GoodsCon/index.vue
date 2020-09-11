@@ -3,7 +3,7 @@
     <view v-if="storeInfo.id">
       <!-- 轮播图 -->
       <product-con-swiper :img-urls="storeInfo.sliderImageArr"></product-con-swiper>
-      
+
       <!-- 商品信息描述 -->
       <view class="wrapper">
         <view class="share acea-row row-between row-bottom">
@@ -70,7 +70,7 @@
               </view>
             </view>
             <view class="addressBox">
-              <a :href="'tel:'+systemStore.phone" class="iconfont icon-dadianhua01 font-color-red phone"></a>
+              <a class="iconfont icon-dadianhua01 font-color-red phone"  @click="telPhone(systemStore.phone)"></a>
               <view class="addressTxt corlor-yshop">距离{{systemStore.distance}}千米</view>
             </view>
           </view>
@@ -172,7 +172,7 @@
         :posterData="posterData" :goodId="id"></StorePoster>
       <!-- 分享弹窗 -->
       <ShareInfo v-on:setShareInfoStatus="setShareInfoStatus" :shareInfoStatus="shareInfoStatus"></ShareInfo>
-      
+
       <view class="generate-posters acea-row row-middle on" v-if="posters">
         <view class="item" @click="setPosterImageStatus">
           <view class="iconfont icon-haibao"></view>
@@ -338,6 +338,14 @@
           query: {
             id,
           },
+        });
+      },
+      telPhone(phoneNumber) {
+        uni.makePhoneCall({
+          phoneNumber: phoneNumber,
+          fail() {
+            console.log("取消拨打");
+          }
         });
       },
       showChang: function (data) {
@@ -931,7 +939,7 @@
     filter: blur(2px);
   }
 
-  
+
 
   .product-con .product-intro .conter view {
     width: 100% !important;
