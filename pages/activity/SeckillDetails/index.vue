@@ -16,16 +16,6 @@
         <view class="iconfont icon-jiantou"></view>
       </view>
     </view>
-
-    <!-- 规格 -->
-    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
-      <view>
-        <text>{{ attrTxt }}：</text>
-        <text class="atterTxt">{{ attrValue }}</text>
-      </view>
-      <view class="iconfont icon-jiantou"></view>
-    </view>
-
     <view class="wrapperRush">
       <view class="introduce acea-row row-between">
         <view class="infor" v-text="storeInfo.title"></view>
@@ -35,6 +25,14 @@
         <view class="stock" v-text="'库存:' + storeInfo.stock + '件'"></view>
         <view v-text="'销量:' + storeInfo.sales + '件'"></view>
       </view>
+    </view>
+    <!-- 规格 -->
+    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
+      <view>
+        <text>{{ attrTxt }}：</text>
+        <text class="atterTxt">{{ attrValue }}</text>
+      </view>
+      <view class="iconfont icon-jiantou"></view>
     </view>
     <view class="product-intro">
       <view class="title">产品介绍</view>
