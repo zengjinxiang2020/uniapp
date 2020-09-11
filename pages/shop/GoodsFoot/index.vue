@@ -37,7 +37,7 @@ import Recommend from "@/components/Recommend";
 import { getCollectUser, getCollectDel } from "@/api/user";
 import Loading from "@/components/Loading";
 export default {
-  name: "GoodsCollection",
+  name: "GoodsFoot",
   components: {
     Recommend,
     Loading
