@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	import { dataFormatL } from "@/utils";
 	let HAS_LIVE = false
 	// #ifdef MP-WEIXIN
 	HAS_LIVE = true
@@ -116,9 +117,9 @@
 					let that = this;
 					let date = '';
 					if (that.detail.liveStatus == 102) {
-						// date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-							// '/');
-						that.liveStatus['102'].title = '预告 ' ;
+						 date = dataFormatL('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+							 '/');
+							that.liveStatus['102'].title = '预告 ' + date;
 					}
 					livePlayer
 						.getLiveStatus({
