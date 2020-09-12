@@ -42,7 +42,9 @@
 			<!-- 促销单品
 			<PromoteProduct :detail="benefit"></PromoteProduct> -->
 			<!-- 直播 -->
+			<!-- #ifdef MP-WEIXIN -->
 			<Live :detail="live"></Live>
+			<!-- #endif -->
 
 			<!-- 为您推荐 -->
 			<PromotionGood :benefit="benefit"></PromotionGood>
@@ -232,20 +234,20 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
-      onShareTimeline: function() {
-        return {
-          title: this.miniHomeRemark,
-          imageUrl: this.miniHomeImg,
-          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
-        }
-      },
-      onShareAppMessage: function() {
-        return {
-          title: this.miniHomeRemark,
-          imageUrl: this.miniHomeImg,
-          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
-        }
-      },
+			onShareTimeline: function () {
+				return {
+					title: this.miniHomeRemark,
+					imageUrl: this.miniHomeImg,
+					path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+				}
+			},
+			onShareAppMessage: function () {
+				return {
+					title: this.miniHomeRemark,
+					imageUrl: this.miniHomeImg,
+					path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+				}
+			},
 			goRoll(item) {
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)
