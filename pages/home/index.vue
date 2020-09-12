@@ -5,7 +5,7 @@
 			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
 				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">
 					<view class="action">
-						<text class="nav-title shopro-selector-rect">{{ 'yshop商城' }}</text>
+						<text class="nav-title Shop-selector-rect">{{ 'yshop商城' }}</text>
 					</view>
 					<view class="content" :style="[{top:StatusBar + 'px'}]">
 
@@ -232,6 +232,20 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+      onShareTimeline: function() {
+        return {
+          title: this.miniHomeRemark,
+          imageUrl: this.miniHomeImg,
+          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+        }
+      },
+      onShareAppMessage: function() {
+        return {
+          title: this.miniHomeRemark,
+          imageUrl: this.miniHomeImg,
+          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+        }
+      },
 			goRoll(item) {
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)

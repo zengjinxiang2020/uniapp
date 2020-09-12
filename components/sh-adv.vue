@@ -83,19 +83,19 @@
 			return {
 				detail: {
 					"list": [{
-						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/0669a6adec3f35d45ec66a082e03774f.png",
+						"image": "https:\/\/wx.yixiang.co\/static\/images\/index001.png",
 						"name": "",
 						"path": "/pages/user/coupon/GetCoupon/index",
 						"path_name": "优惠券",
 						"path_type": 1
 					}, {
-						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/cddb5d90a4241f6235d16368534bc730.png",
+						"image": "https:\/\/wx.yixiang.co\/static\/images\/index002.png",
 						"name": "",
 						"path": "/pages/shop/GoodsList/index",
 						"path_name": "商品",
 						"path_type": 1
 					}, {
-						"image": "https:\/\/shopro-1253949872.file.myqcloud.com\/uploads\/20200704\/e047d312fb5930de972ae288b9b3bae7.png",
+						"image": "https:\/\/wx.yixiang.co\/static\/images\/index003.png",
 						"name": "",
 						"path": "/pages/user/signIn/Integral/index",
 						"path_name": "积分",

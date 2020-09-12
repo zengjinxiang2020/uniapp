@@ -94,6 +94,12 @@
 			}
 		},
 		{
+			"path": "pages/shop/GoodsFoot/index",
+			"style": {
+				"navigationBarTitleText": "我的足迹"
+			}
+		},
+		{
 			"path": "pages/shop/news/NewsDetail/index",
 			"style": {
 				"navigationBarTitleText": "新闻详情"

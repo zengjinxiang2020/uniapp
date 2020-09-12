@@ -247,6 +247,24 @@
       this.mountedStart();
     },
     methods: {
+      onShareAppMessage: function() {
+        return {
+          title: this.storeInfo.title,
+          imageUrl: this.storeInfo.image,
+          path: "pages/activity/GroupDetails/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          success(res) {
+            uni.showToast({
+              title: '分享成功'
+            })
+          },
+          fail(res) {
+            uni.showToast({
+              title: '分享失败',
+              icon: 'none'
+            })
+          }
+        }
+      },
       openAlone: function () {
         this.$yrouter.push({
           path: "/pages/shop/GoodsCon/index",
@@ -295,7 +313,7 @@
           } else {
             that.posterData.title = that.storeInfo.title;
           }
-          that.posterData.price = that.storeInfo.price;
+          that.posterData.price = that.storeInfo.pinkPrice;
           that.posterData.code = that.storeInfo.code_base;
           that.domStatus = true;
           console.log(this.storeInfo)
@@ -319,8 +337,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.pinkPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.pinkStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", value.sort().join(","));
@@ -332,7 +350,7 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.pinkPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -345,8 +363,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
-          this.$set(this.attr.productSelect, "stock", this.storeInfo.stock);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.pinkPrice);
+          this.$set(this.attr.productSelect, "stock", this.storeInfo.pinkStock);
           this.$set(
             this.attr.productSelect,
             "unique",
@@ -418,15 +436,15 @@
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.pinkPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.pinkStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", res.value);
           this.$set(this, "attrTxt", "已选择");
         } else {
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.pinkPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -434,7 +452,7 @@
           this.$set(this, "attrTxt", "请选择");
         }
       },
-     
+
       openTeam: function () {
         var that = this;
         if (that.attr.cartAttr == false) {

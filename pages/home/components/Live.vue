@@ -8,29 +8,22 @@
 			</view>
 		</view>
 		<view class="content-one">
-			<view class="content-one__item" v-for="live in detail" :key="live.id" @tap="goRoom(live)">
+			<view class="content-one__item" v-for="live in detail" :key="live.roomId" @tap="goRoom(live)">
 				<image class="item-cover" :src="live.shareImge" mode="widthFix"></image>
 				<view class="item-status">
 					<image class="status-img" :src="liveStatus[live.liveStatus].img" mode=""></image>
 					<text class="status-text">{{ liveStatus[live.liveStatus].title }}</text>
 				</view>
 				<view class="item-title">{{ live.name }}</view>
-				<image v-if="live.liveStatus == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif"
+				<image v-if="live.liveStatus == 101" class="like-img" src="http://Shop.7wpp.com/imgs/live/zan.gif"
 					mode=""></image>
 			</view>
 		</view>
-		<!-- <view class="content-two">
-			<view class="content-two__item" v-for="live in detail" :key="live.id">
-				<ShoproLiveCard :detail="live" :wh="320">
-					<block slot="liveGoods"><text></text></block>
-				</ShoproLiveCard>
-			</view>
-		</view> -->
 	</view>
 </template>
 
 <script>
-	import ShoproLiveCard from '@/components/ShoproLiveCard.vue'
+	import ShopLiveCard from '@/components/ShopLiveCard.vue'
 
 	let HAS_LIVE = false
 	// #ifdef MP-WEIXIN
@@ -48,38 +41,38 @@
 	let timer = null;
 	export default {
 		components: {
-			ShoproLiveCard
+			ShopLiveCard
 		},
 		data() {
 			return {
 				liveList: [],
 				liveStatus: {
-					'101': {
-						img: 'http://shopro.7wpp.com/imgs/live/live.png',
+				'101': {
+						img: 'https://wx.yixiang.co/static/images/live.png',
 						title: '直播中'
 					},
 					'102': {
-						img: 'http://shopro.7wpp.com/imgs/live/prevue.png',
+						img: 'https://wx.yixiang.co/static/images/prevue.png',
 						title: '未开始'
 					},
 					'103': {
-						img: 'http://shopro.7wpp.com/imgs/live/playback.png',
+						img: 'https://wx.yixiang.co/static/images/playback.png',
 						title: '已结束'
 					},
 					'104': {
-						img: 'http://shopro.7wpp.com/imgs/live/104.png',
+						img: 'https://wx.yixiang.co/static/images/104.png',
 						title: '禁播'
 					},
 					'105': {
-						img: 'http://shopro.7wpp.com/imgs/live/105.png',
+						img: 'https://wx.yixiang.co/static/images/105.png',
 						title: '暂停中'
 					},
 					'106': {
-						img: 'http://shopro.7wpp.com/imgs/live/106.png',
+						img: 'https://wx.yixiang.co/static/images/106.png',
 						title: '异常'
 					},
 					'107': {
-						img: 'http://shopro.7wpp.com/imgs/live/past.png',
+						img: 'https://wx.yixiang.co/static/images/past.png',
 						title: '已过期'
 					}
 				}
@@ -113,28 +106,29 @@
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				// if (HAS_LIVE) {
-				// 	let that = this;
-				// 	let date = '';
-				// 	if (that.detail.live_status == 102) {
-				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-				// 			'/');
-				// 		that.liveStatus['102'].title = '预告 ' + date;
-				// 	}
-				// 	livePlayer
-				// 		.getLiveStatus({
-				// 			room_id: that.detail.room_id
-				// 		})
-				// 		.then(res => {
-				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-				// 			that.detail.live_status = res.liveStatus;
-				// 		})
-				// 		.catch(err => {
-				// 			console.log('get live status', err);
-				// 		});
-				// }
+			// 	if (HAS_LIVE) {
+			// 		let that = this;
+			// 		let date = '';
+			// 		if (that.detail.liveStatus == 102) {
+			// 			date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+			// 				'/');
+			// 			that.liveStatus['102'].title = '预告 ' + date;
+			// 		}
+			// 		livePlayer
+			// 			.getLiveStatus({
+			// 				room_id: that.detail.roomId
+			// 			})
+			// 			.then(res => {
+			// 				// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+			// 				that.detail.liveStatus = res.liveStatus;
+			// 			})
+			// 			.catch(err => {
+			// 				console.log('get live status', err);
+			// 			});
+			// 	}
 			},
 			goRoom(live) {
+				console.log(live.roomId,9999)
 				wx.navigateTo({
 					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${live.roomId}`
 				});

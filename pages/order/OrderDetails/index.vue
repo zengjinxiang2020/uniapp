@@ -126,7 +126,7 @@
         <view class="name">
           {{ orderInfo.realName }}
           <text class="phone">{{ orderInfo.userPhone }}</text>
-          <text class="iconfont icon-tonghua font-color-red"></text>
+          <text @click="telPhone(orderInfo.userPhone)" class="iconfont icon-tonghua font-color-red"></text>
         </view>
         <view>{{ orderInfo.userAddress }}</view>
       </view>
@@ -134,7 +134,7 @@
         <div class="name">
           {{ system_store.name}}
           <span class="phone">{{ system_store.phone }}</span>
-          <span class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></span>
+          <span @click="telPhone(system_store.phone)" class="iconfont icon-tonghua font-color-red" :href="'tel:' + system_store.phone"></span>
         </div>
         <div>{{ system_store.address }}</div>
       </div>
@@ -364,6 +364,15 @@ export default {
         query: {
           id: orderInfo.pinkId,
         },
+      });
+    },
+    //拨打电话
+    telPhone(phoneNumber) {
+      uni.makePhoneCall({
+        phoneNumber: phoneNumber,
+        fail() {
+          console.log("取消拨打");
+        }
       });
     },
     showChang: function (data) {

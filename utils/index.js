@@ -38,7 +38,27 @@ export function dataFormat(time, option) {
 		return timeStr
 	}
 }
-
+	// 年月日，时分秒
+	// "YYYY-mm-dd HH:MM"
+export function	dateFormatL(fmt, date) {
+		let ret;
+		const opt = {
+			"Y+": date.getFullYear().toString(), // 年
+			"m+": (date.getMonth() + 1).toString(), // 月
+			"d+": date.getDate().toString(), // 日
+			"H+": date.getHours().toString(), // 时
+			"M+": date.getMinutes().toString(), // 分
+			"S+": date.getSeconds().toString() // 秒
+			// 有其他格式化字符需求可以继续添加，必须转化成字符串
+		};
+		for (let k in opt) {
+			ret = new RegExp("(" + k + ")").exec(fmt);
+			if (ret) {
+				fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+			};
+		};
+		return fmt;
+	}
 export function dateFormatT(time) {
 	time = +time * 1000;
 	const d = new Date(time);
@@ -251,6 +271,7 @@ export const login = () => {
 									store.dispatch('userInfo', true)
 									getUserInfo().then(user => {
 										console.log('获取用户信息成功')
+										uni.setStorageSync('uid', user.data.uid);
 										store.dispatch('setUserInfo', user.data)
 										resolve(user)
 									}).catch(error => {
@@ -661,7 +682,7 @@ export function handleQrCode() {
 export function handleUrlParam(path) {
 	console.log(path)
 
-	var url = path.split("?")[1]; //获取url中"?"符后的字串  
+	var url = path.split("?")[1]; //获取url中"?"符后的字串
 	console.log(url)
 	var theRequest = new Object();
 	let strs = url.split("&");
@@ -701,8 +722,8 @@ const getImageInfo = (images) => {
  * @param string store_name 素材文字
  * @param string price 价格
  * @param function successFn 回调函数
- * 
- * 
+ *
+ *
  */
 export const PosterCanvas = (store, successCallBack) => {
 	uni.showLoading({

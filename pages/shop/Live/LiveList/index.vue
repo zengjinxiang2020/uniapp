@@ -11,8 +11,8 @@
     <view class="content_box">
       <scroll-view scroll-y="true" @scrolltolower="loadMore" class="scroll-box">
         <view class="list-box">
-          <block v-for="live in liveList" :key="live.id">
-            <shopro-live-card :detail="live"></shopro-live-card>
+          <block v-for="live in liveList" :key="live.roomId">
+            <shop-live-card :detail="live"></shop-live-card>
           </block>
         </view>
         <view v-if="liveList.length" class="cu-load text-gray" :class="loadStatus"></view>
@@ -25,11 +25,11 @@
   import {
     yxWechatLive
   } from "@/api/live";
-  import ShoproLiveCard from '@/components/ShoproLiveCard.vue'
+  import ShopLiveCard from '@/components/ShopLiveCard.vue'
 
   export default {
     components: {
-      ShoproLiveCard
+      ShopLiveCard
     },
     data() {
       return {
@@ -40,6 +40,12 @@
             name: '全部',
             code: ''
           },
+		  {
+		    title: 'prevue',
+		    name: '预告',
+		    code: '102'
+		  
+		  },
           {
             title: 'living',
             name: '直播中',

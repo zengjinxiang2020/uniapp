@@ -7,7 +7,7 @@
 				<text class="status-text">{{ liveStatus[detail.liveStatus].title }}</text>
 			</view>
 			<view class="item-title" :style="{ width: wh + 'rpx' }">{{ detail.name }}</view>
-			<!-- 	<image v-if="detail.liveStatus == 101" class="like-img" src="http://shopro.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
+			<!-- 	<image v-if="detail.liveStatus == 101" class="like-img" src="http://Shop.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
 		</view>
 		<view class="live-bottom" :style="{ width: wh + 'rpx' }">
 			<view class="live-info">
@@ -19,7 +19,7 @@
 			</view>
 			<slot name="liveGoods">
 				<view class="live-goods" v-if="detail.product.length">
-					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.id" v-if="index < 3">
+					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.goodsId" v-if="index < 3">
 						<image class="live-goods__img" :src="goods.coverImgeUrl" mode=""></image>
 						<view class="live-goods__price" v-if="index < 2">￥{{ goods.price }}</view>
 						<view class="live-goods__mark" v-else>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	import { dataFormatL } from "@/utils";
 	let HAS_LIVE = false
 	// #ifdef MP-WEIXIN
 	HAS_LIVE = true
@@ -43,37 +44,37 @@
 	//  #endif
 	let timer = null;
 	export default {
-		name: 'shoproLiveCard',
+		name: 'shopLiveCard',
 		components: {},
 		data() {
 			return {
 				liveStatus: {
 					'101': {
-						img: 'http://shopro.7wpp.com/imgs/live/live.png',
+						img: 'https://wx.yixiang.co/static/images/live.png',
 						title: '直播中'
 					},
 					'102': {
-						img: 'http://shopro.7wpp.com/imgs/live/prevue.png',
+						img: 'https://wx.yixiang.co/static/images/prevue.png',
 						title: '未开始'
 					},
 					'103': {
-						img: 'http://shopro.7wpp.com/imgs/live/playback.png',
+						img: 'https://wx.yixiang.co/static/images/playback.png',
 						title: '已结束'
 					},
 					'104': {
-						img: 'http://shopro.7wpp.com/imgs/live/104.png',
+						img: 'https://wx.yixiang.co/static/images/104.png',
 						title: '禁播'
 					},
 					'105': {
-						img: 'http://shopro.7wpp.com/imgs/live/105.png',
+						img: 'https://wx.yixiang.co/static/images/105.png',
 						title: '暂停中'
 					},
 					'106': {
-						img: 'http://shopro.7wpp.com/imgs/live/106.png',
+						img: 'https://wx.yixiang.co/static/images/106.png',
 						title: '异常'
 					},
 					'107': {
-						img: 'http://shopro.7wpp.com/imgs/live/past.png',
+						img: 'https://wx.yixiang.co/static/images/past.png',
 						title: '已过期'
 					}
 				}
@@ -95,10 +96,10 @@
 			this.getLiveStatus();
 		},
 		mounted() {
-			// let that = this;
-			// timer = setInterval(() => {
-			// 	that.getLiveStatus();
-			// }, 60000);
+			let that = this;
+			timer = setInterval(() => {
+				that.getLiveStatus();
+			}, 60000);
 		},
 		beforeDestroy() {
 			timer = null;
@@ -112,26 +113,26 @@
 			},
 			// 轮询liveStatus
 			getLiveStatus() {
-				// if (HAS_LIVE) {
-				// 	let that = this;
-				// 	let date = '';
-				// 	if (that.detail.liveStatus == 102) {
-				// 		date = that.$tools.dateFormat('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-				// 			'/');
-				// 		that.liveStatus['102'].title = '预告 ' + date;
-				// 	}
-				// 	livePlayer
-				// 		.getLiveStatus({
-				// 			room_id: that.detail.room_id
-				// 		})
-				// 		.then(res => {
-				// 			// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-				// 			that.detail.liveStatus = res.liveStatus;
-				// 		})
-				// 		.catch(err => {
-				// 			console.log('get live status', err);
-				// 		});
-				// }
+				if (HAS_LIVE) {
+					let that = this;
+					let date = '';
+					if (that.detail.liveStatus == 102) {
+						 date = dataFormatL('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
+							 '/');
+							that.liveStatus['102'].title = '预告 ' + date;
+					}
+					livePlayer
+						.getLiveStatus({
+							room_id: that.detail.roomId
+						})
+						.then(res => {
+							// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+							that.detail.liveStatus = res.liveStatus;
+						})
+						.catch(err => {
+							console.log('get live status', err);
+						});
+				}
 			}
 		}
 	};

@@ -6,7 +6,7 @@
     <scroll-view scroll-y="false" scroll-x="true">
       <view class="timeScroll">
         <div class="logoPic">
-          <image src="https://wx.yixiang.co/h5/img/baokuan.6313c8c8.png">
+          <image src="https://wx.yixiang.co/h5/img/baokuan.6313c8c8.png"></image>
         </div>
         <view v-for="(item, index) in timeList" :key="index">
           <view v-if="active==index" class="timeItem active" @click="setTime(index)">

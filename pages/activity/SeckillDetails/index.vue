@@ -16,16 +16,6 @@
         <view class="iconfont icon-jiantou"></view>
       </view>
     </view>
-
-    <!-- 规格 -->
-    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
-      <view>
-        <text>{{ attrTxt }}：</text>
-        <text class="atterTxt">{{ attrValue }}</text>
-      </view>
-      <view class="iconfont icon-jiantou"></view>
-    </view>
-
     <view class="wrapperRush">
       <view class="introduce acea-row row-between">
         <view class="infor" v-text="storeInfo.title"></view>
@@ -35,6 +25,14 @@
         <view class="stock" v-text="'库存:' + storeInfo.stock + '件'"></view>
         <view v-text="'销量:' + storeInfo.sales + '件'"></view>
       </view>
+    </view>
+    <!-- 规格 -->
+    <view class="attribute acea-row row-between-wrapper" @click="selecAttrTap">
+      <view>
+        <text>{{ attrTxt }}：</text>
+        <text class="atterTxt">{{ attrValue }}</text>
+      </view>
+      <view class="iconfont icon-jiantou"></view>
     </view>
     <view class="product-intro">
       <view class="title">产品介绍</view>
@@ -152,6 +150,24 @@
       this.mountedStart();
     },
     methods: {
+      onShareAppMessage: function() {
+        return {
+          title: this.storeInfo.title,
+          imageUrl: this.storeInfo.image,
+          path: "pages/activity/GoodsSeckill/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          success(res) {
+            uni.showToast({
+              title: '分享成功'
+            })
+          },
+          fail(res) {
+            uni.showToast({
+              title: '分享失败',
+              icon: 'none'
+            })
+          }
+        }
+      },
       openAlone: function () {
         this.$yrouter.push({
           path: "/pages/shop/GoodsCon/index",
@@ -237,8 +253,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.seckillStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", value.sort().join(","));
@@ -250,7 +266,7 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -263,8 +279,8 @@
             this.storeInfo.title
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
-          this.$set(this.attr.productSelect, "stock", this.storeInfo.stock);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", this.storeInfo.seckillStock);
           this.$set(
             this.attr.productSelect,
             "unique",
@@ -289,7 +305,7 @@
       ChangeCartNum: function (res) {
         var that = this;
         if (res) {
-          if (that.attr.productSelect.cart_num < that.storeInfo.stock) {
+          if (that.attr.productSelect.cart_num < that.storeInfo.seckillStock) {
             that.attr.productSelect.cart_num++;
             this.cartNum++;
           }
@@ -307,15 +323,15 @@
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
           this.$set(this.attr.productSelect, "image", productSelect.image);
-          this.$set(this.attr.productSelect, "price", productSelect.price);
-          this.$set(this.attr.productSelect, "stock", productSelect.stock);
+          this.$set(this.attr.productSelect, "price", productSelect.seckillPrice);
+          this.$set(this.attr.productSelect, "stock", productSelect.seckillStock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", res.value);
           this.$set(this, "attrTxt", "已选择");
         } else {
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
-          this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "price", this.storeInfo.seckillPrice);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
