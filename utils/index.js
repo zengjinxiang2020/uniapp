@@ -271,6 +271,7 @@ export const login = () => {
 									store.dispatch('userInfo', true)
 									getUserInfo().then(user => {
 										console.log('获取用户信息成功')
+										uni.setStorageSync('uid', user.data.uid);
 										store.dispatch('setUserInfo', user.data)
 										resolve(user)
 									}).catch(error => {
@@ -681,7 +682,7 @@ export function handleQrCode() {
 export function handleUrlParam(path) {
 	console.log(path)
 
-	var url = path.split("?")[1]; //获取url中"?"符后的字串  
+	var url = path.split("?")[1]; //获取url中"?"符后的字串
 	console.log(url)
 	var theRequest = new Object();
 	let strs = url.split("&");
@@ -721,8 +722,8 @@ const getImageInfo = (images) => {
  * @param string store_name 素材文字
  * @param string price 价格
  * @param function successFn 回调函数
- * 
- * 
+ *
+ *
  */
 export const PosterCanvas = (store, successCallBack) => {
 	uni.showLoading({
