@@ -232,6 +232,13 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+      onShareTimeline: function() {
+        return {
+          title: this.miniHomeRemark,
+          imageUrl: this.miniHomeImg,
+          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+        }
+      },
       onShareAppMessage: function() {
         return {
           title: this.miniHomeRemark,
