@@ -232,8 +232,8 @@
               icon: "none",
               duration: 2000
             });
-            this.router.push({
-              path: "/user/audit"
+            this.$yrouter.push({
+              path: "/pages/user/promotion/CashAudit/index"
             });
           },
           err => {
