@@ -14,7 +14,7 @@
     <!-- #endif -->
     <!-- #ifndef MP-WEIXIN -->
     <view class="force-login-wrap">
-      <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image>
+      <!-- <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image> -->
       <view class="force-login__content y-f">
         <view class="login-notice">为了提供更优质的服务，请先登录</view>
         <button class="cu-btn author-btn" @tap="toLogin">去登录</button>
@@ -118,13 +118,11 @@
   }
 
   .force-login-wrap {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
     z-index: 11111;
     top: 0;
-    background: #fff;
 
     .logo-bg {
       width: 640rpx;
@@ -167,7 +165,8 @@
       .author-btn {
         width: 630rpx;
         height: 80rpx;
-        background: linear-gradient(90deg, #eb3729, #eb3729);
+        background: linear-gradient(to right, #f35447 0%, #ff8e3c 100%);
+        background: -moz-linear-gradient(to right, #f35447 0%, #ff8e3c 100%);
         // box-shadow: 0px 7rpx 6rpx 0px rgba(229, 138, 0, 0.22);
         border-radius: 40rpx;
         font-size: 30rpx;

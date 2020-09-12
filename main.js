@@ -99,7 +99,9 @@ import {
 	ready,
 	wxShowLocation,
 } from '@/libs/wechat'
+
 import { isWeixin } from '@/utils'
+
 // 判断是否是微信浏览器
 if (isWeixin()) {
 	Vue.prototype.$deviceType = 'weixin'
