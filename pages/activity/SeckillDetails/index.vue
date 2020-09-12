@@ -58,7 +58,11 @@
         <view class="iconfont icon-shoucang"></view>
         <text>收藏</text>
       </view>
-      <view class="bnt acea-row">
+      <view class="bnt acea-row" v-if="
+          seckillStatus == 1 &&
+            storeInfo.num > 0 &&
+            storeInfo.stock > 0
+        ">
         <view class="joinCart" @click="openAlone">
           <text>单独购买</text>
         </view>
@@ -66,6 +70,24 @@
           <text>立即购买</text>
         </view>
       </view>
+
+      <div class="bnt acea-row" v-if="
+          seckillStatus == 1 &&
+            storeInfo.num <= 0 &&
+            storeInfo.stock <= 0
+        ">
+        <div class="joinCart" @click="openAlone">原价购买</div>
+        <div class="buy bg-color-hui">已售罄</div>
+      </div>
+      <div class="bnt acea-row" v-if="seckillStatus == 2">
+        <div class="joinCart" @click="openAlone">原价购买</div>
+        <div class="buy bg-color-hui">即将开始</div>
+      </div>
+      <div class="bnt acea-row" v-if="seckillStatus == 0">
+        <div class="joinCart" @click="openAlone">原价购买</div>
+        <div class="buy bg-color-hui">已结束</div>
+      </div>
+
     </view>
 
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
@@ -112,6 +134,7 @@
     props: {},
     data: function () {
       return {
+        seckillStatus: '',
         domStatus: false,
         posterData: {
           image: "",
@@ -138,23 +161,15 @@
         userCollect: false
       };
     },
-    watch: {
-      $yroute: function (n) {
-        var that = this;
-        if (n.name === NAME) {
-          that.mountedStart();
-        }
-      }
-    },
-    mounted: function () {
+    onShow: function () {
       this.mountedStart();
     },
     methods: {
-      onShareAppMessage: function() {
+      onShareAppMessage: function () {
         return {
           title: this.storeInfo.title,
           imageUrl: this.storeInfo.image,
-          path: "pages/activity/GoodsSeckill/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          path: "pages/activity/GoodsSeckill/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid"),
           success(res) {
             uni.showToast({
               title: '分享成功'
@@ -199,7 +214,9 @@
       },
       mountedStart: function () {
         var that = this;
+        console.log(this)
         let id = that.$yroute.query.id;
+        this.seckillStatus = that.$yroute.query.status;
         that.datatime = parseInt(that.$yroute.query.time);
         getSeckillDetail(id).then(res => {
           that.userCollect = res.data.userCollect;

@@ -46,9 +46,10 @@
               </view>
             </view>
             <view class="grab bg-color-red" v-if="item.status === 1 && itemSeckill.stock > 0"
-              @click="goDetail(itemSeckill.id)">马上抢</view>
+              @click="goDetail(itemSeckill.id,item.status)">马上抢</view>
             <view class="grab" v-if="item.status === 1 && itemSeckill.stock <= 0">已售磬</view>
-            <view class="grab bg-color-red" @click="goDetail(itemSeckill.id)" v-if="item.status === 2">即将开始</view>
+            <view class="grab bg-color-red" @click="goDetail(itemSeckill.id,item.status)" v-if="item.status === 2">即将开始
+            </view>
             <view class="grab bg-color-red" v-if="item.status === 0">已结束</view>
           </view>
         </view>
@@ -175,14 +176,15 @@
           uni.hideLoading();
         });
       },
-      goDetail: function (id) {
+      goDetail: function (id, status) {
         var that = this;
         var time = that.timeList[that.active].stop;
         this.$yrouter.push({
           path: "/pages/activity/SeckillDetails/index",
           query: {
             id,
-            time
+            time,
+            status
           }
         });
       }
