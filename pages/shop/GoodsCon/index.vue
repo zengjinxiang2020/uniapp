@@ -319,6 +319,24 @@
       },
     },
     methods: {
+      onShareAppMessage: function() {
+        return {
+          title: this.storeInfo.storeName,
+          imageUrl: this.storeInfo.image,
+          path: "pages/shop/GoodsCon/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          success(res) {
+            uni.showToast({
+              title: '分享成功'
+            })
+          },
+          fail(res) {
+            uni.showToast({
+              title: '分享失败',
+              icon: 'none'
+            })
+          }
+        }
+      },
       goShoppingCart() {
         this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");
       },

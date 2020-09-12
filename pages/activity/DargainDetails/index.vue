@@ -58,7 +58,7 @@
         ">
         <span class="iconfont icon-xiaolian"></span>恭喜您砍价成功，快去支付吧~
       </view>
-      
+
       <view v-if="userBargainStatus == 0 && bargainPartake === userInfo.uid" class="bargainBnt" @click="goParticipate">
         立即参与砍价</view>
       <view class="bargainBnt" @click="goPoster" v-if="
@@ -244,6 +244,24 @@
       }, 500);
     },
     methods: {
+      onShareAppMessage: function() {
+        return {
+          title: this.storeInfo.title,
+          imageUrl: this.storeInfo.image,
+          path: "pages/activity/DargainDetails/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          success(res) {
+            uni.showToast({
+              title: '分享成功'
+            })
+          },
+          fail(res) {
+            uni.showToast({
+              title: '分享失败',
+              icon: 'none'
+            })
+          }
+        }
+      },
       //参与砍价
       goParticipate() {
         if (this.bargainPartake === this.userInfo.uid) this.getBargainStart();

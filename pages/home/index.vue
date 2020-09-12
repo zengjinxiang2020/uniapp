@@ -232,6 +232,13 @@
 		},
 		methods: {
 			...mapActions(["getLocation"]),
+      onShareAppMessage: function() {
+        return {
+          title: this.miniHomeRemark,
+          imageUrl: this.miniHomeImg,
+          path: "pages/home/index?spread=" + uni.getStorageSync("uid")
+        }
+      },
 			goRoll(item) {
 				if (item.uniapp_url) {
 					this.$yrouter.push(item.uniapp_url)

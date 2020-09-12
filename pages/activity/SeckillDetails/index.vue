@@ -150,6 +150,24 @@
       this.mountedStart();
     },
     methods: {
+      onShareAppMessage: function() {
+        return {
+          title: this.storeInfo.title,
+          imageUrl: this.storeInfo.image,
+          path: "pages/activity/GoodsSeckill/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          success(res) {
+            uni.showToast({
+              title: '分享成功'
+            })
+          },
+          fail(res) {
+            uni.showToast({
+              title: '分享失败',
+              icon: 'none'
+            })
+          }
+        }
+      },
       openAlone: function () {
         this.$yrouter.push({
           path: "/pages/shop/GoodsCon/index",
