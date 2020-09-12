@@ -42,6 +42,7 @@
     <!-- 操作栏 -->
     <view style="height:100rpx;"></view>
     <view class="footer acea-row row-between-wrapper">
+      <!-- #ifdef MP-WEIXIN -->
       <view class="item">
         <button open-type="contact" class='contacButton'>
           <view style="padding-bottom: 8rpx;" class="item">
@@ -50,6 +51,7 @@
           </view>
         </button>
       </view>
+      <!-- #endif -->
       <view class="item" @click="setCollect" v-if="userCollect">
         <view class="iconfont icon-shoucang1"></view>
         <text>收藏</text>

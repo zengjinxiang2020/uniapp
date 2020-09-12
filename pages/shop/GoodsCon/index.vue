@@ -70,7 +70,7 @@
               </view>
             </view>
             <view class="addressBox">
-              <a class="iconfont icon-dadianhua01 font-color-red phone"  @click="telPhone(systemStore.phone)"></a>
+              <a class="iconfont icon-dadianhua01 font-color-red phone" @click="telPhone(systemStore.phone)"></a>
               <view class="addressTxt corlor-yshop">距离{{systemStore.distance}}千米</view>
             </view>
           </view>
@@ -125,6 +125,7 @@
       <view style="height:100rpx;"></view>
       <!-- 操作栏 -->
       <view class="footer acea-row row-between-wrapper">
+        <!-- #ifdef MP-WEIXIN -->
         <view class="item">
           <button open-type="contact" class='contacButton'>
             <view style="padding-bottom: 8rpx;" class="item">
@@ -133,6 +134,8 @@
             </view>
           </button>
         </view>
+        <!-- #endif -->
+
         <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
           <view class="iconfont icon-shoucang1"></view>
           <text>收藏</text>
@@ -319,11 +322,11 @@
       },
     },
     methods: {
-      onShareAppMessage: function() {
+      onShareAppMessage: function () {
         return {
           title: this.storeInfo.storeName,
           imageUrl: this.storeInfo.image,
-          path: "pages/shop/GoodsCon/index?id="+this.storeInfo.id+"&spread=" + uni.getStorageSync("uid"),
+          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid"),
           success(res) {
             uni.showToast({
               title: '分享成功'
