@@ -368,7 +368,7 @@ export default {
       this.computedPrice();
     },
   },
-  mounted: function () {
+  onShow: function () {
     let that = this;
     this.$store.dispatch("getUser", true);
     that.getCartInfo();

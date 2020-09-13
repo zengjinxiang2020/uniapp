@@ -73,16 +73,25 @@ export function delOrderHandle(orderId) {
 }
 
 // 使用订单号进行支付
-export function payOrderHandle(orderId, type, from) {
+export async function payOrderHandle(orderId, type, from) {
   return new Promise((resolve, reject) => {
-    // dialog.loading.open("");
+    uni.showLoading({
+      title: "支付中",
+      mask: true
+    });
     payOrder(orderId, type, from)
-      .then(res => {
-        handleOrderPayResults(res.data)
+      .then(async res => {
+        await handleOrderPayResults(res.data)
+        resolve()
       })
       .catch(err => {
-        dialog.loading.close();
-        dialog.toast({ mes: err.msg || "订单支付失败" });
+        reject()
+        uni.hideLoading()
+        uni.showToast({
+          title: err.msg || err.response.data.msg || err.response.data.message || '订单支付失败',
+          icon: "none",
+          duration: 2000,
+        });
       });
   });
 }
@@ -90,63 +99,74 @@ export function payOrderHandle(orderId, type, from) {
 // 处理调用支付接口的逻辑
 // @type create(创建订单)||pay(支付订单)
 export function handleOrderPayResults(data, type) {
-  switch (data.status) {
-    // 订单号已存在
-    case "ORDER_EXIST":
-    // 取消支付
-    case "EXTEND_ORDER":
-      uni.showToast({
-        title: data.msg,
-        icon: "none",
-        duration: 2000,
-      });
-      goOrderDetails(data.result.orderId, type)
-      break;
-    case "PAY_DEFICIENCY":
-      break;
-    // 支付出错
-    case "PAY_ERROR":
-      uni.showToast({
-        title: data.msg,
-        icon: "none",
-        duration: 2000,
-      });
-      goOrderDetails(data.result.orderId, type)
-      break;
-    // 未传递支付环境
-    case "SUCCESS":
-      uni.showToast({
-        title: data.msg,
-        icon: "none",
-        duration: 2000,
-      });
-      goOrderDetails(data.result.orderId, type)
-      break;
-    // H5支付
-    case "WECHAT_H5_PAY":
-      goOrderDetails(data.result.orderId, type)
-      console.log(data)
-      setTimeout(() => {
-        // #ifdef H5
-        // "https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx15171343713577e9f3a418b0865ef90000&package=2547890641"
-        // location.href = data.result.jsConfig.mweb_url;
-        // #endif
-      }, 100);
-      break;
-    // 小程序支付
-    case "WECHAT_PAY":
-      weappPay(data.result.jsConfig).finally(() => {
+  console.log(data, type)
+  return new Promise((resolve, reject) => {
+    uni.hideLoading()
+    switch (data.status) {
+      // 订单号已存在
+      case "ORDER_EXIST":
+        resolve()
+        break;
+      // 取消支付
+      case "EXTEND_ORDER":
+        uni.showToast({
+          title: data.msg,
+          icon: "none",
+          duration: 2000,
+        });
+        resolve()
         goOrderDetails(data.result.orderId, type)
-      });
-      break;
-    // APP支付
-    case "WECHAT_APP_PAY":
-      
-      weappPay(data.result.jsConfig).finally(() => {
+        break;
+      case "PAY_DEFICIENCY":
+        break;
+      // 支付出错
+      case "PAY_ERROR":
+        uni.showToast({
+          title: data.msg,
+          icon: "none",
+          duration: 2000,
+        });
+        reject()
         goOrderDetails(data.result.orderId, type)
-      });
-      break;
-  }
+        break;
+      // 未传递支付环境
+      case "SUCCESS":
+        uni.showToast({
+          title: data.msg || data.payMsg,
+          icon: "none",
+          duration: 2000,
+        });
+        resolve()
+        goOrderDetails(data.result.orderId, type)
+        break;
+      // H5支付
+      case "WECHAT_H5_PAY":
+        goOrderDetails(data.result.orderId, type)
+        console.log(data)
+        setTimeout(() => {
+          resolve()
+          // #ifdef H5
+          // "https://wx.tenpay.com/cgi-bin/mmpayweb-bin/checkmweb?prepay_id=wx15171343713577e9f3a418b0865ef90000&package=2547890641"
+          // location.href = data.result.jsConfig.mweb_url;
+          // #endif
+        }, 100);
+        break;
+      // 小程序支付
+      case "WECHAT_PAY":
+        weappPay(data.result.jsConfig).finally(() => {
+          resolve()
+          goOrderDetails(data.result.orderId, type)
+        });
+        break;
+      // APP支付
+      case "WECHAT_APP_PAY":
+        weappPay(data.result.jsConfig).finally(() => {
+          resolve()
+          goOrderDetails(data.result.orderId, type)
+        });
+        break;
+    }
+  })
 }
 
 

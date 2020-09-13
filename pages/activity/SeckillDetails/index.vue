@@ -171,7 +171,8 @@
         return {
           title: this.storeInfo.title,
           imageUrl: this.storeInfo.image,
-          path: "pages/activity/GoodsSeckill/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid")+"&pageType=good&codeType=routine",
+          path: "pages/activity/GoodsSeckill/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid") +
+            "&pageType=good&codeType=routine",
           success(res) {
             uni.showToast({
               title: '分享成功'
@@ -397,5 +398,10 @@
 <style scoped lang="less">
   .product-con .nav {
     padding: 0 0.2*100rpx;
+  }
+
+  .product-con .footer .bnt .buy.bg-color-hui {
+    background: #ccc;
+    
   }
 </style>
