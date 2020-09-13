@@ -79,10 +79,28 @@
     methods: {
       // 切换tab
       selTab(tab) {
+        console.log(tab)
         this.tabCur = tab.title;
         this.liveStatus = tab.code;
         this.liveList = [];
-        this.getLiveList();
+        this.loaded=false;
+        this.loading=false;
+        this.getLiveListTab();
+      },
+
+      // 直播列表
+      getLiveListTab() {
+        let that = this;
+        yxWechatLive({
+          liveStatus: that.liveStatus,
+          page: 0,
+          size: that.size
+        }).then(res => {
+          that.liveList = [...that.liveList, ...res.data.content];
+          that.lastPage = res.data.lastPage;
+          this.loaded = res.data.content.length < that.size;
+          this.loading = false;
+        });
       },
       // 直播列表
       getLiveList() {
@@ -90,20 +108,14 @@
         if (this.loading || this.loaded) return;
         this.loading = true;
         yxWechatLive({
-          liveStatus: that.liveStatus,
-          page: that.currentPage,
-          size: that.size
+          liveStatus: this.liveStatus,
+          page: this.currentPage,
+          size: this.size
         }).then(res => {
           that.liveList = that.liveList.concat(res.data.content)
           this.currentPage++;
           this.loaded = res.data.content.length < that.size;
           this.loading = false;
-
-          // if (that.currentPage < res.data.lastPage) {
-          //   that.loadStatus = '';
-          // } else {
-          //   that.loadStatus = 'over';
-          // }
         });
       }
     },
