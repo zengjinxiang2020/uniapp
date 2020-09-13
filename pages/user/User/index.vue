@@ -133,7 +133,7 @@
         :login_type="userInfo.login_type"
       ></SwitchWindow>-->
     </view>
-    <Authorization v-if="!$store.getters.token" />
+    <Authorization v-else />
   </view>
 </template>
 <script>
@@ -185,7 +185,7 @@
           }
         });
       },
-      goBindPhone(){
+      goBindPhone() {
         this.$yrouter.push({
           path: "/pages/user/BindingPhone/index",
         });

@@ -21,9 +21,6 @@
 			<view class="qr" @click="startQr()">
 				<image src="@/static/images/qr.png" />
 			</view>
-			<view class="qr" @click="$yrouter.push({path:'/pages/shop/GoodsEvaluate/index'})">
-				<image src="@/static/images/qr.png" />
-			</view>
 		</view>
 		<Banner :banner="banner" @getbgcolor="getbgcolor"></Banner>
 		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true"
