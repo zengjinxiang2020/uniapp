@@ -818,9 +818,105 @@ export const handleLoginFailure = () => {
 	console.log(store.getters)
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
-
 	let path = '/' + getCurrentPageUrlWithArgs()
+	console.log("getCurrentPageUrl",getCurrentPageUrl());
+	//判断小程序转发分享商品详情进来的
+	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) && !handleQrCode()) {
+		debugger;
+		console.log('————————')
+		console.log('判断小程序转发分享商品详情进来的')
+		console.log(' handleUrlParam()', handleUrlParam(path))
 
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			handleNoParameters()
+			console.log('————————')
+			console.log('是扫描的商品详情进来的,但是没有获取到参数')
+			console.log('————————')
+		}
+	}
+
+	// 是分享转发拼团进来的
+	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+		console.log('————————')
+		console.log('是分享转发拼团进来的')
+		console.log('————————')
+
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('————————')
+			console.log('是拼团进来的,但是没有获取到参数')
+			console.log('————————')
+			handleNoParameters()
+		}
+	}
+
+	// 是分享转发秒杀进来的
+	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+		console.log('————————')
+		console.log('是分享转发秒杀进来的')
+		console.log('————————')
+
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('————————')
+			console.log('是秒杀进来的,但是没有获取到参数')
+			console.log('————————')
+			handleNoParameters()
+		}
+	}
+
+	// 判断是不是转发分享的砍价海报进来的
+	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' &&  handleUrlParam(path) && !handleQrCode()) {
+		console.log('————————')
+		console.log('判断是不是转发分享的砍价海报进来的')
+		console.log('————————')
+		let url = handleUrlParam(path);
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.bargainId,
+					partake: url.uid
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			handleNoParameters()
+			console.log('————————')
+			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
+			console.log('————————')
+
+
+		}
+	}
 	// 判断是不是拼团进来的
 	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
 		console.log('————————')
@@ -836,7 +932,7 @@ export const handleLoginFailure = () => {
 					id: url.pinkId,
 				}
 			})
-			// cookie.set("spread", url.spread || 0);
+			cookie.set("spread", url.spread || 0);
 		} else {
 			console.log('————————')
 			console.log('是拼团进来的,但是没有获取到参数')
@@ -859,7 +955,7 @@ export const handleLoginFailure = () => {
 					partake: url.uid
 				}
 			})
-			// cookie.set("spread", url.spread || 0);
+			cookie.set("spread", url.spread || 0);
 		} else {
 			handleNoParameters()
 			console.log('————————')
@@ -871,6 +967,7 @@ export const handleLoginFailure = () => {
 	}
 
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
+		debugger;
 		console.log('————————')
 		console.log('是扫描的商品详情')
 		console.log('————————')

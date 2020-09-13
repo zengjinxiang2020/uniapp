@@ -326,7 +326,7 @@
         return {
           title: this.storeInfo.storeName,
           imageUrl: this.storeInfo.image,
-          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid"),
+          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid")+"&pageType=good&codeType=routine",
           success(res) {
             uni.showToast({
               title: '分享成功'
