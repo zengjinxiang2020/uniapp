@@ -81,7 +81,7 @@ export async function payOrderHandle(orderId, type, from) {
     });
     payOrder(orderId, type, from)
       .then(async res => {
-        await handleOrderPayResults(res.data)
+        await handleOrderPayResults(res.data, type)
         resolve()
       })
       .catch(err => {
@@ -98,7 +98,9 @@ export async function payOrderHandle(orderId, type, from) {
 
 // 处理调用支付接口的逻辑
 // @type create(创建订单)||pay(支付订单)
-export function handleOrderPayResults(data, type) {
+export function handleOrderPayResults(data, type, payType) {
+  console.log(data, type, payType)
+
   console.log(data, type)
   return new Promise((resolve, reject) => {
     uni.hideLoading()
@@ -156,15 +158,33 @@ export function handleOrderPayResults(data, type) {
         weappPay(data.result.jsConfig).finally(() => {
           resolve()
           goOrderDetails(data.result.orderId, type)
-        });
+        }).then(res => {
+          // #ifdef MP-WEIXIN
+          subscribeMessage()
+          // #endif
+        })
         break;
       // APP支付
       case "WECHAT_APP_PAY":
         weappPay(data.result.jsConfig).finally(() => {
           resolve()
           goOrderDetails(data.result.orderId, type)
-        });
+        })
         break;
+    }
+  })
+}
+
+export function subscribeMessage() {
+  // 调用订阅
+  console.log('调用订阅')
+  uni.requestSubscribeMessage({
+    tmplIds: ['W5r2c2kzhbq8uxStkPAVx_sk-5aapMFCqe7b7KU5jXI', '2CB_1UyQrbnlyjJa5syraqJ3cfztPPDOAHe3DEXpMjg', 'vuztugw9VbKbKJDAAVePkjqPpT5mdoREpd4Aq7EGPRU'],
+    success(res) { 
+      console.log(res)
+    },
+    fail(error){
+      console.log(error)
     }
   })
 }

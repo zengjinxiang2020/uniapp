@@ -75,8 +75,8 @@ export function getGroomList(type) {
 /*
  * 获取商品海报
  * */
-export function getProductPoster(id) {
-	return request.get("/product/poster/" + id, {}, {
+export function getProductPoster(id, data) {
+	return request.get("/product/poster/" + id, data, {
 		login: true
 	});
 }

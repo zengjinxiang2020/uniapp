@@ -107,7 +107,11 @@ export default {
           this.mapKey = res.data.mapKey;
         })
         .catch(err => {
-          this.$dialog.error(err.msg);
+          uni.showToast({
+					title: err.msg,
+					icon: "none",
+					duration: 2000,
+				});
         });
     }
   }

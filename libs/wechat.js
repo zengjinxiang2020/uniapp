@@ -1,3 +1,4 @@
+import { subscribeMessage } from "@/libs/order";
 import { getProvider } from "@/utils";
 import WechatJSSDK from "wechat-jssdk/dist/client.umd";
 import { getWechatConfig, wechatAuth } from "@/api/public";
@@ -9,7 +10,6 @@ import dayjs from "dayjs";
 // 支付模块
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
-    console.log(option)
     if (store.state.$deviceType == 'weixinh5') {
       setTimeout(() => {
         location.href = option.mweb_url;
@@ -59,11 +59,16 @@ export const weappPay = (option) => {
           clearTimeout(time)
           resolve(success)
         }, 3000)
+        // #ifdef MP-WEIXIN
+        subscribeMessage()
+        // #endif
       },
       fail: (error) => {
         console.log(error)
         if (error.errMsg == 'requestPayment:fail cancel') {
           uni.showToast({ title: '已取消支付', icon: 'none', duration: 5000 });
+        } else {
+          uni.showToast({ title: error || error.msg, icon: 'none', duration: 5000 });
         }
         reject(error)
       }
@@ -344,12 +349,20 @@ export function wxShowLocation() {
             cancel() {
               cookie.remove(LATITUDE);
               cookie.remove(LONGITUDE);
-              this.$dialog.error("取消获取位置");
+              uni.showToast({
+                title: "取消获取位置",
+                icon: "none",
+                duration: 2000,
+              });
             },
             fail() {
               cookie.remove(LATITUDE);
               cookie.remove(LONGITUDE);
-              this.$dialog.error("授权失败");
+              uni.showToast({
+                title: "授权失败",
+                icon: "none",
+                duration: 2000,
+              });
             }
           });
         }

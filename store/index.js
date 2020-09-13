@@ -100,7 +100,11 @@ const vuexStore = new Vuex.Store({
 						reslove(res.data);
 					});
 				}).catch(() => {
-					dialog.error("获取信息失败!");
+					uni.showToast({
+						title: "获取信息失败!",
+						icon: "none",
+						duration: 2000,
+					});
 				});
 			}
 		},
@@ -113,7 +117,11 @@ const vuexStore = new Vuex.Store({
 				});
 			}).catch((error) => {
 				console.log(error)
-				dialog.error("获取信息失败!");
+				uni.showToast({
+					title: "获取信息失败!",
+					icon: "none",
+					duration: 2000,
+				});
 			});
 		},
 		changeLogin({
