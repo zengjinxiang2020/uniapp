@@ -94,7 +94,7 @@
           page: that.currentPage,
           size: that.size
         }).then(res => {
-          that.liveList = [...that.liveList, ...res.data.content];
+          that.liveList = that.liveList.concat(res.data.content)
           this.currentPage++;
           this.loaded = res.data.content.length < that.size;
           this.loading = false;
