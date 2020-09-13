@@ -18,6 +18,7 @@
         <view v-if="liveList.length" class="cu-load text-gray" :class="loadStatus"></view>
       </scroll-view>
     </view>
+    <Loading :loaded="loaded" :loading="loading"></Loading>
   </view>
 </template>
 
@@ -26,26 +27,30 @@
     yxWechatLive
   } from "@/api/live";
   import ShopLiveCard from '@/components/ShopLiveCard.vue'
+  import Loading from "@/components/Loading";
 
   export default {
     components: {
-      ShopLiveCard
+      ShopLiveCard,
+      Loading
     },
     data() {
       return {
         tabCur: 'all',
         liveStatus: '',
+        loaded: false,
+        loading: false,
         liveTab: [{
             title: 'all',
             name: '全部',
             code: ''
           },
-		  {
-		    title: 'prevue',
-		    name: '预告',
-		    code: '102'
-		  
-		  },
+          {
+            title: 'prevue',
+            name: '预告',
+            code: '102'
+
+          },
           {
             title: 'living',
             name: '直播中',
@@ -79,30 +84,31 @@
         this.liveList = [];
         this.getLiveList();
       },
-      // 加载更多
-      loadMore() {
-        if (this.currentPage < this.lastPage) {
-          this.currentPage += 1;
-          this.getLiveList();
-        }
-      },
       // 直播列表
       getLiveList() {
         let that = this;
+        if (this.loading || this.loaded) return;
+        this.loading = true;
         yxWechatLive({
           liveStatus: that.liveStatus,
           page: that.currentPage,
           size: that.size
         }).then(res => {
-            that.liveList = [...that.liveList, ...res.data.content];
-            that.lastPage = res.data.lastPage;
-            if (that.currentPage < res.data.lastPage) {
-              that.loadStatus = '';
-            } else {
-              that.loadStatus = 'over';
-            }
+          that.liveList = [...that.liveList, ...res.data.content];
+          this.currentPage++;
+          this.loaded = res.data.content.length < that.size;
+          this.loading = false;
+
+          // if (that.currentPage < res.data.lastPage) {
+          //   that.loadStatus = '';
+          // } else {
+          //   that.loadStatus = 'over';
+          // }
         });
       }
+    },
+    onReachBottom() {
+      !this.loading && this.getLiveList();
     }
   };
 </script>

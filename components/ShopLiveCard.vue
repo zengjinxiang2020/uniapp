@@ -19,7 +19,8 @@
 			</view>
 			<slot name="liveGoods">
 				<view class="live-goods" v-if="detail.product.length">
-					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.goodsId" v-if="index < 3">
+					<view class="live-goods__item" v-for="(goods, index) in detail.product" :key="goods.goodsId"
+						v-if="index < 3">
 						<image class="live-goods__img" :src="goods.coverImgeUrl" mode=""></image>
 						<view class="live-goods__price" v-if="index < 2">￥{{ goods.price }}</view>
 						<view class="live-goods__mark" v-else>
@@ -33,7 +34,9 @@
 </template>
 
 <script>
-	import { dataFormatL } from "@/utils";
+	import {
+		dataFormatL
+	} from "@/utils";
 	let HAS_LIVE = false
 	// #ifdef MP-WEIXIN
 	HAS_LIVE = true
@@ -111,27 +114,45 @@
 					url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${that.detail.roomId}`
 				});
 			},
+			dateFormat(fmt, date) {
+				let ret;
+				const opt = {
+					"Y+": date.getFullYear().toString(), // 年
+					"m+": (date.getMonth() + 1).toString(), // 月
+					"d+": date.getDate().toString(), // 日
+					"H+": date.getHours().toString(), // 时
+					"M+": date.getMinutes().toString(), // 分
+					"S+": date.getSeconds().toString() // 秒
+					// 有其他格式化字符需求可以继续添加，必须转化成字符串
+				};
+				for (let k in opt) {
+					ret = new RegExp("(" + k + ")").exec(fmt);
+					if (ret) {
+						fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+					};
+				};
+				return fmt;
+			},
 			// 轮询liveStatus
 			getLiveStatus() {
 				if (HAS_LIVE) {
 					let that = this;
 					let date = '';
 					if (that.detail.liveStatus == 102) {
-						 date = dataFormatL('mm-dd HH:MM', new Date(that.detail.starttime * 1000)).replace('-',
-							 '/');
-							that.liveStatus['102'].title = '预告 ' + date;
+						date = this.dateFormat('mm-dd HH:MM', new Date(that.detail.startTime * 1000)).replace('-','/');
+						that.liveStatus['102'].title = '预告 ' + date;
 					}
-					livePlayer
-						.getLiveStatus({
-							room_id: that.detail.roomId
-						})
-						.then(res => {
-							// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
-							that.detail.liveStatus = res.liveStatus;
-						})
-						.catch(err => {
-							console.log('get live status', err);
-						});
+					// livePlayer
+					// 	.getLiveStatus({
+					// 		room_id: that.detail.roomId
+					// 	})
+					// 	.then(res => {
+					// 		// 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+					// 		that.detail.liveStatus = res.liveStatus;
+					// 	})
+					// 	.catch(err => {
+					// 		console.log('get live status', err);
+					// 	});
 				}
 			}
 		}
