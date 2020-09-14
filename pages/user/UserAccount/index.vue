@@ -8,7 +8,7 @@
               <view>总资产(元)</view>
               <view class="money">{{ now_money }}</view>
             </view>
-            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red">充值</navigator>
+            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red" v-if="is_hide=='0'">充值</navigator>
           </view>
           <view class="cumulative acea-row row-top">
             <view class="item">
@@ -31,7 +31,7 @@
           </view>
           <view>消费记录</view>
         </view>
-        <view class="item" @click="goUserBill(2)">
+        <view class="item" @click="goUserBill(2)" v-if="is_hide=='0'">
           <view class="pictrue">
             <image src="@/static/images/record3.png" />
           </view>
@@ -54,6 +54,7 @@ export default {
   props: {},
   data: function() {
     return {
+      is_hide: "1",
       now_money: 0,
       orderStatusSum: 0,
       recharge: 0,
@@ -82,6 +83,7 @@ export default {
           that.now_money = res.data.now_money;
           that.orderStatusSum = res.data.orderStatusSum;
           that.recharge = res.data.recharge;
+          this.is_hide = res.data.is_hide;
         },
         err => {
           uni.showToast({
