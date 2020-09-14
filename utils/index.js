@@ -681,13 +681,14 @@ export function handleQrCode() {
 
 export function handleUrlParam(path) {
 	console.log(path)
-
-	var url = path.split("?")[1]; //获取url中"?"符后的字串
-	console.log(url)
 	var theRequest = new Object();
-	let strs = url.split("&");
-	for (var i = 0; i < strs.length; i++) {
-		theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+	if(path.includes("?")){
+		var url = path.split("?")[1]; //获取url中"?"符后的字串
+		console.log(url)
+		let strs = url.split("&");
+		for (var i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
 	}
 	return theRequest;
 }
