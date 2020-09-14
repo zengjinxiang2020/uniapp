@@ -140,7 +140,7 @@ export default {
       var data = {};
       data.productId = that.storeCombination.productId;
       data.cartNum = that.pinkT.totalNum;
-      data.uniqueId = "";
+      data.uniqueId = that.uniqueId;
       data.combinationId = that.storeCombination.id;
       data.new = 1;
       postCartAdd(data)
