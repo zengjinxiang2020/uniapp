@@ -18,7 +18,7 @@ import { mapState, mapMutations, mapActions } from "vuex";
 import { wxappAuth, getUser } from "@/api/user";
 import dayjs from "dayjs";
 import cookie from "@/utils/store/cookie";
-import { parseQuery, login, handleQrCode } from "@/utils";
+import { parseQuery, login, handleQrCode ,getCurrentPageUrl,handleUrlParam} from "@/utils";
 
 export default {
   name: "Loading",
@@ -26,8 +26,11 @@ export default {
     return {};
   },
   onShow() {
-    
+
     var url = handleQrCode();
+    if(!url){
+      url =  handleUrlParam(getCurrentPageUrl())
+    }
     // 判断是否是分销
     if (url) {
       var spread = cookie.get("spread");

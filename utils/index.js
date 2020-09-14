@@ -821,7 +821,7 @@ export const handleLoginFailure = () => {
 	let path = '/' + getCurrentPageUrlWithArgs()
 	console.log("getCurrentPageUrl",getCurrentPageUrl());
 	//判断小程序转发分享商品详情进来的
-	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) ) {
 		debugger;
 		console.log('————————')
 		console.log('判断小程序转发分享商品详情进来的')
@@ -846,7 +846,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 是分享转发拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path)) {
 		console.log('————————')
 		console.log('是分享转发拼团进来的')
 		console.log('————————')
@@ -870,7 +870,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 是分享转发秒杀进来的
-	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path)) {
 		console.log('————————')
 		console.log('是分享转发秒杀进来的')
 		console.log('————————')
@@ -894,7 +894,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 判断是不是转发分享的砍价海报进来的
-	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' &&  handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' &&  handleUrlParam(path)) {
 		console.log('————————')
 		console.log('判断是不是转发分享的砍价海报进来的')
 		console.log('————————')
@@ -918,12 +918,15 @@ export const handleLoginFailure = () => {
 		}
 	}
 	// 判断是不是拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' ) {
 		console.log('————————')
 		console.log('是拼团进来的')
 		console.log('————————')
 
 		let url = handleQrCode();
+		if(!url){
+			url = handleUrlParam(path);
+		}
 		console.log(url)
 		if (url) {
 			path = parseUrl({
