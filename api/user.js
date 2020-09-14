@@ -186,10 +186,11 @@ export function postAddress(data) {
 /*
  * 获取收藏产品
  * */
-export function getCollectUser(page, limit) {
+export function getCollectUser(page, limit, type) {
 	return request.get("/collect/user", {
 		page: page,
-		limit: limit
+		limit: limit,
+		type
 	});
 }
 

@@ -47,6 +47,7 @@ export default {
     return {
       page: 1,
       limit: 20,
+      type:'collect',
       collectProductList: [],
       loadTitle: "",
       loading: false,
@@ -71,7 +72,7 @@ export default {
       if (that.loading) return; //阻止下次请求（false可以进行请求）；
       if (that.loadend) return; //阻止结束当前请求（false可以进行请求）；
       that.loading = true;
-      getCollectUser(that.page, that.limit).then(res => {
+      getCollectUser(that.page, that.limit,that.type).then(res => {
         that.loading = false;
         //apply();js将一个数组插入另一个数组;
         that.collectProductList.push.apply(that.collectProductList, res.data);

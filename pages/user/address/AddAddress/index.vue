@@ -13,12 +13,7 @@
         <view class="name">所在地区</view>
         <view class="picker acea-row row-between-wrapper select-value form-control">
           <view class="address">
-            <CitySelect
-              ref="cityselect"
-              :defaultValue="addressText"
-              @callback="result"
-              :items="district"
-            ></CitySelect>
+            <CitySelect ref="cityselect" :defaultValue="addressText" @callback="result" :items="district"></CitySelect>
           </view>
           <view class="iconfont icon-dizhi font-color-red"></view>
         </view>
@@ -47,7 +42,7 @@
 </template>
 
 <script type="text/babel">
-import CitySelect from "@/components/CitySelect";
+  import CitySelect from "@/components/CitySelect";
 import { getAddress, postAddress, getCity } from "@/api/user";
 import attrs, { required, chs_phone } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
@@ -89,7 +84,11 @@ export default {
           that.ready = true;
         })
         .catch(err => {
-          that.$dialog.error(err.msg);
+          uni.showToast({
+					title: err.msg,
+					icon: "none",
+					duration: 2000,
+				});
         });
     },
     getUserAddress: function() {
@@ -194,10 +193,10 @@ export default {
 </script>
 
 <style lang="less">
-.address {
-  text {
-    width: 100%;
-    display: block;
+  .address {
+    text {
+      width: 100%;
+      display: block;
+    }
   }
-}
 </style>

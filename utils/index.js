@@ -38,7 +38,27 @@ export function dataFormat(time, option) {
 		return timeStr
 	}
 }
-
+	// 年月日，时分秒
+	// "YYYY-mm-dd HH:MM"
+export function	dateFormatL(fmt, date) {
+		let ret;
+		const opt = {
+			"Y+": date.getFullYear().toString(), // 年
+			"m+": (date.getMonth() + 1).toString(), // 月
+			"d+": date.getDate().toString(), // 日
+			"H+": date.getHours().toString(), // 时
+			"M+": date.getMinutes().toString(), // 分
+			"S+": date.getSeconds().toString() // 秒
+			// 有其他格式化字符需求可以继续添加，必须转化成字符串
+		};
+		for (let k in opt) {
+			ret = new RegExp("(" + k + ")").exec(fmt);
+			if (ret) {
+				fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
+			};
+		};
+		return fmt;
+	}
 export function dateFormatT(time) {
 	time = +time * 1000;
 	const d = new Date(time);
@@ -62,7 +82,10 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	return navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1;
+	if(navigator&&navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1){
+		return true
+	}
+	return false
 }
 
 export function parseQuery() {
@@ -182,13 +205,11 @@ export const login = () => {
 			// } else {
 			// 	// wechat().then(() => oAuth().then((code) => {
 			// 	// 	// const { code } = parseQuery()
-			// 	// 	debugger
 			// 	// 	auth(code)
 			// 	// 		.then(() => {
 			// 	// 			// location.replace(
 			// 	// 			//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
 			// 	// 			// );
-			// 	// 			debugger
 			// 	// 			location.href = decodeURIComponent(
 			// 	// 				decodeURIComponent(this.$route.params.url)
 			// 	// 			);
@@ -250,6 +271,7 @@ export const login = () => {
 									store.dispatch('userInfo', true)
 									getUserInfo().then(user => {
 										console.log('获取用户信息成功')
+										uni.setStorageSync('uid', user.data.uid);
 										store.dispatch('setUserInfo', user.data)
 										resolve(user)
 									}).catch(error => {
@@ -659,13 +681,14 @@ export function handleQrCode() {
 
 export function handleUrlParam(path) {
 	console.log(path)
-
-	var url = path.split("?")[1]; //获取url中"?"符后的字串  
-	console.log(url)
 	var theRequest = new Object();
-	let strs = url.split("&");
-	for (var i = 0; i < strs.length; i++) {
-		theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+	if(path.includes("?")){
+		var url = path.split("?")[1]; //获取url中"?"符后的字串
+		console.log(url)
+		let strs = url.split("&");
+		for (var i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
 	}
 	return theRequest;
 }
@@ -700,8 +723,8 @@ const getImageInfo = (images) => {
  * @param string store_name 素材文字
  * @param string price 价格
  * @param function successFn 回调函数
- * 
- * 
+ *
+ *
  */
 export const PosterCanvas = (store, successCallBack) => {
 	uni.showLoading({
@@ -796,16 +819,115 @@ export const handleLoginFailure = () => {
 	console.log(store.getters)
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
-
 	let path = '/' + getCurrentPageUrlWithArgs()
+	console.log("getCurrentPageUrl",getCurrentPageUrl());
+	//判断小程序转发分享商品详情进来的
+	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) ) {
+		debugger;
+		console.log('————————')
+		console.log('判断小程序转发分享商品详情进来的')
+		console.log(' handleUrlParam()', handleUrlParam(path))
 
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			handleNoParameters()
+			console.log('————————')
+			console.log('是扫描的商品详情进来的,但是没有获取到参数')
+			console.log('————————')
+		}
+	}
+
+	// 是分享转发拼团进来的
+	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path)) {
+		console.log('————————')
+		console.log('是分享转发拼团进来的')
+		console.log('————————')
+
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('————————')
+			console.log('是拼团进来的,但是没有获取到参数')
+			console.log('————————')
+			handleNoParameters()
+		}
+	}
+
+	// 是分享转发秒杀进来的
+	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path)) {
+		console.log('————————')
+		console.log('是分享转发秒杀进来的')
+		console.log('————————')
+
+		let url = handleUrlParam(path);
+		console.log(url)
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.id,
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			console.log('————————')
+			console.log('是秒杀进来的,但是没有获取到参数')
+			console.log('————————')
+			handleNoParameters()
+		}
+	}
+
+	// 判断是不是转发分享的砍价海报进来的
+	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' &&  handleUrlParam(path)) {
+		console.log('————————')
+		console.log('判断是不是转发分享的砍价海报进来的')
+		console.log('————————')
+		let url = handleUrlParam(path);
+		if (url) {
+			path = parseUrl({
+				path: `/${getCurrentPageUrl()}`,
+				query: {
+					id: url.bargainId,
+					partake: url.uid
+				}
+			})
+			cookie.set("spread", url.spread || 0);
+		} else {
+			handleNoParameters()
+			console.log('————————')
+			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
+			console.log('————————')
+
+
+		}
+	}
 	// 判断是不是拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' ) {
 		console.log('————————')
 		console.log('是拼团进来的')
 		console.log('————————')
 
 		let url = handleQrCode();
+		if(!url){
+			url = handleUrlParam(path);
+		}
 		console.log(url)
 		if (url) {
 			path = parseUrl({
@@ -814,7 +936,7 @@ export const handleLoginFailure = () => {
 					id: url.pinkId,
 				}
 			})
-			// cookie.set("spread", url.spread || 0);
+			cookie.set("spread", url.spread || 0);
 		} else {
 			console.log('————————')
 			console.log('是拼团进来的,但是没有获取到参数')
@@ -837,7 +959,7 @@ export const handleLoginFailure = () => {
 					partake: url.uid
 				}
 			})
-			// cookie.set("spread", url.spread || 0);
+			cookie.set("spread", url.spread || 0);
 		} else {
 			handleNoParameters()
 			console.log('————————')
@@ -849,6 +971,7 @@ export const handleLoginFailure = () => {
 	}
 
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
+		debugger;
 		console.log('————————')
 		console.log('是扫描的商品详情')
 		console.log('————————')

@@ -111,6 +111,7 @@ export default {
       pinkT: [], //团长信息
       storeCombination: [], //拼团产品
       pinkId: 0,
+      uniqueId: "",
       count: 0, //拼团剩余人数
       iShidden: false
     };
@@ -140,7 +141,7 @@ export default {
       var data = {};
       data.productId = that.storeCombination.productId;
       data.cartNum = that.pinkT.totalNum;
-      data.uniqueId = "";
+      data.uniqueId = that.uniqueId;
       data.combinationId = that.storeCombination.id;
       data.new = 1;
       postCartAdd(data)
@@ -208,6 +209,7 @@ export default {
         that.$set(that, "pinkBool", res.data.pinkBool);
         that.$set(that, "isOk", res.data.isOk);
         that.$set(that, "currentPinkOrder", res.data.currentPinkOrder);
+        that.$set(that, "uniqueId", res.data.uniqueId);
       });
     },
     //拼团取消

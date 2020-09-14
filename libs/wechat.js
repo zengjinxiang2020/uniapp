@@ -1,3 +1,4 @@
+import { subscribeMessage } from "@/libs/order";
 import { getProvider } from "@/utils";
 import WechatJSSDK from "wechat-jssdk/dist/client.umd";
 import { getWechatConfig, wechatAuth } from "@/api/public";
@@ -9,7 +10,6 @@ import dayjs from "dayjs";
 // 支付模块
 export const weappPay = (option) => {
   return new Promise((resolve, reject) => {
-    console.log(option)
     if (store.state.$deviceType == 'weixinh5') {
       setTimeout(() => {
         location.href = option.mweb_url;
@@ -59,11 +59,16 @@ export const weappPay = (option) => {
           clearTimeout(time)
           resolve(success)
         }, 3000)
+        // #ifdef MP-WEIXIN
+        subscribeMessage()
+        // #endif
       },
       fail: (error) => {
         console.log(error)
         if (error.errMsg == 'requestPayment:fail cancel') {
           uni.showToast({ title: '已取消支付', icon: 'none', duration: 5000 });
+        } else {
+          uni.showToast({ title: error || error.msg, icon: 'none', duration: 5000 });
         }
         reject(error)
       }
@@ -119,6 +124,7 @@ export function clearAuthStatus() {
 
 export function oAuth() {
   console.log('处理微信授权')
+  console.log('处理微信授权cookie',cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {
@@ -142,8 +148,7 @@ export function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    debugger
-    wechatAuth(code, parseInt(cookie.get("spread")), loginType)
+    wechatAuth(code, cookie.get("spread"), loginType)
       .then(({ data }) => {
         console.log(data)
         const expires_time = dayjs(data.expires_time);
@@ -152,12 +157,10 @@ export function auth(code) {
         cookie.set(WX_AUTH, code, expires_time);
         cookie.remove(STATE_KEY);
         loginType && cookie.remove(LOGINTYPE);
-        debugger
         resolve();
       })
       .catch(reject);
   }).catch(error => {
-    debugger
     console.log(error)
   })
 }
@@ -347,12 +350,20 @@ export function wxShowLocation() {
             cancel() {
               cookie.remove(LATITUDE);
               cookie.remove(LONGITUDE);
-              this.$dialog.error("取消获取位置");
+              uni.showToast({
+                title: "取消获取位置",
+                icon: "none",
+                duration: 2000,
+              });
             },
             fail() {
               cookie.remove(LATITUDE);
               cookie.remove(LONGITUDE);
-              this.$dialog.error("授权失败");
+              uni.showToast({
+                title: "授权失败",
+                icon: "none",
+                duration: 2000,
+              });
             }
           });
         }

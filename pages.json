@@ -39,7 +39,10 @@
 		{
 			"path": "pages/home/index",
 			"style": {
-				"navigationBarTitleText": "yshop商城"
+				"navigationBarTitleText": "yshop商城",
+				"navigationBarTextStyle": "white",
+				// "enablePullDownRefresh": true,
+				"navigationStyle": "custom"
 			}
 		},
 		{
@@ -88,6 +91,12 @@
 			"path": "pages/shop/GoodsCollection/index",
 			"style": {
 				"navigationBarTitleText": "商品收藏"
+			}
+		},
+		{
+			"path": "pages/shop/GoodsFoot/index",
+			"style": {
+				"navigationBarTitleText": "我的足迹"
 			}
 		},
 		{
@@ -401,13 +410,20 @@
 			"style": {
 				"navigationBarTitleText": "地图"
 			}
+		},
+		{
+			"path": "pages/shop/Live/LiveList/index",
+			"style": {
+				"navigationBarTitleText": "直播列表"
+			}
 		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
+		"navigationBarTitleText": "Yshop",
 		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"backgroundColor": "#F8F8F8",
+		"navigationStyle": "default"
 	},
 	"tabBar": {
 		"color": "#282828",
@@ -415,9 +431,9 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"height": "50px",
-		"fontSize": "10px",
-		"iconWidth": "24px",
-		"spacing": "3px",
+		"fontSize": "8px",
+		"iconWidth": "16px",
+		"spacing": "-3px",
 		"list": [{
 			"pagePath": "pages/home/index",
 			"iconPath": "static/icon-home.png",
