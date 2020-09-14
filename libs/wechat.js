@@ -124,6 +124,7 @@ export function clearAuthStatus() {
 
 export function oAuth() {
   console.log('处理微信授权')
+  console.log('处理微信授权cookie',cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {
@@ -147,7 +148,7 @@ export function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    wechatAuth(code, parseInt(cookie.get("spread")), loginType)
+    wechatAuth(code, cookie.get("spread"), loginType)
       .then(({ data }) => {
         console.log(data)
         const expires_time = dayjs(data.expires_time);
