@@ -2,14 +2,14 @@
     <view class="banner-swiper-box">
         <canvas canvas-id="colorThief" class="hide-canvas"></canvas>
         <swiper class="banner-carousel Shop-selector-rect" circular @change="swiperChange" :autoplay="true">
-            <swiper-item v-for="(item, index) in list" :key="index" class="carousel-item" @tap="routerTo(item.path)">
+            <swiper-item v-for="(item, index) in detail" :key="index" class="carousel-item" >
                 <image class="swiper-image " :src="item.pic" @click="goRoll(item)" mode="widthFix" lazy-load>
                 </image>
             </swiper-item>
         </swiper>
         <view class="banner-swiper-dots">
             <text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'"
-                v-for="(dot, index) in list.length" :key="index"></text>
+                v-for="(dot, index) in detail.length" :key="index"></text>
         </view>
     </view>
 </template>
@@ -22,43 +22,28 @@
             return {
                 swiperCurrent: 0, //轮播下标
                 webviewId: 0,
-                bgcolorAry: [],
-                list: []
             };
         },
         props: {
-            banner: {
+            detail: {
                 type: Array,
                 default: []
             }
         },
         created: async function () {
             await this.doColorThief();
-
-        },
-        async mounted() {
-
         },
         computed: {},
-        watch: {
-            banner(next) {
-                this.list = next;
-                this.doColorThief()
-            }
-        },
         methods: {
             async doColorThief() {
                 let that = this;
                 // 获取轮播图
-                let item = this.list[this.swiperCurrent];
-                if(!item){
-                    return
-                }
+                let item = this.detail[this.swiperCurrent];
                 // 获取轮播图颜色
-                let bgcolor = this.bgcolorAry[this.swiperCurrent];
+                let bgcolor = item.bgcolor;
                 // 颜色不存在
-                if (!bgcolor) {
-                    let ctx = uni.createCanvasContext('colorThief', that.$scope);
+                if (bgcolor === '') {
+                    let ctx = uni.createCanvasContext('colorThief', that);
                     if (0 === that.webviewId || ctx.webviewId === that.webviewId) {
                         that.webviewId = ctx.webviewId;
                         uni.getImageInfo({
@@ -67,26 +52,22 @@
                                 ctx.drawImage(image.path, 0, 0, image.width, image.height);
                                 ctx.draw(true, function (e) {
                                     uni.canvasGetImageData({
-                                        canvasId: 'colorThief',
-                                        x: 0,
-                                        y: 0,
-                                        width: parseInt(image.width),
-                                        height: parseInt(image.height),
-                                        success(res) {
-                                            let newBgcolor = colorThief(res.data)
-                                                .color()
-                                                .getHex();
-                                            that.$set(that.bgcolorAry, that
-                                                .swiperCurrent,
-                                                newBgcolor);
-                                            that.$emit('getbgcolor', newBgcolor);
+                                            canvasId: 'colorThief',
+                                            x: 0,
+                                            y: 0,
+                                            width: parseInt(image.width),
+                                            height: parseInt(image.height),
+                                            success(res) {
+                                                let bgcolor = colorThief(res.data)
+                                                    .color()
+                                                    .getHex();
+                                                that.$set(item, 'bgcolor', bgcolor);
+                                                that.$emit('getbgcolor', bgcolor);
+                                            }
                                         },
-                                        fail: function (error) {
-                                        }
-                                    }, that.$scope);
+                                        that
+                                    );
                                 });
-                            },
-                            fail: function (error) {
                             }
                         });
                     }
@@ -98,6 +79,8 @@
             swiperChange(e) {
                 this.swiperCurrent = e.detail.current;
                 this.doColorThief();
+                let bgcolor = this.detail[this.swiperCurrent].bgcolor;
+                this.$emit('getbgcolor', bgcolor);
             },
 
             // 路由跳转

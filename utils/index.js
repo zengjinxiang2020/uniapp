@@ -38,27 +38,27 @@ export function dataFormat(time, option) {
 		return timeStr
 	}
 }
-	// 年月日，时分秒
-	// "YYYY-mm-dd HH:MM"
-export function	dateFormatL(fmt, date) {
-		let ret;
-		const opt = {
-			"Y+": date.getFullYear().toString(), // 年
-			"m+": (date.getMonth() + 1).toString(), // 月
-			"d+": date.getDate().toString(), // 日
-			"H+": date.getHours().toString(), // 时
-			"M+": date.getMinutes().toString(), // 分
-			"S+": date.getSeconds().toString() // 秒
-			// 有其他格式化字符需求可以继续添加，必须转化成字符串
+// 年月日，时分秒
+// "YYYY-mm-dd HH:MM"
+export function dateFormatL(fmt, date) {
+	let ret;
+	const opt = {
+		"Y+": date.getFullYear().toString(), // 年
+		"m+": (date.getMonth() + 1).toString(), // 月
+		"d+": date.getDate().toString(), // 日
+		"H+": date.getHours().toString(), // 时
+		"M+": date.getMinutes().toString(), // 分
+		"S+": date.getSeconds().toString() // 秒
+		// 有其他格式化字符需求可以继续添加，必须转化成字符串
+	};
+	for (let k in opt) {
+		ret = new RegExp("(" + k + ")").exec(fmt);
+		if (ret) {
+			fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
 		};
-		for (let k in opt) {
-			ret = new RegExp("(" + k + ")").exec(fmt);
-			if (ret) {
-				fmt = fmt.replace(ret[1], (ret[1].length == 1) ? (opt[k]) : (opt[k].padStart(ret[1].length, "0")))
-			};
-		};
-		return fmt;
-	}
+	};
+	return fmt;
+}
 export function dateFormatT(time) {
 	time = +time * 1000;
 	const d = new Date(time);
@@ -82,18 +82,50 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	if(navigator&&navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1){
+	if (navigator && navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1) {
 		return true
 	}
 	return false
 }
 
 export function parseQuery() {
+
+	// #ifdef H5
+
+	const res = {};
+
+	const query = (location.href.split("?")[1] || "")
+		.trim()
+		.replace(/^(\?|#|&)/, "");
+
+	if (!query) {
+		return res;
+	}
+
+	query.split("&").forEach(param => {
+		const parts = param.replace(/\+/g, " ").split("=");
+		const key = decodeURIComponent(parts.shift());
+		const val = parts.length > 0 ? decodeURIComponent(parts.join("=")) : null;
+
+		if (res[key] === undefined) {
+			res[key] = val;
+		} else if (Array.isArray(res[key])) {
+			res[key].push(val);
+		} else {
+			res[key] = [res[key], val];
+		}
+	});
+	// #endif
+
+	// #ifdef MP-WEIXIN
+
 	var pages = getCurrentPages() //获取加载的页面
 	var currentPage = pages[pages.length - 1] //获取当前页面的对象
 	var url = currentPage.route //当前页面url
-	var options = currentPage.options //如果要获取url中所带的参数可以查看options
-	return options
+	var res = currentPage.options //如果要获取url中所带的参数可以查看options
+	// #endif
+
+	return res
 }
 
 /*获取当前页url*/
@@ -110,7 +142,6 @@ export function getCurrentPageUrlWithArgs() {
 	var currentPage = pages[pages.length - 1] //获取当前页面的对象
 	var url = currentPage.route //当前页面url
 	var options = currentPage.options //如果要获取url中所带的参数可以查看options
-
 	//拼接url的参数
 	var urlWithArgs = url + '?'
 	for (var key in options) {
@@ -118,7 +149,6 @@ export function getCurrentPageUrlWithArgs() {
 		urlWithArgs += key + '=' + value + '&'
 	}
 	urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
-
 	return urlWithArgs
 }
 
@@ -505,6 +535,7 @@ export function routerPermissions(url, type) {
 	if (!path) {
 		path = '/' + getCurrentPageUrlWithArgs()
 	}
+	console.log(Vue.prototype.$deviceType)
 	if (Vue.prototype.$deviceType == 'routine') {
 		console.log('————————')
 		console.log('当前是微信小程序，开始处理小程序登录方法')
@@ -577,6 +608,13 @@ export function routerPermissions(url, type) {
 			})
 			cookie.set('redirect', path)
 		})
+	// } else if (Vue.prototype.$deviceType == 'weixin') {
+		// wechat().then(() => oAuth());
+		// if (!type) {
+		// 	push({
+		// 		path: url,
+		// 	})
+		// }
 	} else {
 		// 如果不是小程序跳转到登录页
 		console.log('当前无法自动登录，开始处理登录方法')
@@ -681,7 +719,6 @@ export function handleQrCode() {
 
 export function handleUrlParam(path) {
 	console.log(path)
-
 	var url = path.split("?")[1]; //获取url中"?"符后的字串
 	console.log(url)
 	var theRequest = new Object();
@@ -819,10 +856,9 @@ export const handleLoginFailure = () => {
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
 	let path = '/' + getCurrentPageUrlWithArgs()
-	console.log("getCurrentPageUrl",getCurrentPageUrl());
+	console.log("getCurrentPageUrl", getCurrentPageUrl());
 	//判断小程序转发分享商品详情进来的
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) && !handleQrCode()) {
-		debugger;
 		console.log('————————')
 		console.log('判断小程序转发分享商品详情进来的')
 		console.log(' handleUrlParam()', handleUrlParam(path))
@@ -894,7 +930,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 判断是不是转发分享的砍价海报进来的
-	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' &&  handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleUrlParam(path) && !handleQrCode()) {
 		console.log('————————')
 		console.log('判断是不是转发分享的砍价海报进来的')
 		console.log('————————')
@@ -967,7 +1003,6 @@ export const handleLoginFailure = () => {
 	}
 
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
-		debugger;
 		console.log('————————')
 		console.log('是扫描的商品详情')
 		console.log('————————')

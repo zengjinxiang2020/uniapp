@@ -147,7 +147,8 @@ export function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    wechatAuth(code, parseInt(cookie.get("spread")), loginType)
+    let spread = cookie.get(spread);
+    wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)
         const expires_time = dayjs(data.expires_time);
@@ -171,8 +172,15 @@ export function toAuth() {
 }
 
 function getAuthUrl(appId) {
-  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
-  // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`encodeURIComponent(encodeURIComponent(cookie.has(BACK_URL)? cookie.get(BACK_URL): location.pathname + location.search)));
+  
+  // const redirect_uri = encodeURIComponent(window.location.href);
+  // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
+  
+	// #ifdef H5
+	// #endif
+  
+  
+  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
   // const redirect_uri = encodeURIComponent(`${window.location.origin}${window.location.pathname}`)
   // const redirect_uri = encodeURIComponent(`${location.origin}`)
   cookie.remove(BACK_URL);

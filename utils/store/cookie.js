@@ -37,6 +37,7 @@ function _has(key) {
     return
   }
   let value = uni.getStorageSync(key)
+  console.log(key)
   if (value) {
     return true
   }

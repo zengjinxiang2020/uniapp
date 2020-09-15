@@ -22,7 +22,7 @@
 				<image src="@/static/images/qr.png" />
 			</view>
 		</view>
-		<Banner :banner="banner" @getbgcolor="getbgcolor"></Banner>
+		<Banner :detail="banner" v-if="banner.length>0" @getbgcolor="getbgcolor"></Banner>
 		<uni-notice-bar scrollable="true" @click="goRoll(singNew)" single="true" :speed="10" showIcon="true"
 			:text="singNew.info"></uni-notice-bar>
 		<view class="content_box home_content_box">
@@ -215,6 +215,7 @@
 			});
 			getHomeData().then(res => {
 				that.logoUrl = res.data.logoUrl;
+				res.data.banner.map(item => item.bgcolor = '')
 				that.$set(that, 'banner', res.data.banner);
 				that.$set(that, 'menus', res.data.menus);
 				that.$set(that, 'roll', res.data.roll);
