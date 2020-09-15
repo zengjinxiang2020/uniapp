@@ -882,7 +882,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 是分享转发拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path)) {
 		console.log('————————')
 		console.log('是分享转发拼团进来的')
 		console.log('————————')
@@ -906,7 +906,7 @@ export const handleLoginFailure = () => {
 	}
 
 	// 是分享转发秒杀进来的
-	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path) && !handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path)) {
 		console.log('————————')
 		console.log('是分享转发秒杀进来的')
 		console.log('————————')
