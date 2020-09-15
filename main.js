@@ -6,7 +6,7 @@ import store from "./store";
 import schema from "async-validator";
 import dialog from "./utils/dialog";
 import cookie from "@/utils/store/cookie";
-
+import cuCustom from '@/components/colorui/components/cu-custom.vue'
 // // import "@/assets/iconfont/iconfont";
 // import "@/assets/iconfont/iconfont.css";
 // // import "@/assets/js/media_750";
@@ -16,20 +16,21 @@ import cookie from "@/utils/store/cookie";
 // import "@/assets/css/style.less";
 
 // // 引入微信jssdk
-// var jweixin = require('jweixin-module')  
-// jweixin.ready(function(){  
-//     // TODO  
+// var jweixin = require('jweixin-module')
+// jweixin.ready(function(){
+//     // TODO
 // });
 
 import {
 	parseRoute,
-	_router
+	_router,
+	parseQuery
 } from "@/utils";
 import {
 	VUE_APP_RESOURCES_URL,
 	VUE_APP_API_URL
 } from "@/config";
-
+Vue.component('cu-custom', cuCustom);
 Vue.config.productionTip = false;
 Vue.config.devtools = process.env.NODE_ENV !== "production";
 
@@ -80,7 +81,7 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 
 Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
-
+Vue.component('cu-custom', cuCustom);
 // #ifdef H5
 // H5编译的代码
 
@@ -101,6 +102,27 @@ import {
 } from '@/libs/wechat'
 
 import { isWeixin } from '@/utils'
+
+
+const CACHE_KEY = "clear_0.0.1";
+
+if (!cookie.has(CACHE_KEY)) {
+  cookie.clearAll();
+  cookie.set(CACHE_KEY, 1);
+}
+
+var urlSpread = parseQuery()["spread"];
+
+if (urlSpread !== undefined) {
+  var spread = cookie.get("spread");
+  urlSpread = parseInt(urlSpread);
+  if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
+    cookie.set("spread", urlSpread || 0);
+  } else if (spread === 0 || typeof spread !== "number") {
+    cookie.set("spread", urlSpread || 0);
+  }
+}
+
 
 // 判断是否是微信浏览器
 if (isWeixin()) {
