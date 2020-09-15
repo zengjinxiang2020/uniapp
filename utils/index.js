@@ -718,13 +718,14 @@ export function handleQrCode() {
 }
 
 export function handleUrlParam(path) {
-	console.log(path)
 	var url = path.split("?")[1]; //获取url中"?"符后的字串
-	console.log(url)
 	var theRequest = new Object();
-	let strs = url.split("&");
-	for (var i = 0; i < strs.length; i++) {
-		theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+	if(path.includes("?")){
+		var url = path.split("?")[1]; //获取url中"?"符后的字串
+		let strs = url.split("&");
+		for (var i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+		}
 	}
 	return theRequest;
 }
@@ -856,7 +857,6 @@ export const handleLoginFailure = () => {
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
 	let path = '/' + getCurrentPageUrlWithArgs()
-	console.log("getCurrentPageUrl", getCurrentPageUrl());
 	//判断小程序转发分享商品详情进来的
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) && !handleQrCode()) {
 		console.log('————————')
@@ -954,13 +954,15 @@ export const handleLoginFailure = () => {
 		}
 	}
 	// 判断是不是拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' && handleQrCode()) {
+	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' ) {
 		console.log('————————')
 		console.log('是拼团进来的')
 		console.log('————————')
 
 		let url = handleQrCode();
-		console.log(url)
+		if(!url){
+			url = handleUrlParam(path);
+		}
 		if (url) {
 			path = parseUrl({
 				path: `/${getCurrentPageUrl()}`,
@@ -1003,6 +1005,7 @@ export const handleLoginFailure = () => {
 	}
 
 	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
+		debugger;
 		console.log('————————')
 		console.log('是扫描的商品详情')
 		console.log('————————')

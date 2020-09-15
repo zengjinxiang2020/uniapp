@@ -124,6 +124,7 @@ export function clearAuthStatus() {
 
 export function oAuth() {
   console.log('处理微信授权')
+  console.log('处理微信授权cookie',cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {

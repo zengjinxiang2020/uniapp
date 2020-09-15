@@ -7,42 +7,33 @@
 </template>
 
 <script>
-  import {
-    mapState,
-    mapMutations,
-    mapActions
-  } from "vuex";
-  // 组件
-  // import request from "@//api/request";
-  import {
-    wxappAuth,
-    getUser
-  } from "@/api/user";
-  import dayjs from "dayjs";
-  import cookie from "@/utils/store/cookie";
-  import {
-    parseQuery,
-    login,
-    handleQrCode
-  } from "@/utils";
+import { mapState, mapMutations, mapActions } from "vuex";
+// 组件
+// import request from "@//api/request";
+import { wxappAuth, getUser } from "@/api/user";
+import dayjs from "dayjs";
+import cookie from "@/utils/store/cookie";
+import { parseQuery, login, handleQrCode ,getCurrentPageUrl,handleUrlParam} from "@/utils";
 
-  export default {
-    name: "Loading",
-    data() {
-      return {};
-    },
-    onShow() {
+export default {
+  name: "Loading",
+  data() {
+    return {};
+  },
+  onShow() {
 
-      var url = handleQrCode();
-      // 判断是否是分销
-      if (url) {
-        var spread = cookie.get("spread");
-        let urlSpread = parseInt(url.spread);
-        if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-          cookie.set("spread", urlSpread || 0);
-        } else if (spread === 0 || typeof spread !== "number") {
-          cookie.set("spread", urlSpread || 0);
-        }
+    var url = handleQrCode();
+    if(!url){
+      url =  handleUrlParam(getCurrentPageUrl())
+    }
+    // 判断是否是分销
+    if (url) {
+      var spread = cookie.get("spread");
+      let urlSpread = parseInt(url.spread);
+      if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
+        cookie.set("spread", urlSpread || 0);
+      } else if (spread === 0 || typeof spread !== "number") {
+        cookie.set("spread", urlSpread || 0);
       }
       if (this.$store.getters.token) {
         this.toLaunch();
