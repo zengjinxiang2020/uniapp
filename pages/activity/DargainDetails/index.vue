@@ -276,7 +276,9 @@
       },
       mountedStart: function () {
         var that = this;
+        console.log(this)
         let url = handleQrCode();
+        console.log(url)
         if (url) {
           that.bargainId = url.bargainId;
           that.partake = url.uid;
@@ -376,7 +378,9 @@
               '<img style="max-width:100%;height:auto;"'
             );
             that.datatime = that.bargain.stopTime / 1000;
-            that.getBargainHelpCount();
+             that.getBargainHelpCount();
+            // that.setOpenShare();
+            that.getBargainHelpList();
           })
           .catch(res => {
             uni.showToast({
@@ -451,12 +455,15 @@
       //获取砍掉的金额
       getBargainHelpPrice: function () {
         var that = this;
+        that.helpListLoading = true;
+        
         getBargainHelpPrice({
             bargainId: that.bargainId,
             bargainUserUid: that.bargainPartake
           })
           .then(res => {
             that.bargainHelpPrice = res.data.price;
+            that.helpListLoading = false;
             that.getBargainHelpCount();
             that.getBargainHelpList();
             switch (that.activeMsg) {

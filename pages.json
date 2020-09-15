@@ -431,9 +431,9 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"height": "50px",
-		"fontSize": "8px",
-		"iconWidth": "16px",
-		"spacing": "-3px",
+		"fontSize": "10px",
+		"iconWidth": "24px",
+		"spacing": "3px",
 		"list": [{
 			"pagePath": "pages/home/index",
 			"iconPath": "static/icon-home.png",

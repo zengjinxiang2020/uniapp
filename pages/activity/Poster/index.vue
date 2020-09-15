@@ -37,11 +37,16 @@
       }
     },
     methods: {
+      // 砍价海报
       getBargainPoster: function () {
         var that = this;
+        let from = this.$deviceType
+        if (from == 'weixin' || this.$deviceType == 'weixinh5') {
+          from = 'uniappH5'
+        }
         getBargainPoster({
             bargainId: that.id,
-            from: "wechat"
+            from
           })
           .then(res => {
             that.image = res.data.url;
@@ -58,9 +63,15 @@
       // 拼团海报
       getCombinationPoster: function () {
         var that = this;
+        console.log(this.$deviceType)
+        let from = this.$deviceType
+        if (from == 'weixin' || this.$deviceType == 'weixinh5') {
+          from = 'uniappH5'
+        }
+        console.log(from)
         getCombinationPoster({
             id: that.id,
-            from: this.$deviceType == 'weixin' || this.$deviceType == 'weixinh5' ? 'uniappH5' : this.$deviceType
+            from
           })
           .then(res => {
             that.image = res.data.url;
