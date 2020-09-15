@@ -92,7 +92,11 @@ export function parseQuery() {
 
 	// #ifdef H5
 
+<<<<<<< HEAD
 	const res = {};
+=======
+	let res = {};
+>>>>>>> cd4be74b4e66d2c142be343c65dc2de48ad97bd8
 
 	const query = (location.href.split("?")[1] || "")
 		.trim()
@@ -116,13 +120,20 @@ export function parseQuery() {
 		}
 	});
 	// #endif
+<<<<<<< HEAD
 
+=======
+>>>>>>> cd4be74b4e66d2c142be343c65dc2de48ad97bd8
 	// #ifdef MP-WEIXIN
 
 	var pages = getCurrentPages() //获取加载的页面
 	var currentPage = pages[pages.length - 1] //获取当前页面的对象
 	var url = currentPage.route //当前页面url
+<<<<<<< HEAD
 	var res = currentPage.options //如果要获取url中所带的参数可以查看options
+=======
+	res = currentPage.options //如果要获取url中所带的参数可以查看options
+>>>>>>> cd4be74b4e66d2c142be343c65dc2de48ad97bd8
 	// #endif
 
 	return res

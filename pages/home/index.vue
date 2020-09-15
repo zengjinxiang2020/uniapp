@@ -1,18 +1,26 @@
 <template>
 	<view class="index">
 		<!-- 导航栏 -->
-		<view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">
-			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">
-				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">
-					<view class="action">
-						<text class="nav-title Shop-selector-rect">{{ 'yshop商城' }}</text>
-					</view>
-					<view class="content" :style="[{top:StatusBar + 'px'}]">
+<!--		<view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">-->
+<!--			<view class="cu-custom" :style="[{height:CustomBar+ 'px',}]">-->
+<!--				<view class="cu-bar fixed" :style="customStyle" :class="[bgcolor]">-->
+<!--					<view class="action">-->
+<!--						<text class="nav-title Shop-selector-rect">{{ 'yshop商城' }}</text>-->
+<!--					</view>-->
+<!--					<view class="content" :style="[{top:StatusBar + 'px'}]">-->
 
-					</view>
-				</view>
-			</view>
-		</view>
+<!--					</view>-->
+<!--				</view>-->
+<!--			</view>-->
+<!--		</view>-->
+
+    <view class="head_box " :style="{ background: bgcolor }" :class="{ active: bgcolor }">
+      <cu-custom :isBack="true" >
+        <block slot="backText">
+          <text class="nav-title shopro-selector-rect">{{  'YSHOP商城' }}</text>
+        </block>
+      </cu-custom>
+    </view>
 		<view class="header header-search  acea-row row-center-wrapper" :style="{ background: bgcolor }">
 			<view @click="goGoodSearch()" class="search acea-row row-middle">
 				<text class="iconfont icon-xiazai5"></text>
@@ -381,24 +389,22 @@
 		}
 	}
 
-	.head_box {
-		position: relative;
-		z-index: 10;
-		width: 100%;
-		// background: #fff;
-		transition: all linear 0.3s;
+  .head_box {
+    width: 750rpx;
+    // background: #fff;
+    transition: all linear 0.3s;
 
-		/deep/.cuIcon-back {
-			display: none;
-		}
+    /deep/.cuIcon-back {
+      display: none;
+    }
 
-		.nav-title {
-			font-size: 38rpx;
-			font-family: PingFang SC;
-			font-weight: 500;
-			color: #fff;
-		}
-	}
+    .nav-title {
+      font-size: 38rpx;
+      font-family: PingFang SC;
+      font-weight: 500;
+      color: #fff;
+    }
+  }
 
 	.cu-bar.fixed {
 		position: fixed;
