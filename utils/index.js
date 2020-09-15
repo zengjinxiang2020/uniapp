@@ -82,7 +82,7 @@ export function isType(arg, type) {
 }
 
 export function isWeixin() {
-	if (navigator && navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1) {
+	if (navigator && navigator.userAgent && navigator.userAgent.toLowerCase().indexOf("micromessenger") !== -1) {
 		return true
 	}
 	return false
@@ -608,7 +608,7 @@ export function routerPermissions(url, type) {
 			})
 			cookie.set('redirect', path)
 		})
-	// } else if (Vue.prototype.$deviceType == 'weixin') {
+		// } else if (Vue.prototype.$deviceType == 'weixin') {
 		// wechat().then(() => oAuth());
 		// if (!type) {
 		// 	push({
