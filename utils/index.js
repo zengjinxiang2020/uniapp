@@ -89,11 +89,9 @@ export function isWeixin() {
 }
 
 export function parseQuery() {
-
-	// #ifdef H5
-
 	let res = {};
 
+	// #ifdef H5
 	const query = (location.href.split("?")[1] || "")
 		.trim()
 		.replace(/^(\?|#|&)/, "");
@@ -687,38 +685,33 @@ export const _router = {
 
 
 export function handleQrCode() {
-	try {
-		var urlSpread = parseQuery()["q"];
-		if (urlSpread) {
-			if (urlSpread.indexOf('%3F') != -1) {
-				// 通过海报二维码进来
-				urlSpread = urlSpread
-					.split("%3F")[1]
-					.replace(/%3D/g, ":")
-					.replace(/%26/g, ",")
-					.split(",")
-					.map((item, index) => {
-						item = item.split(":");
-						return `"${item[0]}":"${item[1]}"`;
-					})
-					.join(",");
-				urlSpread = JSON.parse("{" + urlSpread + "}");
-				return urlSpread
-			} else {
-				return handleUrlParam(urlSpread)
-			}
+	var urlSpread = parseQuery()["q"];
+	if (urlSpread) {
+		if (urlSpread.indexOf('%3F') != -1) {
+			// 通过海报二维码进来
+			urlSpread = urlSpread
+				.split("%3F")[1]
+				.replace(/%3D/g, ":")
+				.replace(/%26/g, ",")
+				.split(",")
+				.map((item, index) => {
+					item = item.split(":");
+					return `"${item[0]}":"${item[1]}"`;
+				})
+				.join(",");
+			urlSpread = JSON.parse("{" + urlSpread + "}");
+			return urlSpread
+		} else {
+			return handleUrlParam(urlSpread)
 		}
-		return null
-	} catch {
-		return null
 	}
-
+	return null
 }
 
 export function handleUrlParam(path) {
 	var url = path.split("?")[1]; //获取url中"?"符后的字串
 	var theRequest = new Object();
-	if(path.includes("?")){
+	if (path.includes("?")) {
 		var url = path.split("?")[1]; //获取url中"?"符后的字串
 		let strs = url.split("&");
 		for (var i = 0; i < strs.length; i++) {
@@ -834,7 +827,6 @@ export const PosterCanvas = (store, successCallBack) => {
 
 
 export const handleLoginFailure = () => {
-
 	console.log('————————')
 	console.log('退出登录，标记当前页面为授权页面，防止多次跳转')
 	console.log('————————')
@@ -842,10 +834,11 @@ export const handleLoginFailure = () => {
 	store.commit("logout");
 	store.commit("updateAuthorization", false);
 
+	let currentPageUrl = getCurrentPageUrl()
 	// token 失效
 	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
-	if (store.getters.isAuthorizationPage || getCurrentPageUrl() == '/pages/user/Login/index') {
-		console.log(store.getters.isAuthorizationPage, getCurrentPageUrl(), '已经是登录页面或者授权页面，跳出方法')
+	if (store.getters.isAuthorizationPage || currentPageUrl == '/pages/user/Login/index') {
+		console.log(store.getters.isAuthorizationPage, currentPageUrl, '已经是登录页面或者授权页面，跳出方法')
 		return
 	}
 
@@ -854,177 +847,79 @@ export const handleLoginFailure = () => {
 	console.log(store.getters)
 	console.log('————————')
 	store.commit("updateAuthorizationPage", true);
+
 	let path = '/' + getCurrentPageUrlWithArgs()
-	//判断小程序转发分享商品详情进来的
-	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleUrlParam(path) && !handleQrCode()) {
-		console.log('————————')
-		console.log('判断小程序转发分享商品详情进来的')
-		console.log(' handleUrlParam()', handleUrlParam(path))
+	let qrCode = handleQrCode()
 
-		let url = handleUrlParam(path);
-		console.log(url)
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.id,
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			handleNoParameters()
+	if (qrCode) {
+		// 当前是通过海报扫描进入的
+
+		// 判断是不是拼团进来的
+		if (currentPageUrl == 'pages/activity/GroupRule/index') {
 			console.log('————————')
-			console.log('是扫描的商品详情进来的,但是没有获取到参数')
+			console.log('是拼团进来的')
 			console.log('————————')
+			if (qrCode.pinkId) {
+				path = parseUrl({
+					path: `/${currentPageUrl}`,
+					query: {
+						id: qrCode.pinkId,
+					}
+				})
+				cookie.set("spread", qrCode.spread || 0);
+			} else {
+				console.log('————————')
+				console.log('是拼团进来的,但是没有获取到参数')
+				console.log('————————')
+				handleNoParameters()
+			}
+		}
+
+		// 判断是不是扫描的砍价海报进来的
+		if (currentPageUrl == 'pages/activity/DargainDetails/index') {
+			console.log('————————')
+			console.log('是扫描的砍价海报进来的')
+			console.log('————————')
+
+			if (qrCode.bargainId) {
+				path = parseUrl({
+					path: `/${currentPageUrl}`,
+					query: {
+						id: qrCode.bargainId,
+						partake: qrCode.uid
+					}
+				})
+				cookie.set("spread", qrCode.spread || 0);
+			} else {
+				handleNoParameters()
+				console.log('————————')
+				console.log('是扫描的砍价海报进来的,但是没有获取到参数')
+				console.log('————————')
+			}
+		}
+
+		if (currentPageUrl == 'pages/shop/GoodsCon/index') {
+			console.log('————————')
+			console.log('是扫描的商品详情')
+			console.log('————————')
+
+			if (qrCode.productId) {
+				path = parseUrl({
+					path: `/${currentPageUrl}`,
+					query: {
+						id: qrCode.productId,
+					}
+				})
+				cookie.set("spread", qrCode.spread || 0);
+			} else {
+				handleNoParameters()
+				console.log('————————')
+				console.log('是扫描的商品详情进来的,但是没有获取到参数')
+				console.log('————————')
+			}
 		}
 	}
 
-	// 是分享转发拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupDetails/index' && handleUrlParam(path)) {
-		console.log('————————')
-		console.log('是分享转发拼团进来的')
-		console.log('————————')
-
-		let url = handleUrlParam(path);
-		console.log(url)
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.id,
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			console.log('————————')
-			console.log('是拼团进来的,但是没有获取到参数')
-			console.log('————————')
-			handleNoParameters()
-		}
-	}
-
-	// 是分享转发秒杀进来的
-	if (getCurrentPageUrl() == 'pages/activity/SeckillDetails/index' && handleUrlParam(path)) {
-		console.log('————————')
-		console.log('是分享转发秒杀进来的')
-		console.log('————————')
-
-		let url = handleUrlParam(path);
-		console.log(url)
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.id,
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			console.log('————————')
-			console.log('是秒杀进来的,但是没有获取到参数')
-			console.log('————————')
-			handleNoParameters()
-		}
-	}
-
-	// 判断是不是转发分享的砍价海报进来的
-	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleUrlParam(path) && !handleQrCode()) {
-		console.log('————————')
-		console.log('判断是不是转发分享的砍价海报进来的')
-		console.log('————————')
-		let url = handleUrlParam(path);
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.bargainId,
-					partake: url.uid
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			handleNoParameters()
-			console.log('————————')
-			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
-			console.log('————————')
-
-
-		}
-	}
-	// 判断是不是拼团进来的
-	if (getCurrentPageUrl() == 'pages/activity/GroupRule/index' ) {
-		console.log('————————')
-		console.log('是拼团进来的')
-		console.log('————————')
-
-		let url = handleQrCode();
-		if(!url){
-			url = handleUrlParam(path);
-		}
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.pinkId,
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			console.log('————————')
-			console.log('是拼团进来的,但是没有获取到参数')
-			console.log('————————')
-			handleNoParameters()
-		}
-	}
-
-	// 判断是不是扫描的砍价海报进来的
-	if (getCurrentPageUrl() == 'pages/activity/DargainDetails/index' && handleQrCode()) {
-		console.log('————————')
-		console.log('是扫描的砍价海报进来的')
-		console.log('————————')
-		let url = handleQrCode();
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.bargainId,
-					partake: url.uid
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			handleNoParameters()
-			console.log('————————')
-			console.log('是扫描的砍价海报进来的,但是没有获取到参数')
-			console.log('————————')
-
-
-		}
-	}
-
-	if (getCurrentPageUrl() == 'pages/shop/GoodsCon/index' && handleQrCode()) {
-		debugger;
-		console.log('————————')
-		console.log('是扫描的商品详情')
-		console.log('————————')
-
-		let url = handleQrCode();
-		console.log(url)
-		if (url) {
-			path = parseUrl({
-				path: `/${getCurrentPageUrl()}`,
-				query: {
-					id: url.productId,
-				}
-			})
-			cookie.set("spread", url.spread || 0);
-		} else {
-			handleNoParameters()
-			console.log('————————')
-			console.log('是扫描的商品详情进来的,但是没有获取到参数')
-			console.log('————————')
-		}
-	}
 
 
 	console.log('————————')

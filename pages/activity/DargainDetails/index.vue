@@ -1,10 +1,11 @@
 <template>
   <view class="bargain on">
     <!-- 在header上加 on 为请求支援 -->
-    <view :class="[bargainPartake != userInfo.uid ? 'header bargain-box on' : 'header bargain-box']">
+    <view :class="[bargainPartake != userInfo.uid ? 'wrapper bargain-box on' : 'wrapper bargain-box']">
       <!-- <view class="people">{{ lookCount }}人查看 丨 {{ shareCount }}人分享 丨 {{ userCount }}人参与</view> -->
       <!-- 帮助砍价、帮砍成功：-->
-      <view class="pictxt acea-row row-center-wrapper" v-if="bargainPartake != userInfo.uid">
+      <view class="pictxt acea-row row-center-wrapper " v-if="bargainPartake != userInfo.uid">
+        <div class="bargain-header">
         <view class="pictrue">
           <image :src="bargainUserInfo.avatar" />
         </view>
@@ -12,9 +13,14 @@
           {{ bargainUserInfo.nickname }}
           <text>邀请您帮忙砍价</text>
         </view>
+        </div>
       </view>
-      <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '"
-        :secondText="' 秒'" :datatime="datatime"></count-down>
+    </view>
+    <view class="wrapper bargain-box">
+      <div class="pictxt">
+        <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '"
+          :secondText="' 秒'" :datatime="datatime"></count-down>
+      </div>
     </view>
     <view class="wrapper bargain-box">
       <view class="pictxt acea-row row-between-wrapper" @click="openAlone">
@@ -279,6 +285,7 @@
         console.log(this)
         let url = handleQrCode();
         console.log(url)
+        debugger;
         if (url) {
           that.bargainId = url.bargainId;
           that.partake = url.uid;
@@ -378,7 +385,7 @@
               '<img style="max-width:100%;height:auto;"'
             );
             that.datatime = that.bargain.stopTime / 1000;
-             that.getBargainHelpCount();
+            that.getBargainHelpCount();
             // that.setOpenShare();
             that.getBargainHelpList();
           })
@@ -456,7 +463,7 @@
       getBargainHelpPrice: function () {
         var that = this;
         that.helpListLoading = true;
-        
+
         getBargainHelpPrice({
             bargainId: that.bargainId,
             bargainUserUid: that.bargainPartake
@@ -518,6 +525,7 @@
 
           })
           .catch(() => {
+            debugger
             this.$yrouter.push({
               path: "/pages/activity/DargainDetails/index",
               query: {
@@ -525,13 +533,6 @@
                 partake: that.userInfo.uid
               }
             });
-            // that.$router.push({
-            //   path:
-            //     "/activity/dargain_detail/" +
-            //     that.bargainId +
-            //     "/" +
-            //     that.userInfo.uid
-            // });
           });
       },
       getBargainHelpCount: function () {
@@ -651,5 +652,18 @@
 
   .iconfonts {
     font-size: 0.22 * 100rpx;
+  }
+
+  .bargain .wrapper .pictxt {
+      .bargain-header {
+      image {
+        width: 100rpx;
+        height: 100rpx;
+        border-radius: 100rpx;
+      }
+      .text{
+        
+      }
+    }
   }
 </style>
