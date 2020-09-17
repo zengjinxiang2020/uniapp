@@ -15,8 +15,6 @@
 					<text class="status-text">{{ liveStatus[live.liveStatus].title }}</text>
 				</view>
 				<view class="item-title">{{ live.name }}</view>
-				<image v-if="live.liveStatus == 101" class="like-img" src="http://Shop.7wpp.com/imgs/live/zan.gif"
-					mode=""></image>
 			</view>
 		</view>
 	</view>

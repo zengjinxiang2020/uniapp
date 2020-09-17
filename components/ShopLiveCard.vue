@@ -7,15 +7,12 @@
 				<text class="status-text">{{ liveStatus[detail.liveStatus].title }}</text>
 			</view>
 			<view class="item-title" :style="{ width: wh + 'rpx' }">{{ detail.name }}</view>
-			<!-- 	<image v-if="detail.liveStatus == 101" class="like-img" src="http://Shop.7wpp.com/imgs/live/zan.gif" mode=""></image> -->
 		</view>
 		<view class="live-bottom" :style="{ width: wh + 'rpx' }">
 			<view class="live-info">
 				<view class="info-box">
-					<!-- 	<image class="info-avatar" :src="detail.anchor_img" mode=""></image> -->
 					<view class="info-name">{{ detail.anchorName }}</view>
 				</view>
-				<!-- 	<text class="views">15W观看</text> -->
 			</view>
 			<slot name="liveGoods">
 				<view class="live-goods" v-if="detail.product.length">

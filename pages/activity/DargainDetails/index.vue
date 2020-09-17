@@ -1,28 +1,28 @@
 <template>
   <view class="bargain on">
     <!-- 在header上加 on 为请求支援 -->
-    <view :class="[bargainPartake != userInfo.uid ? 'wrapper bargain-box on' : 'wrapper bargain-box']">
+    <view :class="[bargainPartake != userInfo.uid ? 'wrapper bargain-box on user' : 'wrapper bargain-box user']" v-if="bargainPartake != userInfo.uid">
       <!-- <view class="people">{{ lookCount }}人查看 丨 {{ shareCount }}人分享 丨 {{ userCount }}人参与</view> -->
       <!-- 帮助砍价、帮砍成功：-->
-      <view class="pictxt acea-row row-center-wrapper " v-if="bargainPartake != userInfo.uid">
+      <view class="pictxt acea-row row-center-wrapper " >
         <div class="bargain-header">
-        <view class="pictrue">
-          <image :src="bargainUserInfo.avatar" />
-        </view>
-        <view class="text">
-          {{ bargainUserInfo.nickname }}
-          <text>邀请您帮忙砍价</text>
-        </view>
+          <view class="pictrue">
+            <image :src="bargainUserInfo.avatar" />
+          </view>
+          <view class="text">
+            {{ bargainUserInfo.nickname }}
+            <text>邀请您帮忙砍价</text>
+          </view>
         </div>
       </view>
     </view>
-    <view class="wrapper bargain-box">
-      <div class="pictxt">
+    <view class="wrapper bargain-box time on">
+      <div class="pictxt ">
         <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '"
           :secondText="' 秒'" :datatime="datatime"></count-down>
       </div>
     </view>
-    <view class="wrapper bargain-box">
+    <view class="wrapper bargain-box bargain-product">
       <view class="pictxt acea-row row-between-wrapper" @click="openAlone">
         <view class="pictrue">
           <image :src="bargain.image" />
@@ -52,9 +52,9 @@
         <view v-else v-text="'还剩' + surplusPrice + '元'"></view>
       </view>
       <!-- 帮助砍价、帮砍成功：-->
-      <view class="bargainSuccess" v-if="bargainPartake != userInfo.uid && !statusUser && !helpListLoading">
+      <!-- <view class="bargainSuccess" v-if="bargainPartake != userInfo.uid && !statusUser && !helpListLoading">
         <span class="iconfont icon-xiaolian"></span>已成功帮助好友砍价
-      </view>
+      </view> -->
       <!-- 砍价成功：-->
       <view class="bargainSuccess" v-if="
           surplusPrice === 0 &&
@@ -285,7 +285,6 @@
         console.log(this)
         let url = handleQrCode();
         console.log(url)
-        debugger;
         if (url) {
           that.bargainId = url.bargainId;
           that.partake = url.uid;
@@ -652,18 +651,5 @@
 
   .iconfonts {
     font-size: 0.22 * 100rpx;
-  }
-
-  .bargain .wrapper .pictxt {
-      .bargain-header {
-      image {
-        width: 100rpx;
-        height: 100rpx;
-        border-radius: 100rpx;
-      }
-      .text{
-        
-      }
-    }
   }
 </style>

@@ -4488,29 +4488,63 @@ page {
   position: relative;
 }
 
-.bargain .wrapper .pictxt {
-  padding: 26rpx  0;
+.bargain .goodsDetails .conter .bargain .wrapper .pictxt {
+  padding: 26rpx 0;
 }
-.bargain .bargain-box{
+
+.bargain .bargain-box {
   margin-bottom: 20rpx !important;
 }
-.bargain .wrapper .pictxt .pictrue {
-  width: 1.8*100rpx;
-  height: 1.8*100rpx;
+
+.bargain .bargain-product .pictxt .pictrue {
+  width: 140rpx;
+  height: 140rpx;
   position: relative;
+  margin-right: 30rpx;
+
+  image {
+    width: 140rpx;
+    height: 140rpx;
+  }
+}
+
+.bargain .bargain-product .text {
+  flex: 1;
+  font-size: 26rpx;
+}
+
+.bargain .wrapper.on {
+  // padding-bottom: 0 !important;
+}
+
+.bargain .wrapper .time {
+  font-size: 28rpx;
+  color: #999;
+  text-align: center;
+  color: #eb3729 !important;
+}
+
+.bargain .user .pictxt .bargain-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bargain .user .pictxt .pictrue {
+  margin-right: 20rpx;
 
 }
 
-.bargain .wrapper .pictxt .pictrue image {
-  width: 100%;
-  height: 100%;
-  border-radius: 0.06*100rpx;
+.bargain .user .pictxt .pictrue image {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
 }
 
-.bargain .wrapper .pictxt .text {
-  width: 3.95*100rpx;
-  font-size: 0.28*100rpx;
-  color: #282828;
+.bargain .user.on .pictxt .text {
+  font-size: 22rpx;
+  color: #999;
+  text-align: center;
 }
 
 .bargain .wrapper .pictxt .text .money {
@@ -4596,7 +4630,7 @@ page {
 .bargain .wrapper .lock,
 .bargain .bargainGang .lock,
 .bargain .goodsDetails .lock {
-  background-image: url('https://wx.yixiang.co/static/images/lock.png');
+  // background-image: url('https://wx.yixiang.co/static/images/lock.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 5.48*100rpx;
@@ -4617,7 +4651,6 @@ page {
   font-size: 0.32*100rpx;
   font-weight: bold;
   height: 0.8*100rpx;
-  margin-top: 0.3*100rpx;
 }
 
 .bargain .bargainGang .title .pictrue,
@@ -9314,4 +9347,15 @@ rich-text {
 .user,
 .container {
   height: 100%;
+}
+
+.bargainGang.bargain-box,.goodsDetails.bargain-box{
+  padding-top:0 !important;
+  .content{
+    margin-top: 0;
+  }
+}
+
+.bargain .bargain-product.wrapper .cu-progress{
+  margin-top: 30rpx;
 }

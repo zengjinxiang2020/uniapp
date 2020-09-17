@@ -78,7 +78,6 @@ function baseRequest(options) {
     if (res.status !== 200) {
       return Promise.reject({ msg: "请求失败", res, data });
     }
-    console.log(data.status)
     if ([401, 403].indexOf(data.status) !== -1) {
       handleLoginFailure();
       return Promise.reject({ msg: res.data.msg, res, data, toLogin: true });

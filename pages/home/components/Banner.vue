@@ -2,7 +2,7 @@
     <view class="banner-swiper-box">
         <canvas canvas-id="colorThief" class="hide-canvas"></canvas>
         <swiper class="banner-carousel Shop-selector-rect" circular @change="swiperChange" :autoplay="true">
-            <swiper-item v-for="(item, index) in detail" :key="index" class="carousel-item" >
+            <swiper-item v-for="(item, index) in detail" :key="index" class="carousel-item">
                 <image class="swiper-image " :src="item.pic" @click="goRoll(item)" mode="widthFix" lazy-load>
                 </image>
             </swiper-item>
@@ -41,6 +41,12 @@
                 let item = this.detail[this.swiperCurrent];
                 // 获取轮播图颜色
                 let bgcolor = item.bgcolor;
+                // #ifdef APP-PLUS
+                that.$set(item, 'bgcolor', '#c40414');
+                that.$emit('getbgcolor', '#c40414');
+                // #endif
+                // #ifndef APP-PLUS
+
                 // 颜色不存在
                 if (bgcolor === '') {
                     let ctx = uni.createCanvasContext('colorThief', that);
@@ -75,6 +81,8 @@
                     that.$set(item, 'bgcolor', bgcolor);
                     that.$emit('getbgcolor', bgcolor);
                 }
+                // #endif
+
             },
             swiperChange(e) {
                 this.swiperCurrent = e.detail.current;
