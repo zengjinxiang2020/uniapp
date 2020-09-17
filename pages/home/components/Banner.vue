@@ -46,7 +46,6 @@
                 that.$emit('getbgcolor', '#c40414');
                 // #endif
                 // #ifndef APP-PLUS
-
                 // 颜色不存在
                 if (bgcolor === '') {
                     let ctx = uni.createCanvasContext('colorThief', that);
