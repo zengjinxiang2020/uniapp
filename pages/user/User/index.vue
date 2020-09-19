@@ -228,7 +228,6 @@
                         iv: e.mp.detail.iv
                       })
                       .then(res => {
-                        console.log(res);
                         // this.User();
                         thit.$store.dispatch("userInfo", true);
                         uni.hideLoading();

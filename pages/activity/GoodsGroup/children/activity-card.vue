@@ -27,7 +27,7 @@ export default {
     return {};
   },
   props: {
-    cId: 0,
+    id: 0,
     img: '',
     title: '',
     info: '',

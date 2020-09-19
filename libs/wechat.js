@@ -274,7 +274,6 @@ export function wechatEvevt(name, config) {
     let wx;
     let configDefault = {
       fail(res) {
-        console.log(res);
         if (wx) return reject({ is_ready: true, wx: wx });
         getWechatConfig().then(res => {
           wechatObj.signSignature({

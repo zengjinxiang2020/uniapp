@@ -335,68 +335,96 @@ export const handleGetUserInfo = () => {
 	getUserInfo().then(res => {
 		console.log('获取用户信息')
 		store.dispatch('setUserInfo', res.data)
-		var pages = getCurrentPages() //获取加载的页面
 
-		var currentPage = pages[pages.length - 1] //获取当前页面的对象
-		let url = "/pages/home/index"
-		let query = {}
-		if (currentPage) {
-			const {
-				redirect,
-				...querys
-			} = currentPage.options
-			// 获取到最后一个页面
-			if (
-				currentPage.route != 'pages/Loading/index' &&
-				currentPage.route != 'pages/user/Login/index'
-			) {
-				url = currentPage.route
-				query = {
-					...querys
-				}
-			}
-			if (currentPage.route == 'pages/authorization/index') {
+		console.log('获取用户信息后跳转回显的页面')
+		
+		let redirect = cookie.get('redirect')
 
-				url = redirect
-				query = {
-					...querys
-				}
-			}
-
-		}
-		console.log(url)
-		if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
-			switchTab({
-				path: `${url}`,
-				query
-			});
-		} else {
-			console.log('获取用户信息后跳转回显的页面')
-			// 为了防止返回上一页是授权页面，先重定向到首页，再跳转
-			console.log({
-				path: `/${url}`,
-				query
-			})
+		if (redirect) {
 			reLaunch({
-				path: '/pages/home/index',
+				path: redirect,
 				// query
 			});
-
-			setTimeout(() => {
-				if (url.indexOf('/') == 0) {
-					url = url.slice(1)
-				}
-				push({
-					path: `/${url}`,
-					query
-				})
-			})
-
-			// push({
-			// 	path: `${url}`,
-			// 	query
-			// })
+			return
 		}
+	
+		reLaunch({
+			path: '/pages/home/index',
+			// query
+		});
+
+		// var pages = getCurrentPages() //获取加载的页面
+		// debugger
+		// var currentPage = pages[pages.length - 1] //获取当前页面的对象
+		// let url = "/pages/home/index"
+		// let query = {}
+		// if (currentPage) {
+		// 	const {
+		// 		redirect,
+		// 		...querys
+		// 	} = currentPage.options
+		// 	// 获取到最后一个页面
+		// 	if (
+		// 		currentPage.route != 'pages/Loading/index' &&
+		// 		currentPage.route != 'pages/user/Login/index'
+		// 	) {
+		// 		url = currentPage.route
+		// 		query = {
+		// 			...querys
+		// 		}
+		// 	}
+		// 	if (currentPage.route == 'pages/authorization/index') {
+
+		// 		url = redirect
+		// 		query = {
+		// 			...querys
+		// 		}
+		// 	}
+
+		// }
+		// console.log(url)
+		// if (url == '/pages/home/index' || url == '/pages/shop/GoodsClass/index' || url == '/pages/shop/ShoppingCart/index' || url == '/pages/user/User/index') {
+		// 	switchTab({
+		// 		path: `${url}`,
+		// 		query
+		// 	});
+		// } else {
+		// 	let redirect = cookie.get('redirect')
+		// 	debugger
+		// 	if (redirect) {
+
+		// 		reLaunch({
+		// 			path: redirect,
+		// 			// query
+		// 		});
+		// 		return
+		// 	}
+		// 	console.log('获取用户信息后跳转回显的页面')
+		// 	// 为了防止返回上一页是授权页面，先重定向到首页，再跳转
+		// 	console.log({
+		// 		path: `/${url}`,
+		// 		query
+		// 	})
+		// 	reLaunch({
+		// 		path: '/pages/home/index',
+		// 		// query
+		// 	});
+
+		// 	setTimeout(() => {
+		// 		if (url.indexOf('/') == 0) {
+		// 			url = url.slice(1)
+		// 		}
+		// 		push({
+		// 			path: `/${url}`,
+		// 			query
+		// 		})
+		// 	})
+
+		// 	// push({
+		// 	// 	path: `${url}`,
+		// 	// 	query
+		// 	// })
+		// }
 	})
 }
 
@@ -613,7 +641,6 @@ export function routerPermissions(url, type) {
 		// }
 	} else {
 		// 如果不是小程序跳转到登录页
-		console.log('当前无法自动登录，开始处理登录方法')
 		push({
 			path: '/pages/user/Login/index',
 		})
@@ -962,7 +989,6 @@ export function chooseImage(callback) {
 						},
 						name: "file",
 						success: res => {
-							console.log(res);
 							if (callback) {
 								callback(JSON.parse(res.data).link)
 							}

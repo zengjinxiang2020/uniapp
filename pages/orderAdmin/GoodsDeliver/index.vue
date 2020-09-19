@@ -207,7 +207,6 @@ export default {
       console.log(item);
       setAdminOrderDelivery(item)
         .then(res => {
-          console.log(res);
           uni.showToast({
             title: res.msg,
             icon: "none",

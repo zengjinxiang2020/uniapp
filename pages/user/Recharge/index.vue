@@ -165,7 +165,6 @@
             rechar_id: that.rechar_id,
           })
           .then((res) => {
-            console.log(res);
             var data = res.data.data;
             weappPay(res.data.data)
               .then(() => {

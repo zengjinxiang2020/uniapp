@@ -593,7 +593,7 @@
       //选择属性；
       ChangeAttr: function (res) {
         // 修改了规格
-        console.log(res);
+        
         let productSelect = this.productValue[res.value];
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
@@ -754,10 +754,10 @@
                   configAppMessage
                 )
                 .then((res) => {
-                  console.log(res);
+                  
                 })
                 .catch((res) => {
-                  console.log(res);
+                  
                   if (res.is_ready) {
                     res.wx.updateAppMessageShareData(configAppMessage);
                     res.wx.updateTimelineShareData(configAppMessage);
@@ -776,10 +776,10 @@
                 configAppMessage
               )
               .then((res) => {
-                console.log(res);
+                
               })
               .catch((res) => {
-                console.log(res);
+                
                 if (res.is_ready) {
                   res.wx.updateAppMessageShareData(configAppMessage);
                   res.wx.updateTimelineShareData(configAppMessage);

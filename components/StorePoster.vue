@@ -108,7 +108,6 @@
         //     this.posterData.code,
         //   fail: function(res) {},
         //   success: function(res) {
-        //     console.log(res);
         //     that.canvasStatus = true;
         //     that.posterImage = res.tempFilePath;
         //     uni.hideLoading();
