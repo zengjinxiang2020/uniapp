@@ -124,7 +124,7 @@ export function clearAuthStatus() {
 
 export function oAuth() {
   console.log('处理微信授权')
-  console.log('处理微信授权cookie',cookie.get("spread"))
+  console.log('处理微信授权cookie', cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {
@@ -167,20 +167,20 @@ export function auth(code) {
 }
 
 export function toAuth() {
-  // wechat().then(wx => {
-  location.href = getAuthUrl("wxc061dee8806ff712");
-  // });
+  wechat().then(wx => {
+    location.href = getAuthUrl(appId);
+  });
 }
 
 function getAuthUrl(appId) {
-  
+
   // const redirect_uri = encodeURIComponent(window.location.href);
   // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
-  
-	// #ifdef H5
-	// #endif
-  
-  
+
+  // #ifdef H5
+  // #endif
+
+
   const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
   // const redirect_uri = encodeURIComponent(`${window.location.origin}${window.location.pathname}`)
   // const redirect_uri = encodeURIComponent(`${location.origin}`)
