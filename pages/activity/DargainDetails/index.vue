@@ -276,7 +276,6 @@
         this.getBargainHelpCount();
       },
       openAlone: function () {
-        debugger
         this.$yrouter.push({
           path: "/detail/" + this.bargain.productId
         });
@@ -307,7 +306,6 @@
           that.bargainPartake = parseInt(this.partake);
         }
         
-        debugger;
         that.getBargainHelpCountStart();
         that.getBargainDetail();
         that.getBargainShare(0);
@@ -346,7 +344,6 @@
       goPoster: function () {
         var that = this;
         that.getBargainShare(that.bargainId);
-        debugger
         this.$yrouter.push({
           path: "/pages/activity/Poster/index",
           query: {
@@ -356,7 +353,6 @@
         });
       },
       goList: function () {
-        debugger
         this.$yrouter.push({
           path: "/pages/activity/GoodsBargain/index"
         });
@@ -529,15 +525,13 @@
 
           })
           .catch(() => {
-            debugger
-            debugger
-            this.$yrouter.push({
-              path: "/pages/activity/DargainDetails/index",
-              query: {
-                id: that.bargainId,
-                partake: that.userInfo.uid
-              }
-            });
+            // this.$yrouter.push({
+            //   path: "/pages/activity/DargainDetails/index",
+            //   query: {
+            //     id: that.bargainId,
+            //     partake: that.userInfo.uid
+            //   }
+            // });
           });
       },
       getBargainHelpCount: function () {

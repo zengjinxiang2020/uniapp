@@ -335,11 +335,9 @@ export const handleGetUserInfo = () => {
 	getUserInfo().then(res => {
 		console.log('获取用户信息')
 		store.dispatch('setUserInfo', res.data)
-
 		console.log('获取用户信息后跳转回显的页面')
-		
-		let redirect = cookie.get('redirect')
 
+		let redirect = cookie.get('redirect')
 		if (redirect) {
 			reLaunch({
 				path: redirect,
@@ -347,14 +345,13 @@ export const handleGetUserInfo = () => {
 			});
 			return
 		}
-	
+
 		reLaunch({
 			path: '/pages/home/index',
 			// query
 		});
 
 		// var pages = getCurrentPages() //获取加载的页面
-		// debugger
 		// var currentPage = pages[pages.length - 1] //获取当前页面的对象
 		// let url = "/pages/home/index"
 		// let query = {}
@@ -390,7 +387,6 @@ export const handleGetUserInfo = () => {
 		// 	});
 		// } else {
 		// 	let redirect = cookie.get('redirect')
-		// 	debugger
 		// 	if (redirect) {
 
 		// 		reLaunch({
@@ -498,7 +494,6 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
 	// 是否可以访问
 	let isAuth = false
-
 	console.log('即将跳转', location, parseUrl(location))
 
 	// 从 location 中获取当前url，location typeof string || object
@@ -521,6 +516,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	}
 
 	return new Promise((resolve, reject) => {
+		
 		if (isAuth) {
 			// 有token
 			if (path == '/pages/home/index' || path == '/pages/shop/GoodsClass/index' || path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
@@ -640,11 +636,12 @@ export function routerPermissions(url, type) {
 		// 	})
 		// }
 	} else {
+		console.log(path)
 		// 如果不是小程序跳转到登录页
+		cookie.set('redirect', path)
 		push({
 			path: '/pages/user/Login/index',
 		})
-		cookie.set('redirect', path)
 	}
 
 }

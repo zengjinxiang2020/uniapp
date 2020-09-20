@@ -40,9 +40,13 @@ const vuexStore = new Vuex.Store({
 			state.token = null;
 			state.userInfo = null
 			let spread = cookie.get('spread')
-			console.log(spread, 'spread')
-			cookie.clearAll()
-			cookie.set('spread', spread)
+			let redirect = cookie.get('redirect')
+			let outTime = setTimeout(() => {
+				clearTimeout(outTime)
+				cookie.clearAll()
+				cookie.set('redirect', redirect)
+				cookie.set('spread', spread)
+			}, 100)
 		},
 		backgroundColor(state, color) {
 			state.color = color;
@@ -134,6 +138,7 @@ const vuexStore = new Vuex.Store({
 			state,
 			commit
 		}, user) {
+			
 			commit("updateUserInfo", user);
 		},
 		changeAuthorizationPage({
