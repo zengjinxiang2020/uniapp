@@ -9,7 +9,7 @@
           </view>
           <view class="group-box">
             <view class="goods-item" v-for="(groupon, index) in grouponList" :key="groupon.id">
-              <activity-card :id="groupon.id" :title="groupon.title" :info="groupon.info" :img="groupon.image"
+              <activity-card :cid="groupon.id" :title="groupon.title" :info="groupon.info" :img="groupon.image"
                 :price="groupon.price" :productPrice="groupon.productPrice">
                 <block slot="tag">
                   <view class="tag" v-if="index < 3">TOP{{ index + 1 }}</view>

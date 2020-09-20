@@ -1,5 +1,5 @@
 <template>
-  <view class="activity-goods-box x-bc" @tap="jump('/pages/activity/GroupDetails/index', { id: id })">
+  <view class="activity-goods-box x-bc" @tap="jump('/pages/activity/GroupDetails/index', { id: cid })">
     <view class="img-box">
       <slot name="tag"></slot>
       <image class="img" :src="img" mode="aspectFill"></image>
@@ -27,7 +27,7 @@ export default {
     return {};
   },
   props: {
-    id: 0,
+    cid: 0,
     img: '',
     title: '',
     info: '',

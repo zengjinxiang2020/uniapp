@@ -152,6 +152,7 @@
     isWeixin,
     VUE_APP_RESOURCES_URL
   } from "@/utils";
+  import cookie from "@/utils/store/cookie";
   import SwitchWindow from "@/components/SwitchWindow";
   import Authorization from "@/pages/authorization/index";
 
@@ -214,52 +215,79 @@
           uni.showLoading({
             title: "绑定中"
           });
-          // 获取当前环境的服务商
-          uni.getProvider({
-            service: "oauth",
-            success: function (res) {
-              // 此处可以排除h5
-              if (res.provider) {
-                uni.login({
-                  success: loginRes => {
-                    bindingPhone({
-                        code: loginRes.code,
-                        encryptedData: e.mp.detail.encryptedData,
-                        iv: e.mp.detail.iv
-                      })
-                      .then(res => {
-                        // this.User();
-                        thit.$store.dispatch("userInfo", true);
-                        uni.hideLoading();
-                        uni.showToast({
-                          title: res.msg,
-                          icon: "success",
-                          duration: 2000
-                        });
-                      })
-                      .catch(error => {
-                        uni.hideLoading();
-                        thit.$store.dispatch("userInfo", true);
-                        console.log(error);
-                        uni.showToast({
-                          title: error.msg ||
-                            error.response.data.msg ||
-                            error.response.data.message,
-                          icon: "none",
-                          duration: 2000
-                        });
-                      });
-                  },
-                  fail() {
-                    reject("绑定失败");
-                  }
-                });
-              }
-            },
-            fail() {
-              reject("获取环境服务商失败");
-            }
-          });
+          bindingPhone({
+              code: cookie.get('wxLoginCode'),
+              encryptedData: e.mp.detail.encryptedData,
+              iv: e.mp.detail.iv
+            })
+            .then(res => {
+              // this.User();
+              thit.$store.dispatch("userInfo", true);
+              uni.hideLoading();
+              uni.showToast({
+                title: res.msg,
+                icon: "success",
+                duration: 2000
+              });
+            })
+            .catch(error => {
+              uni.hideLoading();
+              thit.$store.dispatch("userInfo", true);
+              console.log(error);
+              uni.showToast({
+                title: error.msg ||
+                  error.response.data.msg ||
+                  error.response.data.message,
+                icon: "none",
+                duration: 2000
+              });
+            });
+          // // 获取当前环境的服务商
+          // uni.getProvider({
+          //   service: "oauth",
+          //   success: function (res) {
+          //     // 此处可以排除h5
+          //     if (res.provider) {
+          //       uni.login({
+          //         success: loginRes => {
+          //           bindingPhone({
+          //               code: loginRes.code,
+          //               encryptedData: e.mp.detail.encryptedData,
+          //               iv: e.mp.detail.iv
+          //             })
+          //             .then(res => {
+          //               // this.User();
+          //               thit.$store.dispatch("userInfo", true);
+          //               uni.hideLoading();
+          //               uni.showToast({
+          //                 title: res.msg,
+          //                 icon: "success",
+          //                 duration: 2000
+          //               });
+          //             })
+          //             .catch(error => {
+          //               uni.hideLoading();
+          //               thit.$store.dispatch("userInfo", true);
+          //               console.log(error);
+          //               uni.showToast({
+          //                 title: error.msg ||
+          //                   error.response.data.msg ||
+          //                   error.response.data.message,
+          //                 icon: "none",
+          //                 duration: 2000
+          //               });
+          //             });
+          //         },
+          //         fail() {
+          //           reject("绑定失败");
+          //         }
+          //       });
+          //     }
+          //   },
+          //   fail() {
+          //     reject("获取环境服务商失败");
+          //   }
+          // });
         } else {
           uni.showToast({
             title: "已拒绝授权",

@@ -275,6 +275,7 @@ export const login = () => {
 					console.log('登录接口调用成功')
 					console.log('开始检查用户信息授权')
 					let code = loginRes.code;
+					cookie.set('wxLoginCode',loginRes.code)
 					// 检查授权， 检查用户信息授权
 					authorize('userInfo').then(() => {
 						console.log('授权通过')
@@ -516,7 +517,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 	}
 
 	return new Promise((resolve, reject) => {
-		
+
 		if (isAuth) {
 			// 有token
 			if (path == '/pages/home/index' || path == '/pages/shop/GoodsClass/index' || path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
@@ -859,12 +860,20 @@ export const handleLoginFailure = () => {
 	store.commit("updateAuthorization", false);
 
 	let currentPageUrl = getCurrentPageUrl()
-	// token 失效
-	// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
-	if (store.getters.isAuthorizationPage || currentPageUrl == '/pages/user/Login/index') {
-		console.log(store.getters.isAuthorizationPage, currentPageUrl, '已经是登录页面或者授权页面，跳出方法')
-		return
+
+	if (store.state.$deviceType == 'weixin') {
+		if (store.getters.isAuthorizationPage){
+			toAuth()
+		}
+	} else {
+		// token 失效
+		// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
+		if (store.getters.isAuthorizationPage || currentPageUrl == '/pages/user/Login/index') {
+			console.log(store.getters.isAuthorizationPage, currentPageUrl, '已经是登录页面或者授权页面，跳出方法')
+			return
+		}
 	}
+
 
 	console.log('————————')
 	console.log('当前是授权页面')
@@ -873,6 +882,7 @@ export const handleLoginFailure = () => {
 	store.commit("updateAuthorizationPage", true);
 
 	let path = '/' + getCurrentPageUrlWithArgs()
+
 	let qrCode = handleQrCode()
 
 	if (qrCode) {

@@ -28,7 +28,7 @@
               <view class="checkbox-wrapper">
                 <checkbox-group @change="switchSelect(cartListValidIndex)">
                   <label class="well-check">
-                    <checkbox value :checked="item.checked"></checkbox>
+                    <checkbox value :checked="item.checked+''"></checkbox>
                   </label>
                 </checkbox-group>
               </view>
@@ -95,7 +95,7 @@
         <Recommend></Recommend>
       </view>
       <view style="height:210rpx"></view>
-      <view :class="['footer acea-row row-between-wrapper']" v-if="cartList.valid.length > 0">
+      <view :class="{'footer acea-row row-between-wrapper':true,'footer-h5':isH5}" v-if="cartList.valid.length > 0">
         <view>
           <view class="select-btn">
             <view class="checkbox-wrapper">
@@ -170,6 +170,7 @@
           invalid: [],
           valid: []
         },
+        isH5: false,
         validList: [],
         isAllSelect: false,
         cartCount: 0,
@@ -182,7 +183,6 @@
       };
     },
     computed: mapGetters(["userInfo", "token"]),
-
     //   watch: {
     //     $yroute(n) {
     //       if (n.name === "ShoppingCart") {
@@ -220,6 +220,10 @@
       }
     },
     onShow: function () {
+      // #ifdef H5
+      this.isH5 = true
+      // #endif
+      console.log(this.userInfo)
       if (this.userInfo.uid) {
         this.carnum();
         this.countMoney();
@@ -509,3 +513,9 @@
     }
   };
 </script>
+
+<style lang="less">
+  .footer-h5 {
+    bottom: 50px
+  }
+</style>
