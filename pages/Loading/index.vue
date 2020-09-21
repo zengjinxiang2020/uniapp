@@ -52,37 +52,37 @@
           this.toLaunch();
           return;
         }
-        // cookie.get("spread");
-        // if (this.$deviceType == "weixin") {
-        //   let path = parseQuery().path
-        //   console.log(this)
-        //   if (path) {
-        //     this.$yrouter.push({
-        //       path
-        //     });
-        //   } else {
-        //     this.$yrouter.switchTab({
-        //       path: "/pages/home/index"
-        //     });
-        //   }
-
-        //   return
-        // }
-        // this.toLaunch();
-        if (this.$deviceType == "app" || this.$deviceType == "h5") {
-          // this.toLaunch();
-
-          this.$yrouter.switchTab({
-            path: "/pages/home/index"
-          });
-          return;
-        }
-        login().finally(() => {
-          this.$yrouter.switchTab({
-            path: "/pages/home/index"
-          });
-        });
       }
+
+      // cookie.get("spread");
+      // if (this.$deviceType == "weixin") {
+      //   let path = parseQuery().path
+      //   console.log(this)
+      //   if (path) {
+      //     this.$yrouter.push({
+      //       path
+      //     });
+      //   } else {
+      //     this.$yrouter.switchTab({
+      //       path: "/pages/home/index"
+      //     });
+      //   }
+
+      //   return
+      // }
+      // this.toLaunch();
+      if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
+        // this.toLaunch();
+        this.$yrouter.switchTab({
+          path: "/pages/home/index"
+        });
+        return;
+      }
+      login().finally(() => {
+        this.$yrouter.switchTab({
+          path: "/pages/home/index"
+        });
+      });
     },
     methods: {
       ...mapActions(["changeAuthorization", "setUserInfo"]),

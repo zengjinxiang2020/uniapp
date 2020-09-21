@@ -12,7 +12,7 @@ import Fly from "flyio/dist/npm/wx";
 import Fly from "flyio/dist/npm/wx";
 // #endif
 
-import $store from "../store";
+import store from "../store";
 import { handleLoginFailure } from "@/utils";
 import { VUE_APP_API_URL } from "@/config";
 import cookie from "@/utils/store/cookie";

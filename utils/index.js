@@ -204,17 +204,22 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = () => {
+	debugger;
 	console.log(Vue.prototype)
 	return new Promise((resolve, reject) => {
 		if (Vue.prototype.$deviceType == 'weixin') {
 			// 微信授权登录
 			const { code } = parseQuery()
+			debugger;
 			if (code) {
 				auth(code)
 					.then(() => {
 						// location.replace(
 						//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
 						// );
+						let redirect = cookie.get('redirect')
+						console.log(redirect)
+						debugger;
 						location.href = decodeURIComponent(
 							decodeURIComponent(this.$route.params.url)
 						);
@@ -275,7 +280,7 @@ export const login = () => {
 					console.log('登录接口调用成功')
 					console.log('开始检查用户信息授权')
 					let code = loginRes.code;
-					cookie.set('wxLoginCode',loginRes.code)
+					cookie.set('wxLoginCode', loginRes.code)
 					// 检查授权， 检查用户信息授权
 					authorize('userInfo').then(() => {
 						console.log('授权通过')
@@ -857,14 +862,19 @@ export const handleLoginFailure = () => {
 	console.log('————————')
 
 	store.commit("logout");
+	// 改为授权取消
 	store.commit("updateAuthorization", false);
 
 	let currentPageUrl = getCurrentPageUrl()
-
+	debugger
 	if (store.state.$deviceType == 'weixin') {
-		if (store.getters.isAuthorizationPage){
+		// 如果不是授权页面，
+		if (!store.getters.isAuthorizationPage) {
+			// 标识当前为授权页面
+			store.commit("updateAuthorizationPage", true);
 			toAuth()
 		}
+		return
 	} else {
 		// token 失效
 		// 判断当前是不是已经在登录页面或者授权页，防止二次跳转
@@ -895,7 +905,7 @@ export const handleLoginFailure = () => {
 			console.log('————————')
 			if (qrCode.pinkId) {
 				path = parseUrl({
-					path: `/${currentPageUrl}`,
+					path: `/ ${currentPageUrl} `,
 					query: {
 						id: qrCode.pinkId,
 					}
@@ -917,7 +927,7 @@ export const handleLoginFailure = () => {
 
 			if (qrCode.bargainId) {
 				path = parseUrl({
-					path: `/${currentPageUrl}`,
+					path: `/ ${currentPageUrl} `,
 					query: {
 						id: qrCode.bargainId,
 						partake: qrCode.uid
@@ -939,7 +949,7 @@ export const handleLoginFailure = () => {
 
 			if (qrCode.productId) {
 				path = parseUrl({
-					path: `/${currentPageUrl}`,
+					path: `/ ${currentPageUrl} `,
 					query: {
 						id: qrCode.productId,
 					}
@@ -988,7 +998,7 @@ export function chooseImage(callback) {
 					console.log(image);
 					uni.showLoading({ title: "图片上传中", mask: true });
 					uni.uploadFile({
-						url: `${VUE_APP_API_URL}/api/upload`,
+						url: `${VUE_APP_API_URL} /api/upload`,
 						file: image,
 						filePath: image.path,
 						header: {

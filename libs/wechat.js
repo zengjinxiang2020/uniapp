@@ -86,9 +86,11 @@ const LOGINTYPE = "loginType";
 let instance;
 let wechatObj;
 let appId
+let wechatLoading = false
 
-export function wechat() {
+export async function wechat() {
   console.log('初始化微信配置')
+  wechatLoading = false
   return new Promise((resolve, reject) => {
     if (instance) return resolve(instance);
     getWechatConfig()
@@ -107,12 +109,12 @@ export function wechat() {
           })
           .catch(error => {
             console.log(error)
-            reject(error)
+            reject()
           });
       })
       .catch(err => {
         console.log(err);
-        reject(err);
+        reject();
       });
   });
 }
@@ -122,7 +124,7 @@ export function clearAuthStatus() {
   cookie.remove(STATE_KEY);
 }
 
-export function oAuth() {
+export async function oAuth() {
   console.log('处理微信授权')
   console.log('处理微信授权cookie', cookie.get("spread"))
   console.log(store)
@@ -137,6 +139,8 @@ export function oAuth() {
     if (!code) {
       toAuth();
       return
+    } else {
+      auth(code)
     }
     resolve()
   }).catch(error => {
@@ -167,6 +171,10 @@ export function auth(code) {
 }
 
 export function toAuth() {
+  if (wechatLoading) {
+    return
+  }
+  wechatLoading = true
   wechat().then(wx => {
     location.href = getAuthUrl(appId);
   });
@@ -179,9 +187,10 @@ function getAuthUrl(appId) {
 
   // #ifdef H5
   // #endif
-
-
-  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
+  debugger
+  cookie.set('redirect', window.location.href)
+  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
+  // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
   // const redirect_uri = encodeURIComponent(`${window.location.origin}${window.location.pathname}`)
   // const redirect_uri = encodeURIComponent(`${location.origin}`)
   cookie.remove(BACK_URL);

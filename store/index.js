@@ -138,7 +138,7 @@ const vuexStore = new Vuex.Store({
 			state,
 			commit
 		}, user) {
-			
+
 			commit("updateUserInfo", user);
 		},
 		changeAuthorizationPage({
@@ -163,6 +163,7 @@ const vuexStore = new Vuex.Store({
 		location: state => state.location,
 		storeItems: state => state.storeItems,
 		goName: state => state.goName,
+		$deviceType: state => state.$deviceType,
 	},
 	strict: debug
 });

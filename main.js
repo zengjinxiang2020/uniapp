@@ -107,31 +107,20 @@ import { isWeixin } from '@/utils'
 const CACHE_KEY = "clear_0.0.1";
 
 if (!cookie.has(CACHE_KEY)) {
-  cookie.clearAll();
-  cookie.set(CACHE_KEY, 1);
+	cookie.clearAll();
+	cookie.set(CACHE_KEY, 1);
 }
 
 var urlSpread = parseQuery()["spread"];
 
 if (urlSpread !== undefined) {
-  var spread = cookie.get("spread");
-  urlSpread = parseInt(urlSpread);
-  if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-    cookie.set("spread", urlSpread || 0);
-  } else if (spread === 0 || typeof spread !== "number") {
-    cookie.set("spread", urlSpread || 0);
-  }
-}
-
-
-// 判断是否是微信浏览器
-if (isWeixin()) {
-	Vue.prototype.$deviceType = 'weixin'
-	store.commit('updateDevicetype', 'weixin')
-	wechat().then(() => oAuth());
-} else {
-	Vue.prototype.$deviceType = 'weixinh5'
-	store.commit('updateDevicetype', 'weixinh5')
+	var spread = cookie.get("spread");
+	urlSpread = parseInt(urlSpread);
+	if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
+		cookie.set("spread", urlSpread || 0);
+	} else if (spread === 0 || typeof spread !== "number") {
+		cookie.set("spread", urlSpread || 0);
+	}
 }
 
 Vue.prototype.wechat = wechat
@@ -147,6 +136,21 @@ Vue.prototype.openShareTimeline = openShareTimeline
 Vue.prototype.wechatEvevt = wechatEvevt
 Vue.prototype.ready = ready
 Vue.prototype.wxShowLocation = wxShowLocation
+
+// 判断是否是微信浏览器
+if (isWeixin()) {
+	Vue.prototype.$deviceType = 'weixin'
+	store.commit('updateDevicetype', 'weixin')
+	let wechat = await wechat()
+	if (wechat) {
+		await oAuth()
+	}
+} else {
+	Vue.prototype.$deviceType = 'weixinh5'
+	store.commit('updateDevicetype', 'weixinh5')
+}
+
+
 
 // #endif
 
