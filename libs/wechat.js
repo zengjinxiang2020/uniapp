@@ -88,7 +88,7 @@ let wechatObj;
 let appId
 let wechatLoading = false
 
-export async function wechat() {
+export function wechat() {
   console.log('初始化微信配置')
   wechatLoading = false
   return new Promise((resolve, reject) => {
@@ -148,7 +148,7 @@ export async function oAuth() {
   })
 }
 
-export function auth(code) {
+export async function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
@@ -170,7 +170,7 @@ export function auth(code) {
   })
 }
 
-export function toAuth() {
+export async function toAuth() {
   if (wechatLoading) {
     return
   }
@@ -187,7 +187,6 @@ function getAuthUrl(appId) {
 
   // #ifdef H5
   // #endif
-  debugger
   cookie.set('redirect', window.location.href)
   const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
   // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);

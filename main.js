@@ -82,77 +82,7 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 Vue.component('cu-custom', cuCustom);
-// #ifdef H5
-// H5编译的代码
 
-import {
-	wechat,
-	clearAuthStatus,
-	oAuth,
-	auth,
-	toAuth,
-	pay,
-	openAddress,
-	openShareAll,
-	openShareAppMessage,
-	openShareTimeline,
-	wechatEvevt,
-	ready,
-	wxShowLocation,
-} from '@/libs/wechat'
-
-import { isWeixin } from '@/utils'
-
-
-const CACHE_KEY = "clear_0.0.1";
-
-if (!cookie.has(CACHE_KEY)) {
-	cookie.clearAll();
-	cookie.set(CACHE_KEY, 1);
-}
-
-var urlSpread = parseQuery()["spread"];
-
-if (urlSpread !== undefined) {
-	var spread = cookie.get("spread");
-	urlSpread = parseInt(urlSpread);
-	if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-		cookie.set("spread", urlSpread || 0);
-	} else if (spread === 0 || typeof spread !== "number") {
-		cookie.set("spread", urlSpread || 0);
-	}
-}
-
-Vue.prototype.wechat = wechat
-Vue.prototype.clearAuthStatus = clearAuthStatus
-Vue.prototype.oAuth = oAuth
-Vue.prototype.auth = auth
-Vue.prototype.toAuth = toAuth
-Vue.prototype.pay = pay
-Vue.prototype.openAddress = openAddress
-Vue.prototype.openShareAll = openShareAll
-Vue.prototype.openShareAppMessage = openShareAppMessage
-Vue.prototype.openShareTimeline = openShareTimeline
-Vue.prototype.wechatEvevt = wechatEvevt
-Vue.prototype.ready = ready
-Vue.prototype.wxShowLocation = wxShowLocation
-
-// 判断是否是微信浏览器
-if (isWeixin()) {
-	Vue.prototype.$deviceType = 'weixin'
-	store.commit('updateDevicetype', 'weixin')
-	let wechat = await wechat()
-	if (wechat) {
-		await oAuth()
-	}
-} else {
-	Vue.prototype.$deviceType = 'weixinh5'
-	store.commit('updateDevicetype', 'weixinh5')
-}
-
-
-
-// #endif
 
 // #ifdef APP-PLUS
 // App平台编译的代码
@@ -174,4 +104,75 @@ store.commit('updateDevicetype', 'routine')
 // 		...mapState(['$deviceType'])
 // },
 
-app.$mount()
+
+// #ifdef H5
+// H5编译的代码
+
+import {
+	wechat,
+	clearAuthStatus,
+	oAuth,
+	auth,
+	toAuth,
+	pay,
+	openAddress,
+	openShareAll,
+	openShareAppMessage,
+	openShareTimeline,
+	wechatEvevt,
+	ready,
+	wxShowLocation,
+} from '@/libs/wechat'
+
+import { isWeixin } from '@/utils'
+const CACHE_KEY = "clear_0.0.1";
+
+if (!cookie.has(CACHE_KEY)) {
+	cookie.clearAll();
+	cookie.set(CACHE_KEY, 1);
+}
+
+var urlSpread = parseQuery()["spread"];
+
+if (urlSpread !== undefined) {
+	var spread = cookie.get("spread");
+	urlSpread = parseInt(urlSpread);
+	if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
+		cookie.set("spread", urlSpread || 0);
+	} else if (spread === 0 || typeof spread !== "number") {
+		cookie.set("spread", urlSpread || 0);
+	}
+}
+// #endif
+
+
+	
+async function init() {
+
+	// #ifdef H5
+	// H5编译的代码
+	// 判断是否是微信浏览器
+	if (isWeixin()) {
+		Vue.prototype.$deviceType = 'weixin'
+		store.commit('updateDevicetype', 'weixin')
+		let wechatInit = await wechat()
+		console.log(wechatInit)
+		if (wechatInit) {
+			await oAuth()
+			app.$mount()
+		}
+	} else {
+		Vue.prototype.$deviceType = 'weixinh5'
+		store.commit('updateDevicetype', 'weixinh5')
+		app.$mount()
+
+	}
+	// #endif
+
+	// #ifndef H5
+	app.$mount()
+	// #endif
+
+}
+
+init()

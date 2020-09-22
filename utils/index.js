@@ -204,25 +204,25 @@ export const authorize = (authorizeStr) => {
 }
 
 export const login = () => {
-	debugger;
-	console.log(Vue.prototype)
 	return new Promise((resolve, reject) => {
 		if (Vue.prototype.$deviceType == 'weixin') {
 			// 微信授权登录
 			const { code } = parseQuery()
-			debugger;
 			if (code) {
 				auth(code)
 					.then(() => {
-						// location.replace(
-						//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
-						// );
 						let redirect = cookie.get('redirect')
 						console.log(redirect)
-						debugger;
-						location.href = decodeURIComponent(
-							decodeURIComponent(this.$route.params.url)
-						);
+						if (redirect) {
+							redirect = redirect.split('/pages')[1]
+							reLaunch({
+								path: '/pages' + redirect,
+							});
+						} else {
+							reLaunch({
+								path: '/pages/home/index',
+							});
+						}
 					})
 					.catch(() => {
 						reject('当前运行环境为微信浏览器')
@@ -866,7 +866,6 @@ export const handleLoginFailure = () => {
 	store.commit("updateAuthorization", false);
 
 	let currentPageUrl = getCurrentPageUrl()
-	debugger
 	if (store.state.$deviceType == 'weixin') {
 		// 如果不是授权页面，
 		if (!store.getters.isAuthorizationPage) {
