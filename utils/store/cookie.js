@@ -29,7 +29,16 @@ function remove(key) {
 }
 
 function clearAll() {
-  uni.clearStorage()
+  const res = uni.getStorageInfoSync();
+  res.keys.map((item) => {
+    if (item == 'redirect' || item == 'spread') {
+      return
+    }
+    remove(item)
+  })
+  console.log(res)
+  // debugger
+  // uni.clearStorageSync()
 }
 
 function _has(key) {

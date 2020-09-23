@@ -39,14 +39,7 @@ const vuexStore = new Vuex.Store({
 			console.log('清除数据')
 			state.token = null;
 			state.userInfo = null
-			let spread = cookie.get('spread')
-			let redirect = cookie.get('redirect')
-			let outTime = setTimeout(() => {
-				clearTimeout(outTime)
-				cookie.clearAll()
-				cookie.set('redirect', redirect)
-				cookie.set('spread', spread)
-			}, 100)
+			cookie.clearAll()
 		},
 		backgroundColor(state, color) {
 			state.color = color;

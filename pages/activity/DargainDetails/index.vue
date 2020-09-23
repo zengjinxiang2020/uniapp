@@ -1,10 +1,11 @@
 <template>
   <view class="bargain on">
     <!-- 在header上加 on 为请求支援 -->
-    <view :class="[bargainPartake != userInfo.uid ? 'wrapper bargain-box on user' : 'wrapper bargain-box user']" v-if="bargainPartake != userInfo.uid">
+    <view :class="[bargainPartake != userInfo.uid ? 'wrapper bargain-box on user' : 'wrapper bargain-box user']"
+      v-if="bargainUserInfo && bargainPartake != userInfo.uid">
       <!-- <view class="people">{{ lookCount }}人查看 丨 {{ shareCount }}人分享 丨 {{ userCount }}人参与</view> -->
       <!-- 帮助砍价、帮砍成功：-->
-      <view class="pictxt acea-row row-center-wrapper " >
+      <view class="pictxt acea-row row-center-wrapper ">
         <div class="bargain-header">
           <view class="pictrue">
             <image :src="bargainUserInfo.avatar" />
@@ -305,7 +306,7 @@
         } else {
           that.bargainPartake = parseInt(this.partake);
         }
-        
+
         that.getBargainHelpCountStart();
         that.getBargainDetail();
         that.getBargainShare(0);
@@ -505,11 +506,17 @@
             that.helpListStatus = res.data.length < that.limit;
             that.helpListLoading = false;
             that.page++;
-            that.bargainHelpList.push.apply(that.bargainHelpList, res.data);
+            if (res.data) {
+              that.bargainHelpList.push.apply(that.bargainHelpList, res.data);
+            }
           })
-          .catch(res => {
+          .catch(err => {
+            console.log(err)
+            if(!err.msg){
+              return
+            }
             uni.showToast({
-              title: res.msg,
+              title: err.msg || err.response.data.msg || err.response.data.message,
               icon: "none",
               duration: 2000
             });

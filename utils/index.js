@@ -218,6 +218,7 @@ export const login = () => {
 							reLaunch({
 								path: '/pages' + redirect,
 							});
+							cookie.remove('redirect');
 						} else {
 							reLaunch({
 								path: '/pages/home/index',
@@ -226,38 +227,16 @@ export const login = () => {
 					})
 					.catch(() => {
 						reject('当前运行环境为微信浏览器')
-						location.replace("/pages/home/index");
+						reLaunch({
+							path: '/pages/home/index',
+						});
 					});
 			} else {
-				// wechat().then(() => oAuth());
 			}
-			// if (!code) {
-			// 	toAuth("wxc061dee8806ff712")
-			// } else {
-			// 	// wechat().then(() => oAuth().then((code) => {
-			// 	// 	// const { code } = parseQuery()
-			// 	// 	auth(code)
-			// 	// 		.then(() => {
-			// 	// 			// location.replace(
-			// 	// 			//   decodeURIComponent(decodeURIComponent(this.$route.params.url))
-			// 	// 			// );
-			// 	// 			location.href = decodeURIComponent(
-			// 	// 				decodeURIComponent(this.$route.params.url)
-			// 	// 			);
-			// 	// 		})
-			// 	// 		.catch(() => {
-			// 	// 			reject('当前运行环境为微信浏览器')
-			// 	// 			location.replace("/pages/home/index");
-			// 	// 		});
-			// 	// })).catch(error => {
-			// 	// 	console.log(error)
-			// 	// 	reject('自动登录失败')
-			// 	// });
-			// }
 			return
 		}
 		if (Vue.prototype.$deviceType == 'weixinh5') {
-
+			console.log('当前运行环境为H5')
 			reject('当前运行环境为H5')
 			return
 		}
@@ -710,7 +689,8 @@ export const _router = {
 	push,
 	replace,
 	go,
-	back
+	back,
+	reLaunch
 }
 
 

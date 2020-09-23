@@ -303,8 +303,15 @@
     computed: mapGetters(["isLogin", "location"]),
     mounted: function () {
       let url = handleQrCode();
-      if (url && url.productId) {
-        this.id = url.productId;
+      if (url && url.id) {
+        this.id = url.id;
+        var spread = cookie.get("spread");
+        let urlSpread = parseInt(url.spread);
+        if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
+          cookie.set("spread", urlSpread || 0);
+        } else if (spread === 0 || typeof spread !== "number") {
+          cookie.set("spread", urlSpread || 0);
+        }
       } else {
         this.id = this._route.query.id;
       }
@@ -326,7 +333,8 @@
         return {
           title: this.storeInfo.storeName,
           imageUrl: this.storeInfo.image,
-          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid")+"&pageType=good&codeType=routine",
+          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid") +
+            "&pageType=good&codeType=routine",
           success(res) {
             uni.showToast({
               title: '分享成功'
@@ -593,7 +601,7 @@
       //选择属性；
       ChangeAttr: function (res) {
         // 修改了规格
-        
+
         let productSelect = this.productValue[res.value];
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
@@ -754,10 +762,10 @@
                   configAppMessage
                 )
                 .then((res) => {
-                  
+
                 })
                 .catch((res) => {
-                  
+
                   if (res.is_ready) {
                     res.wx.updateAppMessageShareData(configAppMessage);
                     res.wx.updateTimelineShareData(configAppMessage);
@@ -776,10 +784,10 @@
                 configAppMessage
               )
               .then((res) => {
-                
+
               })
               .catch((res) => {
-                
+
                 if (res.is_ready) {
                   res.wx.updateAppMessageShareData(configAppMessage);
                   res.wx.updateTimelineShareData(configAppMessage);

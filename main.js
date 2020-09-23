@@ -38,14 +38,6 @@ Vue.prototype.$validator = function (rule) {
 	return new schema(rule);
 };
 
-// const CACHE_KEY = "clear_0.0.1";
-
-// if (!cookie.has(CACHE_KEY)) {
-// 	cookie.clearAll();
-// 	cookie.set(CACHE_KEY, 1);
-// }
-
-
 Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
@@ -128,7 +120,7 @@ import { isWeixin } from '@/utils'
 const CACHE_KEY = "clear_0.0.1";
 
 if (!cookie.has(CACHE_KEY)) {
-	cookie.clearAll();
+	cookie.clearAll()
 	cookie.set(CACHE_KEY, 1);
 }
 
@@ -146,7 +138,7 @@ if (urlSpread !== undefined) {
 // #endif
 
 
-	
+
 async function init() {
 
 	// #ifdef H5

@@ -48,36 +48,20 @@
         } else if (spread === 0 || typeof spread !== "number") {
           cookie.set("spread", urlSpread || 0);
         }
-        if (this.$store.getters.token) {
-          this.toLaunch();
-          return;
-        }
       }
-
-      // cookie.get("spread");
-      // if (this.$deviceType == "weixin") {
-      //   let path = parseQuery().path
-      //   console.log(this)
-      //   if (path) {
-      //     this.$yrouter.push({
-      //       path
-      //     });
-      //   } else {
-      //     this.$yrouter.switchTab({
-      //       path: "/pages/home/index"
-      //     });
-      //   }
-
-      //   return
+      // if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
+      //   this.$yrouter.switchTab({
+      //     path: "/pages/home/index"
+      //   });
+      //   return;
       // }
-      // this.toLaunch();
-      if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
-        // this.toLaunch();
-        this.$yrouter.switchTab({
-          path: "/pages/home/index"
-        });
+      if (this.$store.getters.token) {
+        // 如果token存在，直接进行进页面
+        console.log('登录状态存在，直接进页面')
+        this.toLaunch();
         return;
       }
+      console.log('进行登录操作')
       login().finally(() => {
         this.$yrouter.switchTab({
           path: "/pages/home/index"
@@ -89,9 +73,18 @@
       toLaunch() {
         console.log("loading home");
         this.changeAuthorization(false);
-        this.$yrouter.switchTab({
-          path: "/pages/home/index"
-        });
+        let redirect = cookie.get('redirect')
+        if (redirect) {
+          redirect = redirect.split('/pages')[1]
+          this.$yrouter.replace({
+            path: '/pages' + redirect,
+          });
+          cookie.remove('redirect');
+        } else {
+          this.$yrouter.replace({
+            path: '/pages/home/index',
+          });
+        }
       }
     }
   };
