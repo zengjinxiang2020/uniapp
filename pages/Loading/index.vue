@@ -25,7 +25,8 @@
     login,
     handleQrCode,
     getCurrentPageUrl,
-    handleUrlParam
+    handleUrlParam,
+    getCurrentPageUrlWithArgs
   } from "@/utils";
 
   export default {
@@ -37,17 +38,12 @@
 
       var url = handleQrCode();
       if (!url) {
-        url = handleUrlParam(getCurrentPageUrl())
+        url = handleUrlParam(getCurrentPageUrlWithArgs())
       }
       // 判断是否是分销
       if (url) {
-        var spread = cookie.get("spread");
         let urlSpread = parseInt(url.spread);
-        if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-          cookie.set("spread", urlSpread || 0);
-        } else if (spread === 0 || typeof spread !== "number") {
-          cookie.set("spread", urlSpread || 0);
-        }
+        cookie.set("spread", urlSpread || 0);
       }
       // if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
       //   this.$yrouter.switchTab({
@@ -81,8 +77,8 @@
           });
           cookie.remove('redirect');
         } else {
-          this.$yrouter.replace({
-            path: '/pages/home/index',
+          this.$yrouter.switchTab({
+            path: "/pages/home/index"
           });
         }
       }

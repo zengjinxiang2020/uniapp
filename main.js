@@ -125,16 +125,7 @@ if (!cookie.has(CACHE_KEY)) {
 }
 
 var urlSpread = parseQuery()["spread"];
-
-if (urlSpread !== undefined) {
-	var spread = cookie.get("spread");
-	urlSpread = parseInt(urlSpread);
-	if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-		cookie.set("spread", urlSpread || 0);
-	} else if (spread === 0 || typeof spread !== "number") {
-		cookie.set("spread", urlSpread || 0);
-	}
-}
+cookie.set("spread", urlSpread || 0);
 // #endif
 
 

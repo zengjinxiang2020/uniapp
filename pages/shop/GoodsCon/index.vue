@@ -220,7 +220,9 @@
   import {
     isWeixin,
     PosterCanvas,
-    handleQrCode
+    handleQrCode,
+    handleUrlParam,
+    getCurrentPageUrlWithArgs
   } from "@/utils";
   import {
     wechatEvevt
@@ -303,15 +305,13 @@
     computed: mapGetters(["isLogin", "location"]),
     mounted: function () {
       let url = handleQrCode();
+      if (!url) {
+        url = handleUrlParam(getCurrentPageUrlWithArgs())
+      }
       if (url && url.id) {
         this.id = url.id;
-        var spread = cookie.get("spread");
         let urlSpread = parseInt(url.spread);
-        if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-          cookie.set("spread", urlSpread || 0);
-        } else if (spread === 0 || typeof spread !== "number") {
-          cookie.set("spread", urlSpread || 0);
-        }
+        cookie.set("spread", urlSpread || 0);
       } else {
         this.id = this._route.query.id;
       }

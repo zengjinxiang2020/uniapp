@@ -152,7 +152,7 @@ export async function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    let spread = cookie.get(spread);
+    let spread = cookie.get('spread');
     wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)
