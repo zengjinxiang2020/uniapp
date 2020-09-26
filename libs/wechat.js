@@ -126,7 +126,6 @@ export function clearAuthStatus() {
 
 export async function oAuth() {
   console.log('处理微信授权')
-  console.log('处理微信授权cookie', cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {
@@ -154,7 +153,6 @@ export async function auth(code) {
     let loginType = cookie.get(LOGINTYPE);
     let spread = cookie.get('spread');
     alert(spread)
-    debugger
     wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)
