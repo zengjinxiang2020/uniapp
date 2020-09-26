@@ -194,25 +194,16 @@
     props: {},
     data: function () {
       return {
-        price: 0,
         bargainId: 0, //砍价编号
-        bargain: [], //砍价产品信息
-        partake: null,
         bargainSumCount: 0, //砍价成功人数
         activeMsg: "",
         active: false,
-        loading: false,
-        lookCount: 0, //查看人数
-        shareCount: 0, //分享人数
-        userCount: 0, //参与人数
         bargainHelpPrice: 0, //砍掉金额
         bargainHelpList: [],
         helpListStatus: false, //砍价列表是否获取完成 false 未完成 true 完成
         page: 1, //页码
         limit: 2, //数量
         pricePercent: 0, //砍价进度条
-
-
         bargainShare: {}, // 砍价分享的消息
         bargainHelpCount: {}, // 砍价的信息数据
         goodsDetail: {}, // 商品的详情
@@ -239,29 +230,18 @@
         if (url) {
           // 通过二维码进来
           that.bargainId = url.bargainId;
-          that.partake = url.partake;
+          that.bargainUid = url.partake;
         } else {
+          // 正常途径进来
           that.bargainId = that.$yroute.query.id;
-          that.partake = parseInt(that.$yroute.query.partake);
+          that.bargainUid = parseInt(that.$yroute.query.partake);
         }
-        if (
-          this.partake === undefined ||
-          this.partake <= 0 ||
-          isNaN(this.partake)
-        ) {
+        
+        if (!this.bargainUid) {
           // url未携带用户uid，填上登录用户uid，跳转
           that.bargainUid = that.userInfo.uid;
-          that.$yrouter.push({
-            path: "/pages/activity/DargainDetails/index",
-            query: {
-              id: that.bargainId,
-              partake: that.bargainUid
-            }
-          });
-          return
-        } else {
-          that.bargainUid = this.partake;
         }
+
         // 获取商品详情
         that.getBargainDetail();
         // 砍价数据统计
@@ -557,7 +537,7 @@
           this.bargainUid != this.userInfo.uid
         ) {
           this.bargain = true
-        }else{
+        } else {
           this.bargain = false
         }
 
