@@ -889,7 +889,9 @@ export const handleLoginFailure = () => {
 						id: qrCode.pinkId,
 					}
 				})
-				cookie.set("spread", qrCode.spread || 0);
+				if (qrCode.spread) {
+					cookie.set("spread", qrCode.spread || 0);
+				}
 			} else {
 				console.log('————————')
 				console.log('是拼团进来的,但是没有获取到参数')
@@ -912,7 +914,9 @@ export const handleLoginFailure = () => {
 						partake: qrCode.uid
 					}
 				})
-				cookie.set("spread", qrCode.spread || 0);
+				if (qrCode.spread) {
+					cookie.set("spread", qrCode.spread || 0);
+				}
 			} else {
 				handleNoParameters()
 				console.log('————————')
@@ -933,7 +937,9 @@ export const handleLoginFailure = () => {
 						id: qrCode.productId,
 					}
 				})
-				cookie.set("spread", qrCode.spread || 0);
+				if (qrCode.spread) {
+					cookie.set("spread", qrCode.spread || 0);
+				}
 			} else {
 				handleNoParameters()
 				console.log('————————')

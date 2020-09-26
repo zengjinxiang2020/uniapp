@@ -311,7 +311,9 @@
       if (url && url.id) {
         this.id = url.id;
         let urlSpread = parseInt(url.spread);
-        cookie.set("spread", urlSpread || 0);
+        if (urlSpread) {
+          cookie.set("spread", urlSpread);
+        }
       } else {
         this.id = this._route.query.id;
       }

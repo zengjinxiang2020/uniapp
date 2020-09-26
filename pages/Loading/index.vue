@@ -43,7 +43,9 @@
       // 判断是否是分销
       if (url) {
         let urlSpread = parseInt(url.spread);
-        cookie.set("spread", urlSpread || 0);
+        if (urlSpread) {
+          cookie.set("spread", urlSpread);
+        }
       }
       // if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
       //   this.$yrouter.switchTab({

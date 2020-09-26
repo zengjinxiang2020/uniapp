@@ -153,6 +153,8 @@ export async function auth(code) {
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
     let spread = cookie.get('spread');
+    alert(spread)
+    debugger
     wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)

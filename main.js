@@ -125,7 +125,10 @@ if (!cookie.has(CACHE_KEY)) {
 }
 
 var urlSpread = parseQuery()["spread"];
-cookie.set("spread", urlSpread || 0);
+if (urlSpread) {
+	cookie.set("spread", urlSpread);
+}
+
 // #endif
 
 
