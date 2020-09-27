@@ -70,7 +70,7 @@
       </view>
 
       <!-- 参与砍价按钮 同一人-->
-      <view v-if="participate" class="bargainBnt" @click="goParticipate">立即参与砍价</view>
+      <view v-if="participate" class="bargainBnt" @click="goParticipate">立即发起砍价</view>
 
       <!-- 邀请好友按钮 -->
       <view v-if="inviteFriends" class="bargainBnt" @click="goPoster">邀请好友帮砍价</view>
@@ -79,7 +79,7 @@
       <view v-if="helpFriendsBargain" class="bargainBnt" @click="getBargainHelp">帮好友砍一刀</view>
 
       <!-- 发起砍价按钮 非同一人-->
-      <view v-if="bargain" class="bargainBnt" @click="getBargainStart">我也要参与</view>
+      <view v-if="bargain" class="bargainBnt" @click="getBargainStart">我也要砍价</view>
 
       <!-- 支付按钮 -->
       <view class="bargainBnt" @click="goPay" v-if="pay">立即支付</view>
@@ -227,6 +227,8 @@
       mountedStart: function () {
         var that = this;
         let url = handleQrCode();
+        // bargainId 砍价商品id
+        // bargainUid 发起砍价人
         if (url) {
           // 通过二维码进来
           that.bargainId = url.bargainId;
@@ -236,7 +238,7 @@
           that.bargainId = that.$yroute.query.id;
           that.bargainUid = parseInt(that.$yroute.query.partake);
         }
-        
+
         if (!this.bargainUid) {
           // url未携带用户uid，填上登录用户uid，跳转
           that.bargainUid = that.userInfo.uid;
@@ -250,11 +252,14 @@
           that.getBargainStartUser();
         }
       },
-      //参与砍价
+      // 发起砍价
       goParticipate() {
+        //发起人和当前用户为同一人
         if (this.bargainUid === this.userInfo.uid) {
-          this.getBargainStart()
+          // 变更为当前用户砍价页面
+          this.getBargainStart();
         } else {
+          // 发起人与当前用户非同一人，变更为发起人的砍价页面
           this.getBargainStartUser();
         }
         this.getBargainHelpCount();
@@ -323,8 +328,13 @@
       // 获取产品详情
       getBargainDetail: function () {
         var that = this;
+        uni.showLoading({
+          title: "加载中",
+          mask: true
+        });
         getBargainDetail(that.bargainId)
           .then(res => {
+            uni.hideLoading()
             that.goodsDetail = res.data.bargain;
             that.goodsDetail.description = that.goodsDetail.description.replace(
               /\<img/gi,
@@ -338,6 +348,7 @@
             that.getBargainHelpCount();
           })
           .catch(res => {
+            uni.hideLoading()
             uni.showToast({
               title: res.msg,
               icon: "none",
@@ -345,7 +356,7 @@
             });
           });
       },
-      // 开启砍价
+      // 开启砍价-发起人与当前用户非同一人
       getBargainStart: function () {
         var that = this;
         getBargainStart({
@@ -354,6 +365,7 @@
           .then(() => {
             that.bargainUid = that.userInfo.uid;
             that.getBargainHelp();
+            that.getBargainHelpCount();
           })
           .catch(res => {
             uni.showToast({
@@ -488,7 +500,7 @@
       // 判断是否可以支付
       handleButtonStatus() {
         // 砍价按钮分为
-        // 1.参与砍价 ==> 发起用户和砍价用户为同一人 && 未参与 
+        // 1.参与砍价 ==> 发起人与当前用户为同一人 && 未参与 
         if (
           this.bargainUid === this.userInfo.uid &&
           this.bargainHelpCount.status == 0
@@ -498,7 +510,7 @@
           this.participate = false
         }
 
-        // 2.邀请好友 ==> 发起用户和砍价用户同一人 && 已参与未过期 && 剩余金额>0
+        // 2.邀请好友 ==> 发起人与当前用户同一人 && 已参与未过期 && 剩余金额>0
         if (
           this.bargainUid === this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
@@ -509,7 +521,7 @@
           this.inviteFriends = false
         }
 
-        // 3.帮好友砍价 ==> 发起用户和砍价用户非一人 && 未参与未过期 && 剩余金额>0  && 为砍价
+        // 3.帮好友砍价 ==> 发起人与当前用户非一人 && 未参与未过期 && 剩余金额>0  && 为砍价
         if (
           this.bargainUid != this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
@@ -521,7 +533,7 @@
           this.helpFriendsBargain = false
         }
 
-        // 4.支付 ==> 发起用户和砍价用户用户同一人 && 已参与未过期 && 剩余金额<=0
+        // 4.支付 ==> 发起人与当前用户同一人 && 已参与未过期 && 剩余金额<=0
         if (
           this.bargainUid === this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
@@ -532,7 +544,7 @@
           this.pay = false
         }
 
-        // 5.砍价人发起新的砍价 ==> 发起用户和砍价用户非一人 && 未参与
+        // 5.砍价人发起新的砍价 ==> 发起人与当前用户非一人 && 未参与
         if (
           this.bargainUid != this.userInfo.uid
         ) {
@@ -542,12 +554,13 @@
         }
 
         // 砍价弹窗
-        // 1.发起人砍价成功 ==> 发起用户和砍价用户用户同一人 && 已参与未过期
-        // 2.砍价人砍价成功 ==> 发起用户和砍价用户非一人 && 已参与未过期
+        // 1.发起人砍价成功 ==> 发起人与当前用户同一人 && 已参与未过期
+        // 2.砍价人砍价成功 ==> 发起人与当前用户非一人 && 已参与未过期
         // 3.已砍价 ==> 已参与 && 砍价状态为 true
 
       },
       // 获取开启砍价用户信息
+      // 参与砍价，为同一人发起砍价后
       getBargainStartUser: function () {
         var that = this;
         getBargainStartUser({

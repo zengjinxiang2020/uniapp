@@ -217,6 +217,7 @@
     getCollectDel,
     getUserInfo,
   } from "@/api/user";
+  import cookie from "@/utils/store/cookie";
   import {
     isWeixin,
     PosterCanvas,

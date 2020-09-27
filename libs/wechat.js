@@ -109,6 +109,11 @@ export function wechat() {
           })
           .catch(error => {
             console.log(error)
+            uni.showToast({
+              title: error,
+              icon: "none",
+              duration: 2000
+            });
             reject()
           });
       })
