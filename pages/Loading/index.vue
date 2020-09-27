@@ -16,7 +16,6 @@
   // import request from "@//api/request";
   import {
     wxappAuth,
-    getUser
   } from "@/api/user";
   import dayjs from "dayjs";
   import cookie from "@/utils/store/cookie";
@@ -56,7 +55,9 @@
       if (this.$store.getters.token) {
         // 如果token存在，直接进行进页面
         console.log('登录状态存在，直接进页面')
-        this.toLaunch();
+        this.getUser().finally(() => {
+          this.toLaunch();
+        })
         return;
       }
       console.log('进行登录操作')
@@ -67,15 +68,14 @@
       });
     },
     methods: {
-      ...mapActions(["changeAuthorization", "setUserInfo"]),
+      ...mapActions(["changeAuthorization", "setUserInfo", "getUser"]),
       toLaunch() {
         console.log("loading home");
         this.changeAuthorization(false);
         let redirect = cookie.get('redirect')
-        if (redirect) {
-          redirect = redirect.split('/pages')[1]
+        if (redirect && redirect.indexOf('/pages') != -1) {
           this.$yrouter.replace({
-            path: '/pages' + redirect,
+            path: '/pages' + redirect.split('/pages')[1],
           });
           cookie.remove('redirect');
         } else {

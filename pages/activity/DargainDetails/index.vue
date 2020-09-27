@@ -236,13 +236,14 @@
         } else {
           // 正常途径进来
           that.bargainId = that.$yroute.query.id;
-          that.bargainUid = parseInt(that.$yroute.query.partake);
+          that.bargainUid = that.$yroute.query.partake || 0
         }
 
         if (!this.bargainUid) {
           // url未携带用户uid，填上登录用户uid，跳转
           that.bargainUid = that.userInfo.uid;
         }
+        console.log(this)
 
         // 获取商品详情
         that.getBargainDetail();
