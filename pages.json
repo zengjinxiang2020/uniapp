@@ -423,7 +423,12 @@
 		"navigationBarTitleText": "Yshop",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
-		"navigationStyle": "default"
+		// #ifndef H5 
+		"navigationStyle": "default",
+		// #endif 
+		// #ifdef H5 
+		"navigationStyle": "custom"
+		// #endif 
 	},
 	"tabBar": {
 		"color": "#282828",
