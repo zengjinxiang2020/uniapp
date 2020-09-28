@@ -90,22 +90,24 @@ const vuexStore = new Vuex.Store({
 		userInfo({ state, commit }, force) {
 			if (state.userInfo !== null && !force) {
 				return Promise.resolve(state.userInfo);
-			} else {
-				return new Promise(reslove => {
-					getUserInfo().then(res => {
-						commit("updateUserInfo", res.data);
-						reslove(res.data);
-					});
-				}).catch(() => {
-					uni.showToast({
-						title: "获取信息失败!",
-						icon: "none",
-						duration: 2000,
-					});
-				});
 			}
+			return new Promise(reslove => {
+				getUserInfo().then(res => {
+					commit("updateUserInfo", res.data);
+					reslove(res.data);
+				});
+			}).catch(() => {
+				uni.showToast({
+					title: "获取信息失败!",
+					icon: "none",
+					duration: 2000,
+				});
+			});
 		},
 		getUser({ state, commit }) {
+			if (!state.token) {
+				return Promise.reject('未获取到token');
+			}
 			return new Promise(reslove => {
 				getUserInfo().then(res => {
 					console.log(res)

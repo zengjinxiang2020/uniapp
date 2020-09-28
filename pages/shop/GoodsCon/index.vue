@@ -135,7 +135,10 @@
           </button>
         </view>
         <!-- #endif -->
-
+        <view class="item" @click="goHome" >
+          <view class="iconfont icon-shouye-xianxing"></view>
+          <text>首页</text>
+        </view>
         <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
           <view class="iconfont icon-shoucang1"></view>
           <text>收藏</text>
@@ -350,6 +353,9 @@
             })
           }
         }
+      },
+      goHome() {
+        this.$yrouter.switchTab("/pages/home/index");
       },
       goShoppingCart() {
         this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");

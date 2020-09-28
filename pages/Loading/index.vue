@@ -18,6 +18,7 @@
     wxappAuth,
   } from "@/api/user";
   import dayjs from "dayjs";
+  import store from "@/store";
   import cookie from "@/utils/store/cookie";
   import {
     parseQuery,
@@ -34,7 +35,7 @@
       return {};
     },
     onShow() {
-
+      console.log('getUser')
       var url = handleQrCode();
       if (!url) {
         url = handleUrlParam(getCurrentPageUrlWithArgs())
@@ -55,9 +56,7 @@
       if (this.$store.getters.token) {
         // 如果token存在，直接进行进页面
         console.log('登录状态存在，直接进页面')
-        this.getUser().finally(() => {
-          this.toLaunch();
-        })
+        this.toLaunch();
         return;
       }
       console.log('进行登录操作')

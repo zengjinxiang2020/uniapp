@@ -157,7 +157,7 @@ export async function auth(code) {
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
     let spread = cookie.get('spread');
-    alert(spread)
+    console.log('微信授权登录前获取spread', spread)
     wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)
@@ -167,7 +167,10 @@ export async function auth(code) {
         cookie.set(WX_AUTH, code, expires_time);
         cookie.remove(STATE_KEY);
         loginType && cookie.remove(LOGINTYPE);
-        resolve();
+        console.log('微信公众号授权登录，获取用户信息')
+        store.dispatch('getUser').finally(() => {
+          resolve();
+        })
       })
       .catch(reject);
   }).catch(error => {

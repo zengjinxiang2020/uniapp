@@ -28,7 +28,7 @@
               <view class="checkbox-wrapper">
                 <checkbox-group @change="switchSelect(cartListValidIndex)">
                   <label class="well-check">
-                    <checkbox value :checked="item.checked+''"></checkbox>
+                    <checkbox color="#eb3729" value :checked="item.checked"></checkbox>
                   </label>
                 </checkbox-group>
               </view>
@@ -113,7 +113,7 @@
 
               <checkbox-group @change="allChecked">
                 <label class="well-check">
-                  <checkbox value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
+                  <checkbox color="#eb3729" value="allSelect" :checked="isAllSelect && cartCount > 0"></checkbox>
                   <text class="checkAll">全选 ({{ cartCount }})</text>
                 </label>
               </checkbox-group>
