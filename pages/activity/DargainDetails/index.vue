@@ -236,10 +236,9 @@
         } else {
           // 正常途径进来
           that.bargainId = that.$yroute.query.id;
-          that.bargainUid = that.$yroute.query.partake || 0
+          that.bargainUid = that.$yroute.query.partake
         }
-
-        if (!this.bargainUid) {
+        if (this.bargainUid == 0 || !this.bargainUid) {
           // url未携带用户uid，填上登录用户uid，跳转
           that.bargainUid = that.userInfo.uid;
         }
