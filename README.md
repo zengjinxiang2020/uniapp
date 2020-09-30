@@ -13,7 +13,7 @@
 - uni会自动打开微信开发者工具并且打开uni的项目
 
 ## 注意事项
-- 目前并不支持H5运行，需要运行H5模式的，请自行调整兼容
+- uniapp v3.1版本已经兼容h5，另外yshop有自己的H5，uniappv3.1以下版本未对H5端进行处理，如果需要请自行兼容。
 - manifest.json 中可以配置uni项目的一些信息
 - 打开manifest.json可配置小程序的 appid
 - 由于需要兼容app，公共样式由 main.js 迁移到了 App.vue，公共样式请在App.vue中进行编辑
