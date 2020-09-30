@@ -39,14 +39,7 @@ const vuexStore = new Vuex.Store({
 			console.log('清除数据')
 			state.token = null;
 			state.userInfo = null
-			let spread = cookie.get('spread')
-			let redirect = cookie.get('redirect')
-			let outTime = setTimeout(() => {
-				clearTimeout(outTime)
-				cookie.clearAll()
-				cookie.set('redirect', redirect)
-				cookie.set('spread', spread)
-			}, 100)
+			cookie.clearAll()
 		},
 		backgroundColor(state, color) {
 			state.color = color;
@@ -97,22 +90,24 @@ const vuexStore = new Vuex.Store({
 		userInfo({ state, commit }, force) {
 			if (state.userInfo !== null && !force) {
 				return Promise.resolve(state.userInfo);
-			} else {
-				return new Promise(reslove => {
-					getUserInfo().then(res => {
-						commit("updateUserInfo", res.data);
-						reslove(res.data);
-					});
-				}).catch(() => {
-					uni.showToast({
-						title: "获取信息失败!",
-						icon: "none",
-						duration: 2000,
-					});
-				});
 			}
+			return new Promise(reslove => {
+				getUserInfo().then(res => {
+					commit("updateUserInfo", res.data);
+					reslove(res.data);
+				});
+			}).catch(() => {
+				uni.showToast({
+					title: "获取信息失败!",
+					icon: "none",
+					duration: 2000,
+				});
+			});
 		},
 		getUser({ state, commit }) {
+			if (!state.token) {
+				return Promise.reject('未获取到token');
+			}
 			return new Promise(reslove => {
 				getUserInfo().then(res => {
 					console.log(res)
@@ -138,7 +133,7 @@ const vuexStore = new Vuex.Store({
 			state,
 			commit
 		}, user) {
-			
+
 			commit("updateUserInfo", user);
 		},
 		changeAuthorizationPage({
@@ -163,6 +158,7 @@ const vuexStore = new Vuex.Store({
 		location: state => state.location,
 		storeItems: state => state.storeItems,
 		goName: state => state.goName,
+		$deviceType: state => state.$deviceType,
 	},
 	strict: debug
 });

@@ -62,7 +62,7 @@
             <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-phone_" />
             </svg>-->
-            <input type="text" placeholder="输入手机号码" v-model="account" />
+            <input name="account" type="text" placeholder="输入手机号码" v-model="account" />
           </view>
         </view>
         <view class="item">
@@ -70,7 +70,7 @@
             <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_1" />
             </svg>-->
-            <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
+            <input name="verifyCode" type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
             <button class="code" :disabled="disabled" :class="disabled === true ? 'on' : ''"
               @click="code">{{ text }}</button>
           </view>
@@ -80,7 +80,7 @@
             <!-- <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-code_" />
             </svg>-->
-            <input type="password" placeholder="填写您的登录密码" v-model="password" />
+            <input name="password" type="password" placeholder="填写您的登录密码" v-model="password" />
           </view>
         </view>
         <!-- #ifndef H5 -->
@@ -89,7 +89,7 @@
             <!-- <svg class="icon" aria-hidden="true">
 				  <use xlink:href="#icon-phone_" />
             </svg>-->
-            <input type="text" placeholder="输入邀请码" v-model="inviteCode" />
+            <input name="inviteCode" type="text" placeholder="输入邀请码" v-model="inviteCode" />
           </view>
         </view>
         <!-- #endif -->

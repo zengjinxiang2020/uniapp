@@ -16,16 +16,17 @@
   // import request from "@//api/request";
   import {
     wxappAuth,
-    getUser
   } from "@/api/user";
   import dayjs from "dayjs";
+  import store from "@/store";
   import cookie from "@/utils/store/cookie";
   import {
     parseQuery,
     login,
     handleQrCode,
     getCurrentPageUrl,
-    handleUrlParam
+    handleUrlParam,
+    getCurrentPageUrlWithArgs
   } from "@/utils";
 
   export default {
@@ -34,64 +35,53 @@
       return {};
     },
     onShow() {
-
+      console.log('getUser')
       var url = handleQrCode();
       if (!url) {
-        url = handleUrlParam(getCurrentPageUrl())
+        url = handleUrlParam(getCurrentPageUrlWithArgs())
       }
       // 判断是否是分销
       if (url) {
-        var spread = cookie.get("spread");
         let urlSpread = parseInt(url.spread);
-        if (!Number.isNaN(urlSpread) && spread !== urlSpread) {
-          cookie.set("spread", urlSpread || 0);
-        } else if (spread === 0 || typeof spread !== "number") {
-          cookie.set("spread", urlSpread || 0);
+        if (urlSpread) {
+          cookie.set("spread", urlSpread);
         }
-        if (this.$store.getters.token) {
-          this.toLaunch();
-          return;
-        }
-        // cookie.get("spread");
-        // if (this.$deviceType == "weixin") {
-        //   let path = parseQuery().path
-        //   console.log(this)
-        //   if (path) {
-        //     this.$yrouter.push({
-        //       path
-        //     });
-        //   } else {
-        //     this.$yrouter.switchTab({
-        //       path: "/pages/home/index"
-        //     });
-        //   }
-
-        //   return
-        // }
-        // this.toLaunch();
-        if (this.$deviceType == "app" || this.$deviceType == "h5") {
-          // this.toLaunch();
-
-          this.$yrouter.switchTab({
-            path: "/pages/home/index"
-          });
-          return;
-        }
-        login().finally(() => {
-          this.$yrouter.switchTab({
-            path: "/pages/home/index"
-          });
-        });
       }
-    },
-    methods: {
-      ...mapActions(["changeAuthorization", "setUserInfo"]),
-      toLaunch() {
-        console.log("loading home");
-        this.changeAuthorization(false);
+      // if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
+      //   this.$yrouter.switchTab({
+      //     path: "/pages/home/index"
+      //   });
+      //   return;
+      // }
+      if (this.$store.getters.token) {
+        // 如果token存在，直接进行进页面
+        console.log('登录状态存在，直接进页面')
+        this.toLaunch();
+        return;
+      }
+      console.log('进行登录操作')
+      login().finally(() => {
         this.$yrouter.switchTab({
           path: "/pages/home/index"
         });
+      });
+    },
+    methods: {
+      ...mapActions(["changeAuthorization", "setUserInfo", "getUser"]),
+      toLaunch() {
+        console.log("loading home");
+        this.changeAuthorization(false);
+        let redirect = cookie.get('redirect')
+        if (redirect && redirect.indexOf('/pages') != -1) {
+          this.$yrouter.replace({
+            path: '/pages' + redirect.split('/pages')[1],
+          });
+          cookie.remove('redirect');
+        } else {
+          this.$yrouter.switchTab({
+            path: "/pages/home/index"
+          });
+        }
       }
     }
   };

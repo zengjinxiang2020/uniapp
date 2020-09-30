@@ -135,7 +135,10 @@
           </button>
         </view>
         <!-- #endif -->
-
+        <view class="item" @click="goHome" >
+          <view class="iconfont icon-shouye-xianxing"></view>
+          <text>首页</text>
+        </view>
         <view class="item" @click="setCollect" v-if="storeInfo.userCollect">
           <view class="iconfont icon-shoucang1"></view>
           <text>收藏</text>
@@ -217,10 +220,13 @@
     getCollectDel,
     getUserInfo,
   } from "@/api/user";
+  import cookie from "@/utils/store/cookie";
   import {
     isWeixin,
     PosterCanvas,
-    handleQrCode
+    handleQrCode,
+    handleUrlParam,
+    getCurrentPageUrlWithArgs
   } from "@/utils";
   import {
     wechatEvevt
@@ -303,8 +309,15 @@
     computed: mapGetters(["isLogin", "location"]),
     mounted: function () {
       let url = handleQrCode();
-      if (url && url.productId) {
-        this.id = url.productId;
+      if (!url) {
+        url = handleUrlParam(getCurrentPageUrlWithArgs())
+      }
+      if (url && url.id) {
+        this.id = url.id;
+        let urlSpread = parseInt(url.spread);
+        if (urlSpread) {
+          cookie.set("spread", urlSpread);
+        }
       } else {
         this.id = this._route.query.id;
       }
@@ -326,7 +339,8 @@
         return {
           title: this.storeInfo.storeName,
           imageUrl: this.storeInfo.image,
-          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid")+"&pageType=good&codeType=routine",
+          path: "pages/shop/GoodsCon/index?id=" + this.storeInfo.id + "&spread=" + uni.getStorageSync("uid") +
+            "&pageType=good&codeType=routine",
           success(res) {
             uni.showToast({
               title: '分享成功'
@@ -339,6 +353,9 @@
             })
           }
         }
+      },
+      goHome() {
+        this.$yrouter.switchTab("/pages/home/index");
       },
       goShoppingCart() {
         this.$yrouter.switchTab("/pages/shop/ShoppingCart/index");
@@ -593,7 +610,7 @@
       //选择属性；
       ChangeAttr: function (res) {
         // 修改了规格
-        
+
         let productSelect = this.productValue[res.value];
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
@@ -754,10 +771,10 @@
                   configAppMessage
                 )
                 .then((res) => {
-                  
+
                 })
                 .catch((res) => {
-                  
+
                   if (res.is_ready) {
                     res.wx.updateAppMessageShareData(configAppMessage);
                     res.wx.updateTimelineShareData(configAppMessage);
@@ -776,10 +793,10 @@
                 configAppMessage
               )
               .then((res) => {
-                
+
               })
               .catch((res) => {
-                
+
                 if (res.is_ready) {
                   res.wx.updateAppMessageShareData(configAppMessage);
                   res.wx.updateTimelineShareData(configAppMessage);

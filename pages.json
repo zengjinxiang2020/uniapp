@@ -424,6 +424,7 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"navigationStyle": "default"
+		
 	},
 	"tabBar": {
 		"color": "#282828",

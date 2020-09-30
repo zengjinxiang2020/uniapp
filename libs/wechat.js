@@ -86,9 +86,11 @@ const LOGINTYPE = "loginType";
 let instance;
 let wechatObj;
 let appId
+let wechatLoading = false
 
 export function wechat() {
   console.log('初始化微信配置')
+  wechatLoading = false
   return new Promise((resolve, reject) => {
     if (instance) return resolve(instance);
     getWechatConfig()
@@ -107,12 +109,17 @@ export function wechat() {
           })
           .catch(error => {
             console.log(error)
-            reject(error)
+            uni.showToast({
+              title: error,
+              icon: "none",
+              duration: 2000
+            });
+            reject()
           });
       })
       .catch(err => {
         console.log(err);
-        reject(err);
+        reject();
       });
   });
 }
@@ -122,9 +129,8 @@ export function clearAuthStatus() {
   cookie.remove(STATE_KEY);
 }
 
-export function oAuth() {
+export async function oAuth() {
   console.log('处理微信授权')
-  console.log('处理微信授权cookie', cookie.get("spread"))
   console.log(store)
   console.log(store.state)
   return new Promise((resolve, reject) => {
@@ -137,6 +143,8 @@ export function oAuth() {
     if (!code) {
       toAuth();
       return
+    } else {
+      auth(code)
     }
     resolve()
   }).catch(error => {
@@ -144,11 +152,12 @@ export function oAuth() {
   })
 }
 
-export function auth(code) {
+export async function auth(code) {
   console.log('获取微信授权')
   return new Promise((resolve, reject) => {
     let loginType = cookie.get(LOGINTYPE);
-    let spread = cookie.get(spread);
+    let spread = cookie.get('spread');
+    console.log('微信授权登录前获取spread', spread)
     wechatAuth(code, spread, loginType)
       .then(({ data }) => {
         console.log(data)
@@ -158,7 +167,10 @@ export function auth(code) {
         cookie.set(WX_AUTH, code, expires_time);
         cookie.remove(STATE_KEY);
         loginType && cookie.remove(LOGINTYPE);
-        resolve();
+        console.log('微信公众号授权登录，获取用户信息')
+        store.dispatch('getUser').finally(() => {
+          resolve();
+        })
       })
       .catch(reject);
   }).catch(error => {
@@ -166,7 +178,11 @@ export function auth(code) {
   })
 }
 
-export function toAuth() {
+export async function toAuth() {
+  if (wechatLoading) {
+    return
+  }
+  wechatLoading = true
   wechat().then(wx => {
     location.href = getAuthUrl(appId);
   });
@@ -179,9 +195,9 @@ function getAuthUrl(appId) {
 
   // #ifdef H5
   // #endif
-
-
-  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
+  cookie.set('redirect', window.location.href)
+  const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index`);
+  // const redirect_uri = encodeURIComponent(`${location.origin}/pages/Loading/index?path=${encodeURIComponent(window.location.href)}`);
   // const redirect_uri = encodeURIComponent(`${window.location.origin}${window.location.pathname}`)
   // const redirect_uri = encodeURIComponent(`${location.origin}`)
   cookie.remove(BACK_URL);

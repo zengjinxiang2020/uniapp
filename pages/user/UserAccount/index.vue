@@ -97,21 +97,21 @@ export default {
     },
     getActivity: function() {
       let that = this;
-      getActivityStatus().then(
-        res => {
-          that.activity.is_bargin = res.data.is_bargin;
-          that.activity.is_pink = res.data.is_pink;
-          that.activity.is_seckill = res.data.is_seckill;
-        },
-        err => {
-          uni.showToast({
-            title:
-              err.msg || err.response.data.msg || err.response.data.message,
-            icon: "none",
-            duration: 2000
-          });
-        }
-      );
+      // getActivityStatus().then(
+      //   res => {
+      //     that.activity.is_bargin = res.data.is_bargin;
+      //     that.activity.is_pink = res.data.is_pink;
+      //     that.activity.is_seckill = res.data.is_seckill;
+      //   },
+      //   err => {
+      //     uni.showToast({
+      //       title:
+      //         err.msg || err.response.data.msg || err.response.data.message,
+      //       icon: "none",
+      //       duration: 2000
+      //     });
+      //   }
+      // );
     }
   }
 };
