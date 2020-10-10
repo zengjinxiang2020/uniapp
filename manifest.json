@@ -92,7 +92,8 @@
                     "hdpi" : "unpackage/res/splash/480+762.png",
                     "xhdpi" : "unpackage/res/splash/720+1242.png",
                     "xxhdpi" : "unpackage/res/splash/1080+1882.png"
-                }
+                },
+                "iosStyle" : "common"
             },
             "icons" : {
                 "android" : {
