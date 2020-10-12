@@ -267,7 +267,10 @@
       // 查看商品
       openAlone: function () {
         this.$yrouter.push({
-          path: "/detail/" + this.goodsDetail.productId
+          path: "/pages/shop/GoodsCon/index",
+          query: {
+            id: this.goodsDetail.productId
+          }
         });
       },
       // 砍价完成，去支付

@@ -10,8 +10,8 @@
       <view class="acea-row row-middle">
         <view class="times">
           <view>距秒杀结束仅剩</view>
-          <count-down :isDay="false" :tipText="false" :dayText="false" :hourText="' : '" :minuteText="' : '"
-            :secondText="false" :datatime="datatime"></count-down>
+          <count-down :isDay="false" :tipText="' '" :dayText="' '" :hourText="' : '" :minuteText="' : '"
+            :secondText="' '" :datatime="datatime"></count-down>
         </view>
         <view class="iconfont icon-jiantou"></view>
       </view>
