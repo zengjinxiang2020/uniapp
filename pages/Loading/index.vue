@@ -47,12 +47,12 @@
           cookie.set("spread", urlSpread);
         }
       }
-      // if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
-      //   this.$yrouter.switchTab({
-      //     path: "/pages/home/index"
-      //   });
-      //   return;
-      // }
+      if (this.$deviceType == "app" || this.$deviceType == "weixinh5") {
+        this.$yrouter.switchTab({
+          path: "/pages/home/index"
+        });
+        return;
+      }
       if (this.$store.getters.token) {
         // 如果token存在，直接进行进页面
         console.log('登录状态存在，直接进页面')
