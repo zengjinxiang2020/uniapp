@@ -42,6 +42,13 @@ fly.interceptors.response.use(
       handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }
+	if (error.response.data.status == 5109) {
+      uni.showToast({
+        title: error.response.data.msg,
+        icon: "none",
+        duration: 2000
+      });
+    }
     return Promise.reject(error);
   }
 );
