@@ -214,7 +214,7 @@
 			},
 
 		},
-		onShow: function() {
+		onLoad: function() {
 			this.getLocation()
 			let that = this;
 			uni.showLoading({

@@ -240,6 +240,11 @@ export const login = () => {
 			reject('当前运行环境为H5')
 			return
 		}
+		if (Vue.prototype.$deviceType == 'app') {
+			console.log('当前运行环境为app')
+			reject('当前运行环境为app')
+			return
+		}
 		console.log('————————————————————')
 		console.log('开始登录')
 		console.log('————————————————————')
@@ -983,7 +988,7 @@ export function chooseImage(callback) {
 					console.log(image);
 					uni.showLoading({ title: "图片上传中", mask: true });
 					uni.uploadFile({
-						url: `${VUE_APP_API_URL} /api/upload`,
+						url: `${VUE_APP_API_URL}/api/upload`,
 						file: image,
 						filePath: image.path,
 						header: {

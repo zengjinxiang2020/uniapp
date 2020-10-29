@@ -16,7 +16,7 @@
             v-if="cart.productInfo.attrInfo"
           >{{ cart.productInfo.attrInfo.sku }}</view>
           <view class="money font-color-red">￥{{ cart.truePrice }}</view>
-          <view class="evaluate" v-if="evaluate == 3" @click="routerGo(cart)">评价</view>
+          <view class="evaluate" v-if="evaluate == 3 && cart.isReply==0" @click="routerGo(cart)">评价</view>
         </view>
       </view>
     </view>

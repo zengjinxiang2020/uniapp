@@ -178,7 +178,7 @@ export default {
         res => {
           that.vipRequire = res.data.list;
           that.vipComplete = res.data.task;
-          that.taskCount = res.data.reach_count;
+          that.taskCount = res.data.reachCount;
         },
         err => {
           uni.showToast({

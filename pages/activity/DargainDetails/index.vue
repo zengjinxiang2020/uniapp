@@ -55,8 +55,8 @@
       <!-- 砍价进度条下的金额 -->
       <view class="balance acea-row row-between-wrapper">
         <view v-text="'已砍' + bargainHelpCount.alreadyPrice + '元'"></view>
-        <view v-if="bargainHelpCount.remainingPrice === 0">砍价成功</view>
-        <view v-else v-text="'还剩' + bargainHelpCount.remainingPrice + '元'"></view>
+        <view v-if="bargainHelpCount.price === 0">砍价成功</view>
+        <view v-else v-text="'还剩' + bargainHelpCount.price + '元'"></view>
       </view>
 
       <!-- 砍价成功：-->
@@ -267,15 +267,18 @@
       // 查看商品
       openAlone: function () {
         this.$yrouter.push({
-          path: "/detail/" + this.bargain.productId
+          path: "/pages/shop/GoodsCon/index",
+          query: {
+            id: this.goodsDetail.productId
+          }
         });
       },
       // 砍价完成，去支付
       goPay: function () {
         var data = {};
         var that = this;
-        data.productId = that.bargain.productId;
-        data.cartNum = that.bargain.num;
+        data.productId = that.goodsDetail.productId;
+        data.cartNum = that.goodsDetail.num;
         data.uniqueId = "";
         data.bargainId = that.bargainId;
         data.new = 1;
@@ -379,7 +382,7 @@
       getBargainHelp: function () {
         var that = this;
         if (
-          this.bargainHelpCount.remainingPrice === 0 &&
+          this.bargainHelpCount.price === 0 &&
           that.bargainUid !== that.userInfo.uid
         ) {
           return uni.showToast({
@@ -478,7 +481,7 @@
             bargainUserUid: this.bargainUid
           })
           .then(res => {
-            // 剩余砍价金额 = 商品价格 - 已经砍掉的金额
+            // 剩余砍价金额，显示已砍至￥** 使用 = 商品价格 - 已经砍掉的金额
             let remainingPrice = (this.goodsDetail.price - res.data.alreadyPrice).toFixed(2)
             this.bargainHelpCount = {
               ...res.data,
@@ -514,7 +517,7 @@
         if (
           this.bargainUid === this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
-          this.bargainHelpCount.remainingPrice > 0
+          this.bargainHelpCount.price > 0
         ) {
           this.inviteFriends = true
         } else {
@@ -526,7 +529,7 @@
           this.bargainUid != this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
           // this.bargainHelpCount.userBargainStatus &&
-          this.bargainHelpCount.remainingPrice > 0
+          this.bargainHelpCount.price > 0
         ) {
           this.helpFriendsBargain = true
         } else {
@@ -537,7 +540,7 @@
         if (
           this.bargainUid === this.userInfo.uid &&
           this.bargainHelpCount.status == 1 &&
-          this.bargainHelpCount.remainingPrice <= 0
+          this.bargainHelpCount.price <= 0
         ) {
           this.pay = true
         } else {
