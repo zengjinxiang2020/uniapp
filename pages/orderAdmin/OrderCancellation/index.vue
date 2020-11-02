@@ -131,7 +131,7 @@ export default {
   margin: -0.93 * 100rpx auto 0 auto;
   padding-top: 0.8 * 100rpx;
   padding-bottom: 30rpx;
-  z-index: 99;
+  z-index:20;
   position: relative;
   border-radius: 0.06 * 100rpx 0.06 * 100rpx 0 0;
 }
