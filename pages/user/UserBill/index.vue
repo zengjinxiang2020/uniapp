@@ -13,7 +13,7 @@
             <view class="itemn acea-row row-between-wrapper">
               <view>
                 <view class="name line1">{{ val.title }}</view>
-                <view>{{ val.add_time }}</view>
+                <view>{{ val.addTime }}</view>
               </view>
               <view
                 class="num"
