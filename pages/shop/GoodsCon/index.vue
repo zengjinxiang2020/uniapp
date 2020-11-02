@@ -308,6 +308,7 @@
     },
     computed: mapGetters(["isLogin", "location"]),
     mounted: function () {
+      this.$store.commit("get_to", "goodcon");
       let url = handleQrCode();
       if (!url) {
         url = handleUrlParam(getCurrentPageUrlWithArgs())

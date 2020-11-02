@@ -41,46 +41,14 @@
                 let item = this.detail[this.swiperCurrent];
                 // 获取轮播图颜色
                 let bgcolor = item.bgcolor;
-                // #ifdef APP-PLUS
-                that.$set(item, 'bgcolor', '#c40414');
-                that.$emit('getbgcolor', '#c40414');
-                // #endif
-                // #ifndef APP-PLUS
                 // 颜色不存在
                 if (bgcolor === '') {
-                    let ctx = uni.createCanvasContext('colorThief', that);
-                    if (0 === that.webviewId || ctx.webviewId === that.webviewId) {
-                        that.webviewId = ctx.webviewId;
-                        uni.getImageInfo({
-                            src: item.pic,
-                            success: function (image) {
-                                ctx.drawImage(image.path, 0, 0, image.width, image.height);
-                                ctx.draw(true, function (e) {
-                                    uni.canvasGetImageData({
-                                            canvasId: 'colorThief',
-                                            x: 0,
-                                            y: 0,
-                                            width: parseInt(image.width),
-                                            height: parseInt(image.height),
-                                            success(res) {
-                                                let bgcolor = colorThief(res.data)
-                                                    .color()
-                                                    .getHex();
-                                                that.$set(item, 'bgcolor', bgcolor);
-                                                that.$emit('getbgcolor', bgcolor);
-                                            }
-                                        },
-                                        that
-                                    );
-                                });
-                            }
-                        });
-                    }
+                    that.$set(item, 'bgcolor', '#c40414');
+                that.$emit('getbgcolor', '#c40414');
                 } else {
                     that.$set(item, 'bgcolor', bgcolor);
                     that.$emit('getbgcolor', bgcolor);
                 }
-                // #endif
 
             },
             swiperChange(e) {
