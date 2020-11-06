@@ -8,11 +8,12 @@
 				<input type="number" placeholder="0" v-model="verify_code" />
 			</view>
 			<view class="bnt" @click="storeCancellation">立即核销</view>
+			<view class="bnt" @click="openQRCode">扫码核销</view>
 		</view>
 		<!-- #ifndef H5 -->
-		<view class="scan" v-if="iswechat">
+		<!-- <view class="scan" v-if="iswechat">
 			<image src="@/static/images/scan.gif" @click="openQRCode" />
-		</view>
+		</view> -->
 		<!-- #endif -->
 		<WriteOff :iShidden="iShidden" :orderInfo="orderInfo" @cancel="cancel" @confirm="confirm"></WriteOff>
 	</view>
