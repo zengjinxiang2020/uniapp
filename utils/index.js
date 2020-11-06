@@ -211,7 +211,7 @@ export const login = () => {
 			if (code) {
 				auth(code)
 					.then(() => {
-						let redirect = cookie.get('redirect')
+						let redirect = cookie.get('redirect').replace(/\ /g, '')
 						console.log(redirect)
 						if (redirect) {
 							redirect = redirect.split('/pages')[1]
@@ -327,7 +327,7 @@ export const handleGetUserInfo = () => {
 		store.dispatch('setUserInfo', res.data)
 		console.log('获取用户信息后跳转回显的页面')
 
-		let redirect = cookie.get('redirect')
+		let redirect = cookie.get('redirect').replace(/\ /g, '')
 		if (redirect) {
 			reLaunch({
 				path: redirect,
@@ -585,11 +585,9 @@ export function routerPermissions(url, type) {
 					})
 					return
 				}
-				{
-					push({
-						path,
-					})
-				}
+				push({
+					path,
+				})
 			}).catch(error => {
 				console.log('————————')
 				console.log('自动登录失败，跳转到授权页面')
@@ -661,7 +659,7 @@ export function reLaunch(location, complete, fail, success) {
 		uni.reLaunch(params)
 	}).catch(error => {
 		// 没有权限
-
+		console.log(error)
 	})
 }
 
@@ -849,6 +847,7 @@ export const handleLoginFailure = () => {
 	store.commit("logout");
 	// 改为授权取消
 	store.commit("updateAuthorization", false);
+
 
 	let currentPageUrl = getCurrentPageUrl()
 	if (store.state.$deviceType == 'weixin') {

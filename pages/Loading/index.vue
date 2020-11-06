@@ -71,7 +71,7 @@
       toLaunch() {
         console.log("loading home");
         this.changeAuthorization(false);
-        let redirect = cookie.get('redirect')
+        let redirect = cookie.get('redirect').replace(/\ /g, '')
         if (redirect && redirect.indexOf('/pages') != -1) {
           this.$yrouter.replace({
             path: '/pages' + redirect.split('/pages')[1],

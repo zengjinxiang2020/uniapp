@@ -5,7 +5,7 @@ const doc = null;
 
 function get(key) {
   if (!key || !_has(key)) {
-    return null;
+    return '';
   }
   return uni.getStorageSync(key)
 }
