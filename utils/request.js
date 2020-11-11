@@ -42,7 +42,7 @@ fly.interceptors.response.use(
       handleLoginFailure();
       return Promise.reject({ msg: "未登录", toLogin: true });
     }
-	if (error.response.data.status == 5109) {
+    if (error.response.data.status == 5109) {
       uni.showToast({
         title: error.response.data.msg,
         icon: "none",
@@ -62,9 +62,16 @@ function baseRequest(options) {
 
   // 合并传参过来的 headers
   // 如果接口需要登录，携带 token 去请求
+
   options.headers = {
-    ...options.headers,
-    Authorization: "Bearer " + token
+    ...options.headers
+  }
+
+  if (options.login === true) {
+    options.headers = {
+      ...options.headers,
+      Authorization: "Bearer " + token
+    }
   }
 
   // 如果需要登录才可访问的接口没有拿到 token 视为登录失效
