@@ -1,9 +1,8 @@
 <template>
   <view v-show="iShidden === false">
     <view class="WriteOff">
-      <view class="pictrue"><image :src="orderInfo.image" /></view>
       <view class="num acea-row row-center-wrapper">
-        {{ orderInfo.order_id }}
+        {{ orderInfo.orderId }}
       </view>
       <view class="tip">确定要核销此订单吗？</view>
       <view class="sure" @click="confirm">确定核销</view>
@@ -15,7 +14,7 @@
 <style scoped lang="less">
 .WriteOff {
   width: 5.6*100rpx;
-  height: 8*100rpx;
+  height: 5*100rpx;
   background-color: #fff;
   border-radius: 0.2*100rpx;
   position: fixed;
@@ -23,8 +22,8 @@
   left: 50%;
   margin-top: -4*100rpx;
   margin-left: -2.8*100rpx;
-  z-index: 99;
   padding-top: 0.55*100rpx;
+  z-index: 99999;
 }
 .WriteOff .pictrue {
   width: 3.4*100rpx;

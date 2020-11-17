@@ -216,7 +216,6 @@
             title: "绑定中"
           });
           bindingPhone({
-              code: cookie.get('wxLoginCode'),
               encryptedData: e.mp.detail.encryptedData,
               iv: e.mp.detail.iv
             })

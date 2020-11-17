@@ -90,8 +90,9 @@
         });
         login()
           .then((res) => {
-            this.$yrouter.replace({
-              path: cookie.get("redirect")
+            console.log('重定向')
+            this.$yrouter.reLaunch({
+              path: cookie.get("redirect").replace(/\ /g, '')
             });
           })
           .catch((error) => {
