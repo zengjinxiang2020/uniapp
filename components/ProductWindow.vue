@@ -3,20 +3,24 @@
     <view class="product-window" :class="attr.cartAttr === true ? 'on' : ''">
       <view class="textpic acea-row row-between-wrapper">
         <view class="pictrue">
-          <image :src="attr.productSelect.image" class="image" />
+          <image @tap="previewImage" :src="attr.productSelect.image" class="image" />
         </view>
         <view class="text">
           <view class="line1">{{ attr.productSelect.store_name }}</view>
           <view class="money font-color-red">
             ￥
-            <text class="num">{{ attr.productSelect.price}}</text>
+            <text class="num">{{ attr.productSelect.price }}</text>
             <text class="stock">库存: {{ attr.productSelect.stock }}</text>
           </view>
         </view>
         <view class="iconfont icon-guanbi" @click="closeAttr"></view>
       </view>
       <view class="productWinList">
-        <view class="item" v-for="(item, indexw) in attr.productAttr" :key="indexw">
+        <view
+          class="item"
+          v-for="(item, indexw) in attr.productAttr"
+          :key="indexw"
+        >
           <view class="title">{{ item.attrName }}</view>
           <view class="listn acea-row row-middle">
             <view
@@ -25,28 +29,36 @@
               v-for="(itemn, indexn) in item.attrValue"
               @click="tapAttr(indexw, indexn)"
               :key="indexn"
-            >{{ itemn.attr }}</view>
+              >{{ itemn.attr }}</view
+            >
           </view>
         </view>
       </view>
       <view class="cart">
         <view class="title">数量</view>
         <view class="carnum acea-row row-left">
-          <view class="item reduce" :class="cartNum <= 1 ? 'on' : ''" @click="CartNumDes">-</view>
+          <view
+            class="item reduce"
+            :class="cartNum <= 1 ? 'on' : ''"
+            @click="CartNumDes"
+            >-</view
+          >
           <view class="item num">{{ cartNum }}</view>
           <view
             class="item plus"
-            :class="
-              cartNum >= attr.productSelect.stock
-                ? 'on'
-                : ''
-            "
+            :class="cartNum >= attr.productSelect.stock ? 'on' : ''"
             @click="CartNumAdd"
-          >+</view>
+            >+</view
+          >
         </view>
       </view>
     </view>
-    <view class="mask" @touchmove.prevent :hidden="attr.cartAttr === false" @click="closeAttr"></view>
+    <view
+      class="mask"
+      @touchmove.prevent
+      :hidden="attr.cartAttr === false"
+      @click="closeAttr"
+    ></view>
   </view>
 </template>
 <script>
@@ -113,6 +125,12 @@ export default {
         }
       }
       return value;
+    },
+    previewImage() {
+      uni.previewImage({
+        current: 0,
+        urls: [this.attr.productSelect.image],
+      });
     },
   },
 };

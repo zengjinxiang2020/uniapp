@@ -1,9 +1,13 @@
 <template>
   <view class="slider-banner product-bg">
-    <swiper class="swiper-wrapper" @change="handleChange" v-if="imgUrls.length > 0">
+    <swiper
+      class="swiper-wrapper"
+      @change="handleChange"
+      v-if="imgUrls.length > 0"
+    >
       <block v-for="(item, imgUrlsIndex) in imgUrls" :key="imgUrlsIndex">
         <swiper-item>
-          <image :src="item" class="slide-image" />
+          <image :src="item" @tap="previewImage(imgUrlsIndex)" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
@@ -27,35 +31,41 @@ export default {
   props: {
     imgUrls: {
       type: Array,
-      default: () => []
-    }
+      default: () => [],
+    },
   },
-  data: function() {
+  data: function () {
     let that = this;
     return {
       currents: 1,
       ProductConSwiper: {
         autoplay: {
           disableOnInteraction: false,
-          delay: 2000
+          delay: 2000,
         },
         loop: true,
         speed: 1000,
         observer: true,
         observeParents: true,
         on: {
-          slideChangeTransitionStart: function() {
+          slideChangeTransitionStart: function () {
             that.currents = this.realIndex + 1;
-          }
-        }
-      }
+          },
+        },
+      },
     };
   },
-  mounted: function() {},
+  mounted: function () {},
   methods: {
     handleChange(event) {
       this.currents = event.mp.detail.current + 1;
-    }
-  }
+    },
+    previewImage(current) {
+      uni.previewImage({
+        current,
+        urls: this.imgUrls,
+      });
+    },
+  },
 };
 </script>
