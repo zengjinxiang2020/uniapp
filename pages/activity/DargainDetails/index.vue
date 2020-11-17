@@ -22,7 +22,7 @@
     <view class="wrapper bargain-box time on">
       <div class="pictxt ">
         <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '"
-          :secondText="' 秒'" :datatime="goodsDetail.stopTime"></count-down>
+          :secondText="' 秒'" :datatime="goodsDetail.stopTime/1000"></count-down>
       </div>
     </view>
     <view class="wrapper bargain-box bargain-product">

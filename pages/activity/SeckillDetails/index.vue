@@ -11,7 +11,7 @@
         <view class="times">
           <view>距秒杀结束仅剩</view>
           <count-down :isDay="false" :tipText="' '" :dayText="' '" :hourText="' : '" :minuteText="' : '"
-            :secondText="' '" :datatime="datatime"></count-down>
+            :secondText="' '" :datatime="datatime/1000"></count-down>
         </view>
         <view class="iconfont icon-jiantou"></view>
       </view>
