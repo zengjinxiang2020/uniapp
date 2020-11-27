@@ -636,7 +636,7 @@
       setCollect: function () {
         let that = this,
           id = that.storeInfo.id,
-          category = "product";
+          category = "collect";
         if (that.storeInfo.userCollect) {
           getCollectDel(id, category).then(function () {
             that.storeInfo.userCollect = !that.storeInfo.userCollect;
