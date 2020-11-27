@@ -76,7 +76,7 @@
           }
         );
       },
-      downloadIamge: function (imgsrc, name) {
+      downloadIamge (imgsrc, name) {
         var that = this;
         this.isDown = true;
         var downloadUrl = imgsrc;
@@ -101,7 +101,7 @@
               wx.authorize({
                 scope: "scope.writePhotosAlbum",
                 success() {
-                  that.downloadImage(downloadUrl);
+                  that.downloadFile(downloadUrl);
                 },
                 fail() {
                   // 用户拒绝了授权
@@ -113,7 +113,7 @@
                 }
               });
             } else {
-              that.downloadImage(downloadUrl);
+              that.downloadFile(downloadUrl);
             }
           },
           fail(res) {
@@ -126,6 +126,23 @@
           this.info[this.activeIndex].wap_poster,
           "poster" + this.activeIndex
         );
+      },
+      downloadFile(url){
+        uni.downloadFile({
+          url,
+          fail: function(res) {
+            uni.showModal({
+            title: "提示",
+            content: "保存失败"
+          });
+          },
+          success: function(res) {
+            uni.showModal({
+            title: "提示",
+            content: "保存成功"
+          });
+          }
+        });
       }
     }
   };
