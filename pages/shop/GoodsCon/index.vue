@@ -753,7 +753,7 @@
       },
       setOpenShare: function () {
         var data = this.storeInfo;
-        var href = location.href;
+        var href =  this.location.href;
         if (this.$deviceType == "weixin") {
           if (this.isLogin) {
             getUserInfo().then((res) => {
