@@ -348,7 +348,7 @@
 		{
 			"path": "pages/orderAdmin/OrderCancellation/index",
 			"style": {
-				"navigationBarTitleText": "商家取消订单"
+				"navigationBarTitleText": "商家核销订单"
 			}
 		},
 		{
@@ -424,7 +424,7 @@
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8",
 		"navigationStyle": "default"
-		
+
 	},
 	"tabBar": {
 		"color": "#282828",
