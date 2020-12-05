@@ -518,4 +518,7 @@
   .footer-h5 {
     bottom: 50px
   }
+  .shoppingCart{
+	  position: relative;
+  }
 </style>

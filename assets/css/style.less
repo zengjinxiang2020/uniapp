@@ -2008,6 +2008,9 @@ page {
   background-color: #f5f5f5;
   z-index: 5;
   top: 0;
+  /* #ifdef H5 */
+  top:calc(44px + env(safe-area-inset-top))
+  /* #endif */
 }
 
 .shoppingCart .labelNav .item .iconfont {
@@ -2028,6 +2031,9 @@ page {
   z-index: 5;
   top: 0.76*100rpx;
   border-bottom: 1px solid #f5f5f5;
+  /* #ifdef H5 */
+  top:calc(44px + env(safe-area-inset-top) + 76rpx)
+  /* #endif  */
 }
 
 .shoppingCart .nav .administrate {
@@ -2221,6 +2227,8 @@ page {
   bottom: 0;
   padding: 0 0.3*100rpx;
   border-top: 1px solid #eee;
+  
+  
 }
 
 .shoppingCart .iphonex-footer {
@@ -7550,15 +7558,11 @@ page {
   position: fixed;
   left: 0;
   right: 0;
-
-  // #ifdef H5
-  top: 88rpx;
-  // #endif
-
-  // #ifndef H5
   top: 0;
-  // #endif
 
+    /* #ifdef H5 */
+    top:calc(44px + env(safe-area-inset-top));
+    /* #endif */
   z-index: 9;
   // border-bottom: 1px solid #555;
 }
@@ -7596,6 +7600,10 @@ page {
   overflow-y: auto;
   overflow-x: hidden;
   overflow-scrolling: touch;
+  
+   /* #ifdef H5 */
+   top:calc(44px + env(safe-area-inset-top) + 88rpx);
+   /* #endif */
 }
 
 .productSort .aside .item {
@@ -9305,7 +9313,7 @@ rich-text {
     .original {
       font-size: 20rpx;
       font-weight: 400;
-      text-decoration: line-through;
+      // text-decoration: line-through;
       color: rgba(153, 153, 153, 1);
       margin-left: 14rpx;
     }

@@ -636,7 +636,7 @@
       setCollect: function () {
         let that = this,
           id = that.storeInfo.id,
-          category = "product";
+          category = "collect";
         if (that.storeInfo.userCollect) {
           getCollectDel(id, category).then(function () {
             that.storeInfo.userCollect = !that.storeInfo.userCollect;
@@ -753,7 +753,7 @@
       },
       setOpenShare: function () {
         var data = this.storeInfo;
-        var href = location.href;
+        var href =  this.location.href;
         if (this.$deviceType == "weixin") {
           if (this.isLogin) {
             getUserInfo().then((res) => {

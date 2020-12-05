@@ -40,7 +40,7 @@
                 // 获取轮播图
                 let item = this.detail[this.swiperCurrent];
                 // 获取轮播图颜色
-                let bgcolor = item.bgcolor;
+                let bgcolor = item.color;
                 // 颜色不存在
                 if (bgcolor === '') {
                     that.$set(item, 'bgcolor', '#c40414');
