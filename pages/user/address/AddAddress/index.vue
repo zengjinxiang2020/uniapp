@@ -28,7 +28,7 @@
         <view class="checkbox-wrapper">
           <checkbox-group @change="ChangeIsDefault">
             <label class="well-check">
-              <checkbox value :checked="userAddress.isDefault ? true : false"></checkbox>
+              <checkbox :value="userAddress.isDefault==1?'checked':''" :checked="userAddress.isDefault ? true : false"></checkbox>
               <text class="def">设置为默认地址</text>
             </label>
           </checkbox-group>

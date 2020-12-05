@@ -23,7 +23,7 @@
           <view class="checkbox-wrapper">
             <checkbox-group @change="radioChange(item.id)">
               <label class="well-check">
-                <checkbox value :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
+                <checkbox :value="item.isDefault==1?'checked':''" :checked="item.isDefault||item.isDefault=='1' ? true : false"></checkbox>
                 <text class="default">设为默认</text>
               </label>
             </checkbox-group>

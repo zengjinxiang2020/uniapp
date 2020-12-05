@@ -107,14 +107,16 @@ export default {
   },
   watch: {
     items(nextItem) {
-      console.log(nextItem);
       this.province = nextItem;
+    },
+    defaultValue(next){
+      this.value=next
     }
   },
   mounted() {
     console.log(this);
-    if (this.defaultValue) {
-      this.value = this.defaultValue;
+    if (this.value) {
+      this.value = this.value;
     }
     this.province = this.items;
   },
