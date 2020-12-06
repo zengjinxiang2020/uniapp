@@ -20,7 +20,7 @@
             :hourText="' : '"
             :minuteText="' : '"
             :secondText="' '"
-            :datatime="datatime / 1000"
+            :datatime="datatime"
           ></count-down>
         </view>
         <view class="iconfont icon-jiantou"></view>

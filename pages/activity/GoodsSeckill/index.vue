@@ -45,12 +45,12 @@
                 <view class="piece font-color-red" v-text="'仅剩' + itemSeckill.stock + '件'"></view>
               </view>
             </view>
-            <view class="grab bg-color-red" v-if="item.status === 1 && itemSeckill.stock > 0"
-              @click="goDetail(itemSeckill.id,item.status)">马上抢</view>
+            <view class="grab bg-color-red" v-if="item.status === 1 && itemSeckill.stock > 0" @click="goDetail(itemSeckill.id,item.status)">马上抢</view>
             <view class="grab" v-if="item.status === 1 && itemSeckill.stock <= 0">已售磬</view>
-            <view class="grab bg-color-red" @click="goDetail(itemSeckill.id,item.status)" v-if="item.status === 2">即将开始
-            </view>
-            <view class="grab bg-color-red" @click="goDetail(itemSeckill.id,item.status)" v-if="item.status === 0">已结束</view>
+            <view class="grab bg-color-red" v-if="item.status === 2">即将开始</view>
+            <view class="grab bg-color-red" v-if="item.status === 0">已结束</view> 
+			<!-- <view class="grab bg-color-red" @click="goDetail(itemSeckill.id,item.status)" v-if="item.status === 2">即将开始</view> -->
+            <!-- <view class="grab bg-color-red" @click="goDetail(itemSeckill.id,item.status)" v-if="item.status === 0">已结束</view> -->
           </view>
         </view>
         <view class="noCommodity" style="background-color: #f5f5f5;" v-if="seckillList.length === 0 && page > 1">
