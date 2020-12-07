@@ -298,13 +298,6 @@
       changeswitch: function (data) {
         this.switchActive = data;
       },
-      User: function () {
-        let that = this;
-        getUserInfo().then(res => {
-          that.user = res.data;
-          that.orderStatusNum = res.data.orderStatusNum;
-        });
-      },
       MenuUser: function () {
         let that = this;
         getMenuUser()
