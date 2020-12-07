@@ -49,7 +49,7 @@
       </view>
 
       <!-- 门店信息 -->
-      <view class="store-info">
+      <view class="store-info" v-if="systemStore">
         <view class="title acea-row row-between-wrapper">
           <view>门店信息</view>
           <text @click="goStoreList()" class="praise">
