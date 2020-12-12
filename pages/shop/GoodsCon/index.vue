@@ -25,7 +25,7 @@
           <text class="hide line1 acea-row">
             <text>优惠券：</text>
             <text class="activity" v-for="(item, couponListEq) in couponList"
-              :key="couponListEq">满{{ item.use_min_price }}减{{ item.coupon_price }}</text>
+              :key="couponListEq">满{{ item.useMinPrice }}减{{ item.couponPrice }}</text>
           </text>
           <view class="iconfont icon-jiantou"></view>
         </view>
@@ -313,6 +313,7 @@
       if (!url) {
         url = handleUrlParam(getCurrentPageUrlWithArgs())
       }
+	  this.coupons();
       if (url && url.id) {
         this.id = url.id;
         let urlSpread = parseInt(url.spread);
@@ -593,6 +594,7 @@
             limit: 20,
           };
         getCoupon(q).then((res) => {
+			
           that.$set(that, "couponList", res.data || []);
           that.$set(that.coupon, "list", res.data);
         });
