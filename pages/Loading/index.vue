@@ -40,6 +40,8 @@
       if (!url) {
         url = handleUrlParam(getCurrentPageUrlWithArgs())
       }
+      console.log(url)
+      console.log('判断是否是分销')
       // 判断是否是分销
       if (url) {
         let urlSpread = parseInt(url.spread);
