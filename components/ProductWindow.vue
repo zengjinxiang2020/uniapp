@@ -82,7 +82,6 @@ export default {
   },
   watch: {
     attr(nextAttr) {
-      console.log(nextAttr);
     },
   },
   methods: {
@@ -116,7 +115,6 @@ export default {
     getCheckedValue: function () {
       let productAttr = this.attr.productAttr;
       let value = [];
-      console.log(productAttr);
       for (let i = 0; i < productAttr.length; i++) {
         for (let j = 0; j < productAttr[i].attrValueArr.length; j++) {
           if (productAttr[i].index === j) {

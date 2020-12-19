@@ -12,3 +12,5 @@ yarn-error.log*
 *.sln
 *.keystore
 unpackage/
+assets/css/style.css
+assets/css/style.css.map

@@ -22,7 +22,7 @@
           <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
         </view>
         <view class="coupon acea-row row-between-wrapper" @click="couponTap" v-if="couponList.length">
-          <text class="hide line1 acea-row">
+          <text class="hide line1">
             <text>优惠券：</text>
             <text class="activity" v-for="(item, couponListEq) in couponList"
               :key="couponListEq">满{{ item.useMinPrice }}减{{ item.couponPrice }}</text>
