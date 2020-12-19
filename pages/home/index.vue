@@ -103,6 +103,10 @@ import { getHomeData, getShare } from "@/api/public";
 import cookie from "@/utils/store/cookie";
 import { isWeixin, handleUrlParam } from "@/utils/index";
 
+import {
+	openShareAll,
+} from '@/libs/wechat'
+
 const HAS_COUPON_WINDOW = "has_coupon_window";
 
 export default {
@@ -309,7 +313,7 @@ export default {
             link: location.href,
             imgUrl: data.img,
           };
-          this.openShareAll(configAppMessage);
+          openShareAll(configAppMessage);
         });
       }
     },
