@@ -9,8 +9,8 @@
         <view class="share acea-row row-between row-bottom">
           <view class="money font-color-red">
             <text>￥</text>
-            <text class="num">{{ storeInfo.price }}</text>
-            <text class="vip-money" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0">￥{{ storeInfo.vipPrice }}</text>
+            <text class="num">{{ attr.productSelect.price || storeInfo.price }}</text>
+            <text class="vip-money" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0">￥{{ attr.productSelect.vipPrice || storeInfo.vipPrice }}</text>
             <image src="@/static/images/vip.png" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
           </view>
           <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
@@ -615,6 +615,7 @@
         // 修改了规格
 
         let productSelect = this.productValue[res.value];
+        console.log(productSelect)
         if (productSelect) {
           this.attr.productAttr[res.indexw].index = res.indexn;
           this.$set(this.attr.productSelect, "image", productSelect.image);
