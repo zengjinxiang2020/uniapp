@@ -1,5 +1,8 @@
 <script>
 import Vue from 'vue'
+// #ifdef H5
+var VConsole = require('@/utils/vconsole.min.js');
+//  #endif
 export default {
   onLaunch: function() {
     const updateManager = uni.getUpdateManager()
@@ -37,7 +40,11 @@ export default {
     console.log("App Hide");
   },
   mounted() {
-	  this.setAppInfo()
+    // #ifdef H5
+    var vConsole = new VConsole();
+	console.log('开启调试');
+    //  #endif
+	this.setAppInfo()
   },
   methods: {
     // 获取系统栏高度
