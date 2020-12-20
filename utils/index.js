@@ -215,6 +215,9 @@ export const login = () => {
 						console.log(redirect)
 						if (redirect) {
 							redirect = redirect.split('/pages')[1]
+							if(!redirect){
+                                redirect="/Loading/index";
+                            }    
 							reLaunch({
 								path: '/pages' + redirect,
 							});
