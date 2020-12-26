@@ -140,3 +140,11 @@ export function payOrder(uni, paytype, from) {
 export function orderVerific(verifyCode, isConfirm) {
 	return request.post("order/order_verific", { verifyCode, isConfirm });
 }
+/**
+ * 获取订阅消息ID
+ * @param price
+ * @returns {*}
+ */
+export function getSubscribeTemplate() {
+	return request.get("/order/getSubscribeTemplate");
+}
