@@ -35,6 +35,14 @@ export function getProducts(q) {
 		login: false
 	});
 }
+/*
+ * 积分商品列表
+ * */
+export function getProductsIntegral(q) {
+	return request.get("/products/integral", q, {
+		login: false
+	});
+}
 
 /*
  * 购物车数量
