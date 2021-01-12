@@ -15,7 +15,8 @@
             class="attr line1"
             v-if="cart.productInfo.attrInfo"
           >{{ cart.productInfo.attrInfo.sku }}</view>
-          <view class="money font-color-red">￥{{ cart.truePrice }}</view>
+          <view class="money font-color-red" v-if="!isIntegral">￥{{ cart.truePrice }}</view>
+          <view class="money font-color-red" v-if="isIntegral">{{ cart.productInfo.attrInfo.integral }}积分</view>
           <view class="evaluate" v-if="evaluate == 3 && cart.isReply==0" @click="routerGo(cart)">评价</view>
         </view>
       </view>
@@ -26,6 +27,7 @@
 export default {
   name: "OrderGoods",
   props: {
+    isIntegral:Boolean,
     evaluate: Number,
     cartInfo: {
       type: Array,

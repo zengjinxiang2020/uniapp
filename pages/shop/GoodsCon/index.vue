@@ -7,7 +7,7 @@
       <!-- 商品信息描述 -->
       <view class="wrapper">
         <view class="share acea-row row-between row-bottom">
-          <view class="money font-color-red">
+          <view class="money font-color-red" v-if="!isIntegral">
             <text>￥</text>
             <text class="num">{{
               attr.productSelect.price || storeInfo.price
@@ -16,11 +16,16 @@
               v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0">￥{{ attr.productSelect.vipPrice || storeInfo.vipPrice }}</text>
             <image src="@/static/images/vip.png" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
           </view>
+          <view class="money font-color-red" v-if="isIntegral">
+            <text class="num">{{
+              attr.productSelect.integral || storeInfo.integral
+            }}积分</text>
+          </view>
           <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
         </view>
         <view class="introduce">{{ storeInfo.storeName }}</view>
         <view class="label acea-row row-between-wrapper">
-          <text>原价:￥{{ storeInfo.otPrice }}</text>
+          <text v-if="!isIntegral">原价:￥{{ storeInfo.otPrice }}</text>
           <text>库存:{{ storeInfo.stock }}{{ storeInfo.unitName }}</text>
           <text>销量:{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
         </view>
@@ -311,7 +316,7 @@
         qqmapsdk: null,
         productConClass: "product-con",
         tempName: "全国包邮",
-        isIntegral: "false"
+        isIntegral: false
       };
     },
     computed: mapGetters(["isLogin", "location"]),
@@ -331,6 +336,7 @@
       } else {
         this.id = this._route.query.id;
       }
+      this.isIntegral = url.isIntegral == 'true'
       this.productCon();
       this.setOpenShare();
     },
@@ -507,6 +513,7 @@
           this.$set(this.attr.productSelect, "price", productSelect.price);
           this.$set(this.attr.productSelect, "stock", productSelect.stock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
+          this.$set(this.attr.productSelect, "integral", productSelect.integral);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", value.sort().join(","));
           this.$set(this, "attrTxt", "已选择");
@@ -518,6 +525,7 @@
           );
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "integral", this.storeInfo.integral);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -532,6 +540,7 @@
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
           this.$set(this.attr.productSelect, "stock", this.storeInfo.stock);
+          this.$set(this.attr.productSelect, "integral", this.storeInfo.integral);
           this.$set(
             this.attr.productSelect,
             "unique",
@@ -632,12 +641,14 @@
           this.$set(this.attr.productSelect, "price", productSelect.price);
           this.$set(this.attr.productSelect, "stock", productSelect.stock);
           this.$set(this.attr.productSelect, "unique", productSelect.unique);
+          this.$set(this.attr.productSelect, "integral", productSelect.integral);
           this.$set(this.attr.productSelect, "cart_num", 1);
           this.$set(this, "attrValue", res.value);
           this.$set(this, "attrTxt", "已选择");
         } else {
           this.$set(this.attr.productSelect, "image", this.storeInfo.image);
           this.$set(this.attr.productSelect, "price", this.storeInfo.price);
+          this.$set(this.attr.productSelect, "integral", this.storeInfo.price);
           this.$set(this.attr.productSelect, "stock", 0);
           this.$set(this.attr.productSelect, "unique", "");
           this.$set(this.attr.productSelect, "cart_num", 0);
@@ -698,11 +709,11 @@
           cartNum: that.attr.productSelect.cart_num,
           new: news,
           uniqueId: that.attr.productSelect !== undefined ?
-            that.attr.productSelect.unique :
-            "",
+            that.attr.productSelect.unique : "",
         };
         postCartAdd(q)
           .then(function (res) {
+            console.log(res)
             that.isOpen = false;
             that.attr.cartAttr = false;
             if (news) {
@@ -718,6 +729,7 @@
                 path: "/pages/order/OrderSubmission/index",
                 query: {
                   id: res.data.cartId,
+                  isIntegral:that.isIntegral
                 },
               });
             } else {
@@ -732,9 +744,12 @@
             }
           })
           .catch((error) => {
+            console.log(error)
             that.isOpen = false;
             uni.showToast({
-              title: error.response.data.msg,
+              title: error.msg ||
+								error.response.data.msg ||
+								error.response.data.message,
               icon: "none",
               duration: 2000,
             });

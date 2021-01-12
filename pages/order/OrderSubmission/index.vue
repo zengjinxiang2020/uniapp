@@ -44,9 +44,9 @@
         <image src="@/static/images/line.jpg" />
       </view>
     </view>
-    <OrderGoods :evaluate="0" :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
+    <OrderGoods :evaluate="0" isIntegral :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
     <view class="wrapper">
-      <view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false">
+      <view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false  && !isIntegral">
         <view>优惠券</view>
         <view class="discount">
           {{ usableCoupon.couponTitle || "请选择" }}
@@ -65,7 +65,7 @@
                     当前积分
                     <text class="num font-color-red">{{ userInfo.integral || 0 }}</text>
                   </text>
-                  <checkbox value="true" :checked="useIntegral ? true : false"></checkbox>
+                  <checkbox value="true" v-if="!isIntegral" :checked="useIntegral ? true : false"></checkbox>
                 </label>
               </checkbox-group>
             </view>
@@ -101,7 +101,7 @@
         <textarea v-model="mark"></textarea>
       </view>
     </view>
-    <view class="wrapper">
+    <view class="wrapper" v-if="!isIntegral">
       <view class="item">
         <view>支付方式</view>
         <view class="list">
@@ -131,17 +131,18 @@
     <view class="moneyList">
       <view class="item acea-row row-between-wrapper" v-if="orderPrice.totalPrice !== undefined">
         <view>商品总价：</view>
-        <view class="money">￥{{ orderPrice.totalPrice }}</view>
+        <view class="money" v-if="!isIntegral">￥{{ orderPrice.totalPrice }}</view>
+        <view class="money" v-if="isIntegral">{{ orderPrice.payIntegral }}积分</view>
       </view>
-      <view class="item acea-row row-between-wrapper" v-if="orderPrice.payPostage > 0">
+      <view class="item acea-row row-between-wrapper" v-if="orderPrice.payPostage > 0  && !isIntegral">
         <view>运费：</view>
         <view class="money">￥{{ orderPrice.payPostage }}</view>
       </view>
-      <view class="item acea-row row-between-wrapper" v-if="orderPrice.couponPrice > 0">
+      <view class="item acea-row row-between-wrapper" v-if="orderPrice.couponPrice > 0  && !isIntegral">
         <view>优惠券抵扣：</view>
         <view class="money">-￥{{ orderPrice.couponPrice }}</view>
       </view>
-      <view class="item acea-row row-between-wrapper" v-if="orderPrice.deductionPrice > 0">
+      <view class="item acea-row row-between-wrapper" v-if="orderPrice.deductionPrice > 0 && !isIntegral">
         <view>积分抵扣：</view>
         <view class="money">-￥{{ orderPrice.deductionPrice }}</view>
       </view>
@@ -150,7 +151,8 @@
     <view class="footer acea-row row-between-wrapper">
       <view>
         合计:
-        <text class="font-color-red">￥{{ orderPrice.payPrice }}</text>
+        <text class="font-color-red" v-if="!isIntegral">￥{{ orderPrice.payPrice }}</text>
+        <text class="font-color-red" v-if="isIntegral">{{ orderPrice.payIntegral }}积分</text>
       </view>
       <view class="settlement" @click="createOrder">立即结算</view>
     </view>
@@ -324,6 +326,7 @@
         contactsTel: "",
         storeSelfMention: 0,
         cartid: "",
+        isIntegral: false
       };
     },
     computed: mapGetters(["userInfo", "storeItems"]),
@@ -346,6 +349,8 @@
       if (that.$yroute.query.pinkid !== undefined) {
         that.pinkId = that.$yroute.query.pinkid;
       }
+      this.isIntegral = that.$yroute.query.isIntegral == 'true'
+      this.useIntegral = this.isIntegral
       if (that.$yroute.query.id !== undefined) {
         that.cartid = that.$yroute.query.id;
         console.log(that.cartid);
@@ -372,6 +377,9 @@
       },
       changeUseIntegral: function (e) {
         // this.computedPrice();
+        if (this.isIntegral) {
+          return
+        }
         this.useIntegral = e.mp.detail.value[0];
       },
       computedPrice() {
@@ -460,8 +468,20 @@
         this.computedPrice();
       },
       createOrder() {
+        if (this.isIntegral) {
+          // 积分支付
+          if (this.userInfo.integral < this.orderPrice.payIntegral) {
+            uni.showToast({
+              title: "积分不足",
+              icon: "none",
+              duration: 2000,
+            });
+            return
+          }
+          this.active = 'integral'
+        }
         let shipping_type = this.shipping_type;
-        if (!this.active) {
+        if (!this.isIntegral && !this.active) {
           uni.showToast({
             title: "请选择支付方式",
             icon: "none",
