@@ -114,7 +114,7 @@
         <image src="@/static/images/line.jpg" />
       </view>
     </template>
-    <OrderGoods :evaluate="status.type || 0" isIntegral :cartInfo="orderInfo.cartInfo || []"></OrderGoods>
+    <OrderGoods :evaluate="status.type || 0" :isIntegral="isIntegral" :cartInfo="orderInfo.cartInfo || []"></OrderGoods>
     <view class="wrapper">
       <view class="item acea-row row-between">
         <view>订单编号：</view>

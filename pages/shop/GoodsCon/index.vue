@@ -184,7 +184,7 @@
       <!-- 优惠券 -->
       <CouponPop v-on:changeFun="changeFun" :coupon="coupon"></CouponPop>
       <!-- 商品规格弹窗 -->
-      <ProductWindow isIntegral v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
+      <ProductWindow :isIntegral="isIntegral" v-on:changeFun="changeFun" :attr="attr" :cartNum="cart_num"></ProductWindow>
       <!-- 分享海报 -->
       <StorePoster v-on:setPosterImageStatus="setPosterImageStatus" :posterImageStatus="posterImageStatus"
         :posterData="posterData" :goodId="id"></StorePoster>

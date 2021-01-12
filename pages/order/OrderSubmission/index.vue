@@ -44,7 +44,7 @@
         <image src="@/static/images/line.jpg" />
       </view>
     </view>
-    <OrderGoods :evaluate="0" isIntegral :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
+    <OrderGoods :evaluate="0" :isIntegral="isIntegral" :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>
     <view class="wrapper">
       <view class="item acea-row row-between-wrapper" @click="couponTap" v-if="deduction === false  && !isIntegral">
         <view>优惠券</view>
@@ -53,7 +53,7 @@
           <text class="iconfont icon-jiantou"></text>
         </view>
       </view>
-      <view class="item acea-row row-between-wrapper" v-if="deduction === false && enableIntegral === true">
+      <view class="item acea-row row-between-wrapper" v-if="!isIntegral && deduction === false && enableIntegral === true">
         <view>积分抵扣</view>
         <view class="discount">
           <view class="select-btn">
@@ -65,7 +65,7 @@
                     当前积分
                     <text class="num font-color-red">{{ userInfo.integral || 0 }}</text>
                   </text>
-                  <checkbox value="true" v-if="!isIntegral" :checked="useIntegral ? true : false"></checkbox>
+                  <checkbox value="true" :checked="useIntegral ? true : false"></checkbox>
                 </label>
               </checkbox-group>
             </view>
@@ -101,25 +101,25 @@
         <textarea v-model="mark"></textarea>
       </view>
     </view>
-    <view class="wrapper" v-if="!isIntegral">
+    <view class="wrapper">
       <view class="item">
         <view>支付方式</view>
         <view class="list">
-          <view class="payItem acea-row row-middle" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
+          <view class="payItem acea-row row-middle" v-if="!isIntegral" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
             v-show="isWeixin">
             <view class="name acea-row row-center-wrapper">
               <view class="iconfont icon-weixin2" :class="active === 'weixin' ? 'bounceIn' : ''"></view>微信支付
             </view>
             <view class="tip">微信快捷支付</view>
           </view>
-          <view class="payItem acea-row row-middle" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
+          <view class="payItem acea-row row-middle" v-if="!isIntegral" :class="active === 'weixin' ? 'on' : ''" @click="payItem('weixin')"
             v-show="!isWeixin">
             <view class="name acea-row row-center-wrapper">
               <view class="iconfont icon-weixin2" :class="active === 'weixin' ? 'bounceIn' : ''"></view>微信支付
             </view>
             <view class="tip">微信快捷支付</view>
           </view>
-          <view class="payItem acea-row row-middle" :class="active === 'yue' ? 'on' : ''" @click="payItem('yue')">
+          <view class="payItem acea-row row-middle" v-if="!isIntegral" :class="active === 'yue' ? 'on' : ''" @click="payItem('yue')">
             <view class="name acea-row row-center-wrapper">
               <view class="iconfont icon-icon-test" :class="active === 'yue' ? 'bounceIn' : ''"></view>余额支付
             </view>
@@ -357,6 +357,9 @@
       }
       this.isIntegral = that.$yroute.query.isIntegral == 'true'
       this.useIntegral = this.isIntegral
+      if(this.isIntegral){
+        this.active='integral'
+      }
       if (that.$yroute.query.id !== undefined) {
         that.cartid = that.$yroute.query.id;
         console.log(that.cartid);
