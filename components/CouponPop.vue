@@ -24,7 +24,7 @@
               <view
                 class="bnt acea-row row-center-wrapper"
                 :class="!item.isUse ? 'bg-color-red' : 'gray'"
-              >{{ !item.is_use ? "立即领取" : "已领取" }}</view>
+              >{{ !item.isUse ? "立即领取" : "已领取" }}</view>
             </view>
           </view>
         </view>
