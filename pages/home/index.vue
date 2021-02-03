@@ -25,7 +25,7 @@
 				<Menu :list="item.componentContent.menus" v-if="item.type=='menu'"></Menu>
 				<!-- 滚动新闻 -->
 				<!-- 广告 -->
-				<Adv v-if="item.type=='adv'" />
+				<Adv v-if="item.type=='adv'" :detail="item.componentContent.detail" />
 				<!-- 热门榜单 -->
 				<HotCommodity v-if="item.type=='hotCommodity'" :detail="likeInfo"></HotCommodity>
 				<!-- 超值拼团 -->
