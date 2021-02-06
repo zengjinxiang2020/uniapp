@@ -14,17 +14,17 @@
         >
           <view class="money">
             ￥
-            <text class="num">{{ item.coupon_price }}</text>
+            <text class="num">{{ item.couponPrice }}</text>
           </view>
           <view class="text">
-            <view class="condition line1">购物满{{ item.use_min_price }}元可用</view>
+            <view class="condition line1">购物满{{ item.useMinPrice }}元可用</view>
             <view class="data acea-row row-between-wrapper">
               <view v-if="item.end_time === 0">不限时</view>
-              <view v-else>{{ item.start_time }}-{{ item.end_time }}</view>
+              <view v-else>{{ item.startTime }}-{{ item.endTime }}</view>
               <view
                 class="bnt acea-row row-center-wrapper"
-                :class="!item.is_use ? 'bg-color-red' : 'gray'"
-              >{{ !item.is_use ? "立即领取" : "已领取" }}</view>
+                :class="!item.isUse ? 'bg-color-red' : 'gray'"
+              >{{ !item.isUse ? "立即领取" : "已领取" }}</view>
             </view>
           </view>
         </view>
