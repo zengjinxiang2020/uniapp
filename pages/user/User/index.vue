@@ -114,11 +114,11 @@
                 <text class="iconfont icon-jiantou"></text>
               </view>
             </template>
-            <!-- <view class="item" @click="goPages2()">
+            <view class="item" @click="goPages2()">
               <view class="pictrue"></view>
-              <view class="cell">hexiao</view>
+              <view class="cell">积分商城</view>
               <text class="iconfont icon-jiantou"></text>
-            </view>-->
+            </view>
           </view>
         </view>
       </view>
@@ -353,7 +353,13 @@
       },
       goPages2: function () {
         this.$yrouter.push({
-          path: "/pages/orderAdmin/OrderCancellation/index"
+          path: "/pages/shop/GoodsList/index",
+          query: {
+            // id: 0,
+            title: '积分商城',
+            isIntegral: true,
+          }
+
         });
       }
     },
