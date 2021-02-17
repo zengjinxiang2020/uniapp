@@ -216,6 +216,7 @@
 			getCanvas().then(res => {
 			}).catch(error => {
 				this.homeData = JSON.parse(error.data.json)
+				console.log(this.homeData[4])
 			})
 			getHomeData().then((res) => {
 			  that.logoUrl = res.data.logoUrl;

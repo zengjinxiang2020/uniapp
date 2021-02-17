@@ -81,34 +81,18 @@
 		components: {},
 		data() {
 			return {
-				detail: {
-					"list": [{
-						"image": "https:\/\/wx.yixiang.co\/static\/images\/index001.png",
-						"name": "",
-						"path": "/pages/user/coupon/GetCoupon/index",
-						"path_name": "优惠券",
-						"path_type": 1
-					}, {
-						"image": "https:\/\/wx.yixiang.co\/static\/images\/index002.png",
-						"name": "",
-						"path": "/pages/shop/GoodsList/index",
-						"path_name": "商品",
-						"path_type": 1
-					}, {
-						"image": "https:\/\/wx.yixiang.co\/static\/images\/index003.png",
-						"name": "",
-						"path": "/pages/user/signIn/Integral/index",
-						"path_name": "积分",
-						"path_type": 1
-					}],
-					"name": "",
-					"style": 3
-				}
+				
 			};
 		},
-		props: {},
+		props: {
+			detail:Object
+		},
 		computed: {},
-		created() {},
+		created() {
+		},
+		mounted() {
+		console.log(this)	
+		},
 		methods: {
 			// 路由跳转
 			jump(path) {
