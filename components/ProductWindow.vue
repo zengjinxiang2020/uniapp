@@ -7,9 +7,13 @@
         </view>
         <view class="text">
           <view class="line1">{{ attr.productSelect.store_name }}</view>
-          <view class="money font-color-red">
+          <view class="money font-color-red" v-if="!isIntegral">
             ￥
             <text class="num">{{ attr.productSelect.price }}</text>
+            <text class="stock">库存: {{ attr.productSelect.stock }}</text>
+          </view>
+          <view class="money font-color-red" v-if="isIntegral">
+            <text class="num">{{ attr.productSelect.integral }}积分</text>
             <text class="stock">库存: {{ attr.productSelect.stock }}</text>
           </view>
         </view>
@@ -65,6 +69,7 @@
 export default {
   name: "ProductWindow",
   props: {
+    isIntegral:Boolean,
     attr: {
       type: Object,
       default: () => {},

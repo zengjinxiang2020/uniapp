@@ -9,6 +9,14 @@ export function getHomeData() {
 }
 
 /**
+ * 首页
+ * @returns {*}
+ */
+export function getCanvas() {
+  return request.get("/getCanvas?terminal=3", {}, { login: false });
+}
+
+/**
  * 文章 轮播列表
  * @returns {*}
  */

@@ -31,7 +31,7 @@
 						<view class="money">
 							<view class="x-money">￥{{ val.productInfo.price }}</view>
 							<view class="num">x{{ val.cartNum }}</view>
-							<view class="y-money">￥{{ val.productInfo.otPrice }}</view>
+							<view class="y-money" v-if="val.productInfo.otPrice">￥{{ val.productInfo.otPrice }}</view>
 						</view>
 					</view>
 				</view>
@@ -54,7 +54,9 @@
 						<view class="bnt" @click="modify(item, 0)" v-if="where.status == 0">一键改价</view>
 						<view class="bnt" @click="modify(item, 0)" v-if="where.status == -3 && item.refundStatus === 1">立即退款</view>
 						<view class="bnt cancel" v-if="item.pay_type === 'offline' && item.paid === 0" @click="offlinePay(item)">确认付款</view>
-						<view class="bnt" v-if="where.status == 1" @click="goGoodsDeliver(item)">去发货</view>
+						<view class="bnt" v-if="where.status == 1 && item._status._title=='未发货'" @click="goGoodsDeliver(item)">去发货</view>
+            <view class="bnt cancel" v-if="item._status._title=='待核销' && where.status == 1" @click="storeCancellation(0,item.verifyCode)">快速核销</view>
+            <view class="bnt" v-if="item._status._title=='待核销' && where.status == 1" @click="storeCancellation(1,item.verifyCode)">立即核销</view>
 					</view>
 				</view>
 			</view>
@@ -75,6 +77,7 @@
 		setOfflinePay,
 		setOrderRefund
 	} from "@/api/admin";
+  import {orderVerific} from "@/api/order";
 	import {
 		required,
 		num
@@ -119,7 +122,7 @@
 				this.getIndex();
 			}
 		},
-		mounted: function() {
+    onShow: function() {
 			let that = this;
 			that.where.status = that.$yroute.query.types;
 			that.current = "";
@@ -318,10 +321,64 @@
 						});
 					}
 				);
-			}
+			},
+      storeCancellation(index,verifyCode) {
+        const that = this;
+        that.check = true;
+        if (index == 0) {
+          uni.showModal({
+            title: "确定核销订单?",
+            content: "注意:请务必核对核销码的与客户正确性",
+            success(res) {
+              if (res.confirm) {
+                uni.showLoading({
+                  title: "查询中"
+                });
+                orderVerific(verifyCode, 1)
+                    .then(res => {
+                      console.log(res)
+                      uni.hideLoading();
+                      that.iShidden = false;
+                      uni.showToast({
+                        title: res.msg,
+                        icon: 'none',
+                        duration: 1000
+                      });
+                      //最后就是返回上一个页面。
+                      setTimeout(function() {
+                        uni.navigateBack({
+                          delta: 1, // 返回上一级页面。
+                          success: function() {
+                            console.log('成功！')
+                          }
+                        })
+                      }, 1000);
+                    })
+                    .catch((err) => {
+                      console.log(err)
+                      uni.hideLoading();
+                      uni.showToast({
+                        title: err.data.msg,
+                        icon: "none",
+                        duration: 2000
+                      });
+                    });
+              }
+            }
+          });
+
+        } else {
+          that.$yrouter.push({
+            path: '/pages/orderAdmin/OrderCancellation/index'
+          })
+        }
+      }
 		}
 	};
 </script>
 
 <style lang="less">
+.quick {
+  background: #F25555;
+}
 </style>

@@ -114,11 +114,6 @@
                 <text class="iconfont icon-jiantou"></text>
               </view>
             </template>
-            <view class="item" @click="goPages2()">
-              <view class="pictrue"></view>
-              <view class="cell">积分商城</view>
-              <text class="iconfont icon-jiantou"></text>
-            </view>
           </view>
         </view>
       </view>

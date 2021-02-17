@@ -135,7 +135,9 @@
         v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0"
         @click="offlinePay"
       >确认付款</view>
-      <view class="bnt delivery" v-if="types == 1" @click="goGoodsDeliver(orderInfo)">去发货</view>
+      <view class="bnt delivery" v-if="title=='未发货' && types == 1" @click="goGoodsDeliver(orderInfo)">去发货</view>
+      <view class="bnt quick" v-if="title=='待核销' && types == 1" @click="storeCancellation(0)">快速核销</view>
+      <view class="bnt delivery" v-if="title=='待核销' && types == 1" @click="storeCancellation(1)">立即核销</view>
     </view>
     <PriceChange
       :change="change"
@@ -156,6 +158,7 @@ import {
   setOfflinePay,
   setOrderRefund
 } from "@/api/admin";
+import {orderVerific} from "@/api/order";
 import { required, num } from "@/utils/validate";
 import { validatorDefaultCatch } from "@/utils/dialog";
 import { copyClipboard } from "@/utils";
@@ -190,7 +193,7 @@ export default {
       }
     }
   },
-  mounted: function() {
+  onShow: function() {
     this.order_id = this.$yroute.query.oid;
     this.getIndex();
   },
@@ -349,7 +352,63 @@ export default {
           });
         }
       );
+    },
+    storeCancellation(index) {
+      const that = this;
+      that.check = true;
+      if (index == 0) {
+        uni.showModal({
+          title: "确定核销订单?",
+          content: "注意:请务必核对核销码的与客户正确性",
+          success(res) {
+            if (res.confirm) {
+              uni.showLoading({
+                title: "查询中"
+              });
+              orderVerific(that.orderInfo.verifyCode, 1)
+                  .then(res => {
+                    console.log(res)
+                    uni.hideLoading();
+                    that.iShidden = false;
+                    uni.showToast({
+                      title: res.msg,
+                      icon: 'none',
+                      duration: 1000
+                    });
+                    //最后就是返回上一个页面。
+                    setTimeout(function() {
+                      uni.navigateBack({
+                        delta: 1, // 返回上一级页面。
+                        success: function() {
+                          console.log('成功！')
+                        }
+                      })
+                    }, 1000);
+                  })
+                  .catch((err) => {
+                    console.log(err)
+                    uni.hideLoading();
+                    uni.showToast({
+                      title: err.data.msg,
+                      icon: "none",
+                      duration: 2000
+                    });
+                  });
+            }
+          }
+        });
+
+      } else {
+        that.$yrouter.push({
+          path: '/pages/orderAdmin/OrderCancellation/index'
+        })
+      }
     }
   }
 };
 </script>
+<style lang="less">
+.quick {
+  background: #F25555;
+}
+</style>

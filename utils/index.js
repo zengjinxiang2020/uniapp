@@ -215,6 +215,9 @@ export const login = () => {
 						console.log(redirect)
 						if (redirect) {
 							redirect = redirect.split('/pages')[1]
+							if(!redirect){
+                                redirect="/Loading/index";
+                            }
 							reLaunch({
 								path: '/pages' + redirect,
 							});
@@ -616,13 +619,13 @@ export function routerPermissions(url, type) {
 			})
 			cookie.set('redirect', path)
 		})
-		// } else if (Vue.prototype.$deviceType == 'weixin') {
-		// wechat().then(() => oAuth());
-		// if (!type) {
-		// 	push({
-		// 		path: url,
-		// 	})
-		// }
+	} else if (Vue.prototype.$deviceType == 'weixin') {
+		wechat().then(() => oAuth());
+		if (!type) {
+			push({
+				path: url,
+			})
+		}
 	} else {
 		console.log(path)
 		// 如果不是小程序跳转到登录页

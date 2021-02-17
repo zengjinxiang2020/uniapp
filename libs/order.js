@@ -2,7 +2,8 @@ import {
 	cancelOrder,
 	takeOrder,
 	delOrder,
-	payOrder
+	payOrder,
+	getSubscribeTemplate
 } from "@/api/order";
 import dialog from "@/utils/dialog";
 import {
@@ -194,19 +195,21 @@ export function handleOrderPayResults(data, type, payType) {
 }
 
 export function subscribeMessage() {
-	// 调用订阅
-	console.log('调用订阅')
-	uni.requestSubscribeMessage({
-		tmplIds: ['W5r2c2kzhbq8uxStkPAVx_sk-5aapMFCqe7b7KU5jXI', '2CB_1UyQrbnlyjJa5syraqJ3cfztPPDOAHe3DEXpMjg',
-			'vuztugw9VbKbKJDAAVePkjqPpT5mdoREpd4Aq7EGPRU'
-		],
-		success(res) {
-			console.log(res)
-		},
-		fail(error) {
-			console.log(error)
-		}
-	})
+  // 调用订阅
+  console.log('调用订阅')
+  getSubscribeTemplate()
+      .then(res => {
+        uni.requestSubscribeMessage({
+          tmplIds: res.data,
+          success(res) {
+            console.log(res)
+          },
+          fail(error) {
+            console.log(error)
+          }
+        })
+      })
+      .catch(err => {});
 }
 
 

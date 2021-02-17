@@ -90,12 +90,15 @@
             <view class="text acea-row row-between">
               <view class="name line2">{{ cart.productInfo.storeName }}</view>
               <view class="money">
-                <view>
+                <view v-if="order.payType!='integral'">
                   ￥{{
                   cart.productInfo.attrInfo
                   ? cart.productInfo.attrInfo.price
                   : cart.productInfo.price
                   }}
+                </view>
+                <view v-if="order.payType=='integral'">
+                  {{order.payIntegral}}积分
                 </view>
                 <view>x{{ cart.cartNum }}</view>
               </view>
@@ -104,7 +107,8 @@
         </view>
         <view class="totalPrice">
           共{{ order.cartInfo.length || 0 }}件商品，总金额
-          <text class="money font-color-red">￥{{ order.payPrice }}</text>
+          <text class="money font-color-red" v-if="order.payType!='integral'">￥{{ order.payPrice }}</text>
+          <text class="money font-color-red" v-if="order.payType=='integral'">{{order.payIntegral}}积分</text>
         </view>
         <view class="bottom acea-row row-right row-middle">
           <template v-if="order._status._type == 0">
