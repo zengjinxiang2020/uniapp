@@ -10,7 +10,6 @@
           <view class="money font-color-red">
             <text class="num">{{ attr.productSelect.integral || storeInfo.integral }}积分</text>
           </view>
-          <view class="iconfont icon-fenxiang" @click="listenerActionSheet"></view>
         </view>
         <view class="introduce">{{ storeInfo.storeName }}</view>
         <view class="label acea-row row-between-wrapper">
@@ -55,7 +54,7 @@
         </view>
         <view class="bnt in-bnt acea-row">
           <view class="buy" @click="tapBuy">
-            <text>立即购买</text>
+            <text>立即兑换</text>
           </view>
         </view>
       </view>
