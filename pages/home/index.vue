@@ -18,14 +18,14 @@
 				</view>
 			</view>
 			<Banner v-if="item.type=='banner'" :detail="item.componentContent.bannerData" @getbgcolor="getbgcolor"></Banner>
-			<uni-notice-bar v-if="item.type=='noticeBar'" scrollable="true" @click="goRoll(item.componentContent.roll[0])" single="true" :speed="10"
-			 showIcon="true" :text="item.componentContent.roll[0].info"></uni-notice-bar>
+			<uni-notice-bar v-if="item.type=='noticeBar'" scrollable="true" @click="goRoll(item.componentContent.roll[0])"
+			 single="true" :speed="10" showIcon="true" :text="item.componentContent.roll[0].info"></uni-notice-bar>
 			<view class="content_box home_content_box">
 				<!-- 菜单 -->
-				<Menu :list="item.componentContent.menus" v-if="item.type=='menu'"></Menu>
+				<Menu :list="item.componentContent.menus" v-if="item.type=='menu'&&item.componentContent.menus"></Menu>
 				<!-- 滚动新闻 -->
 				<!-- 广告 -->
-				<Adv v-if="item.type=='adv'" :detail="item.componentContent.detail" />
+				<Adv v-if="item.type=='adv'&&item.componentContent.detail" :detail="item.componentContent.detail" />
 				<!-- 热门榜单 -->
 				<HotCommodity v-if="item.type=='hotCommodity'" :detail="likeInfo"></HotCommodity>
 				<!-- 超值拼团 -->
@@ -213,26 +213,26 @@
 			// uni.showLoading({
 			//   title: "加载中",
 			// });
-			getCanvas().then(res => {
-			}).catch(error => {
+			getCanvas().then(res => {}).catch(error => {
 				this.homeData = JSON.parse(error.data.json)
-				console.log(this.homeData[4])
+				console.log(this.homeData)
+				console.log(222)
 			})
 			getHomeData().then((res) => {
-			  that.logoUrl = res.data.logoUrl;
-			  res.data.banner.map((item) => (item.bgcolor = item.color || ""));
-			  that.$set(that, "info", res.data.info);
-			  that.$set(that, "firstList", res.data.firstList);
-			  that.$set(that, "bastList", res.data.bastList);
-			  that.$set(that, "likeInfo", res.data.likeInfo);
-			  that.$set(that, "live", res.data.liveList);
-			  that.$set(that, "lovely", res.data.lovely);
-			  that.$set(that, "benefit", res.data.benefit);
-			  that.$set(that, "couponList", res.data.couponList);
-			  that.$set(that, "combinationList", res.data.combinationList);
-			  uni.hideLoading();
-			  that.setOpenShare();
-			  // that.doColorThief()
+				that.logoUrl = res.data.logoUrl;
+				res.data.banner.map((item) => (item.bgcolor = item.color || ""));
+				that.$set(that, "info", res.data.info);
+				that.$set(that, "firstList", res.data.firstList);
+				that.$set(that, "bastList", res.data.bastList);
+				that.$set(that, "likeInfo", res.data.likeInfo);
+				that.$set(that, "live", res.data.liveList);
+				that.$set(that, "lovely", res.data.lovely);
+				that.$set(that, "benefit", res.data.benefit);
+				that.$set(that, "couponList", res.data.couponList);
+				that.$set(that, "combinationList", res.data.combinationList);
+				uni.hideLoading();
+				that.setOpenShare();
+				// that.doColorThief()
 			});
 		},
 		methods: {
