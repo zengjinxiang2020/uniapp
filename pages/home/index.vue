@@ -20,9 +20,11 @@
 			<Banner v-if="item.type=='banner'" :detail="item.componentContent.bannerData" @getbgcolor="getbgcolor"></Banner>
 			<uni-notice-bar v-if="item.type=='noticeBar'" scrollable="true" @click="goRoll(item.componentContent.roll[0])"
 			 single="true" :speed="10" showIcon="true" :text="item.componentContent.roll[0].info"></uni-notice-bar>
-			<view class="content_box home_content_box">
+			<view class="content_box home_content_box" v-if="item.type=='menu'&&item.componentContent.menus">
 				<!-- 菜单 -->
-				<Menu :list="item.componentContent.menus" v-if="item.type=='menu'&&item.componentContent.menus"></Menu>
+				<Menu :list="item.componentContent.menus" ></Menu>
+			</view>
+				
 				<!-- 滚动新闻 -->
 				<!-- 广告 -->
 				<Adv v-if="item.type=='adv'&&item.componentContent.detail" :detail="item.componentContent.detail" />
@@ -42,7 +44,6 @@
 				<!-- #endif -->
 				<!-- 为您推荐 -->
 				<PromotionGood v-if="item.type=='promotionGood'" :benefit="benefit"></PromotionGood>
-			</view>
 			<Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose">
 			</Coupon-window>
 		</view>
@@ -354,7 +355,7 @@
 	}
 
 	.index {
-		background-color: #fff;
+		background-color: #f6f6f6;
 	}
 
 	.swiper-item {
@@ -436,7 +437,7 @@
 	}
 
 	.home_content_box {
-		margin-top: -10rpx;
+		margin-top: -20rpx;
 	}
 
 	.head_box {}
