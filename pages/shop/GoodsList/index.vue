@@ -26,7 +26,7 @@
 			<!-- down -->
 			<view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
 		</view>
-		<view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container" v-if="isIntegral == 'false'">
+		<view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container" v-if="!isIntegral">
 			<view @click="goGoodsCon(item)" class="item" :class="Switch === true ? '' : 'on'" v-for="(item, productListIndex) in productList"
 			 :key="productListIndex" :title="item.storeName">
 				<view class="pictrue" :class="Switch === true ? '' : 'on'">
