@@ -144,14 +144,14 @@
             }
         },
         "plugins" : {
-            // #ifdef MP-WEIXIN 
+            // #ifdef MP-WEIXIN
             "live-player-plugin" : {
-                "version" : "1.1.10",
+                "version" : "1.2.8",
                 "provider" : "wx2b03c6e691cd7370"
             }
         }
     },
-    // #endif 
+    // #endif
     "mp-alipay" : {
         "usingComponents" : true
     },
