@@ -111,7 +111,7 @@
             <view class="name acea-row row-center-wrapper"> <view class="iconfont icon-icon-test" :class="active === 'yue' ? 'bounceIn' : ''"></view>余额支付 </view>
             <view class="tip">可用余额：{{ userInfo.nowMoney || 0 }}</view>
           </view>
-          <view class="payItem acea-row row-middle" :class="active === 'integral' ? 'on' : ''" @click="payItem('integral')">
+          <view class="payItem acea-row row-middle" v-if="isIntegral" :class="active === 'integral' ? 'on' : ''" @click="payItem('integral')">
             <view class="name acea-row row-center-wrapper"> <view class="iconfont icon-icon-test" :class="active === 'integral' ? 'bounceIn' : ''"></view>积分支付 </view>
             <view class="tip">可用积分：{{ userInfo.integral || 0 }}</view>
           </view>

@@ -24,7 +24,6 @@
 				<!-- 菜单 -->
 				<Menu :list="item.componentContent.menus" ></Menu>
 			</view>
-				
 				<!-- 滚动新闻 -->
 				<!-- 广告 -->
 				<Adv v-if="item.type=='adv'&&item.componentContent.detail" :detail="item.componentContent.detail" />

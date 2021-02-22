@@ -52,7 +52,7 @@
         <view class="text" :class="Switch === true ? '' : 'on'">
           <view class="name line1">{{ item.storeName }}</view>
           <view class="money font-color-red" :class="Switch === true ? '' : 'on'">
-            <text class="num">{{ item.price }}积分</text>
+            <text class="num">{{ item.integral }}积分</text>
           </view>
           <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
             <!-- <view class="vip-money">￥{{ item.otPrice }}</view> -->
