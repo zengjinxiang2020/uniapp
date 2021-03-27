@@ -81,51 +81,51 @@
             "splashscreen" : {
                 "ios" : {
                     "iphone" : {
-                        "portrait-896h@3x" : "unpackage/res/splash/1242+2688.png",
-                        "portrait-896h@2x" : "unpackage/res/splash/828+1792.png",
-                        "iphonex" : "unpackage/res/splash/1125+2436.png",
-                        "retina55" : "unpackage/res/splash/1142+2208.png",
-                        "retina47" : "unpackage/res/splash/750+1334.png",
-                        "retina40" : "unpackage/res/splash/640+1136.png",
-                        "retina35" : "unpackage/res/splash/640+960.png"
+                        "portrait-896h@3x" : "splash/1242+2688.png",
+                        "portrait-896h@2x" : "splash/828+1792.png",
+                        "iphonex" : "splash/1125+2436.png",
+                        "retina55" : "splash/1142+2208.png",
+                        "retina47" : "splash/750+1334.png",
+                        "retina40" : "splash/640+1136.png",
+                        "retina35" : "splash/640+960.png"
                     }
                 },
                 "android" : {
-                    "hdpi" : "unpackage/res/splash/480+762.png",
-                    "xhdpi" : "unpackage/res/splash/720+1242.png",
-                    "xxhdpi" : "unpackage/res/splash/1080+1882.png"
+                    "hdpi" : "splash/480+762.png",
+                    "xhdpi" : "splash/720+1242.png",
+                    "xxhdpi" : "splash/1080+1882.png"
                 },
                 "iosStyle" : "common"
             },
             "icons" : {
                 "android" : {
-                    "hdpi" : "unpackage/res/icons/72x72.png",
-                    "xhdpi" : "unpackage/res/icons/96x96.png",
-                    "xxhdpi" : "unpackage/res/icons/144x144.png",
-                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                    "hdpi" : "icons/72x72.png",
+                    "xhdpi" : "icons/96x96.png",
+                    "xxhdpi" : "icons/144x144.png",
+                    "xxxhdpi" : "icons/192x192.png"
                 },
                 "ios" : {
-                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "appstore" : "icons/1024x1024.png",
                     "ipad" : {
-                        "app" : "unpackage/res/icons/76x76.png",
-                        "app@2x" : "unpackage/res/icons/152x152.png",
-                        "notification" : "unpackage/res/icons/20x20.png",
-                        "notification@2x" : "unpackage/res/icons/40x40.png",
-                        "proapp@2x" : "unpackage/res/icons/167x167.png",
-                        "settings" : "unpackage/res/icons/29x29.png",
-                        "settings@2x" : "unpackage/res/icons/58x58.png",
-                        "spotlight" : "unpackage/res/icons/40x40.png",
-                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                        "app" : "icons/76x76.png",
+                        "app@2x" : "icons/152x152.png",
+                        "notification" : "icons/20x20.png",
+                        "notification@2x" : "icons/40x40.png",
+                        "proapp@2x" : "icons/167x167.png",
+                        "settings" : "icons/29x29.png",
+                        "settings@2x" : "icons/58x58.png",
+                        "spotlight" : "icons/40x40.png",
+                        "spotlight@2x" : "icons/80x80.png"
                     },
                     "iphone" : {
-                        "app@2x" : "unpackage/res/icons/120x120.png",
-                        "app@3x" : "unpackage/res/icons/180x180.png",
-                        "notification@2x" : "unpackage/res/icons/40x40.png",
-                        "notification@3x" : "unpackage/res/icons/60x60.png",
-                        "settings@2x" : "unpackage/res/icons/58x58.png",
-                        "settings@3x" : "unpackage/res/icons/87x87.png",
-                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
-                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                        "app@2x" : "icons/120x120.png",
+                        "app@3x" : "icons/180x180.png",
+                        "notification@2x" : "icons/40x40.png",
+                        "notification@3x" : "icons/60x60.png",
+                        "settings@2x" : "icons/58x58.png",
+                        "settings@3x" : "icons/87x87.png",
+                        "spotlight@2x" : "icons/80x80.png",
+                        "spotlight@3x" : "icons/120x120.png"
                     }
                 }
             }
