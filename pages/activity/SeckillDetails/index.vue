@@ -9,8 +9,8 @@
             <view class="tui-pro-price">
               <view>
                 <text>￥</text>
-                <text class="tui-price">{{ storeInfo.price.split('.')[0] }}</text>
-                <text>.{{ storeInfo.price.split('.')[1] }}</text>
+                <text class="tui-price">{{ formatPrice(storeInfo.price, 0) }}</text>
+                <text>.{{ formatPrice(storeInfo.price, 1) }}</text>
               </view>
               <view class="tui-original-price tui-white__gray" v-text="'￥' + storeInfo.price"></view>
             </view>
@@ -28,17 +28,8 @@
         </view>
         <view class="tui-pro-titbox">
           <view class="tui-pro-title">{{ storeInfo.title }}</view>
-          <!-- <button open-type="share" class="tui-share-btn tui-share-position" @tap="onShare">
-            <tui-tag type="gray" shape="circleLeft" padding="12rpx 16rpx">
-              <view class="tui-share-box">
-                <tui-icon name="partake" color="#999" :size="15"></tui-icon>
-                <text class="tui-share-text tui-gray tui-size">分享</text>
-              </view>
-            </tui-tag>
-          </button> -->
         </view>
         <view class="tui-padding">
-          <!-- <view class="tui-sub-title tui-size tui-gray">此商品将于2019-06-28,10点结束闪购特卖，时尚美饰联合专场</view> -->
           <view class="tui-sale-info tui-size tui-gray">
             <view>库存：{{ storeInfo.stock }}</view>
             <view>月销{{ storeInfo.sales }}</view>
@@ -62,14 +53,13 @@
 
     <!-- 操作栏 -->
     <view style="height: 100rpx"></view>
-   
 
     <!--底部操作栏-->
     <view class="tui-operation">
       <view class="tui-operation-left tui-col-5">
         <!-- #ifdef MP-WEIXIN -->
         <button class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
-          <tui-icon name="kefu" :size="22" color="#333"></tui-icon>
+          <view class="iconfont icon-kefu"></view>
           <view class="tui-operation-text tui-scale-small">客服</view>
         </button>
         <!-- #endif -->
@@ -83,7 +73,7 @@
           <view class="tui-operation-text tui-scale-small">收藏</view>
         </view>
       </view>
-      
+
       <view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4" v-if="seckillStatus == 1 && storeInfo.num > 0 && storeInfo.stock > 0">
         <view class="tui-flex-1">
           <tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="openAlone">单独购买</tui-button>
@@ -117,7 +107,7 @@
         </view>
       </view>
     </view>
-    
+
     <ProductWindow v-on:changeFun="changeFun" :attr="attr" :cartNum="cartNum"></ProductWindow>
     <StorePoster v-on:setPosterImageStatus="setPosterImageStatus" :posterImageStatus="posterImageStatus" :posterData="posterData"></StorePoster>
   </view>
@@ -148,7 +138,7 @@ export default {
     StorePoster,
   },
   props: {},
-  data: function () {
+  data: function() {
     return {
       seckillStatus: '',
       domStatus: false,
@@ -177,11 +167,18 @@ export default {
       userCollect: false,
     }
   },
-  onShow: function () {
+  onShow: function() {
     this.mountedStart()
   },
   methods: {
-    onShareAppMessage: function () {
+    formatPrice(price, index) {
+      console.log(price)
+      if (price) {
+        return price.split('.')[index]
+      }
+      return ''
+    },
+    onShareAppMessage: function() {
       return {
         title: this.storeInfo.title,
         imageUrl: this.storeInfo.image,
@@ -199,7 +196,7 @@ export default {
         },
       }
     },
-    openAlone: function () {
+    openAlone: function() {
       this.$yrouter.push({
         path: '/pages/shop/GoodsCon/index',
         query: {
@@ -214,21 +211,21 @@ export default {
       })
     },
     //收藏商品
-    setCollect: function () {
+    setCollect: function() {
       let that = this,
         id = that.storeInfo.id,
         category = 'product'
       if (that.userCollect) {
-        getCollectDel(id, category).then(function () {
+        getCollectDel(id, category).then(function() {
           that.userCollect = !that.userCollect
         })
       } else {
-        getCollectAdd(id, category).then(function () {
+        getCollectAdd(id, category).then(function() {
           that.userCollect = !that.userCollect
         })
       }
     },
-    mountedStart: function () {
+    mountedStart: function() {
       var that = this
       console.log(this)
       let id = that.$yroute.query.id
@@ -260,12 +257,12 @@ export default {
     updateTitle() {
       // document.title = this.storeInfo.title || this.$yroute.meta.title;
     },
-    setPosterImageStatus: function () {
+    setPosterImageStatus: function() {
       // var sTop = document.body || document.documentElement;
       // sTop.scrollTop = 0;
       this.posterImageStatus = !this.posterImageStatus
     },
-    DefaultSelect: function () {
+    DefaultSelect: function() {
       let productAttr = this.attr.productAttr
       let value = []
       for (let i = 0; i < productAttr.length; i++) {
@@ -305,13 +302,13 @@ export default {
       }
     },
     //将父级向子集多次传送的函数合二为一；
-    changeFun: function (opt) {
+    changeFun: function(opt) {
       if (typeof opt !== 'object') opt = {}
       let action = opt.action || ''
       let value = opt.value === undefined ? '' : opt.value
       this[action] && this[action](value)
     },
-    changeattr: function (res) {
+    changeattr: function(res) {
       var that = this
       that.attr.cartAttr = res
     },
@@ -330,7 +327,7 @@ export default {
     //     }
     //   }
     // },
-    ChangeCartNum: function (changeValue) {
+    ChangeCartNum: function(changeValue) {
       //changeValue:是否 加|减
       //获取当前变动属性
       let productSelect = this.productValue[this.attrValue]
@@ -363,7 +360,7 @@ export default {
       }
     },
     //选择属性；
-    ChangeAttr: function (res) {
+    ChangeAttr: function(res) {
       // 修改了规格
       let productSelect = this.productValue[res.value]
       if (productSelect) {
@@ -385,11 +382,11 @@ export default {
         this.$set(this, 'attrTxt', '请选择')
       }
     },
-    selecAttrTap: function () {
+    selecAttrTap: function() {
       this.attr.cartAttr = true
       this.isOpen = true
     },
-    tapBuy: function () {
+    tapBuy: function() {
       var that = this
       if (that.attr.cartAttr == false) {
         that.attr.cartAttr = !this.attr.attrcartAttr
@@ -761,6 +758,19 @@ export default {
   justify-content: center;
   flex-direction: column;
   position: relative;
+
+  background: none;
+  padding: 0;
+
+  border: 0;
+  line-height: 1em;
+  &:after {
+    display: none;
+  }
+  .tui-operation-text {
+    margin-top: 9rpx;
+    line-height: 1em;
+  }
 }
 
 .tui-operation-text {

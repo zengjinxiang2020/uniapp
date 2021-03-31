@@ -2,41 +2,21 @@ import Vue from 'vue'
 import App from './App'
 
 // import router from "./router";
-import store from "./store";
-import schema from "async-validator";
-import dialog from "./utils/dialog";
-import cookie from "@/utils/store/cookie";
+import store from './store'
+import schema from 'async-validator'
+import dialog from './utils/dialog'
+import cookie from '@/utils/store/cookie'
 import cuCustom from '@/components/colorui/components/cu-custom.vue'
-// // import "@/assets/iconfont/iconfont";
-// import "@/assets/iconfont/iconfont.css";
-// // import "@/assets/js/media_750";
-// // import "vue-ydui/dist/ydui.base.css";
-// import "@/assets/css/base.less";
-// import "@/assets/css/reset.less";
-// import "@/assets/css/style.less";
 
-// // 引入微信jssdk
-// var jweixin = require('jweixin-module')
-// jweixin.ready(function(){
-//     // TODO
-// });
+import { parseRoute, _router, parseQuery } from '@/utils'
+import { VUE_APP_RESOURCES_URL, VUE_APP_API_URL } from '@/config'
+Vue.component('cu-custom', cuCustom)
+Vue.config.productionTip = false
+Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
-import {
-	parseRoute,
-	_router,
-	parseQuery
-} from "@/utils";
-import {
-	VUE_APP_RESOURCES_URL,
-	VUE_APP_API_URL
-} from "@/config";
-Vue.component('cu-custom', cuCustom);
-Vue.config.productionTip = false;
-Vue.config.devtools = process.env.NODE_ENV !== "production";
-
-Vue.prototype.$validator = function (rule) {
-	return new schema(rule);
-};
+Vue.prototype.$validator = function(rule) {
+  return new schema(rule)
+}
 
 Vue.config.productionTip = false
 App.mpType = 'app'
@@ -45,36 +25,33 @@ Vue.prototype.$store = store
 const app = new Vue(App)
 
 Vue.mixin({
-	onLoad() {
-		const {
-			$mp
-		} = this.$root
-		this._route = parseRoute($mp)
-		// this.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
-		this._data.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
-	},
-	onShow() {
-		_router.app = this
-		_router.currentRoute = this._route
-	}
+  onLoad() {
+    const { $mp } = this.$root
+    this._route = parseRoute($mp)
+    // this.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
+    this._data.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
+  },
+  onShow() {
+    _router.app = this
+    _router.currentRoute = this._route
+  },
 })
 
 Object.defineProperty(Vue.prototype, '$yrouter', {
-	get() {
-		return _router
-	}
+  get() {
+    return _router
+  },
 })
 
 Object.defineProperty(Vue.prototype, '$yroute', {
-	get() {
-		return this._route
-	}
+  get() {
+    return this._route
+  },
 })
 
 Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
-Vue.component('cu-custom', cuCustom);
-
+Vue.component('cu-custom', cuCustom)
 
 // #ifdef APP-PLUS
 // App平台编译的代码
@@ -96,69 +73,49 @@ store.commit('updateDevicetype', 'routine')
 // 		...mapState(['$deviceType'])
 // },
 
-
 // #ifdef H5
 // H5编译的代码
 
-import {
-	wechat,
-	clearAuthStatus,
-	oAuth,
-	auth,
-	toAuth,
-	pay,
-	openAddress,
-	openShareAll,
-	openShareAppMessage,
-	openShareTimeline,
-	wechatEvevt,
-	ready,
-	wxShowLocation,
-} from '@/libs/wechat'
+import { wechat, clearAuthStatus, oAuth, auth, toAuth, pay, openAddress, openShareAll, openShareAppMessage, openShareTimeline, wechatEvevt, ready, wxShowLocation } from '@/libs/wechat'
 
 import { isWeixin } from '@/utils'
-const CACHE_KEY = "clear_0.0.1";
+const CACHE_KEY = 'clear_0.0.1'
 
 if (!cookie.has(CACHE_KEY)) {
-	cookie.clearAll()
-	cookie.set(CACHE_KEY, 1);
+  cookie.clearAll()
+  cookie.set(CACHE_KEY, 1)
 }
 
-var urlSpread = parseQuery()["spread"];
+var urlSpread = parseQuery()['spread']
 if (urlSpread) {
-	cookie.set("spread", urlSpread);
+  cookie.set('spread', urlSpread)
 }
 
 // #endif
 
-
-
 async function init() {
+  // #ifdef H5
+  // H5编译的代码
+  // 判断是否是微信浏览器
+  if (isWeixin()) {
+    Vue.prototype.$deviceType = 'weixin'
+    store.commit('updateDevicetype', 'weixin')
+    let wechatInit = await wechat()
+    console.log(wechatInit)
+    if (wechatInit) {
+      await oAuth()
+      app.$mount()
+    }
+  } else {
+    Vue.prototype.$deviceType = 'weixinh5'
+    store.commit('updateDevicetype', 'weixinh5')
+    app.$mount()
+  }
+  // #endif
 
-	// #ifdef H5
-	// H5编译的代码
-	// 判断是否是微信浏览器
-	if (isWeixin()) {
-		Vue.prototype.$deviceType = 'weixin'
-		store.commit('updateDevicetype', 'weixin')
-		let wechatInit = await wechat()
-		console.log(wechatInit)
-		if (wechatInit) {
-			await oAuth()
-			app.$mount()
-		}
-	} else {
-		Vue.prototype.$deviceType = 'weixinh5'
-		store.commit('updateDevicetype', 'weixinh5')
-		app.$mount()
-
-	}
-	// #endif
-
-	// #ifndef H5
-	app.$mount()
-	// #endif
-
+  // #ifndef H5
+  app.$mount()
+  // #endif
 }
 
 init()

@@ -10,17 +10,17 @@
             <view class="tui-pro-price">
               <view>
                 <text>￥</text>
-                <text class="tui-price">{{ storeInfo.price.split('.')[0] }}</text>
-                <text>.{{ storeInfo.price.split('.')[1] }}</text>
+                <text class="tui-price">{{ formatPrice(storeInfo.price, 0) }}</text>
+                <text>.{{ formatPrice(storeInfo.price, 1) }}</text>
               </view>
               <!-- <view class="tui-original-price tui-white__gray">￥199.00</view> -->
             </view>
             <view class="tui-sold tui-white__gray">
               <view class="tui-price-tag">{{ storeInfo.people }}人团</view>
-              <text>已拼{{ storeInfo.sales }}{{ storeInfo.unitNam }}</text>
+              <text>已拼{{ storeInfo.sales }}{{ storeInfo.unitName }}</text>
             </view>
           </view>
-          <view class="tui-right__box">库存{{ storeInfo.stock }}{{ storeInfo.unitNam }}</view>
+          <view class="tui-right__box">库存{{ storeInfo.stock }}{{ storeInfo.unitName }}</view>
         </view>
         <view class="tui-pro-titbox">
           <view class="tui-pro-title">{{ storeInfo.title }}</view>
@@ -130,7 +130,7 @@
       <view class="tui-operation-left tui-col-5">
         <!-- #ifdef MP-WEIXIN -->
         <button class="tui-operation-item" hover-class="tui-opcity" :hover-stay-time="150">
-          <tui-icon name="kefu" :size="22" color="#333"></tui-icon>
+          <view class="iconfont icon-kefu"></view>
           <view class="tui-operation-text tui-scale-small">客服</view>
         </button>
         <!-- #endif -->
@@ -152,8 +152,8 @@
               <view>单独购买</view>
               <view class="tui-flex-end">
                 <view class="tui-size-26">￥</view>
-                <view class="tui-size-36">{{ storeInfo.productPrice.split('.')[0] }}</view>
-                <view class="tui-size-26">.{{ storeInfo.productPrice.split('.')[1] }}</view>
+                <view class="tui-size-36">{{ formatPrice(storeInfo.productPrice, 0) }}</view>
+                <view class="tui-size-26">.{{ formatPrice(storeInfo.productPrice, 1) }}</view>
               </view>
             </view>
           </tui-button>
@@ -164,8 +164,8 @@
               <view>发起拼团</view>
               <view class="tui-flex-end">
                 <view class="tui-size-28">￥</view>
-                <view class="tui-price-large tui-size-36">{{ storeInfo.price.split('.')[0] }}</view>
-                <view class="tui-size-28">.{{ storeInfo.price.split('.')[1] }}</view>
+                <view class="tui-price-large tui-size-36">{{ formatPrice(storeInfo.price, 0) }}</view>
+                <view class="tui-size-28">.{{ formatPrice(storeInfo.price, 1) }}</view>
               </view>
             </view>
           </tui-button>
@@ -205,7 +205,7 @@ export default {
     StorePoster,
   },
   props: {},
-  data: function () {
+  data: function() {
     return {
       domStatus: false,
       posterData: {
@@ -246,19 +246,27 @@ export default {
       userCollect: false,
     }
   },
+  computed: {},
   watch: {
-    $yroute: function (n) {
+    $yroute: function(n) {
       var that = this
       if (n.name === NAME) {
         that.mountedStart()
       }
     },
   },
-  onShow: function () {
+  onShow: function() {
     this.mountedStart()
   },
   methods: {
-    onShareAppMessage: function () {
+    formatPrice(price, index) {
+      console.log(price)
+      if (price) {
+        return price.split('.')[index]
+      }
+      return ''
+    },
+    onShareAppMessage: function() {
       return {
         title: this.storeInfo.title,
         imageUrl: this.storeInfo.image,
@@ -276,7 +284,7 @@ export default {
         },
       }
     },
-    openAlone: function () {
+    openAlone: function() {
       this.$yrouter.push({
         path: '/pages/shop/GoodsCon/index',
         query: {
@@ -286,21 +294,21 @@ export default {
       // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
     },
     //收藏商品
-    setCollect: function () {
+    setCollect: function() {
       let that = this,
         id = that.storeInfo.id,
         category = 'product'
       if (that.userCollect) {
-        getCollectDel(id, category).then(function () {
+        getCollectDel(id, category).then(function() {
           that.userCollect = !that.userCollect
         })
       } else {
-        getCollectAdd(id, category).then(function () {
+        getCollectAdd(id, category).then(function() {
           that.userCollect = !that.userCollect
         })
       }
     },
-    mountedStart: function () {
+    mountedStart: function() {
       var that = this
       let id = that.$yroute.query.id
       getCombinationDetail(id).then(res => {
@@ -328,7 +336,7 @@ export default {
         that.DefaultSelect()
       })
     },
-    DefaultSelect: function () {
+    DefaultSelect: function() {
       let productAttr = this.attr.productAttr
       let value = []
       for (let i = 0; i < productAttr.length; i++) {
@@ -367,19 +375,19 @@ export default {
         this.$set(this, 'attrTxt', '请选择')
       }
     },
-    getImageBase64: function () {
+    getImageBase64: function() {
       let that = this
       imageBase64(this.posterData.image, that.posterData.code).then(res => {
         that.posterData.image = res.data.image
         that.posterData.code = res.data.code
       })
     },
-    setPosterImageStatus: function () {
+    setPosterImageStatus: function() {
       // var sTop = document.body || document.documentElement;
       // sTop.scrollTop = 0;
       this.posterImageStatus = !this.posterImageStatus
     },
-    groupRule: function (id) {
+    groupRule: function(id) {
       var that = this
       that.$yrouter.push({
         path: '/pages/activity/GroupRule/index',
@@ -388,7 +396,7 @@ export default {
         },
       })
     },
-    goReply: function () {
+    goReply: function() {
       var that = this
       that.$yrouter.push({
         path: '/pages/shop/EvaluateList/index',
@@ -397,21 +405,21 @@ export default {
         },
       })
     },
-    setGroupListCount: function () {
+    setGroupListCount: function() {
       this.groupListCount = this.groupListCount + 2
     },
     //将父级向子集多次传送的函数合二为一；
-    changeFun: function (opt) {
+    changeFun: function(opt) {
       if (typeof opt !== 'object') opt = {}
       let action = opt.action || ''
       let value = opt.value === undefined ? '' : opt.value
       this[action] && this[action](value)
     },
-    changeattr: function (res) {
+    changeattr: function(res) {
       var that = this
       that.attr.cartAttr = res
     },
-    ChangeCartNum: function (res) {
+    ChangeCartNum: function(res) {
       var that = this
       that.attr.productSelect.cart_num = 1
       that.cartNum = 1
@@ -422,7 +430,7 @@ export default {
       })
     },
     //选择属性；
-    ChangeAttr: function (res) {
+    ChangeAttr: function(res) {
       // 修改了规格
       let productSelect = this.productValue[res.value]
       if (productSelect) {
@@ -445,7 +453,7 @@ export default {
       }
     },
 
-    openTeam: function () {
+    openTeam: function() {
       var that = this
       if (that.attr.cartAttr == false) {
         that.attr.cartAttr = !this.attr.cartAttr
@@ -475,7 +483,7 @@ export default {
       }
     },
     //打开属性插件；
-    selecAttrTap: function () {
+    selecAttrTap: function() {
       this.attr.cartAttr = true
       this.isOpen = true
     },
@@ -994,6 +1002,18 @@ export default {
   justify-content: center;
   flex-direction: column;
   position: relative;
+  background: none;
+  padding: 0;
+
+  border: 0;
+  line-height: 1em;
+  &:after {
+    display: none;
+  }
+  .tui-operation-text {
+    margin-top: 9rpx;
+    line-height: 1em;
+  }
 }
 
 .tui-operation-text {
@@ -1051,18 +1071,6 @@ export default {
   left: 0;
   bottom: 0;
 }
-
-/* .tui-popup-btn .tui-btn-class {
-		width: 90% !important;
-		display: block !important;
-		font-size: 28rpx !important;
-	} */
-
-/* .tui-icon-close {
-		position: absolute;
-		top: 30rpx;
-		right: 30rpx;
-	} */
 
 .tui-product-box {
   display: flex;

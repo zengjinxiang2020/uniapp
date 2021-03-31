@@ -41,7 +41,6 @@
       "style": {
         "navigationBarTitleText": "yshop商城",
         "navigationBarTextStyle": "white",
-        // "enablePullDownRefresh": true,
         "navigationStyle": "custom"
       }
     },
@@ -425,11 +424,11 @@
     }
   ],
   "easycom": {
-		"autoscan": true,
-		"custom": {
-			"tui-(.*)": "@/components/tui-$1/tui-$1.vue"
-		}
-	},
+    "autoscan": true,
+    "custom": {
+      "tui-(.*)": "@/components/tui-$1/tui-$1.vue"
+    }
+  },
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "Yshop",
