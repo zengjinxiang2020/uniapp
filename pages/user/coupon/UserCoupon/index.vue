@@ -1,12 +1,7 @@
 <template>
   <view ref="container">
     <div class="coupon-list" v-if="couponsList.length > 0">
-      <div
-        class="item acea-row row-center-wrapper"
-        v-cloak
-        v-for="(item, index) in couponsList"
-        :key="index"
-      >
+      <div class="item acea-row row-center-wrapper" v-cloak v-for="(item, index) in couponsList" :key="index">
         <div class="money" :class="item._type === 0 ? 'moneyGray' : ''">
           <div>
             ￥<span class="num">{{ item.couponPrice }}</span>
@@ -15,7 +10,7 @@
         </div>
         <div class="text">
           <div class="condition line1">
-          {{ item.couponTitle }}
+            {{ item.couponTitle }}
           </div>
           <div class="data acea-row row-between-wrapper">
             <div v-if="item.endTime === 0">不限时</div>
@@ -27,10 +22,7 @@
       </div>
     </div>
     <!--暂无优惠券-->
-    <view
-      class="noCommodity"
-      v-if="couponsList.length === 0 && loading === true"
-    >
+    <view class="noCommodity" v-if="couponsList.length === 0 && loading === true">
       <view class="noPictrue">
         <image src="@/static/images/noCoupon.png" class="image" />
       </view>
@@ -38,43 +30,43 @@
   </view>
 </template>
 <script>
-import { getCouponsUser } from "@/api/user";
-import DataFormatT from "@/components/DataFormatT";
+import { getCouponsUser } from '@/api/user'
+import DataFormatT from '@/components/DataFormatT'
 
-const NAME = "UserCoupon";
+const NAME = 'UserCoupon'
 
 export default {
-  name: "UserCoupon",
+  name: 'UserCoupon',
   components: {
-    DataFormatT
+    DataFormatT,
   },
   props: {},
   data: function() {
     return {
       couponsList: [],
-      loading: false
-    };
+      loading: false,
+    }
   },
   watch: {
     $yroute: function(n) {
-      var that = this;
+      var that = this
       if (n.name === NAME) {
-        that.getUseCoupons();
+        that.getUseCoupons()
       }
-    }
+    },
   },
   mounted: function() {
-    this.getUseCoupons();
+    this.getUseCoupons()
   },
   methods: {
     getUseCoupons: function() {
       let that = this,
-        type = 0;
+        type = 0
       getCouponsUser(type).then(res => {
-        that.couponsList = res.data;
-        that.loading = true;
-      });
-    }
-  }
-};
+        that.couponsList = res.data
+        that.loading = true
+      })
+    },
+  },
+}
 </script>
