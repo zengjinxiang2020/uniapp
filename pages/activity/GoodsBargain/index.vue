@@ -1,7 +1,7 @@
 <template>
   <view class="bargain-list">
     <!-- <view class="header">
-      <image src="@/static/images/cut-bg.png" alt="">
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/cut-bg.png`" alt="">
     </view>-->
     <view class="list" v-if="bargainLis.length > 0">
       <view
@@ -31,7 +31,7 @@
     </view>
     <!-- <view class="noCommodity" style="background-color: #fff;" v-if="bargainLis.length === 0">
       <view class="noPictrue">
-        <image src="@/static/images/noGood.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noGood.png`" class="image" />
       </view>
     </view> -->
   </view>

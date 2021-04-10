@@ -52,7 +52,7 @@
       </view>
       <!--<view class="list2" :hidden="current !== 1">-->
       <!--<view class="item acea-row row-between-wrapper" @click="goHome()">-->
-      <!--<view class="pictrue"><image src="@/static/images/score.png" /></view>-->
+      <!--<view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/score.png`" /></view>-->
       <!--<view class="name">购买商品可获得积分奖励</view>-->
       <!--<view class="earn">赚积分</view>-->
       <!--</view>-->
@@ -60,7 +60,7 @@
       <!--class="item acea-row row-between-wrapper"-->
       <!--@click="goSignIn()"-->
       <!--&gt;-->
-      <!--<view class="pictrue"><image src="@/static/images/score.png" /></view>-->
+      <!--<view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/score.png`" /></view>-->
       <!--<view class="name">每日签到可获得积分奖励</view>-->
       <!--<view class="earn">赚积分</view>-->
       <!--</view>-->

@@ -1,7 +1,7 @@
 <template>
   <view class="cash-audit">
     <view class="pictrue">
-      <image src="@/static/images/examine.png" />
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/examine.png`" />
     </view>
     <view class="tip">提现申请已提交，等待人工审核</view>
     <view class="time">{{ time }}</view>

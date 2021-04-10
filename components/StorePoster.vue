@@ -5,7 +5,7 @@
     </div>
     <!-- <view class="poster-pop" v-show="!canvasStatus">
       <image
-        src="@/static/images/poster-close.png"
+        :src="`${$VUE_APP_RESOURCES_URL}/images/poster-close.png`"
         class="close"
         @click="posterImageClose"
       />
@@ -29,7 +29,7 @@
       <view class="save-poster" @click="savePosterPath">生成图片</view>
     </view>-->
     <view class="poster-pop" v-show="canvasStatus">
-      <img src="@/static/images/poster-close.png" class="close" @click="posterImageClose" mode="widthFix" />
+      <img :src="`${$VUE_APP_RESOURCES_URL}/images/poster-close.png`" class="close" @click="posterImageClose" mode="widthFix" />
       <image :src="posterImage" alt="tp" class="poster-image" show-menu-by-longpress mode="widthFix" />
       <view class="keep">长按图片可以保存到手机</view>
     </view>

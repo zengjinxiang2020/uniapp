@@ -14,7 +14,7 @@
 					搜索商品
 				</view>
 				<view class="qr" @click="startQr()">
-					<image src="@/static/images/qr.png" />
+					<image :src="`${$VUE_APP_RESOURCES_URL}/images/qr.png`" />
 				</view>
 			</view>
 			<Banner v-if="item.type=='banner'" :detail="item.componentContent.bannerData" @getbgcolor="getbgcolor"></Banner>

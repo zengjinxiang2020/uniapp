@@ -91,7 +91,7 @@
     </view>
 
     <view class="no-express" v-if="loaded && !expressList.length">
-      <image src="@/static/images/noExpress.png" />
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/noExpress.png`" />
     </view>
     <Recommend></Recommend>
   </view>

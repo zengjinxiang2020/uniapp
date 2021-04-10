@@ -11,7 +11,7 @@
             <text>￥</text>
             <text class="num">{{ attr.productSelect.price || storeInfo.price }}</text>
             <text class="vip-money" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0">￥{{ attr.productSelect.vipPrice || storeInfo.vipPrice }}</text>
-            <image src="@/static/images/vip.png" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
+            <image :src="`${$VUE_APP_RESOURCES_URL}/images/vip.png`" class="image" v-if="storeInfo.vipPrice && storeInfo.vipPrice > 0" />
           </view>
           <view class="money font-color-red" v-if="isIntegral">
             <text class="num">{{ attr.productSelect.integral || storeInfo.integral }}积分</text>
@@ -94,9 +94,9 @@
       <!-- 商品推荐 -->
       <!-- <view class="superior">
         <view class="title acea-row row-center-wrapper">
-          <image src="@/static/images/ling.png" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/ling.png`" />
           <text class="titleTxt">优品推荐</text>
-          <image src="@/static/images/ling.png" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/ling.png`" />
         </view>
         <template>
           <view class="slider-banner banner">

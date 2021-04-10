@@ -28,7 +28,7 @@
         </view>
       </view>
       <view class="pictrue" v-if="addressList.length < 1">
-        <image src="@/static/images/noAddress.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noAddress.png`" class="image" />
       </view>
       <view class="addressBnt bg-color-red" @click="goAddressPages">新加地址</view>
     </view>

@@ -42,7 +42,7 @@
           <!-- <view class="tui-nickname">不许人间见白头</view> -->
         </view>
         <view class="tui-user__item" v-if="pinkAll.length == 0">
-          <view class="tui-avatar__box tui-user__none"><image class="tui-size" src="@/static/images/vacancy.png"></image></view>
+          <view class="tui-avatar__box tui-user__none"><image class="tui-size" :src="`${$VUE_APP_RESOURCES_URL}/images/vacancy.png`"></image></view>
           <!-- <view class="tui-nickname">暂无</view> -->
         </view>
         <view class="tui-user__item" v-for="(item, pinkAllIndex) in pinkAll" :key="pinkAllIndex">

@@ -1,10 +1,10 @@
 <template>
   <view class="container">
     <view class="tui-bg__box">
-      <image src="@/static/images/bg_seckill.png" class="tui-bg__img" mode="widthFix" :style="{ opacity: opacity }"></image>
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix" :style="{ opacity: opacity }"></image>
     </view>
     <view class="tui-header__bg">
-      <image src="@/static/images/bg_seckill.png" class="tui-bg__img" mode="widthFix"></image>
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix"></image>
       <scroll-view class="tui-time-slot" scroll-x>
         <view class="tui-time__list" :class="{ 'tui-flex__between': timeList.length < 6 }">
           <view class="tui-time__item" :class="[timeList.length < 6 ? 'tui-flex__1' : 'tui-width__min', index == active ? 'tui-time__active' : '']" v-for="(item, index) in timeList" :key="index" @tap="setTime(index)">
@@ -20,7 +20,7 @@
           <view class="tui-full__width" v-if="item.status == 0">
             <tui-divider gradual width="80%" backgroundColor="#fff" :height="34">
               <view class="tui-divider__status">
-                <image src="@/static/images/img_seckill.png" mode="widthFix"></image>
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/img_seckill.png`" mode="widthFix"></image>
                 <text class="tui-color__red">{{ item.time }}</text>
                 <text>{{ item.state }}</text>
               </view>
@@ -29,7 +29,7 @@
           <view class="tui-full__width" v-if="item.status == 2">
             <tui-divider gradual width="80%" backgroundColor="#fff" :height="34">
               <view class="tui-divider__status">
-                <image src="@/static/images/img_seckill.png" mode="widthFix"></image>
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/img_seckill.png`" mode="widthFix"></image>
                 <text class="tui-color__red">{{ item.time }}</text>
                 <text>{{ item.state }}</text>
               </view>

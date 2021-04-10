@@ -14,7 +14,7 @@ Vue.component('cu-custom', cuCustom)
 Vue.config.productionTip = false
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
-Vue.prototype.$validator = function(rule) {
+Vue.prototype.$validator = function (rule) {
   return new schema(rule)
 }
 
@@ -22,19 +22,26 @@ Vue.config.productionTip = false
 App.mpType = 'app'
 Vue.prototype.$store = store
 
-const app = new Vue(App)
+const app = new Vue({
+  ...App,
+  store,
+})
 
 Vue.mixin({
   onLoad() {
     const { $mp } = this.$root
     this._route = parseRoute($mp)
-    // this.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL;
-    this._data.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
   },
   onShow() {
     _router.app = this
     _router.currentRoute = this._route
   },
+  // 这里为了解决 .vue文件中 template 无法获取 VUE.prototype 绑定的变量
+  computed: {  
+    $VUE_APP_RESOURCES_URL() {  
+        return VUE_APP_RESOURCES_URL;  
+    }  
+  }
 })
 
 Object.defineProperty(Vue.prototype, '$yrouter', {
@@ -49,7 +56,6 @@ Object.defineProperty(Vue.prototype, '$yroute', {
   },
 })
 
-Vue.prototype.$VUE_APP_RESOURCES_URL = VUE_APP_RESOURCES_URL
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 Vue.component('cu-custom', cuCustom)
 

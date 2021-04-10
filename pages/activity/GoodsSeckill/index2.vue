@@ -54,7 +54,7 @@
         </view>
         <view class="noCommodity" style="background-color: #f5f5f5;" v-if="seckillList.length === 0 && page > 1">
           <view class="noPictrue">
-            <image src="@/static/images/noGood.png" class="image" />
+            <image :src="`${$VUE_APP_RESOURCES_URL}/images/noGood.png`" class="image" />
           </view>
         </view>
       </view>

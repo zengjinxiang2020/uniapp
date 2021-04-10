@@ -1,7 +1,7 @@
 <template>
 	<view class="OrderCancellation">
 		<view class="header">
-			<image mode="aspectFit" src="@/static/images/writeOffBg.jpg" @click="openQRCode" />
+			<image mode="aspectFit" :src="`${$VUE_APP_RESOURCES_URL}/images/writeOffBg.jpg`" @click="openQRCode" />
 		</view>
 		<view class="whiteBg">
 			<view class="input">
@@ -12,7 +12,7 @@
 		</view>
 		<!-- #ifndef H5 -->
 		<!-- <view class="scan" v-if="iswechat">
-			<image src="@/static/images/scan.gif" @click="openQRCode" />
+			<image :src="`${$VUE_APP_RESOURCES_URL}/images/scan.gif`" @click="openQRCode" />
 		</view> -->
 		<!-- #endif -->
 		<WriteOff :iShidden="iShidden" :orderInfo="orderInfo" @cancel="cancel" @confirm="confirm"></WriteOff>

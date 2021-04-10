@@ -39,7 +39,7 @@
         <div class="iconfont icon-jiantou"></div>
       </div>
       <view class="line">
-        <image src="@/static/images/line.jpg" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/line.jpg`" />
       </view>
     </view>
     <OrderGoods :evaluate="0" :isIntegral="isIntegral" :cartInfo="orderGroupInfo.cartInfo"></OrderGoods>

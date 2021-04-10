@@ -63,35 +63,35 @@
           <view class="orderState acea-row row-middle">
             <view @click="goMyOrder(0)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dfk.png" />
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/dfk.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.unpaidCount > 0">{{ userInfo.orderStatusNum.unpaidCount }}</text>
               </view>
               <view>待付款</view>
             </view>
             <view @click="goMyOrder(1)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dfh.png" />
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/dfh.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.unshippedCount > 0">{{ userInfo.orderStatusNum.unshippedCount }}</text>
               </view>
               <view>待发货</view>
             </view>
             <view @click="goMyOrder(2)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dsh.png" />
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/dsh.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.receivedCount > 0">{{ userInfo.orderStatusNum.receivedCount }}</text>
               </view>
               <text>待收货</text>
             </view>
             <view @click="goMyOrder(3)" class="item">
               <view class="pictrue">
-                <image src="@/static/images/dpj.png" />
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/dpj.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.evaluatedCount > 0">{{ userInfo.orderStatusNum.evaluatedCount }}</text>
               </view>
               <text>待评价</text>
             </view>
             <view @click="goReturnList()" class="item">
               <view class="pictrue">
-                <image src="@/static/images/sh.png" />
+                <image :src="`${$VUE_APP_RESOURCES_URL}/images/sh.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.refundCount > 0">{{ userInfo.orderStatusNum.refundCount }}</text>
               </view>
               <text>售后/退款</text>

@@ -90,7 +90,7 @@
       <!--购物车暂无商品-->
       <view class="noCart" v-if="cartList.valid.length === 0 && cartList.invalid.length === 0">
         <view class="pictrue">
-          <image src="@/static/images/noCart.png" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/noCart.png`" />
         </view>
         <Recommend></Recommend>
       </view>

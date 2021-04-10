@@ -1,6 +1,6 @@
 <template>
   <view class="order-index" ref="container">
-    <image src="@/static/images/orderIndex.png" mode="widthFix" class="image" />
+    <image :src="`${$VUE_APP_RESOURCES_URL}/images/orderIndex.png`" mode="widthFix" class="image" />
     <view class="header acea-row">
       <view class="item" @click="goAdminOrderList(0)">
         <view class="num">{{ census.orderCount.unpaidCount }}</view>

@@ -6,7 +6,7 @@
     ></view>
     <view class="line"></view>
     <view class="sharing-con" @click="goShare">
-      <image src="@/static/images/red-packets.png" class="image" />
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/red-packets.png`" class="image" />
       <view class="text font-color-red">
         <view>会员分享返</view>
         <view class="money"><text class="label">￥</text>{{ priceName }}</view>

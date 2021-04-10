@@ -2,7 +2,7 @@
   <view class="container">
     <!-- #ifdef MP-WEIXIN -->
     <view v-if="!token" class="force-login-wrap">
-      <!-- <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image> -->
+      <!-- <image class="logo-bg" :src="`${$VUE_APP_RESOURCES_URL}/images/logo_bg.png`" mode="aspectFill"></image> -->
       <view class="force-login__content y-f">
         <open-data class="user-avatar" type="userAvatarUrl"></open-data>
         <open-data class="user-name" type="userNickName"></open-data>
@@ -15,7 +15,7 @@
     <!-- #endif -->
     <!-- #ifndef MP-WEIXIN -->
     <view class="force-login-wrap">
-      <!-- <image class="logo-bg" src="@/static/images/logo_bg.png" mode="aspectFill"></image> -->
+      <!-- <image class="logo-bg" :src="`${$VUE_APP_RESOURCES_URL}/images/logo_bg.png`" mode="aspectFill"></image> -->
       <view class="force-login__content y-f">
         <view class="login-notice">为了提供更优质的服务，请先登录</view>
         <button class="cu-btn author-btn" @tap="toLogin">去登录</button>

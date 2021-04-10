@@ -121,7 +121,7 @@
 
 <style lang="scss">
   .group-wrap {
-    background: url('~@/static/images/index-bg.png') no-repeat;
+    background: url('https://h5.yixiang.co/images/index-bg.png') no-repeat;
     background-size: 100% 374rpx;
   }
 

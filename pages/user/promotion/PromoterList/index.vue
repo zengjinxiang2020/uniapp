@@ -30,21 +30,21 @@
       <view class="sortNav acea-row row-middle" :class="fixedState === true ? 'on' : ''">
         <view class="sortItem" @click="sort('childCount')">
           团队排序
-          <image src="@/static/images/sort1.png" v-if="childCount == 1" />
-          <image src="@/static/images/sort2.png" v-if="childCount == 2" />
-          <image src="@/static/images/sort3.png" v-if="childCount == 3" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort1.png`" v-if="childCount == 1" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort2.png`" v-if="childCount == 2" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort3.png`" v-if="childCount == 3" />
         </view>
         <view class="sortItem" @click="sort('numberCount')">
           金额排序
-          <image src="@/static/images/sort1.png" v-if="numberCount == 1" />
-          <image src="@/static/images/sort2.png" v-if="numberCount == 2" />
-          <image src="@/static/images/sort3.png" v-if="numberCount == 3" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort1.png`" v-if="numberCount == 1" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort2.png`" v-if="numberCount == 2" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort3.png`" v-if="numberCount == 3" />
         </view>
         <view class="sortItem" @click="sort('orderCount')">
           订单排序
-          <image src="@/static/images/sort1.png" v-if="orderCount == 1" />
-          <image src="@/static/images/sort2.png" v-if="orderCount == 2" />
-          <image src="@/static/images/sort3.png" v-if="orderCount == 3" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort1.png`" v-if="orderCount == 1" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort2.png`" v-if="orderCount == 2" />
+          <image :src="`${$VUE_APP_RESOURCES_URL}/images/sort3.png`" v-if="orderCount == 3" />
         </view>
       </view>
       <view :class="fixedState === true ? 'sortList' : ''">

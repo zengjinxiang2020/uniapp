@@ -21,19 +21,19 @@
       <view class="nav acea-row row-middle">
         <view class="item" @click="goUserBill(0)">
           <view class="pictrue">
-            <image src="@/static/images/record1.png" />
+            <image :src="`${$VUE_APP_RESOURCES_URL}/images/record1.png`" />
           </view>
           <view>账单记录</view>
         </view>
         <view class="item" @click="goUserBill(1)">
           <view class="pictrue">
-            <image src="@/static/images/record2.png" />
+            <image :src="`${$VUE_APP_RESOURCES_URL}/images/record2.png`" />
           </view>
           <view>消费记录</view>
         </view>
         <view class="item" @click="goUserBill(2)" v-if="is_hide=='0'">
           <view class="pictrue">
-            <image src="@/static/images/record3.png" />
+            <image :src="`${$VUE_APP_RESOURCES_URL}/images/record3.png`" />
           </view>
           <view>充值记录</view>
         </view>

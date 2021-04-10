@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="gear">
-          <img src="@/static/images/writeOff.jpg" />
+          <img :src="`${$VUE_APP_RESOURCES_URL}/images/writeOff.jpg`" />
         </div>
         <div class="num">{{ orderInfo.verifyCode }}</div>
         <div class="rules">
@@ -111,7 +111,7 @@
         <div>{{ system_store.address }}</div>
       </div>
       <view class="line" v-if="orderInfo.shippingType === 1">
-        <image src="@/static/images/line.jpg" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/line.jpg`" />
       </view>
     </template>
     <OrderGoods :evaluate="status.type || 0" :isIntegral="isIntegral" :cartInfo="orderInfo.cartInfo || []"></OrderGoods>

@@ -13,15 +13,15 @@
       <view class="item" :class="title ? 'font-color-red' : ''" @click="set_where(0)">{{ title ? title : '默认' }}</view>
       <view class="item" @click="set_where(1)">
         价格
-        <image src="@/static/images/horn.png" v-if="price === 0" />
-        <image src="@/static/images/up.png" v-if="price === 1" />
-        <image src="@/static/images/down.png" v-if="price === 2" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/horn.png`" v-if="price === 0" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/up.png`" v-if="price === 1" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/down.png`" v-if="price === 2" />
       </view>
       <view class="item" @click="set_where(2)">
         销量
-        <image src="@/static/images/horn.png" v-if="stock === 0" />
-        <image src="@/static/images/up.png" v-if="stock === 1" />
-        <image src="@/static/images/down.png" v-if="stock === 2" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/horn.png`" v-if="stock === 0" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/up.png`" v-if="stock === 1" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/down.png`" v-if="stock === 2" />
       </view>
       <!-- down -->
       <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
@@ -113,7 +113,7 @@
     <Loading :loaded="loadend" :loading="loading"></Loading>
     <view class="noCommodity" style="background-color: #fff" v-if="productList.length === 0 && where.page > 1">
       <view class="noPictrue">
-        <image src="@/static/images/noGood.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noGood.png`" class="image" />
       </view>
     </view>
     <Recommend v-if="productList.length === 0 && where.page > 1" :recommendLoading="recommendLoading" @changeRecommendLoading="changeRecommendLoading"></Recommend>

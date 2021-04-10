@@ -1,9 +1,9 @@
 <template>
   <view ref="container">
-    <image src="@/static/images/banner_coupon.png" mode="widthFix" class="tui-coupon-banner"></image>
+    <image :src="`${$VUE_APP_RESOURCES_URL}/images/banner_coupon.png`" mode="widthFix" class="tui-coupon-banner"></image>
     <view class="tui-coupon-list">
       <view class="tui-coupon-item tui-top20" v-for="(item, index) in couponsList" :key="index">
-        <image src="@/static/images/bg_coupon_3x.png" class="tui-coupon-bg" mode="widthFix"></image>
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_coupon_3x.png`" class="tui-coupon-bg" mode="widthFix"></image>
         <view class="tui-coupon-item-left">
           <view class="tui-coupon-price-box" :class="{ 'tui-color-grey': item.isUse }">
             <view class="tui-coupon-price-sign">￥</view>
@@ -45,7 +45,7 @@
     <!--暂无优惠券-->
     <view class="noCommodity" v-if="couponsList.length === 0 && page > 1">
       <view class="noPictrue">
-        <image src="@/static/images/noCoupon.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noCoupon.png`" class="image" />
       </view>
     </view>
   </view>

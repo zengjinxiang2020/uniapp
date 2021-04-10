@@ -20,7 +20,7 @@
       <view>{{ orderInfo.userAddress }}</view>
     </view>
     <view class="line">
-      <image src="@/static/images/line.jpg" />
+      <image :src="`${$VUE_APP_RESOURCES_URL}/images/line.jpg`" />
     </view>
     <view class="pos-order-goods">
       <view

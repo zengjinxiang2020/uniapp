@@ -100,9 +100,9 @@
 		</view>
 		<view class="bargainGang bargain-box">
 			<view class="title font-color-red acea-row row-center-wrapper">
-				<view class="pictrue"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 				<view class="titleCon">砍价帮</view>
-				<view class="pictrue on"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 			</view>
 			<view class="list">
 				<view class="item acea-row row-between-wrapper" v-for="(item, bargainHelpListIndex) in bargainHelpList" :key="bargainHelpListIndex">
@@ -124,18 +124,18 @@
 		</view>
 		<view class="goodsDetails bargain-box">
 			<view class="title font-color-red acea-row row-center-wrapper">
-				<view class="pictrue"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 				<view class="titleCon">商品详情</view>
-				<view class="pictrue on"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 			</view>
 			<view class="conter" v-html="goodsDetail.description"></view>
 			<view class="lock"></view>
 		</view>
 		<view class="goodsDetails bargain-box">
 			<view class="title font-color-red acea-row row-center-wrapper">
-				<view class="pictrue"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 				<view class="titleCon">活动规则</view>
-				<view class="pictrue on"><image src="@/static/images/left.png" /></view>
+				<view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
 			</view>
 			<view class="conter" v-html="goodsDetail.rule"></view>
 		</view>

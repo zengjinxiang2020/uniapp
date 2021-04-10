@@ -2,7 +2,7 @@
 	<view>
 		<view class="sh-title-card mb10">
 			<view class="title-box">
-				<image class="title-bg" src="@/static/images/title1.png" mode="aspectFill"></image>
+				<image class="title-bg" :src="`${$VUE_APP_RESOURCES_URL}/images/title1.png`" mode="aspectFill" />
 				<view class="title-text">为你推荐</view>
 				<!-- <view class="title-text" :style="{ color: detail.color }">为你推荐</view> -->
 			</view>
@@ -52,7 +52,8 @@
 				});
 			}
 		},
-		mounted() {}
+		mounted() {
+    }
 	};
 </script>
 

@@ -54,7 +54,7 @@
 		</view>
 		<view class="signTip acea-row row-center-wrapper" :class="active === true ? 'on' : ''">
 			<view class="signTipLight loadingpic">
-				<image src="@/static/images/light.png" />
+				<image :src="`${$VUE_APP_RESOURCES_URL}/images/light.png`" />
 			</view>
 			<view class="signTipCon">
 				<view class="state">签到成功</view>

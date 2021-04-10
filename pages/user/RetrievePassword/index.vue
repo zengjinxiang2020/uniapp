@@ -2,7 +2,7 @@
   <view class="register absolute">
     <view class="shading">
       <view class="pictrue acea-row row-center-wrapper">
-        <image src="@/static/images/logo.png" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/logo.png`" />
       </view>
     </view>
     <view class="whiteBg">

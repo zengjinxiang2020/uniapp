@@ -8,7 +8,7 @@
               <div class="pictrue">
                 <img :src="avatar" />
               </div>
-              <image src="@/static/images/alter.png" class="alter" />
+              <image :src="`${$VUE_APP_RESOURCES_URL}/images/alter.png`" class="alter" />
             </view>
             <view class="text">
               <view class="name line1">{{ userInfo.nickname }}</view>

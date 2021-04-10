@@ -15,7 +15,7 @@
     <!--暂无新闻-->
     <view class="noCommodity" v-if="articleList.length === 0 && page > 1">
       <view class="noPictrue">
-        <image src="@/static/images/noNews.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noNews.png`" class="image" />
       </view>
     </view>
     <!--</Tab>-->

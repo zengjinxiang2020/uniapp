@@ -31,7 +31,7 @@
       </view>
       <!--无优惠券-->
       <view class="pictrue" v-else>
-        <image src="@/static/images/noCoupon.png" class="image" />
+        <image :src="`${$VUE_APP_RESOURCES_URL}/images/noCoupon.png`" class="image" />
       </view>
     </view>
     <view class="mask" @touchmove.prevent :hidden="coupon.coupon === false" @click="close"></view>
