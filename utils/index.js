@@ -365,11 +365,11 @@ export const handleGetUserInfo = () => {
       })
       return
     }
-
-    reLaunch({
-      path: '/pages/home/index',
-      // query
-    })
+    back()
+    // reLaunch({
+    //   path: '/pages/home/index',
+    //   // query
+    // })
 
     // var pages = getCurrentPages() //获取加载的页面
     // var currentPage = pages[pages.length - 1] //获取当前页面的对象
