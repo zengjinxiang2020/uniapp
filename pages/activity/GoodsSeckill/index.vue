@@ -35,9 +35,9 @@
               </view>
             </tui-divider>
           </view>
-          <view class="tui-countdown__box" v-if="item.status == 1">
-            <text>距离{{ item.status == 2 ? '结束还剩' : '开始还有' }}</text>
-            <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="datatime / 1000"></count-down>
+          <view class="tui-countdown__box" v-if="item.status == 1 || item.status == 2">
+            <text>距离{{ item.status == 1 ? '结束还剩' : '开始还有' }}</text>
+            <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="item.stop"></count-down>
           </view>
         </view>
       </block>

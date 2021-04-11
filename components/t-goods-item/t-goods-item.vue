@@ -23,10 +23,10 @@
           <!-- <tui-button :width="status == 3 ? '146rpx' : '144rpx'" :height="status == 3 ? '60rpx' : '50rpx'" :size="status == 3 ? 26 : 24" :type="status == 1 ? 'gray' : 'danger'" :disabled="status == 1" :plain="status == 3">
             {{ status | getBtnText(item.subscribe) }}
           </tui-button> -->
-          <view class="grab bg-color-red" v-if="item.status === 1 && item.stock > 0" @click="goDetail()">马上抢</view>
+          <view class="grab bg-color-red" v-if="item.status === 0 && item.stock > 0" @click="goDetail()">马上抢</view>
           <view class="grab" v-if="item.status === 1 && item.stock <= 0">已售磬</view>
           <view class="grab bg-color-red" v-if="item.status === 2">即将开始</view>
-          <view class="grab bg-color-red" v-if="item.status === 0">已结束</view>
+          <view class="grab bg-color-red" v-if="item.status === 1">已结束</view>
         </view>
       </view>
     </view>

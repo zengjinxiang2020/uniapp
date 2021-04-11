@@ -120,7 +120,7 @@
 
       <!-- 商品详情 -->
       <view class="product-intro">
-        <text class="title">产品介绍</text>
+        <text class="title"><text>产品介绍</text></text>
         <view class="conter" v-html="storeInfo.description"></view>
       </view>
 

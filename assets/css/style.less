@@ -2656,13 +2656,39 @@ page {
 }
 
 .product-con .product-intro .title {
-  font-size: 0.3 * 100rpx;
-  color: #282828;
-  height: 0.86 * 100rpx;
-  width: 100%;
-  background-color: #fff;
-  text-align: center;
-  line-height: 0.86 * 100rpx;
+  // font-size: 0.3 * 100rpx;
+  // color: #282828;
+  // height: 0.86 * 100rpx;
+  // width: 100%;
+  // background-color: #fff;
+  // text-align: center;
+  // line-height: 0.86 * 100rpx;
+  position: relative;
+  width: 50%;
+  margin: 1.5em auto;
+  line-height: 1.5em;
+  font-size: 30rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  &:after {
+    content: ' ';
+    position: absolute;
+    border-bottom: 0.5px solid #e5e5e5;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+    width: 100%;
+    top: 9px;
+    left: 0;
+    z-index: -1;
+  }
+  text {
+    background: #f5f5f5;
+    padding: 0 20rpx;
+  }
 }
 
 .product-con .product-intro .conter {

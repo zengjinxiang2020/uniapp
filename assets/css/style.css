@@ -2423,13 +2423,35 @@ page {
   margin-top: 20rpx;
 }
 .product-con .product-intro .title {
+  position: relative;
+  width: 50%;
+  margin: 1.5em auto;
+  line-height: 1.5em;
   font-size: 30rpx;
-  color: #282828;
-  height: 86rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+}
+.product-con .product-intro .title:after {
+  content: ' ';
+  position: absolute;
+  border-bottom: 0.5px solid #e5e5e5;
+  -webkit-transform: scaleY(0.5);
+  -ms-transform: scaleY(0.5);
+      transform: scaleY(0.5);
   width: 100%;
-  background-color: #fff;
-  text-align: center;
-  line-height: 86rpx;
+  top: 9px;
+  left: 0;
+  z-index: -1;
+}
+.product-con .product-intro .title text {
+  background: #f5f5f5;
+  padding: 0 20rpx;
 }
 .product-con .product-intro .conter {
   width: 100%;

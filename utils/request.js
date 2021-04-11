@@ -89,7 +89,6 @@ function baseRequest(options) {
     })
     .then(res => {
       const data = res.data || {}
-
       if (res.status !== 200) {
         return Promise.reject({ msg: '请求失败', res, data })
       }
@@ -100,7 +99,7 @@ function baseRequest(options) {
       } else if (data.status === 200) {
         return Promise.resolve(data, res)
       } else if (data.status == 5101) {
-        return Promise.resolve(data, res)
+        return Promise.reject({ msg: res.data.msg, res, data })
       } else {
         return Promise.reject({ msg: res.data.msg, res, data })
       }

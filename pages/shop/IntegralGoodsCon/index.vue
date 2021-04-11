@@ -41,7 +41,7 @@
 
       <!-- 商品详情 -->
       <view class="product-intro">
-        <text class="title">产品介绍</text>
+        <text class="title"><text>产品介绍</text></text>
         <view class="conter" v-html="storeInfo.description"></view>
       </view>
 
@@ -96,7 +96,7 @@ export default {
     StorePoster,
     ShareInfo,
   },
-  data: function () {
+  data: function() {
     return {
       shareInfoStatus: false,
       weixinStatus: false,
@@ -154,7 +154,7 @@ export default {
     }
   },
   computed: mapGetters(['isLogin', 'location']),
-  mounted: function () {
+  mounted: function() {
     this.$store.commit('get_to', 'goodcon')
     let url = handleQrCode()
     if (!url) {
@@ -185,7 +185,7 @@ export default {
     },
   },
   methods: {
-    onShareAppMessage: function () {
+    onShareAppMessage: function() {
       return {
         title: this.storeInfo.storeName,
         imageUrl: this.storeInfo.image,
@@ -235,7 +235,7 @@ export default {
         },
       })
     },
-    showChang: function (data) {
+    showChang: function(data) {
       this.$yrouter.push({
         path: '/pages/map/index',
         query: data,
@@ -244,23 +244,23 @@ export default {
     updateTitle() {
       // document.title = this.storeInfo.storeName || this.$yroute.meta.title;
     },
-    setShareInfoStatus: function () {
+    setShareInfoStatus: function() {
       this.shareInfoStatus = !this.shareInfoStatus
       this.posters = false
     },
-    shareCode: function () {
+    shareCode: function() {
       var that = this
       getProductCode(that.id).then(res => {
         that.posterData.code = res.data.code
         that.listenerActionSheet()
       })
     },
-    setPosterImageStatus: function () {
+    setPosterImageStatus: function() {
       this.posterImageStatus = !this.posterImageStatus
       this.posters = false
     },
     //产品详情接口；
-    productCon: function () {
+    productCon: function() {
       let that = this
       let from = this.location
       if (this.$deviceType == 'app') {
@@ -320,7 +320,7 @@ export default {
         })
     },
     //默认选中属性；
-    DefaultSelect: function () {
+    DefaultSelect: function() {
       let productAttr = this.attr.productAttr
       let value = []
       for (let i = 0; i < productAttr.length; i++) {
@@ -362,7 +362,7 @@ export default {
       }
     },
     //购物车；
-    ChangeCartNum: function (changeValue) {
+    ChangeCartNum: function(changeValue) {
       //changeValue:是否 加|减
       //获取当前变动属性
       let productSelect = this.productValue[this.attrValue]
@@ -395,29 +395,29 @@ export default {
       }
     },
     //将父级向子集多次传送的函数合二为一；
-    changeFun: function (opt) {
+    changeFun: function(opt) {
       if (typeof opt !== 'object') opt = {}
       let action = opt.action || ''
       let value = opt.value === undefined ? '' : opt.value
       this[action] && this[action](value)
     },
     //打开优惠券插件；
-    couponTap: function () {
+    couponTap: function() {
       let that = this
       that.coupons()
       that.coupon.coupon = true
     },
-    changecoupon: function (msg) {
+    changecoupon: function(msg) {
       this.coupon.coupon = msg
       this.coupons()
     },
-    currentcoupon: function (res) {
+    currentcoupon: function(res) {
       let that = this
       that.coupon.coupon = false
       that.$set(that.coupon.list[res], 'is_use', true)
     },
     //可领取优惠券接口；
-    coupons: function () {
+    coupons: function() {
       let that = this,
         q = {
           page: 1,
@@ -429,18 +429,18 @@ export default {
       })
     },
     //打开属性插件；
-    selecAttrTap: function () {
+    selecAttrTap: function() {
       this.attr.cartAttr = true
       this.isOpen = true
     },
-    changeattr: function (msg) {
+    changeattr: function(msg) {
       // 修改了规格
       console.log(msg)
       this.attr.cartAttr = msg
       this.isOpen = false
     },
     //选择属性；
-    ChangeAttr: function (res) {
+    ChangeAttr: function(res) {
       // 修改了规格
 
       let productSelect = this.productValue[res.value]
@@ -467,27 +467,27 @@ export default {
       }
     },
     //收藏商品
-    setCollect: function () {
+    setCollect: function() {
       let that = this,
         id = that.storeInfo.id,
         category = 'collect'
       if (that.storeInfo.userCollect) {
-        getCollectDel(id, category).then(function () {
+        getCollectDel(id, category).then(function() {
           that.storeInfo.userCollect = !that.storeInfo.userCollect
         })
       } else {
-        getCollectAdd(id, category).then(function () {
+        getCollectAdd(id, category).then(function() {
           that.storeInfo.userCollect = !that.storeInfo.userCollect
         })
       }
     },
     //  点击加入购物车按钮
-    joinCart: function () {
+    joinCart: function() {
       //0=加入购物车
       this.goCat(0)
     },
     // 加入购物车；
-    goCat: function (news) {
+    goCat: function(news) {
       let that = this,
         productSelect = that.productValue[this.attrValue]
       //打开属性
@@ -516,7 +516,7 @@ export default {
         uniqueId: that.attr.productSelect !== undefined ? that.attr.productSelect.unique : '',
       }
       postCartAdd(q)
-        .then(function (res) {
+        .then(function(res) {
           console.log(res)
           that.isOpen = false
           that.attr.cartAttr = false
@@ -558,7 +558,7 @@ export default {
         })
     },
     //获取购物车数量
-    getCartCount: function (isAnima) {
+    getCartCount: function(isAnima) {
       let that = this
       const isLogin = that.isLogin
       if (isLogin) {
@@ -569,7 +569,7 @@ export default {
           //加入购物车后重置属性
           if (isAnima) {
             that.animated = true
-            setTimeout(function () {
+            setTimeout(function() {
               that.animated = false
             }, 500)
           }
@@ -577,20 +577,20 @@ export default {
       }
     },
     //立即购买；
-    tapBuy: function () {
+    tapBuy: function() {
       //  1=直接购买
       this.goCat(1)
     },
-    listenerActionSheet: function () {
+    listenerActionSheet: function() {
       if (isWeixin() === true) {
         this.weixinStatus = true
       }
       this.posters = true
     },
-    listenerActionClose: function () {
+    listenerActionClose: function() {
       this.posters = false
     },
-    setOpenShare: function () {
+    setOpenShare: function() {
       var data = this.storeInfo
       var href = this.location.href
       if (this.$deviceType == 'weixin') {

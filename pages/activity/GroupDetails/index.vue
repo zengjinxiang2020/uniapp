@@ -117,7 +117,7 @@
 
     <!-- 产品介绍 -->
     <view class="product-intro">
-      <view class="title">产品介绍</view>
+      <text class="title"><text>产品介绍</text></text>
       <view class="conter" v-html="storeInfo.description"></view>
       <!-- <view class="conter" v-html=""></view> -->
     </view>
