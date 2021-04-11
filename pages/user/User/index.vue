@@ -128,7 +128,7 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-import { getUserInfo, getMenuUser, bindingPhone } from '@/api/user'
+import { getUserInfo, getMenuUser, bindingPhone, wxappBindingPhone } from '@/api/user'
 import { isWeixin, VUE_APP_RESOURCES_URL } from '@/utils'
 import cookie from '@/utils/store/cookie'
 import SwitchWindow from '@/components/SwitchWindow'

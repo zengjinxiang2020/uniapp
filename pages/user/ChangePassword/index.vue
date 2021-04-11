@@ -13,12 +13,7 @@
       </view>
       <view class="item acea-row row-between-wrapper">
         <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
-        <button
-          class="code font-color-red"
-          :disabled="disabled"
-          :class="disabled === true ? 'on' : ''"
-          @click="code"
-        >{{ text }}</button>
+        <button class="code font-color-red" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">{{ text }}</button>
       </view>
     </view>
     <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
@@ -26,124 +21,115 @@
 </template>
 <style scoped lang="less">
 .ChangePassword .phone input {
-  width: 2*100rpx;
+  width: 2 * 100rpx;
   text-align: center;
 }
 </style>
 <script>
 // import { mapGetters } from "vuex";
-import sendVerifyCode from "@/mixins/SendVerifyCode";
-import attrs, { required, alpha_num, chs_phone } from "@/utils/validate";
-import { validatorDefaultCatch } from "@/utils/dialog";
-import { registerReset, registerVerify, getUserInfo } from "@/api/user";
+import sendVerifyCode from '@/mixins/SendVerifyCode'
+import attrs, { required, alpha_num, chs_phone } from '@/utils/validate'
+import { validatorDefaultCatch } from '@/utils/dialog'
+import { registerReset, registerVerify, getUserInfo } from '@/api/user'
 
 export default {
-  name: "ChangePassword",
+  name: 'ChangePassword',
   components: {},
   props: {},
   data: function() {
     return {
-      password: "",
-      password2: "",
-      captcha: "",
-      phone: "", //隐藏几位数的手机号；
-      yphone: "" //手机号；
-    };
+      password: '',
+      password2: '',
+      captcha: '',
+      phone: '', //隐藏几位数的手机号；
+      yphone: '', //手机号；
+    }
   },
   mixins: [sendVerifyCode],
   // computed: mapGetters(["userInfo"]),
   mounted: function() {
-    this.getUserInfo();
+    this.getUserInfo()
   },
   methods: {
     getUserInfo: function() {
-      let that = this;
+      let that = this
       getUserInfo().then(res => {
-        that.yphone = res.data.phone;
-        let reg = /^(\d{3})\d*(\d{4})$/;
-        that.phone = that.yphone.replace(reg, "$1****$2");
-      });
+        that.yphone = res.data.phone
+        let reg = /^(\d{3})\d*(\d{4})$/
+        that.phone = that.yphone.replace(reg, '$1****$2')
+      })
     },
     async confirm() {
-      let that = this;
-      const { password, password2, captcha } = that;
+      let that = this
+      const { password, password2, captcha } = that
       try {
         await that
           .$validator({
-            password: [
-              required(required.message("密码")),
-              attrs.range([6, 16], attrs.range.message("密码")),
-              alpha_num(alpha_num.message("密码"))
-            ],
-            captcha: [
-              required(required.message("验证码")),
-              alpha_num(alpha_num.message("验证码"))
-            ]
+            password: [required(required.message('密码')), attrs.range([6, 16], attrs.range.message('密码')), alpha_num(alpha_num.message('密码'))],
+            captcha: [required(required.message('验证码')), alpha_num(alpha_num.message('验证码'))],
           })
-          .validate({ password, captcha });
+          .validate({ password, captcha })
       } catch (e) {
-        return validatorDefaultCatch(e);
+        return validatorDefaultCatch(e)
       }
-      if (password !== password2) return  uni.showToast({
-                          title: '两次密码不一致',
-                          icon: "none",
-                          duration: 2000
-                        }); 
+      if (password !== password2)
+        return uni.showToast({
+          title: '两次密码不一致',
+          icon: 'none',
+          duration: 2000,
+        })
       registerReset({
         account: that.yphone,
         captcha: that.captcha,
-        password: that.password
+        password: that.password,
       })
         .then(res => {
           uni.showToast({
             title: res.msg,
-            icon: "none",
-            duration: 2000
-          });
+            icon: 'none',
+            duration: 2000,
+          })
 
           // that.$yrouter.push({ path: "/pages/user/Login/index" });
         })
         .catch(res => {
-           uni.showToast({
-                          title: res.msg,
-                          icon: "none",
-                          duration: 2000
-                        });
-        });
+          uni.showToast({
+            title: res.msg,
+            icon: 'none',
+            duration: 2000,
+          })
+        })
     },
     async code() {
-      let that = this;
-      const { yphone } = that;
+      let that = this
+      const { yphone } = that
       try {
         await that
           .$validator({
-            yphone: [
-              required(required.message("手机号码")),
-              chs_phone(chs_phone.message())
-            ]
+            yphone: [required(required.message('手机号码')), chs_phone(chs_phone.message())],
           })
-          .validate({ yphone });
+          .validate({ yphone })
       } catch (e) {
-        return validatorDefaultCatch(e);
+        return validatorDefaultCatch(e)
       }
 
       registerVerify({ phone: yphone })
         .then(res => {
           uni.showToast({
             title: res.msg,
-            icon: "none",
-            duration: 2000
-          });
-          that.sendCode();
+            icon: 'none',
+            duration: 2000,
+          })
+          that.sendCode()
         })
         .catch(res => {
-           uni.showToast({
-                          title: res.msg,
-                          icon: "none",
-                          duration: 2000
-                        });
-        });
-    }
-  }
-};
+          uni.showToast({
+            title: res.msg,
+            icon: 'none',
+            duration: 2000,
+          })
+        })
+    },
+  },
+}
 </script>

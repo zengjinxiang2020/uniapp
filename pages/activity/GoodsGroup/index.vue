@@ -2,7 +2,7 @@
   <view class="page_box">
     <view class="content_box">
       <scroll-view class="scroll-box" scroll-y enable-back-to-top scroll-with-animation @scrolltolower="loadMore">
-        <view class="group-wrap" :style="`background: url('${$VUE_APP_RESOURCES_URL}/images/index-bg.png') no-repeat;`">
+        <view class="group-wrap" :style="{ background: background }">
           <view class="group-head x-bc">
             <text class="group-head__title">爆款拼团</text>
             <text class="group-head__notice">省钱省心限时拼</text>
@@ -63,7 +63,11 @@ export default {
     this.getGrouponList()
   },
   onPullDownRefresh() {},
-  computed: {},
+  computed: {
+    background() {
+      return `url('${this.$VUE_APP_RESOURCES_URL}/images/index-bg.png') no-repeat`
+    },
+  },
   methods: {
     // 路由跳转
     jump(path, parmas) {
