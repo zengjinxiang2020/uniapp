@@ -72,13 +72,13 @@ function baseRequest(options) {
     }
   }
 
-  // 如果需要登录才可访问的接口没有拿到 token 视为登录失效
-  if (options.login === true && !token) {
-    // 跳转到登录或授权页面
-    handleLoginFailure()
-    // 提示错误信息
-    return Promise.reject({ msg: '未登录', toLogin: true })
-  }
+  // // 如果需要登录才可访问的接口没有拿到 token 视为登录失效
+  // if (options.login === true && !token) {
+  //   // 跳转到登录或授权页面
+  //   handleLoginFailure()
+  //   // 提示错误信息
+  //   return Promise.reject({ msg: '未登录', toLogin: true })
+  // }
   // 结构请求需要的参数
   const { url, params, data, login, ...option } = options
 
