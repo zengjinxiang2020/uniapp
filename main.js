@@ -8,14 +8,21 @@ import dialog from './utils/dialog'
 import cookie from '@/utils/store/cookie'
 import cuCustom from '@/components/colorui/components/cu-custom.vue'
 
-import { parseRoute, _router, parseQuery } from '@/utils'
-import { VUE_APP_RESOURCES_URL, VUE_APP_API_URL } from '@/config'
+import {
+	parseRoute,
+	_router,
+	parseQuery
+} from '@/utils'
+import {
+	VUE_APP_RESOURCES_URL,
+	VUE_APP_API_URL
+} from '@/config'
 Vue.component('cu-custom', cuCustom)
 Vue.config.productionTip = false
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
 Vue.prototype.$validator = function(rule) {
-  return new schema(rule)
+	return new schema(rule)
 }
 
 Vue.config.productionTip = false
@@ -23,20 +30,20 @@ App.mpType = 'app'
 Vue.prototype.$store = store
 
 const app = new Vue({
-  ...App,
-  store,
+	...App,
+	store,
 })
 
 Object.defineProperty(Vue.prototype, '$yrouter', {
-  get() {
-    return _router
-  },
+	get() {
+		return _router
+	},
 })
 
 Object.defineProperty(Vue.prototype, '$yroute', {
-  get() {
-    return this._route
-  },
+	get() {
+		return this._route
+	},
 })
 
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
@@ -64,19 +71,35 @@ deviceType = 'routine'
 // #ifdef H5
 // H5编译的代码
 
-import { wechat, clearAuthStatus, oAuth, auth, toAuth, pay, openAddress, openShareAll, openShareAppMessage, openShareTimeline, wechatEvevt, ready, wxShowLocation } from '@/libs/wechat'
+import {
+	wechat,
+	clearAuthStatus,
+	oAuth,
+	auth,
+	toAuth,
+	pay,
+	openAddress,
+	openShareAll,
+	openShareAppMessage,
+	openShareTimeline,
+	wechatEvevt,
+	ready,
+	wxShowLocation
+} from '@/libs/wechat'
 
-import { isWeixin } from '@/utils'
+import {
+	isWeixin
+} from '@/utils'
 const CACHE_KEY = 'clear_0.0.1'
 
 if (!cookie.has(CACHE_KEY)) {
-  cookie.clearAll()
-  cookie.set(CACHE_KEY, 1)
+	cookie.clearAll()
+	cookie.set(CACHE_KEY, 1)
 }
 
 var urlSpread = parseQuery()['spread']
 if (urlSpread) {
-  cookie.set('spread', urlSpread)
+	cookie.set('spread', urlSpread)
 }
 
 // #endif
@@ -84,37 +107,43 @@ if (urlSpread) {
 // #ifdef H5
 // H5编译的代码
 // 判断是否是微信浏览器
-if (isWeixin()) {
-  deviceType = 'weixin'
-  let wechatInit = await wechat()
-  if (wechatInit) {
-    await oAuth()
-  }
-} else {
-  deviceType = 'weixinh5'
+async function init() {
+
+	if (isWeixin()) {
+		deviceType = 'weixin'
+		let wechatInit = wechat();
+		if (wechatInit) {
+			await oAuth()
+		}
+	} else {
+		deviceType = 'weixinh5'
+	}
 }
+init()
 // #endif
 
 Vue.prototype.$deviceType = deviceType
 
 Vue.mixin({
-  onLoad() {
-    const { $mp } = this.$root
-    this._route = parseRoute($mp)
-  },
-  onShow() {
-    _router.app = this
-    _router.currentRoute = this._route
-  },
-  // 这里为了解决 .vue文件中 template 无法获取 VUE.prototype 绑定的变量
-  computed: {
-    $VUE_APP_RESOURCES_URL() {
-      return VUE_APP_RESOURCES_URL
-    },
-    $deviceType() {
-      return deviceType
-    },
-  },
+	onLoad() {
+		const {
+			$mp
+		} = this.$root
+		this._route = parseRoute($mp)
+	},
+	onShow() {
+		_router.app = this
+		_router.currentRoute = this._route
+	},
+	// 这里为了解决 .vue文件中 template 无法获取 VUE.prototype 绑定的变量
+	computed: {
+		$VUE_APP_RESOURCES_URL() {
+			return VUE_APP_RESOURCES_URL
+		},
+		$deviceType() {
+			return deviceType
+		},
+	},
 })
 
 store.commit('updateDevicetype', deviceType)
