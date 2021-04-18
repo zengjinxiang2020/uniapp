@@ -500,6 +500,22 @@ export const handleLoginStatus = (location, complete, fail, success) => {
       name: '首页',
     },
     {
+      path: '/pages/shop/HotNewGoods/index',
+      name: '热门榜单',
+    },
+    {
+      path: '/pages/activity/GoodsGroup/index',
+      name: '超值拼团',
+    },
+    {
+      path: '/pages/shop/Live/LiveList/index',
+      name: '热门直播',
+    },
+    {
+      path: '/pages/shop/GoodsClass/index',
+      name: '商品分类',
+    },
+    {
       path: '/pages/user/Login/index',
       name: '登录页面',
     },
@@ -520,7 +536,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
   } else {
     path = location.path
   }
-
+  console.log(path)
   // 判断用户是否有token
   if (!handleAuth()) {
     page.map(item => {
@@ -531,7 +547,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
   } else {
     isAuth = true
   }
-
+  console.log(isAuth)
   return new Promise((resolve, reject) => {
     if (isAuth) {
       // 有token
