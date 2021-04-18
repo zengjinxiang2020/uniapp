@@ -549,26 +549,32 @@ export const handleLoginStatus = (location, complete, fail, success) => {
   }
   console.log(isAuth)
   return new Promise((resolve, reject) => {
-    if (isAuth) {
-      // 有token
-      if (path == '/pages/home/index' || path == '/pages/shop/GoodsClass/index' || path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
-        // switchTab({
-        // 	path: parseUrl(location),
-        // })
-        // return
-      }
+    resolve({
+      url: parseUrl(location),
+      complete,
+      fail,
+      success,
+    })
+    // if (isAuth) {
+    //   // 有token
+    //   if (path == '/pages/home/index' || path == '/pages/shop/GoodsClass/index' || path == '/pages/shop/ShoppingCart/index' || path == '/pages/user/User/index') {
+    //     // switchTab({
+    //     // 	path: parseUrl(location),
+    //     // })
+    //     // return
+    //   }
 
-      resolve({
-        url: parseUrl(location),
-        complete,
-        fail,
-        success,
-      })
-    } else {
-      // 没有token，先校验用户是否授权，如果授权了，进行自动登录
-      routerPermissions(parseUrl(location))
-      reject()
-    }
+    //   resolve({
+    //     url: parseUrl(location),
+    //     complete,
+    //     fail,
+    //     success,
+    //   })
+    // } else {
+    //   // 没有token，先校验用户是否授权，如果授权了，进行自动登录
+    //   routerPermissions(parseUrl(location))
+    //   reject()
+    // }
   }).catch(error => {
     console.log(error)
   })
