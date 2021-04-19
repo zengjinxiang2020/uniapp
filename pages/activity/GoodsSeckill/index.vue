@@ -45,12 +45,12 @@
       <view class="tui-list__goods">
         <view class="tui-goods__left">
           <block v-for="(item, index) in seckillList" :key="index">
-            <t-goods-item v-if="index % 2 == 0" :item="item" :isList="false" @goDetail="goDetail"></t-goods-item>
+            <t-goods-item v-if="index % 2 == 0" :item="item" :timeList="timeList" :active="active" :isList="false" @goDetail="goDetail"></t-goods-item>
           </block>
         </view>
         <view class="tui-goods__right">
           <block v-for="(item, index) in seckillList" :key="index">
-            <t-goods-item v-if="index % 2 !== 0" :item="item" :isList="false" @goDetail="goDetail"></t-goods-item>
+            <t-goods-item v-if="index % 2 !== 0" :item="item" :timeList="timeList" :active="active" :isList="false" @goDetail="goDetail"></t-goods-item>
           </block>
         </view>
       </view>
@@ -189,7 +189,7 @@ export default {
         query: {
           id: item.id,
           time,
-          status: item.status,
+          status: that.timeList[that.active].status,
         },
       })
     },
