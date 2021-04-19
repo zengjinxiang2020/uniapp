@@ -51,7 +51,7 @@ export const weappPay = option => {
     uni.requestPayment({
       provider: 'wxpay',
       ...option,
-      timeStamp: orderInfo.timestamp,
+      timestamp: orderInfo.timestamp,
       orderInfo,
       success: success => {
         console.log(success)
