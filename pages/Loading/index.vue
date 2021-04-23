@@ -1,7 +1,7 @@
 <template>
   <view class="lottie-bg">
     <view id="lottie">
-      <image src="@/static/live-logo.gif" rel="preload" mode="widthFix" style="width: 100%;" />
+      <image src="@/static/live-logo.gif" rel="preload" mode="widthFix" style="width: 100%" />
     </view>
   </view>
 </template>
@@ -61,11 +61,11 @@ export default {
       console.log('loading home')
       this.changeAuthorization(false)
       let redirect = cookie.get('redirect').replace(/\ /g, '')
+      cookie.remove('redirect')
       if (redirect && redirect.indexOf('/pages') != -1) {
         this.$yrouter.replace({
           path: '/pages' + redirect.split('/pages')[1],
         })
-        cookie.remove('redirect')
       } else {
         this.$yrouter.switchTab({
           path: '/pages/home/index',

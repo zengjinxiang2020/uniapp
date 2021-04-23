@@ -26,90 +26,41 @@
       <!-- down -->
       <view class="item" :class="nows ? 'font-color-red' : ''" @click="set_where(3)">新品</view>
     </view>
-    
-    
-    <!--list-->
-		<view class="tui-product-list" v-if="!isIntegral">
-			<view class="tui-product-container" v-if="Switch">
-				<block v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
-					<!--商品列表-->
-					<view class="tui-pro-item" :class="[Switch ? 'tui-flex-list' : '']" hover-class="tui-hover" :hover-start-time="150" @tap="goGoodsCon(item)">
-						<image :src="item.image" class="tui-pro-img" :class="[Switch ? 'tui-proimg-list' : '']" mode="widthFix" />
-						<view class="tui-pro-content">
-							<view class="tui-pro-tit">{{ item.storeName }}</view>
-							<view>
-								<view class="tui-pro-price">
-									<text class="tui-sale-price">￥{{ item.price }}</text>
-									<text class="tui-factory-price">￥{{ item.otPrice }}</text>
-								</view>
-								<view class="tui-pro-pay">已售{{ item.sales }}件</view>
-							</view>
-						</view>
-					</view>
-					<!--商品列表-->
-				</block>
-			</view>
-			<view class="tui-product-container" v-if="!Switch">
-				<block v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
-					<!--商品列表-->
-					<view class="tui-pro-item" :class="[Switch ? 'tui-flex-list' : '']" hover-class="tui-hover" :hover-start-time="150" @tap="goGoodsCon(item)">
-						<image :src="item.image" class="tui-pro-img" :class="[Switch ? 'tui-proimg-list' : '']" mode="widthFix" />
-						<view class="tui-pro-content">
-							<view class="tui-pro-tit">{{ item.storeName }}</view>
-							<view>
-								<view class="tui-pro-price">
-									<text class="tui-sale-price">￥{{ item.price }}</text>
-									<text class="tui-factory-price">￥{{ item.otPrice }}</text>
-								</view>
-								<view class="tui-pro-pay">已售{{ item.sales }}件</view>
-							</view>
-						</view>
-					</view>
-					<!--商品列表-->
-				</block>
-			</view>
-		</view>
-    
-    <!--list-->
-		<view class="tui-product-list" v-if="isIntegral == 'true'" >
-			<view class="tui-product-container" v-if="Switch">
-				<block v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
-					<!--商品列表-->
-					<view class="tui-pro-item" :class="[Switch ? 'tui-flex-list' : '']" hover-class="tui-hover" :hover-start-time="150" @tap="goGoodsCon(item)">
-						<image :src="item.image" class="tui-pro-img" :class="[Switch ? 'tui-proimg-list' : '']" mode="widthFix" />
-						<view class="tui-pro-content">
-							<view class="tui-pro-tit">{{ item.storeName }}</view>
-							<view>
-								<view class="tui-pro-price">
-									<text class="tui-sale-price">{{ item.integral }}积分</text>
-								</view>
-								<view class="tui-pro-pay">已售{{ item.sales }}件</view>
-							</view>
-						</view>
-					</view>
-					<!--商品列表-->
-				</block>
-			</view>
-			<view class="tui-product-container" v-if="!Switch">
-				<block v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
-					<!--商品列表-->
-					<view class="tui-pro-item" :class="[Switch ? 'tui-flex-list' : '']" hover-class="tui-hover" :hover-start-time="150" @tap="goGoodsCon(item)">
-						<image :src="item.image" class="tui-pro-img" :class="[Switch ? 'tui-proimg-list' : '']" mode="widthFix" />
-						<view class="tui-pro-content">
-							<view class="tui-pro-tit">{{ item.storeName }}</view>
-							<view>
-								<view class="tui-pro-price">
-									<text class="tui-sale-price">{{ item.integral }}积分</text>
-								</view>
-								<view class="tui-pro-pay">已售{{ item.sales }}件</view>
-							</view>
-						</view>
-					</view>
-					<!--商品列表-->
-				</block>
-			</view>
-		</view>
-    
+    <view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container" v-if="!isIntegral">
+      <view @click="goGoodsCon(item)" class="item" :class="Switch === true ? '' : 'on'" v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
+        <view class="pictrue" :class="Switch === true ? '' : 'on'">
+          <image :src="item.image" :class="Switch === true ? '' : 'on'" />
+        </view>
+        <view class="text" :class="Switch === true ? '' : 'on'">
+          <view class="name line1">{{ item.storeName }}</view>
+          <view class="money font-color-red" :class="Switch === true ? '' : 'on'">
+            ￥
+            <text class="num">{{ item.price }}</text>
+          </view>
+          <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
+            <view class="vip-money">￥{{ item.otPrice }}</view>
+            <view>已售{{ item.sales }}件</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="list acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'" ref="container" v-if="isIntegral == 'true'">
+      <view @click="goIntegralGoodsCon(item)" class="item" :class="Switch === true ? '' : 'on'" v-for="(item, productListIndex) in productList" :key="productListIndex" :title="item.storeName">
+        <view class="pictrue" :class="Switch === true ? '' : 'on'">
+          <image :src="item.image" :class="Switch === true ? '' : 'on'" />
+        </view>
+        <view class="text" :class="Switch === true ? '' : 'on'">
+          <view class="name line1">{{ item.storeName }}</view>
+          <view class="money font-color-red" :class="Switch === true ? '' : 'on'">
+            <text class="num">{{ item.integral }}积分</text>
+          </view>
+          <view class="vip acea-row row-between-wrapper" :class="Switch === true ? '' : 'on'">
+            <!-- <view class="vip-money">￥{{ item.otPrice }}</view> -->
+            <view>已售{{ item.sales }}件</view>
+          </view>
+        </view>
+      </view>
+    </view>
     <Loading :loaded="loadend" :loading="loading"></Loading>
     <view class="noCommodity" style="background-color: #fff" v-if="productList.length === 0 && where.page > 1">
       <view class="noPictrue">
@@ -358,94 +309,4 @@ export default {
   border-top: 3px solid #f5f5f5;
   padding-bottom: 1px;
 }
-
-.tui-product-list {
-	display: flex;
-	box-sizing: border-box;
-  margin-top: 1.72*100rpx;
-}
-
-.tui-product-container {
-  display: flex;
-  flex-direction: row;
-	flex-wrap: wrap;
-	flex:1;
-	justify-content: space-between;
-  
-}
-
-.tui-product-container:last-child {
-	margin-right: 0;
-}
-
-.tui-pro-item {
-	flex: 0 0  49%;
-	margin-bottom: 10rpx;
-	background: #fff;
-	box-sizing: border-box;
-	border-radius: 12rpx;
-	overflow: hidden;
-	transition: all 0.15s ease-in-out;
-}
-
-.tui-flex-list {
-	flex:1 1 100%;
-	display: flex;
-	margin-bottom: 1rpx !important;
-}
-
-.tui-pro-img {
-	width: 100%;
-	display: block;
-}
-
-.tui-proimg-list {
-	width: 260rpx;
-	height: 260rpx !important;
-	flex-shrink: 0;
-	border-radius: 12rpx;
-}
-
-.tui-pro-content {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	box-sizing: border-box;
-	padding: 20rpx;
-}
-
-.tui-pro-tit {
-	color: #2e2e2e;
-	font-size: 26rpx;
-	word-break: break-all;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 2;
-}
-
-.tui-pro-price {
-	padding-top: 18rpx;
-}
-
-.tui-sale-price {
-	font-size: 34rpx;
-	font-weight: 500;
-	color: #e41f19;
-}
-
-.tui-factory-price {
-	font-size: 24rpx;
-	color: #a0a0a0;
-	text-decoration: line-through;
-	padding-left: 12rpx;
-}
-
-.tui-pro-pay {
-	padding-top: 10rpx;
-	font-size: 24rpx;
-	color: #656565;
-}
-/* 商品列表*/
 </style>
