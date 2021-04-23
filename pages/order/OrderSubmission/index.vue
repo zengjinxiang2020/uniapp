@@ -268,7 +268,7 @@ export default {
     AddressWindow,
   },
   props: {},
-  data: function () {
+  data: function() {
     return {
       offlinePayStatus: 2,
       from: this.$deviceType,
@@ -313,7 +313,7 @@ export default {
       this.computedPrice()
     },
   },
-  onShow: function () {
+  onShow: function() {
     let that = this
     this.$store.dispatch('getUser', true)
     that.getCartInfo()
@@ -338,7 +338,7 @@ export default {
         path: '/pages/shop/StoreList/index',
       })
     },
-    addressType: function (index) {
+    addressType: function(index) {
       if (index && !this.systemStore.id) {
         uni.showToast({
           title: '暂无门店信息，您无法选择到店自提！',
@@ -350,7 +350,7 @@ export default {
       console.log(this)
       this.shipping_type = index
     },
-    changeUseIntegral: function (e) {
+    changeUseIntegral: function(e) {
       // this.computedPrice();
       if (this.isIntegral) {
         return
@@ -410,7 +410,7 @@ export default {
           })
         })
     },
-    addressTap: function () {
+    addressTap: function() {
       this.showAddress = true
       if (!this.addressLoaded) {
         this.addressLoaded = true
@@ -421,10 +421,10 @@ export default {
       this.addressLoaded = false
       this.showAddress = false
     },
-    couponTap: function () {
+    couponTap: function() {
       this.showCoupon = true
     },
-    changeCoupon: function (coupon) {
+    changeCoupon: function(coupon) {
       if (!coupon) {
         this.usableCoupon = {
           couponTitle: '不使用优惠券',
@@ -435,7 +435,7 @@ export default {
       }
       this.computedPrice()
     },
-    payItem: function (index) {
+    payItem: function(index) {
       this.active = index
     },
     changeAddress(addressInfo) {
@@ -508,6 +508,7 @@ export default {
       if (this.$deviceType == 'app') {
         from.from = 'app'
       }
+      console.log(this.$deviceType)
       // #ifdef MP-WEIXIN
       subscribeMessage()
       // #endif

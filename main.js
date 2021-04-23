@@ -14,7 +14,7 @@ Vue.component('cu-custom', cuCustom)
 Vue.config.productionTip = false
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
-Vue.prototype.$validator = function (rule) {
+Vue.prototype.$validator = function(rule) {
   return new schema(rule)
 }
 
@@ -25,23 +25,6 @@ Vue.prototype.$store = store
 const app = new Vue({
   ...App,
   store,
-})
-
-Vue.mixin({
-  onLoad() {
-    const { $mp } = this.$root
-    this._route = parseRoute($mp)
-  },
-  onShow() {
-    _router.app = this
-    _router.currentRoute = this._route
-  },
-  // 这里为了解决 .vue文件中 template 无法获取 VUE.prototype 绑定的变量
-  computed: {  
-    $VUE_APP_RESOURCES_URL() {  
-        return VUE_APP_RESOURCES_URL;  
-    }  
-  }
 })
 
 Object.defineProperty(Vue.prototype, '$yrouter', {
@@ -59,17 +42,16 @@ Object.defineProperty(Vue.prototype, '$yroute', {
 Vue.prototype.$VUE_APP_API_URL = VUE_APP_API_URL
 Vue.component('cu-custom', cuCustom)
 
+let deviceType = ''
 // #ifdef APP-PLUS
 // App平台编译的代码
-Vue.prototype.$deviceType = 'app'
-store.commit('updateDevicetype', 'app')
+deviceType = 'app'
 Vue.prototype.$platform = uni.getSystemInfoSync().platform
 // #endif
 
 // #ifdef MP-WEIXIN
 // 微信小程序编译的代码
-Vue.prototype.$deviceType = 'routine'
-store.commit('updateDevicetype', 'routine')
+deviceType = 'routine'
 // #endif
 
 // !!! ps  不建议在 template 中使用 $deviceType 去判断当前环境，很有可能出现 $deviceType 为 undefined 导致判断出错的问题，可以在 script 模块中正常使用
@@ -99,29 +81,42 @@ if (urlSpread) {
 
 // #endif
 
+// #ifdef H5
+// H5编译的代码
+// 判断是否是微信浏览器
 async function init() {
-  // #ifdef H5
-  // H5编译的代码
-  // 判断是否是微信浏览器
   if (isWeixin()) {
-    Vue.prototype.$deviceType = 'weixin'
-    store.commit('updateDevicetype', 'weixin')
-    let wechatInit = await wechat()
-    console.log(wechatInit)
+    deviceType = 'weixin'
+    let wechatInit = wechat()
     if (wechatInit) {
       await oAuth()
-      app.$mount()
     }
   } else {
-    Vue.prototype.$deviceType = 'weixinh5'
-    store.commit('updateDevicetype', 'weixinh5')
-    app.$mount()
+    deviceType = 'weixinh5'
   }
-  // #endif
-
-  // #ifndef H5
-  app.$mount()
-  // #endif
 }
-
 init()
+// #endif
+
+Vue.prototype.$deviceType = deviceType
+
+Vue.mixin({
+  onLoad() {
+    const { $mp } = this.$root
+    this._route = parseRoute($mp)
+  },
+  onShow() {
+    _router.app = this
+    _router.currentRoute = this._route
+  },
+  // 这里为了解决 .vue文件中 template 无法获取 VUE.prototype 绑定的变量
+  computed: {
+    $VUE_APP_RESOURCES_URL() {
+      return VUE_APP_RESOURCES_URL
+    },
+  },
+})
+
+store.commit('updateDevicetype', deviceType)
+
+app.$mount()

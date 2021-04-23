@@ -82,7 +82,7 @@ export default {
     Loading,
   },
   props: {},
-  data: function () {
+  data: function() {
     // const { s = "", id = 0, title = "" } = this.$yroute.query;
     const s = '',
       id = 0,
@@ -146,7 +146,7 @@ export default {
       // }
     },
   },
-  mounted: function () {
+  mounted: function() {
     const { s = '', id = 0, title = '', isIntegral = false } = this.$yroute.query
 
     this.where.keyword = s
@@ -238,7 +238,7 @@ export default {
         that.where.page = that.where.page + 1
       })
     },
-    submitForm: function () {
+    submitForm: function() {
       this.$set(this, 'productList', [])
       this.where.page = 1
       this.loadend = false
@@ -246,7 +246,7 @@ export default {
       this.getProductList()
     },
     //点击事件处理
-    set_where: function (index) {
+    set_where: function(index) {
       let that = this
       switch (index) {
         case 0:
@@ -279,7 +279,7 @@ export default {
       that.getProductList()
     },
     //设置where条件
-    setWhere: function () {
+    setWhere: function() {
       let that = this
       if (that.price === 0) {
         that.where.priceOrder = ''
@@ -297,7 +297,7 @@ export default {
       }
       that.where.news = that.nows ? '1' : '0'
     },
-    switchTap: function () {
+    switchTap: function() {
       let that = this
       that.Switch = !that.Switch
     },

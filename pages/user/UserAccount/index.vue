@@ -8,7 +8,7 @@
               <view>总资产(元)</view>
               <view class="money">{{ now_money }}</view>
             </view>
-            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red" v-if="is_hide=='0'">充值</navigator>
+            <navigator url="/pages/user/Recharge/index" class="recharge font-color-red" v-if="is_hide == '0'">充值</navigator>
           </view>
           <view class="cumulative acea-row row-top">
             <view class="item">
@@ -31,7 +31,7 @@
           </view>
           <view>消费记录</view>
         </view>
-        <view class="item" @click="goUserBill(2)" v-if="is_hide=='0'">
+        <view class="item" @click="goUserBill(2)" v-if="is_hide == '0'">
           <view class="pictrue">
             <image :src="`${$VUE_APP_RESOURCES_URL}/images/record3.png`" />
           </view>
@@ -44,59 +44,58 @@
   </view>
 </template>
 <script>
-import Recommend from "@/components/Recommend";
-import { getActivityStatus, getBalance } from "@/api/user";
+import Recommend from '@/components/Recommend'
+import { getActivityStatus, getBalance } from '@/api/user'
 export default {
-  name: "UserAccount",
+  name: 'UserAccount',
   components: {
-    Recommend
+    Recommend,
   },
   props: {},
   data: function() {
     return {
-      is_hide: "1",
+      is_hide: '1',
       now_money: 0,
       orderStatusSum: 0,
       recharge: 0,
       activity: {
         is_bargin: false,
         is_pink: false,
-        is_seckill: false
-      }
-    };
+        is_seckill: false,
+      },
+    }
   },
   onShow: function() {
-    this.getIndex();
-    this.getActivity();
+    this.getIndex()
+    this.getActivity()
   },
   methods: {
     goUserBill(types) {
       this.$yrouter.push({
-        path: "/pages/user/UserBill/index",
-        query: { types }
-      });
+        path: '/pages/user/UserBill/index',
+        query: { types },
+      })
     },
     getIndex: function() {
-      let that = this;
+      let that = this
       getBalance().then(
         res => {
-          that.now_money = res.data.now_money;
-          that.orderStatusSum = res.data.orderStatusSum;
-          that.recharge = res.data.recharge;
-          this.is_hide = res.data.is_hide;
+          that.now_money = res.data.now_money
+          that.orderStatusSum = res.data.orderStatusSum
+          that.recharge = res.data.recharge
+          this.is_hide = res.data.is_hide
         },
         err => {
           uni.showToast({
-            title:
-              err.msg || err.response.data.msg || err.response.data.message,
-            icon: "none",
-            duration: 2000
-          });
+            title: err.msg || err.response.data.msg || err.response.data.message,
+            icon: 'none',
+            duration: 2000,
+          })
         }
-      );
+      )
     },
     getActivity: function() {
-      let that = this;
+      let that = this
       // getActivityStatus().then(
       //   res => {
       //     that.activity.is_bargin = res.data.is_bargin;
@@ -112,7 +111,7 @@ export default {
       //     });
       //   }
       // );
-    }
-  }
-};
+    },
+  },
+}
 </script>
