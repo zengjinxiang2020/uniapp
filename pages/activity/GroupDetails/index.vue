@@ -72,7 +72,7 @@
                 <text class="font-color-red" v-text="item.count"></text>
                 <text>人成团</text>
               </view>
-              <count-down :isDay="true" :tipText="'剩余 '" :dayText="' 天 '" :hourText="' : '" :minuteText="' : '" :secondText="' '" :datatime="item.stopTime / 1000"></count-down>
+              <count-down :isDay="true" :tipText="'剩余 '" :dayText="' 天 '" :hourText="' : '" :minuteText="' : '" :secondText="' '" :datatime="item.stopTime"></count-down>
             </view>
             <view class="spellBnt" @click="groupRule(item.id)">
               去拼单

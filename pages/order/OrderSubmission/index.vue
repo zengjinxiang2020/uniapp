@@ -306,15 +306,13 @@ export default {
     useIntegral() {
       this.computedPrice()
     },
-    $yroute(n) {
-      if (n.name === NAME) this.getCartInfo()
-    },
     shipping_type() {
       this.computedPrice()
     },
   },
-  onShow: function() {
+  onLoad: function() {
     let that = this
+    console.log('loadddddddd')
     this.$store.dispatch('getUser', true)
     that.getCartInfo()
     console.log(that.$yroute)
@@ -402,7 +400,8 @@ export default {
           this.storeSelfMention = res.data.storeSelfMention
           this.computedPrice()
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error)
           uni.showToast({
             title: '加载订单数据失败',
             icon: 'none',
