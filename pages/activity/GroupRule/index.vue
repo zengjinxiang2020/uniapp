@@ -1,6 +1,6 @@
 <template>
   <view class="group-con">
-    <view class="tui-goods-item">
+    <view class="tui-goods-item" v-if="storeCombination">
       <image :src="storeCombination.image" class="tui-goods-img"></image>
       <view class="tui-goods-center">
         <view class="tui-goods-name">{{ storeCombination.title }}</view>
@@ -17,7 +17,7 @@
     </view>
 
     <view class="tui-group__box tui-mtop__20">
-      <tui-divider backgroundColor="#fff" width="70%" gradual >
+      <tui-divider backgroundColor="#fff" width="70%" gradual>
         <view class="tui-divider__content">
           <text v-if="pinkBool == 0">进行中</text>
           <text v-if="pinkBool == 1">拼团成功</text>
@@ -55,8 +55,8 @@
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="userBool === 1 && isOk == 0 && pinkBool === 0" @click="goPoster">邀请好友参团</tui-button>
         <tui-button type="warning" height="88rpx" shadow shape="circle" v-else-if="userBool === 0 && pinkBool === 0 && count > 0" @click="pay">我要参团</tui-button>
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1 || pinkBool === -1" @click="goDetail(storeCombination.id)">再次开团</tui-button>
-        <tui-button type="warning" height="88rpx" shadow shape="circle"  @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">取消开团</tui-button>
-        <tui-button type="danger" height="88rpx" shadow shape="circle"  v-if="pinkBool === 1" @click="goOrder">查看订单信息</tui-button>
+        <tui-button type="warning" height="88rpx" shadow shape="circle" @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">取消开团</tui-button>
+        <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1" @click="goOrder">查看订单信息</tui-button>
       </view>
     </view>
   </view>
@@ -418,10 +418,9 @@ export default {
 }
 .tui-btn__box {
   padding-top: 60rpx;
-  
 }
 
-.tni-cell{
+.tni-cell {
   height: 20rpx;
 }
 
@@ -498,9 +497,8 @@ export default {
 .tui-between {
   justify-content: space-between;
 }
-.tui-btn__box .tui-btn{
-  margin-bottom:30rpx !important
-  
+.tui-btn__box .tui-btn {
+  margin-bottom: 30rpx !important;
 }
 /*拼团玩法介绍 modal*/
 .tui-modal__title {
