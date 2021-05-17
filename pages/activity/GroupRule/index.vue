@@ -17,7 +17,7 @@
     </view>
 
     <view class="tui-group__box tui-mtop__20">
-      <tui-divider backgroundColor="#fff" width="70%" gradual >
+      <tui-divider backgroundColor="#fff" width="70%" gradual>
         <view class="tui-divider__content">
           <text v-if="pinkBool == 0">拼团失败</text>
           <text v-if="pinkBool == 1">拼团成功</text>
@@ -36,7 +36,7 @@
       <view class="tui-user__box">
         <view class="tui-user__item">
           <view class="tui-avatar__box tui-size">
-            <image class="tui-size" :src="userInfo.avatar"></image>
+            <image class="tui-size" :src="pinkT.avatar"></image>
             <view class="tui-team__leader">团长</view>
           </view>
           <!-- <view class="tui-nickname">不许人间见白头</view> -->
@@ -54,8 +54,8 @@
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="userBool === 1 && isOk == 0 && pinkBool === 0" @click="goPoster">邀请好友参团</tui-button>
         <tui-button type="warning" height="88rpx" shadow shape="circle" v-else-if="userBool === 0 && pinkBool === 0 && count > 0" @click="pay">我要参团</tui-button>
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1 || pinkBool === -1" @click="goDetail(storeCombination.id)">再次开团</tui-button>
-        <tui-button type="warning" height="88rpx" shadow shape="circle"  @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">取消开团</tui-button>
-        <tui-button type="danger" height="88rpx" shadow shape="circle"  v-if="pinkBool === 1" @click="goOrder">查看订单信息</tui-button>
+        <tui-button type="warning" height="88rpx" shadow shape="circle" @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">取消开团</tui-button>
+        <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1" @click="goOrder">查看订单信息</tui-button>
       </view>
     </view>
   </view>
@@ -73,7 +73,7 @@ export default {
     CountDown,
   },
   props: {},
-  data: function () {
+  data: function() {
     return {
       currentPinkOrder: '', //当前拼团订单
       isOk: 0, //判断拼团是否完成
@@ -98,7 +98,7 @@ export default {
       }
     },
   },
-  mounted: function () {
+  mounted: function() {
     var that = this
     let url = handleQrCode()
     if (url) {
@@ -109,7 +109,7 @@ export default {
     that.getCombinationPink()
   },
   methods: {
-    pay: function () {
+    pay: function() {
       var that = this
       var data = {}
       data.productId = that.storeCombination.productId
@@ -135,7 +135,7 @@ export default {
           })
         })
     },
-    goPoster: function () {
+    goPoster: function() {
       var that = this
       this.$yrouter.push({
         path: '/pages/activity/Poster/index',
@@ -145,7 +145,7 @@ export default {
         },
       })
     },
-    goOrder: function () {
+    goOrder: function() {
       var that = this
       this.$yrouter.push({
         path: '/pages/order/OrderDetails/index',
@@ -155,13 +155,13 @@ export default {
       })
     },
     //拼团列表
-    goList: function () {
+    goList: function() {
       this.$yrouter.push({
         path: '/pages/activity/GoodsGroup/index',
       })
     },
     //拼团详情
-    goDetail: function (id) {
+    goDetail: function(id) {
       this.$yrouter.push({
         path: '/pages/activity/GroupDetails/index',
         query: {
@@ -170,7 +170,7 @@ export default {
       })
     },
     //拼团信息
-    getCombinationPink: function () {
+    getCombinationPink: function() {
       var that = this
       getCombinationPink(that.pinkId).then(res => {
         that.$set(that, 'storeCombination', res.data.storeCombination)
@@ -186,7 +186,7 @@ export default {
       })
     },
     //拼团取消
-    getCombinationRemove: function () {
+    getCombinationRemove: function() {
       var that = this
       getCombinationRemove({
         id: that.pinkId,
@@ -207,7 +207,7 @@ export default {
           })
         })
     },
-    lookAll: function () {
+    lookAll: function() {
       this.iShidden = !this.iShidden
     },
   },
@@ -417,10 +417,9 @@ export default {
 }
 .tui-btn__box {
   padding-top: 60rpx;
-  
 }
 
-.tni-cell{
+.tni-cell {
   height: 20rpx;
 }
 
@@ -497,9 +496,8 @@ export default {
 .tui-between {
   justify-content: space-between;
 }
-.tui-btn__box .tui-btn{
-  margin-bottom:30rpx !important
-  
+.tui-btn__box .tui-btn {
+  margin-bottom: 30rpx !important;
 }
 /*拼团玩法介绍 modal*/
 .tui-modal__title {
