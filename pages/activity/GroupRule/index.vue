@@ -1,6 +1,6 @@
 <template>
   <view class="group-con">
-    <view class="tui-goods-item">
+    <view class="tui-goods-item" v-if="storeCombination">
       <image :src="storeCombination.image" class="tui-goods-img"></image>
       <view class="tui-goods-center">
         <view class="tui-goods-name">{{ storeCombination.title }}</view>
@@ -19,8 +19,9 @@
     <view class="tui-group__box tui-mtop__20">
       <tui-divider backgroundColor="#fff" width="70%" gradual>
         <view class="tui-divider__content">
-          <text v-if="pinkBool == 0">拼团失败</text>
+          <text v-if="pinkBool == 0">进行中</text>
           <text v-if="pinkBool == 1">拼团成功</text>
+          <text v-if="pinkBool == -1">拼团失败</text>
         </view>
       </tui-divider>
       <view class="tui-group__title" v-if="pinkBool == 0">
@@ -30,7 +31,7 @@
       </view>
       <view class="tui-group-countdown" v-if="pinkBool == 0">
         <view class="tui-countdown-right">剩余</view>
-        <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="pinkT.stopTime / 1000"></count-down>
+        <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="pinkT.stopTime"></count-down>
         <view class="tui-countdown-left">结束</view>
       </view>
       <view class="tui-user__box">

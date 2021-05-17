@@ -7,9 +7,9 @@
         {{ bargainShare.lookCount }}人查看 丨 {{ bargainShare.shareCount }}人分享 丨 {{ bargainShare.userCount }}人参与
       </view> -->
       <!-- 帮助砍价、帮砍成功：-->
-      <view class="pictxt acea-row row-center-wrapper ">
+      <view class="pictxt acea-row row-center-wrapper">
         <div class="bargain-header">
-          <view class="pictrue"><image :src="bargainUserInfo.avatar"/></view>
+          <view class="pictrue"><image :src="bargainUserInfo.avatar" /></view>
           <view class="text">
             {{ bargainUserInfo.nickname }}
             <text>邀请您帮忙砍价</text>
@@ -18,7 +18,7 @@
       </view>
     </view>
     <view class="wrapper bargain-box time on">
-      <div class="pictxt ">
+      <div class="pictxt">
         <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="goodsDetail.stopTime"></count-down>
       </div>
     </view>
@@ -92,14 +92,14 @@
     </view>
     <view class="bargainGang bargain-box">
       <view class="title font-color-red acea-row row-center-wrapper">
-        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
         <view class="titleCon">砍价帮</view>
-        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
       </view>
       <view class="list">
         <view class="item acea-row row-between-wrapper" v-for="(item, bargainHelpListIndex) in bargainHelpList" :key="bargainHelpListIndex">
           <view class="pictxt acea-row row-between-wrapper">
-            <view class="pictrue"><image :src="item.avatar"/></view>
+            <view class="pictrue"><image :src="item.avatar" /></view>
             <view class="text">
               <view class="name line1" v-text="item.nickname"></view>
               <view class="line1" v-text="item.add_time"></view>
@@ -116,18 +116,18 @@
     </view>
     <view class="goodsDetails bargain-box">
       <view class="title font-color-red acea-row row-center-wrapper">
-        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
         <view class="titleCon">商品详情</view>
-        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
       </view>
       <view class="conter" v-html="goodsDetail.description"></view>
       <view class="lock"></view>
     </view>
     <view class="goodsDetails bargain-box">
       <view class="title font-color-red acea-row row-center-wrapper">
-        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
         <view class="titleCon">活动规则</view>
-        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`"/></view>
+        <view class="pictrue on"><image :src="`${$VUE_APP_RESOURCES_URL}/images/left.png`" /></view>
       </view>
       <view class="conter" v-html="goodsDetail.rule"></view>
     </view>
@@ -163,7 +163,7 @@ export default {
     CountDown,
   },
   props: {},
-  data: function() {
+  data: function () {
     return {
       bargainId: 0, //砍价编号
       bargainSumCount: 0, //砍价成功人数
@@ -190,12 +190,12 @@ export default {
     }
   },
   computed: mapGetters(['userInfo', 'isLogin']),
-  mounted: function() {
+  mounted: function () {
     this.mountedStart()
   },
   methods: {
     // 开始处理砍价逻辑
-    mountedStart: function() {
+    mountedStart: function () {
       var that = this
       let url = handleQrCode()
       // bargainId 砍价商品id
@@ -213,8 +213,6 @@ export default {
         // url未携带用户uid，填上登录用户uid，跳转
         that.bargainUid = that.userInfo.uid
       }
-      console.log(this)
-
       // 获取商品详情
       that.getBargainDetail()
       // 砍价数据统计
@@ -236,7 +234,7 @@ export default {
       this.getBargainHelpCount()
     },
     // 查看商品
-    openAlone: function() {
+    openAlone: function () {
       this.$yrouter.push({
         path: '/pages/shop/GoodsCon/index',
         query: {
@@ -245,7 +243,7 @@ export default {
       })
     },
     // 砍价完成，去支付
-    goPay: function() {
+    goPay: function () {
       var data = {}
       var that = this
       data.productId = that.goodsDetail.productId
@@ -271,7 +269,7 @@ export default {
         })
     },
     // 生成海报
-    goPoster: function() {
+    goPoster: function () {
       var that = this
       that.getBargainShare(that.bargainId)
       this.$yrouter.push({
@@ -283,7 +281,7 @@ export default {
       })
     },
     // 跳转砍价商品列表
-    goList: function() {
+    goList: function () {
       this.$yrouter.push({
         path: '/pages/activity/GoodsBargain/index',
       })
@@ -291,7 +289,7 @@ export default {
     //砍价分享
     //bargainId 0  获取 查看人数 分享人数 参与人数
     //bargainId 砍价产品编号 添加分享次数  获取 查看人数 分享人数 参与人数
-    getBargainShare: function(bargainId) {
+    getBargainShare: function (bargainId) {
       var that = this
       getBargainShare({
         bargainId: bargainId,
@@ -300,7 +298,7 @@ export default {
       })
     },
     // 获取产品详情
-    getBargainDetail: function() {
+    getBargainDetail: function () {
       var that = this
       uni.showLoading({
         title: '加载中',
@@ -310,9 +308,9 @@ export default {
         .then(res => {
           uni.hideLoading()
           that.goodsDetail = res.data.bargain
+          console.log(that.goodsDetail)
           that.goodsDetail.description = that.goodsDetail.description.replace(/\<img/gi, '<img style="max-width:100%;height:auto;"')
           that.goodsDetail.rule = that.goodsDetail.rule.replace(/\<img/gi, '<img style="max-width:100%;height:auto;"')
-          that.goodsDetail.stopTime = that.goodsDetail.stopTime / 1000
           that.getBargainHelpCount()
         })
         .catch(res => {
@@ -325,7 +323,7 @@ export default {
         })
     },
     // 开启砍价-发起人与当前用户非同一人
-    getBargainStart: function() {
+    getBargainStart: function () {
       var that = this
       getBargainStart({
         bargainId: that.bargainId,
@@ -344,7 +342,7 @@ export default {
         })
     },
     // 参与砍价
-    getBargainHelp: function() {
+    getBargainHelp: function () {
       var that = this
       if (this.bargainHelpCount.price === 0 && that.bargainUid !== that.userInfo.uid) {
         return uni.showToast({
@@ -382,7 +380,7 @@ export default {
         })
     },
     //获取砍掉的金额
-    getBargainHelpPrice: function() {
+    getBargainHelpPrice: function () {
       var that = this
       getBargainHelpPrice({
         bargainId: that.bargainId,
@@ -409,7 +407,7 @@ export default {
         })
     },
     // 砍价帮助列表
-    getBargainHelpList: function() {
+    getBargainHelpList: function () {
       var that = this
       if (that.helpListStatus === true) return
       getBargainHelpList({
@@ -440,7 +438,7 @@ export default {
         })
     },
     // 砍价 砍价帮总人数、剩余金额、进度条、已经砍掉的价格
-    getBargainHelpCount: function() {
+    getBargainHelpCount: function () {
       getBargainHelpCount({
         bargainId: this.bargainId,
         bargainUserUid: this.bargainUid,
@@ -515,7 +513,7 @@ export default {
     },
     // 获取开启砍价用户信息
     // 参与砍价，为同一人发起砍价后
-    getBargainStartUser: function() {
+    getBargainStartUser: function () {
       var that = this
       getBargainStartUser({
         bargainId: that.bargainId,
@@ -534,11 +532,11 @@ export default {
         })
     },
     // 关闭弹窗
-    close: function() {
+    close: function () {
       this.active = false
     },
     // 设置微信分享
-    onShareAppMessage: function() {
+    onShareAppMessage: function () {
       return {
         title: this.storeInfo.title,
         imageUrl: this.storeInfo.image,

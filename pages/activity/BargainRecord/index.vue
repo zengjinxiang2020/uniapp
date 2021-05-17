@@ -14,7 +14,7 @@
             :hourText="' 时 '"
             :minuteText="' 分 '"
             :secondText="' 秒'"
-            :datatime="item.datatime/1000"
+            :datatime="item.datatime"
           ></count-down>
           <view class="money font-color-red">
             已砍至
