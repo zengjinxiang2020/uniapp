@@ -125,7 +125,7 @@ export default {
   methods: {
     changeLog: function(value) {
       this.deliveryNames = this.logistics[value.detail.value].name;
-      this.deliveryName = this.logistics[value.detail.value].id;
+      this.deliveryName = this.logistics[value.detail.value].name;
     },
     changeType: function(item, index) {
       this.active = index;
