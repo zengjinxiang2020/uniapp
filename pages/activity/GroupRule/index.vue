@@ -42,12 +42,9 @@
           </view>
           <!-- <view class="tui-nickname">不许人间见白头</view> -->
         </view>
-        <view class="tui-user__item" v-if="pinkAll.length == 0">
-          <view class="tui-avatar__box tui-user__none"><image class="tui-size" :src="`${$VUE_APP_RESOURCES_URL}/images/vacancy.png`"></image></view>
-          <!-- <view class="tui-nickname">暂无</view> -->
-        </view>
-        <view class="tui-user__item" v-for="(item, pinkAllIndex) in pinkAll" :key="pinkAllIndex">
-          <view class="tui-avatar__box tui-size"><image class="tui-size" :src="item.avatar"></image></view>
+        <view class="tui-user__item" v-for="(item, index) in Array(count)" :key="index">
+          <view class="tui-avatar__box tui-size" v-if="pinkAll[i]"><image class="tui-size" :src="pinkAll[i].avatar"></image></view>
+          <view class="tui-avatar__box tui-user__none" v-else><image class="tui-size" :src="`${$VUE_APP_RESOURCES_URL}/images/vacancy.png`"></image></view>
           <!-- <view class="tui-nickname">小可爱本人</view> -->
         </view>
       </view>
@@ -55,7 +52,7 @@
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="userBool === 1 && isOk == 0 && pinkBool === 0" @click="goPoster">邀请好友参团</tui-button>
         <tui-button type="warning" height="88rpx" shadow shape="circle" v-else-if="userBool === 0 && pinkBool === 0 && count > 0" @click="pay">我要参团</tui-button>
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1 || pinkBool === -1" @click="goDetail(storeCombination.id)">再次开团</tui-button>
-        <tui-button type="warning" height="88rpx" shadow shape="circle" @click="getCombinationRemove" v-if="pinkBool === 0 && userBool === 1">取消开团</tui-button>
+        <tui-button type="warning" height="88rpx" shadow shape="circle" @click="getCombinationRemove" v-if="userBool === 1 && pinkBool === 0">取消开团</tui-button>
         <tui-button type="danger" height="88rpx" shadow shape="circle" v-if="pinkBool === 1" @click="goOrder">查看订单信息</tui-button>
       </view>
     </view>
