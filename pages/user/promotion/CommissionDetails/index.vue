@@ -21,9 +21,7 @@
                 <view>{{ val.addTime }}</view>
               </view>
               <view class="num" v-if="val.pm == 1">+{{ val.number }}</view>
-              <view class="num font-color-red" v-if="val.pm == 0">
-                -{{ val.number }}
-              </view>
+              <view class="num font-color-red" v-if="val.pm == 0"> -{{ val.number }} </view>
             </view>
           </view>
         </view>
@@ -33,13 +31,13 @@
   </view>
 </template>
 <script>
-import { getCommissionInfo, getSpreadInfo } from "@/api/user";
-import Loading from "@/components/Loading";
+import { getCommissionInfo, getSpreadInfo } from '@/api/user'
+import Loading from '@/components/Loading'
 
 export default {
-  name: "CommissionDetails",
+  name: 'CommissionDetails',
   components: {
-    Loading
+    Loading,
   },
   props: {},
   data: function() {
@@ -48,57 +46,57 @@ export default {
       commission: 0,
       where: {
         page: 1,
-        limit: 3
+        limit: 3,
       },
       types: 3,
       loaded: false,
-      loading: false
-    };
+      loading: false,
+    }
   },
   mounted: function() {
-    this.getCommission();
-    this.getIndex();
+    this.getCommission()
+    this.getIndex()
   },
   onReachBottom() {
-    this.loading === false && this.getIndex();
+    this.loading === false && this.getIndex()
   },
   methods: {
     getIndex: function() {
-      let that = this;
-      if (that.loading == true || that.loaded == true) return;
-      that.loading = true;
+      let that = this
+      if (that.loading == true || that.loaded == true) return
+      that.loading = true
       getCommissionInfo(that.where, that.types).then(
         res => {
-          that.loading = false;
-          that.loaded = res.data.length < that.where.limit;
-          that.loadTitle = that.loaded ? "人家是有底线的" : "上拉加载更多";
-          that.where.page = that.where.page + 1;
-          that.info.push.apply(that.info, res.data);
+          that.loading = false
+          that.loaded = res.data.length < that.where.limit
+          that.loadTitle = that.loaded ? '人家是有底线的' : '上拉加载更多'
+          that.where.page = that.where.page + 1
+          that.info.push.apply(that.info, res.data[0])
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title: err.msg || err.response.data.msg || err.response.data.message,
+            icon: 'none',
+            duration: 2000,
+          })
         }
-      );
+      )
     },
     getCommission: function() {
-      let that = this;
+      let that = this
       getSpreadInfo().then(
         res => {
-          that.commission = res.data.commissionCount;
+          that.commission = res.data.commissionCount
         },
         err => {
           uni.showToast({
-				title: err.msg || err.response.data.msg|| err.response.data.message,
-				icon: 'none',
-				duration: 2000
-			});
+            title: err.msg || err.response.data.msg || err.response.data.message,
+            icon: 'none',
+            duration: 2000,
+          })
         }
-      );
-    }
-  }
-};
+      )
+    },
+  },
+}
 </script>
