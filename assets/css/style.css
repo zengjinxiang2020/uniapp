@@ -1832,8 +1832,6 @@ page {
   z-index: 5;
   top: 0;
   /* #ifdef H5 */
-  top: -webkit-calc(0 + env(safe-area-inset-top));
-  top: calc(0 + env(safe-area-inset-top));
   /* #endif */
 }
 .shoppingCart .labelNav .item .iconfont {
@@ -1855,8 +1853,6 @@ page {
   top: 76rpx;
   border-bottom: 1px solid #f5f5f5;
   /* #ifdef H5 */
-  top: -webkit-calc(0 + env(safe-area-inset-top) + 76rpx);
-  top: calc(0 + env(safe-area-inset-top) + 76rpx);
   /* #endif  */
 }
 .shoppingCart .nav .administrate {
@@ -1883,7 +1879,7 @@ page {
   height: 100%;
 }
 .shoppingCart .list {
-  margin-top: 156rpx;
+  margin-top: 80rpx;
 }
 .shoppingCart .list .item {
   padding: 25rpx 30rpx;
@@ -6920,8 +6916,6 @@ page {
   overflow-x: hidden;
   overflow-scrolling: touch;
   /* #ifdef H5 */
-  top: -webkit-calc(0 + env(safe-area-inset-top) + 88rpx);
-  top: calc(0 + env(safe-area-inset-top) + 88rpx);
   /* #endif */
 }
 .productSort .aside .item {
@@ -6941,7 +6935,6 @@ page {
 .productSort .conter {
   margin-left: 180rpx;
   padding: 0 14rpx;
-  margin-top: 96rpx;
 }
 .productSort .conter .listw {
   padding-top: 20rpx;
