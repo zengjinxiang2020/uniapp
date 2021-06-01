@@ -27,10 +27,9 @@
             </view>
           </view>
         </view>
-        <view
-          class="copy acea-row row-center-wrapper copy-data"
-          @click="copyClipboard(orderInfo.deliveryId)"
-        >复制单号</view>
+        <!-- #ifndef H5 -->
+        <view class="copy acea-row row-center-wrapper copy-data" @click="copyClipboard(orderInfo.deliveryId)">复制单号</view>
+        <!-- #endif -->
       </view>
       <view class="item" v-for="(express, expressListIndex) in expressList" :key="expressListIndex">
         <view class="circular" :class="expressListIndex === 0 ? 'on' : ''"></view>
@@ -45,10 +44,7 @@
     <view class="div-bg bg-white" style="font-size:12px; background:#fff;">
       <!--物流跟踪-->
       <view style="margin-bottom:5px;">
-        <view
-          class="bg-white"
-          style="width: 92%; margin-left: 4%;margin: auto;padding-left: 15px;padding-right: 15px;padding-top: 10px"
-        >
+        <view class="bg-white" style="width: 92%; margin-left: 4%;margin: auto;padding-left: 15px;padding-right: 15px;padding-top: 10px">
           <view style="font-size: 26rpx;color: #111111; margin: 5px 0">
             物流跟踪
             <!--物流跟踪-->
@@ -57,29 +53,23 @@
             <view class="track-rcol">
               <view class="track-list">
                 <view>
-                  <view
-				  class="track-list-item"
-                    v-for="(item,logisticsListindex) in logisticsList"
-                    :key="logisticsListindex"
-                  >
-                    <view class="active" v-if="logisticsListindex===0">
+                  <view class="track-list-item" v-for="(item, logisticsListindex) in logisticsList" :key="logisticsListindex">
+                    <view class="active" v-if="logisticsListindex === 0">
                       <view></view>
                       <i class="node-icon"></i>
-                      <text class="txt">{{item.acceptStation}}</text>
-                      <text class="time">{{item.acceptTime}}</text>
+                      <text class="txt">{{ item.acceptStation }}</text>
+                      <text class="time">{{ item.acceptTime }}</text>
                     </view>
-                    <view
-                      v-if="logisticsListindex > 0 && logisticsListindex !== logisticsList.length-1"
-                    >
+                    <view v-if="logisticsListindex > 0 && logisticsListindex !== logisticsList.length - 1">
                       <i class="node-icon"></i>
-                      <text class="txt">{{item.acceptStation}}</text>
-                      <text class="time">{{item.acceptTime}}</text>
+                      <text class="txt">{{ item.acceptStation }}</text>
+                      <text class="time">{{ item.acceptTime }}</text>
                     </view>
-                    <view v-if="logisticsListindex === logisticsList.length-1" class="finall">
+                    <view v-if="logisticsListindex === logisticsList.length - 1" class="finall">
                       <i class="div-spilander"></i>
                       <i class="node-icon"></i>
-                      <text class="txt">{{item.acceptStation}}</text>
-                      <text class="time">{{item.acceptTime}}</text>
+                      <text class="txt">{{ item.acceptStation }}</text>
+                      <text class="time">{{ item.acceptTime }}</text>
                     </view>
                   </view>
                 </view>
@@ -97,43 +87,43 @@
   </view>
 </template>
 <script>
-import Recommend from "@/components/Recommend";
-import { express, orderDetail } from "@/api/order";
-import { copyClipboard } from "@/utils";
+import Recommend from '@/components/Recommend'
+import { express, orderDetail } from '@/api/order'
+import { copyClipboard } from '@/utils'
 
-const NAME = "Logistics";
+const NAME = 'Logistics'
 
 export default {
   name: NAME,
   components: {
-    Recommend
+    Recommend,
   },
   data: function() {
     return {
-      id: "",
+      id: '',
       cartInfo: [],
       orderInfo: {},
       expressList: [],
       loaded: false,
       logisticsList: [
         {
-          message: "暂无数据",
-          messageDate: ""
-        }
-      ]
-    };
+          message: '暂无数据',
+          messageDate: '',
+        },
+      ],
+    }
   },
   watch: {
     $yroute(n) {
       if (n.name === NAME && this.$yroute.query.id !== this.id) {
-        this.id = this.$yroute.query.id;
-        this.getExpress();
+        this.id = this.$yroute.query.id
+        this.getExpress()
       }
-    }
+    },
   },
   mounted: function() {
-    this.id = this.$yroute.query.id;
-    this.getExpress();
+    this.id = this.$yroute.query.id
+    this.getExpress()
   },
   methods: {
     copyClipboard,
@@ -141,39 +131,38 @@ export default {
       let params = {
         orderCode: this.id,
         shipperCode: this.orderInfo.deliverySn,
-        logisticCode: this.orderInfo.deliveryId
-      };
+        logisticCode: this.orderInfo.deliveryId,
+      }
       express(params)
         .then(res => {
-          this.logisticsList = res.data.traces.reverse();
+          this.logisticsList = res.data.traces.reverse()
         })
         .catch(err => {
           uni.showToast({
-            title:
-              err.msg || err.response.data.msg || err.response.data.message,
-            icon: "none",
-            duration: 2000
-          });
-        });
+            title: err.msg || err.response.data.msg || err.response.data.message,
+            icon: 'none',
+            duration: 2000,
+          })
+        })
     },
     getExpress() {
       if (!this.id) {
         uni.showToast({
           title: err.msg || err.response.data.msg || err.response.data.message,
-          icon: "none",
-          duration: 2000
-        });
-        return;
+          icon: 'none',
+          duration: 2000,
+        })
+        return
       }
-      this.loaded = false;
+      this.loaded = false
       orderDetail(this.id)
         .then(res => {
           this.orderInfo = {
             deliveryId: res.data.deliveryId,
             deliveryName: res.data.deliveryName,
-            deliverySn: res.data.deliverySn
-          };
-          this.getExpressInfo();
+            deliverySn: res.data.deliverySn,
+          }
+          this.getExpressInfo()
           // const result = res.data.express.result || {};
           // this.cartInfo = res.data.order.cartInfo;
           // this.expressList = result.list || [];
@@ -181,15 +170,14 @@ export default {
         })
         .catch(err => {
           uni.showToast({
-            title:
-              err.msg || err.response.data.msg || err.response.data.message,
-            icon: "none",
-            duration: 2000
-          });
-        });
-    }
-  }
-};
+            title: err.msg || err.response.data.msg || err.response.data.message,
+            icon: 'none',
+            duration: 2000,
+          })
+        })
+    },
+  },
+}
 </script>
 
 <style scoped lang="less">
