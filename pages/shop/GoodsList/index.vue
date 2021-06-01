@@ -83,7 +83,6 @@ export default {
   },
   props: {},
   data: function() {
-    // const { s = "", id = 0, title = "" } = this.$yroute.query;
     const s = '',
       id = 0,
       title = ''
@@ -129,21 +128,6 @@ export default {
       }
     },
     $yroute(to) {
-      // if (to.name !== "GoodsList") return;
-      // const { s = "", id = 0, title = "" } = to.query;
-      // if (s !== this.where.keyword || id !== this.where.sid) {
-      //   this.where.keyword = s;
-      //   this.loadend = false;
-      //   this.loading = false;
-      //   this.where.page = 1;
-      //   this.where.sid = id;
-      //   this.title = title && id ? title : "";
-      //   this.nows = false;
-      //   this.$set(this, "productList", []);
-      //   this.price = 0;
-      //   this.stock = 0;
-      //   this.getProductList();
-      // }
     },
   },
   mounted: function() {
@@ -160,24 +144,6 @@ export default {
     !this.loading && this.getProductList()
   },
   onHide() {
-    // this.hostProduct = [];
-    // this.productList = [];
-    // this.Switch = true;
-    // this.where = {
-    //   page: 1,
-    //   limit: 8,
-    //   keyword: s,
-    //   sid: id, //二级分类id
-    //   news: 0,
-    //   priceOrder: "",
-    //   salesOrder: ""
-    // };
-    // this.loadTitle = "";
-    // this.loading = false;
-    // this.loadend = false;
-    // this.price = 0;
-    // this.stock = 0;
-    // this.nows = fals;
   },
   methods: {
     changeRecommendLoading(recommendLoading) {
@@ -205,12 +171,10 @@ export default {
       uni.setNavigationBarTitle({
         title: this.title,
       })
-      // document.title = this.title || this.$yroute.meta.title;
     },
     getProductList() {
       var that = this
       this.setWhere()
-      // if (to.name !== "GoodsList") return;
       const { s = '', id = 0, title = '' } = this.$yroute.query
       if (s !== this.where.keyword || id !== this.where.sid) {
         this.loadend = false

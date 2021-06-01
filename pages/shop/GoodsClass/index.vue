@@ -69,7 +69,6 @@ export default {
     }
   },
   mounted: function() {
-    // document.addEventListener("scroll", this.onScroll, false);
     this.loadCategoryData();
   },
   methods: {
@@ -89,7 +88,6 @@ export default {
       this.category.forEach((cate, i) => {
         if (cate.id === n) index = i;
       });
-
       if (index !== this.navActive) {
         this.asideTap(index);
       }
@@ -117,11 +115,8 @@ export default {
     asideTap(index) {
       this.navActive = index;
     }
-  },
-  beforeDestroy: function() {
-    // document.removeEventListener("scroll", this.onScroll, false);
   }
-};
+}
 </script>
 
 <style >
