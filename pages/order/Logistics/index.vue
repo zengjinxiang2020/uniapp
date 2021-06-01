@@ -145,7 +145,7 @@ export default {
       };
       express(params)
         .then(res => {
-          this.logisticsList = res.data.traces.reverse();
+          this.logisticsList = res.data.Traces.reverse();
         })
         .catch(err => {
           uni.showToast({
