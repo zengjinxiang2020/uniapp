@@ -7,7 +7,7 @@
     </view>
     <view class="sign-record">
       <view class="list">
-        <view class="item" v-for="(item, listIndex) in list" :key="listIndex">
+        <view class="item" v-for="(item, listIndex) in list[0]" :key="listIndex">
           <view class="data">{{ item.time }}</view>
           <view class="listn" v-for="(val, key) in item.list" :key="key">
             <view class="itemn acea-row row-between-wrapper">
