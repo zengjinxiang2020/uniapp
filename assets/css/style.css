@@ -1879,11 +1879,7 @@ page {
   height: 100%;
 }
 .shoppingCart .list {
-<<<<<<< HEAD
-  margin-top: 76rpx;
-=======
   margin-top: 80rpx;
->>>>>>> 11d6bda8681ad955f5e73286c3478a238ee58593
 }
 .shoppingCart .list .item {
   padding: 25rpx 30rpx;

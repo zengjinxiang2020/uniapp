@@ -42,13 +42,8 @@
           </view>
           <!-- <view class="tui-nickname">不许人间见白头</view> -->
         </view>
-<<<<<<< HEAD
-        <view class="tui-user__item" v-for="(item, index) in Array(storeCombination.people - 1)" :key="index">
-          <view class="tui-avatar__box tui-size" v-if="pinkAll[i]"><image class="tui-size" :src="pinkAll[i].avatar"></image></view>
-=======
         <view class="tui-user__item" v-for="(item, index) in Array(storeCombination.people-1)" :key="index">
           <view class="tui-avatar__box tui-size" v-if="pinkAll[index]"><image class="tui-size" :src="pinkAll[index].avatar"></image></view>
->>>>>>> 11d6bda8681ad955f5e73286c3478a238ee58593
           <view class="tui-avatar__box tui-user__none" v-else><image class="tui-size" :src="`${$VUE_APP_RESOURCES_URL}/images/vacancy.png`"></image></view>
           <!-- <view class="tui-nickname">小可爱本人</view> -->
         </view>
