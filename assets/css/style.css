@@ -1879,7 +1879,11 @@ page {
   height: 100%;
 }
 .shoppingCart .list {
+<<<<<<< HEAD
   margin-top: 76rpx;
+=======
+  margin-top: 80rpx;
+>>>>>>> 11d6bda8681ad955f5e73286c3478a238ee58593
 }
 .shoppingCart .list .item {
   padding: 25rpx 30rpx;
@@ -6871,8 +6875,8 @@ page {
   right: 0;
   top: 0;
   /* #ifdef H5 */
-  top: -webkit-calc(44px + env(safe-area-inset-top));
-  top: calc(44px + env(safe-area-inset-top));
+  top: -webkit-calc(0 + env(safe-area-inset-top));
+  top: calc(0 + env(safe-area-inset-top));
   /* #endif */
   z-index: 9;
 }
@@ -6916,8 +6920,6 @@ page {
   overflow-x: hidden;
   overflow-scrolling: touch;
   /* #ifdef H5 */
-  top: -webkit-calc(44px + env(safe-area-inset-top) + 88rpx);
-  top: calc(44px + env(safe-area-inset-top) + 88rpx);
   /* #endif */
 }
 .productSort .aside .item {
@@ -6937,7 +6939,6 @@ page {
 .productSort .conter {
   margin-left: 180rpx;
   padding: 0 14rpx;
-  margin-top: 96rpx;
 }
 .productSort .conter .listw {
   padding-top: 20rpx;

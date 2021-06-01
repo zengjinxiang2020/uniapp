@@ -135,7 +135,11 @@ export default {
       }
       express(params)
         .then(res => {
+<<<<<<< HEAD
           this.logisticsList = res.data.traces.reverse()
+=======
+          this.logisticsList = res.data.Traces.reverse();
+>>>>>>> 11d6bda8681ad955f5e73286c3478a238ee58593
         })
         .catch(err => {
           uni.showToast({
