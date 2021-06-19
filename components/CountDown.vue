@@ -42,16 +42,16 @@ export default {
       default: true,
     },
   },
-  data: function () {
+  data: function() {
     return {
-      time: null,
+      time: this.datatime,
       day: '00',
       hour: '00',
       minute: '00',
       second: '00',
     }
   },
-  created: function () {
+  created: function() {
     this.show_time()
   },
   watch: {
@@ -61,25 +61,22 @@ export default {
       this.show_time()
     },
   },
-  mounted: function () {},
+  mounted: function() {},
   methods: {
-    show_time: function () {
+    show_time: function() {
       let that = this
-
-      if (parseInt(this.time).length == 13) {
+      if (this.time.toString().length == 13) {
         // 毫秒级
         console.log('毫秒')
         this.time = this.time / 1000
-      } else if (parseInt(this.time).length == 10) {
+      } else if (this.time.toString().length == 10) {
         console.log('秒')
         // 秒级
       } else {
         // 时间
         console.log('时间')
-        console.log(this.time)
         this.time = Date.parse(this.time) / 1000
       }
-      console.log(that.time)
 
       function runTime() {
         //时间函数
