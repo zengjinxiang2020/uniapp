@@ -55,7 +55,7 @@ export default {
       getSignMonth(that.page, that.limit).then(res => {
         that.loading = false;
         //apply();js将一个数组插入另一个数组;
-        that.signList.push.apply(that.signList, res.data);
+        that.signList.push.apply(that.signList, res.data.list);
         that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
         that.page = that.page + 1;
       });
