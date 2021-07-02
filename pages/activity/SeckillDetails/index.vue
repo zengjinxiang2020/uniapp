@@ -12,7 +12,7 @@
                 <text class="tui-price">{{ formatPrice(storeInfo.price, 0) }}</text>
                 <text>.{{ formatPrice(storeInfo.price, 1) }}</text>
               </view>
-              <view class="tui-original-price tui-white__gray" v-text="'￥' + storeInfo.price"></view>
+              <view class="tui-original-price tui-white__gray" v-text="'￥' + storeInfo.otPrice"></view>
             </view>
             <view class="tui-sold tui-white__gray">
               <text>已抢{{ storeInfo.sales }}件</text>
