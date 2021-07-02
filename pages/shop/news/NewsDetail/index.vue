@@ -114,7 +114,7 @@ export default {
       let that = this,
         id = this.$yroute.query.id
       getArticleDetails(id).then(res => {
-        res.data.content = res.data.content.replace(/\<img/gi, '<img style="width:100%;height:auto;"')
+        res.data.content = res.data.content.replace(/\<img/gi, '<img style="max-width:100% !important; height:auto"')
         that.articleInfo = res.data
         console.log(that.articleInfo)
         that.updateTitle()

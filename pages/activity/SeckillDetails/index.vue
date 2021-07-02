@@ -74,6 +74,7 @@
         </view>
       </view>
 
+      
       <view class="tui-operation-right tui-right-flex tui-col-7 tui-btnbox-4" v-if="seckillStatus == 1 && storeInfo.num > 0 && storeInfo.stock > 0">
         <view class="tui-flex-1">
           <tui-button height="68rpx" :size="26" type="warning" shape="circle" @click="openAlone">单独购买</tui-button>
@@ -340,7 +341,15 @@ export default {
       let stock = productSelect.stock || 0
       let num = this.attr.productSelect
       if (changeValue) {
-        num.cart_num++
+        if (num) num.cart_num++
+        if (num.cart_num > this.storeInfo.num) {
+          num.cart_num = this.storeInfo.num
+          uni.showToast({
+            title: '限购' + this.storeInfo.num,
+            icon: 'none',
+            duration: 2000,
+          })
+        }
         if (num.cart_num > stock) {
           this.$set(this.attr.productSelect, 'cart_num', stock)
           this.$set(this, 'cartNum', stock)
