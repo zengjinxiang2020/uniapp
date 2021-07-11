@@ -46,6 +46,10 @@
       <PromotionGood v-if="item.type == 'promotionGood'" :benefit="benefit"></PromotionGood>
       <Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"> </Coupon-window>
     </view>
+	<!-- <view class="demo" style='height:100rpx'></view> -->
+	<!-- #ifndef APP-PLUS -->
+	<view class="bottomSpace" style='line-height:100rpx'>PC</view>
+	<!-- #endif -->
   </view>
 </template>
 <script>

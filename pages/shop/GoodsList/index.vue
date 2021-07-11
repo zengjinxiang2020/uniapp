@@ -173,7 +173,6 @@ export default {
       })
     },
     getProductList() {
-      var that = this
       this.setWhere()
       const { s = '', id = 0, title = '' } = this.$yroute.query
       if (s !== this.where.keyword || id !== this.where.sid) {
@@ -188,18 +187,18 @@ export default {
         this.stock = 0
         // this.getProductList();
       }
-      let q = that.where
+      let q = this.where
       let getData = this.isIntegral !== 'true' ? getProducts : getProductsIntegral
       getData(q).then(res => {
-        that.loading = false
-        if (that.target) {
-          that.productList = res.data
+        this.loading = false
+        if (this.target) {
+          this.productList = res.data
         } else {
-          that.productList.push.apply(that.productList, res.data)
+          this.productList.push.apply(this.productList, res.data)
         }
-        that.target = false
-        that.loadend = res.data.length < that.where.limit //判断所有数据是否加载完成；
-        that.where.page = that.where.page + 1
+        this.target = false
+        this.loadend = res.data.length < this.where.limit //判断所有数据是否加载完成；
+        this.where.page = this.where.page + 1
       })
     },
     submitForm: function() {

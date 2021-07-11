@@ -37,7 +37,7 @@
           </view>
           <view class="tui-countdown__box" v-if="item.status == 1 || item.status == 2">
             <text>距离{{ item.status == 1 ? '结束还剩' : '开始还有' }}</text>
-            <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="item.stop"></count-down>
+            <CountDown :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="item.stop"></CountDown>
           </view>
         </view>
       </block>
@@ -163,6 +163,7 @@ export default {
       that.status = false
       that.active = index
       that.datatime = that.timeList[that.active].stop
+	  console.log(new Date(that.datatime))
       this.seckillList = []
       that.getSeckillList()
     },

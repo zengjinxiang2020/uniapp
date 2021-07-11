@@ -272,22 +272,22 @@ export default {
         })
       }
     },
-    changeswitch: function(data) {
+    changeswitch(data) {
       this.switchActive = data
     },
-    MenuUser: function() {
-      let that = this
+	// 获取用户信息
+    MenuUser() {
       getMenuUser()
         .then(res => {
           uni.hideLoading()
-          that.MyMenus = res.data.routine_my_menus
+          this.MyMenus = res.data.routine_my_menus
         })
         .catch(error => {
           uni.hideLoading()
           console.log(error)
         })
     },
-    goPages: function(index) {
+    goPages(index) {
       let url = this.MyMenus[index].uniapp_url
       if (url === '/pages/user/promotion/UserPromotion/index' && this.userInfo.statu === 1) {
         if (!this.userInfo.isPromoter) {
@@ -322,7 +322,7 @@ export default {
         path: this.MyMenus[index].uniapp_url,
       })
     },
-    goPages2: function() {
+    goPages2() {
       this.$yrouter.push({
         path: '/pages/shop/GoodsList/index',
         query: {

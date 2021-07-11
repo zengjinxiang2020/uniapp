@@ -260,7 +260,7 @@ export default {
   },
   methods: {
     formatPrice(price, index) {
-      console.log(price)
+      // console.log(price)
       if (price) {
         return price.split('.')[index]
       }
@@ -283,15 +283,6 @@ export default {
           })
         },
       }
-    },
-    openAlone: function() {
-      this.$yrouter.push({
-        path: '/pages/shop/GoodsCon/index',
-        query: {
-          id: this.storeInfo.productId,
-        },
-      })
-      // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
     },
     //收藏商品
     setCollect: function() {
@@ -452,24 +443,41 @@ export default {
         this.$set(this, 'attrTxt', '请选择')
       }
     },
-
+	// 单独购买
+	openAlone: function() {
+	  this.$yrouter.push({
+	    path: '/pages/shop/GoodsCon/index',
+	    query: {
+	      id: this.storeInfo.productId,
+	    },
+	  })
+	  // this.$yrouter.replace({ path: "/detail/" + this.storeInfo.productId });
+	},
+	// 发起拼团
     openTeam: function() {
       var that = this
-      if (that.attr.cartAttr == false) {
+	  console.log(this.attr)
+      if (that.attr.cartAttr == false) { // 展示弹框
+	    console.log(this.attr.cartAttr)
         that.attr.cartAttr = !this.attr.cartAttr
-      } else {
+		// 设置拼团价格
+		that.attr.productSelect.price = this.storeInfo.price
+      } else { // 已有弹框——初始化商品信息，下单请求
         var data = {}
         data.productId = that.storeInfo.productId
+		data.price = that.storeInfo.price
         data.cartNum = that.attr.productSelect.cart_num
         data.uniqueId = that.attr.productSelect.unique
         data.combinationId = that.storeInfo.id
         data.new = 1
+		console.log(data)
         postCartAdd(data)
           .then(res => {
             that.$yrouter.push({
               path: '/pages/order/OrderSubmission/index',
               query: {
-                id: res.data.cartId,
+                // id: res.data.cartId,
+				pinkId: res.data.cartId,
               },
             })
           })

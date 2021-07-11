@@ -83,6 +83,7 @@ export default {
     return {};
   },
   mounted: function () {
+	  console.log(this.attr)
     console.log(this);
   },
   watch: {

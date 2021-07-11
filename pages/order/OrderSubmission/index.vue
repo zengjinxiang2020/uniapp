@@ -312,9 +312,9 @@ export default {
   },
   onLoad: function() {
     let that = this
-    console.log('loadddddddd')
     this.$store.dispatch('getUser', true)
     that.getCartInfo()
+
     console.log(that.$yroute)
     if (that.$yroute.query.pinkid !== undefined) {
       that.pinkId = that.$yroute.query.pinkid
@@ -355,6 +355,7 @@ export default {
       }
       this.useIntegral = e.mp.detail.value[0]
     },
+	// 计算商品价格
     computedPrice() {
       let shipping_type = this.shipping_type
       postOrderComputed(this.orderGroupInfo.orderKey, {
@@ -377,7 +378,11 @@ export default {
       })
     },
     getCartInfo() {
-      const cartIds = this.$yroute.query.id
+      let cartIds = this.$yroute.query.id
+	  // 拼团id
+	  if (this.$yroute.query.pinkId) {
+		 cartIds = this.$yroute.query.pinkId
+	  }
       if (!cartIds) {
         uni.showToast({
           title: '参数有误',
