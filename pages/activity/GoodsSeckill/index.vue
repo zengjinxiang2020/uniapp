@@ -3,6 +3,7 @@
     <view class="tui-bg__box">
       <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix" :style="{ opacity: opacity }"></image>
     </view>
+	
     <view class="tui-header__bg">
       <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix"></image>
       <scroll-view class="tui-time-slot" scroll-x>
@@ -212,7 +213,7 @@ export default {
   height: 210rpx;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 80rpx;
   z-index: 1;
 }
 
@@ -221,7 +222,7 @@ export default {
   height: 120rpx;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 80rpx;
   z-index: 3;
   overflow: hidden;
 }

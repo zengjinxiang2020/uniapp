@@ -164,7 +164,18 @@
     "h5" : {
         "title" : "yshop",
         "devServer" : {
-            "disableHostCheck" : true
+            "disableHostCheck" : true,
+			"proxy": {
+				"/h5api": {
+					// 需要被代理的后台地址
+					"target": "http://itxzz.top",
+					"changeOrigin": true,
+					"secure": false,
+					"pathRewrite": {
+						"^/h5api": "/api"
+					}
+			    }
+		    }
         },
         "router" : {
             "mode" : "history"
