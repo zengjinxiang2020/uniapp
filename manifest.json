@@ -135,7 +135,9 @@
     "mp-weixin" : {
         "appid" : "wx604d2ea4702620d2",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : true,
+            "postcss" : true,
+            "minified" : false
         },
         "usingComponents" : true,
         "permission" : {
@@ -165,17 +167,17 @@
         "title" : "yshop",
         "devServer" : {
             "disableHostCheck" : true,
-			"proxy": {
-				"/h5api": {
-					// 需要被代理的后台地址
-					"target": "http://itxzz.top",
-					"changeOrigin": true,
-					"secure": false,
-					"pathRewrite": {
-						"^/h5api": "/api"
-					}
-			    }
-		    }
+            "proxy" : {
+                "/h5api" : {
+                    // 需要被代理的后台地址
+                    "target" : "http://itxzz.51vip.biz/",
+                    "changeOrigin" : true,
+                    "secure" : false,
+                    "pathRewrite" : {
+                        "^/h5api" : "/api"
+                    }
+                }
+            }
         },
         "router" : {
             "mode" : "history"

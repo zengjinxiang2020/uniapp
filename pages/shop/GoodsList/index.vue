@@ -109,7 +109,7 @@ export default {
       nows: false,
       recommendLoading: false,
       target: false,
-      isIntegral: false,
+      isIntegral: false
     }
   },
   watch: {
@@ -193,10 +193,11 @@ export default {
         this.loading = false
         if (this.target) {
           this.productList = res.data
+		  this.target = false
         } else {
           this.productList.push.apply(this.productList, res.data)
         }
-        this.target = false
+		console.log(this.target)
         this.loadend = res.data.length < this.where.limit //判断所有数据是否加载完成；
         this.where.page = this.where.page + 1
       })
@@ -209,60 +210,78 @@ export default {
       this.getProductList()
     },
     //点击事件处理
-    set_where: function(index) {
-      let that = this
-      switch (index) {
-        case 0:
-          return that.$yrouter.push({
-            path: '/pages/shop/GoodsClass/index',
-          })
-        case 1:
-          if (that.price === 0) that.price = 1
-          else if (that.price === 1) that.price = 2
-          else if (that.price === 2) that.price = 0
-          that.stock = 0
-          break
-        case 2:
-          if (that.stock === 0) that.stock = 1
-          else if (that.stock === 1) that.stock = 2
-          else if (that.stock === 2) that.stock = 0
-          that.price = 0
-          break
-        case 3:
-          that.nows = !that.nows
-          break
-        default:
-          break
-      }
-      this.productList = []
-      that.$set(that, 'productList', [])
-      that.where.page = 1
-      that.target = true
-      that.loadend = false
-      that.getProductList()
+    set_where(index) {
+		this.productList = []
+		this.$set(this, 'productList', [])
+		this.where.page = 1
+		this.target = true
+		this.loadend = false
+		
+		switch (index) {
+			case 0:
+			  return this.$yrouter.push({
+				path: '/pages/shop/GoodsClass/index',
+			  })
+			case 1:
+			  if (this.price === 0) this.price = 1
+			  else if (this.price === 1) this.price = 2
+			  else if (this.price === 2) this.price = 0
+			  this.stock = 0
+			  break
+			case 2:
+			  if (this.stock === 0) this.stock = 1
+			  else if (this.stock === 1) this.stock = 2
+			  else if (this.stock === 2) this.stock = 0
+			  this.price = 0
+			  break
+			case 3:
+			  this.nows = !this.nows
+			  break
+			default:
+			  break
+		 }
+      // this.getProductList()
+	  this.setWhere()
+	  const { s = '', id = 0, title = '' } = this.$yroute.query
+	  if (s !== this.where.keyword || id !== this.where.sid) {
+	    this.loadend = false
+	    this.loading = false
+	    this.where.page = 1
+	    this.where.sid = id
+	    this.title = title && id ? title : ''
+	    this.nows = false
+	    this.$set(this, 'productList', [])
+	    this.price = 0
+	    this.stock = 0
+	    // this.getProductList();
+	  }
+	  let q = this.where
+	  let getData = this.isIntegral !== 'true' ? getProducts : getProductsIntegral
+	  getData(this.where).then(res => {
+	    this.loading = false
+		this.productList = res.data
+	  })
     },
     //设置where条件
-    setWhere: function() {
-      let that = this
-      if (that.price === 0) {
-        that.where.priceOrder = ''
-      } else if (that.price === 1) {
-        that.where.priceOrder = 'asc'
-      } else if (that.price === 2) {
-        that.where.priceOrder = 'desc'
+    setWhere() {
+      if (this.price === 0) {
+        this.where.priceOrder = ''
+      } else if (this.price === 1) {
+        this.where.priceOrder = 'asc'
+      } else if (this.price === 2) {
+        this.where.priceOrder = 'desc'
       }
-      if (that.stock === 0) {
-        that.where.salesOrder = ''
-      } else if (that.stock === 1) {
-        that.where.salesOrder = 'asc'
-      } else if (that.stock === 2) {
-        that.where.salesOrder = 'desc'
+      if (this.stock === 0) {
+        this.where.salesOrder = ''
+      } else if (this.stock === 1) {
+        this.where.salesOrder = 'asc'
+      } else if (this.stock === 2) {
+        this.where.salesOrder = 'desc'
       }
-      that.where.news = that.nows ? '1' : '0'
+      this.where.news = this.nows ? '1' : '0'
     },
-    switchTap: function() {
-      let that = this
-      that.Switch = !that.Switch
+    switchTap() {
+      this.Switch = !this.Switch
     },
   },
 }

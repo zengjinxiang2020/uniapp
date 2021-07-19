@@ -6,10 +6,12 @@
       <view class="force-login__content y-f">
         <open-data class="user-avatar" type="userAvatarUrl"></open-data>
         <open-data class="user-name" type="userNickName"></open-data>
-        <view class="login-notice">为了提供更优质的服务，需要获取您的头像昵称</view>
-        <button class="cu-btn author-btn" v-if="canIUseGetUserProfile" @tap="getUserInfoProfile">授权并查看</button>
-        <button class="cu-btn author-btn" v-else @getuserinfo="getUserInfo" open-type="getUserInfo">授权并查看</button>
-        <button class="cu-btn close-btn" @tap="back">暂不授权</button>
+        <view class="login-notice">为了提供更优质的服务，请先登录</view>
+		<button
+			class="cu-btn author-btn"
+			open-type="getPhoneNumber"
+			@getphonenumber="phoneLogin">微信手机号一键登录</button>
+        <button class="cu-btn close-btn" @tap="back">暂不登录</button>
       </view>
     </view>
     <!-- #endif -->
@@ -27,10 +29,11 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import { wxappAuth, getUser } from '@/api/user'
+import { wxappAuth, getUser, getUserInfo } from '@/api/user'
+import { login, authorize, getProvider } from '@/utils'
 import dayjs from 'dayjs'
 import cookie from '@/utils/store/cookie'
-import { login, authorize } from '@/utils'
+import store from '@/store'
 
 export default {
   data() {
@@ -43,11 +46,8 @@ export default {
     ...mapState(['isAuthorization', '$deviceType', 'token']),
   },
   onLoad() {
-    console.log(wx.getUserProfile)
     if (wx.getUserProfile) {
-      console.log(this)
       this.canIUseGetUserProfile = true
-      console.log(this.canIUseGetUserProfile)
     }
     // // 先校验用户是否授权，如果没有授权，显示授权按钮
   },
@@ -74,9 +74,9 @@ export default {
         query: {},
       })
     },
-    getUserInfo(data) {
+    getUserInfoBtn(data) {
       console.log(data)
-      console.log('getUserInfo')
+      console.log('getUserInfoBtn')
       if (data.detail.errMsg == 'getUserInfo:fail auth deny') {
         uni.showToast({
           title: '取消授权',
@@ -106,13 +106,14 @@ export default {
           })
         })
     },
+	// 申请获取用户信息
     getUserInfoProfile(data) {
       console.log('getUserInfoProfile')
       wx.getUserProfile({
         lang: 'zh_CN',
         desc: '需要获取您的信息用来展示',
         success: res => {
-          console.log(res)
+          console.log('用户信息',res)
           uni.showLoading({
             title: '登录中',
           })
@@ -134,10 +135,67 @@ export default {
         },
       })
     },
+	// 微信用户手机号登录
+	phoneLogin(e) {
+		console.log('用户微信手机号登录')
+		if (e.mp.detail.errMsg == 'getPhoneNumber:ok') {
+			console.log(e.mp.detail)
+			getProvider()
+			.then(provider => {
+				console.log('当前的环境商',provider)
+				if (!provider) {
+				  reject()
+				}
+				// uni登录
+				uni.login({
+					provider: provider,
+					success: async function(loginRes) {
+						console.log(loginRes)
+						let code = loginRes.code // 获取开发code
+						cookie.set('wxLoginCode', loginRes.code)
+						wxappAuth({
+						  encryptedData: e.mp.detail.encryptedData,
+						  iv: e.mp.detail.iv,
+						  code: code,
+						  spread: cookie.get('spread'),
+						})
+						.then( res => {
+						  console.log('登录成功,开始处理登录信息保存，并获取用户详情')
+						  uni.hideLoading()
+						  store.commit('login', res.data.token, dayjs(res.data.expires_time))
+						  store.dispatch('userInfo', true)
+						  getUserInfo()
+						    .then(user => {
+						      console.log('获取用户信息成功')
+						      uni.setStorageSync('uid', user.data.uid)
+						      store.dispatch('setUserInfo', user.data)
+							  this.$yrouter.reLaunch({
+							    path: cookie.get('redirect').replace(/\ /g, ''),
+							  })
+						    })
+						    .catch(error => {
+						      console.log('获取用户信息失败')
+						    })
+						})
+						.catch(error => {
+						  console.log(error)
+						  console.log('登录接口调用失败')
+						})
+					}
+				})
+			})
+			.catch(err => {})
+		} else {
+			uni.showToast({
+				title: '已拒绝授权',
+				icon: 'none',
+				duration: 2000,
+			})
+		}
+	},
   },
   mounted() {
     if (wx.getUserProfile) {
-      console.log(this)
       this.canIUseGetUserProfile = true
       console.log(this.canIUseGetUserProfile)
     }

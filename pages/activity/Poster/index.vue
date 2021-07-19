@@ -18,22 +18,21 @@
     name: "Poster",
     components: {},
     props: {},
-    data: function () {
+    data () {
       return {
         status: true,
         id: 0,
         image: ""
       };
     },
-    mounted: function () {
-      var that = this;
-      var id = that.$yroute.query.id;
-      var type = that.$yroute.query.type;
-      that.id = id;
+    mounted () {
+      var id = this.$yroute.query.id;
+      var type = this.$yroute.query.type;
+      this.id = id;
       if (type == 2) {
-        that.getBargainPoster();
+        this.getBargainPoster();
       } else {
-        that.getCombinationPoster();
+        this.getCombinationPoster();
       }
     },
     methods: {

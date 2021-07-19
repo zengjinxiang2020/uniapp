@@ -97,18 +97,17 @@ export default {
           })
         })
     },
-    getUseCoupons: function() {
-      let that = this
-      if (that.loading) return //阻止下次请求（false可以进行请求）；
-      if (that.loadend) return //阻止结束当前请求（false可以进行请求）；
-      that.loading = true
-      let q = { page: that.page, limit: that.limit }
+    getUseCoupons() {
+      if (this.loading) return //阻止下次请求（false可以进行请求）；
+      if (this.loadend) return //阻止结束当前请求（false可以进行请求）；
+      this.loading = true
+      let q = { page: this.page, limit: this.limit }
       getCoupon(q).then(res => {
-        that.loading = false
+        this.loading = false
         //apply();js将一个数组插入另一个数组;
-        that.couponsList.push.apply(that.couponsList, res.data)
-        that.loadend = res.data.length < that.limit //判断所有数据是否加载完成；
-        that.page = that.page + 1
+        this.couponsList.push.apply(this.couponsList, res.data)
+        this.loadend = res.data.length < this.limit //判断所有数据是否加载完成；
+        this.page = this.page + 1
       })
     },
   },

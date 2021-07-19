@@ -213,7 +213,10 @@ export default {
   height: 210rpx;
   position: fixed;
   left: 0;
+  top: 0;
+  /* #ifdef H5 */
   top: 80rpx;
+  /* #endif */
   z-index: 1;
 }
 
@@ -222,7 +225,10 @@ export default {
   height: 120rpx;
   position: fixed;
   left: 0;
+  top: 0;
+  /* #ifdef H5 */
   top: 80rpx;
+  /* #endif */
   z-index: 3;
   overflow: hidden;
 }

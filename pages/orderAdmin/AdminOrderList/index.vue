@@ -62,8 +62,12 @@
 			</view>
 		</view>
 		<Loading :loaded="loaded" :loading="loading"></Loading>
-		<PriceChange :change="change" :orderInfo="orderInfo" v-on:closechange="changeclose($event)" v-on:savePrice="savePrice"
-		 :status="status"></PriceChange>
+		<PriceChange
+		:change="change"
+		:orderInfo="orderInfo"
+		v-on:closechange="changeclose($event)"
+		v-on:savePrice="savePrice"
+		:status="status"></PriceChange>
 	</view>
 </template>
 <script>

@@ -403,6 +403,13 @@ export function wxappBindingPhone(data) {
   return request.post('wxapp/binding', data)
 }
 
+/** 
+ * 小程序上传用户头像
+ */
+export function wxappGetUserInfo (data) {
+	return request.post('/wxapp/loginAuth', data)
+}
+
 /*
  * h5切换公众号登陆
  * */

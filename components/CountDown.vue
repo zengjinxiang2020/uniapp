@@ -85,7 +85,6 @@ export default {
 	runTime() {
 		//时间函数
 		let intDiff = this.time - Date.parse(new Date()) / 1000 //获取数据中的时间戳的时间差
-		console.log(intDiff)
 		let day = 0,
 		hour = 0,
 		minute = 0,

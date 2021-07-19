@@ -72,37 +72,34 @@ export default {
     !this.loading && this.getProductReplyList();
   },
   methods: {
-    getProductReplyCount: function() {
-      let that = this;
-      getReplyConfig(that.product_id).then(res => {
-        that.$set(that, "replyData", res.data);
-        that.navList[0].num = res.data.sumCount;
-        that.navList[1].num = res.data.goodCount;
-        that.navList[2].num = res.data.inCount;
-        that.navList[3].num = res.data.poorCount;
+    getProductReplyCount () {
+      getReplyConfig(this.product_id).then(res => {
+        this.$set(that, "replyData", res.data);
+        this.navList[0].num = res.data.sumCount;
+        this.navList[1].num = res.data.goodCount;
+        this.navList[2].num = res.data.inCount;
+        this.navList[3].num = res.data.poorCount;
       });
     },
-    getProductReplyList: function() {
-      let that = this;
-      if (that.loading) return; //阻止下次请求（false可以进行请求）；
-      if (that.loadend) return; //阻止结束当前请求（false可以进行请求）；
-      that.loading = true;
-      let q = { page: that.page, limit: that.limit, type: that.currentActive };
-      getReplyList(that.product_id, q).then(res => {
-        that.loading = false;
+    getProductReplyList () {
+      if (this.loading) return; //阻止下次请求（false可以进行请求）；
+      if (this.loadend) return; //阻止结束当前请求（false可以进行请求）；
+      this.loading = true;
+      let q = { page: this.page, limit: this.limit, type: this.currentActive };
+      getReplyList(this.product_id, q).then(res => {
+        this.loading = false;
         //apply();js将一个数组插入另一个数组;
-        that.reply.push.apply(that.reply, res.data);
-        that.loadend = res.data.length < that.limit; //判断所有数据是否加载完成；
-        that.page = that.page + 1;
+        this.reply.push.apply(this.reply, res.data);
+        this.loadend = res.data.length < this.limit; //判断所有数据是否加载完成；
+        this.page = this.page + 1;
       });
     },
-    changeType: function(index) {
-      let that = this;
-      that.currentActive = index;
-      that.page = 1;
-      that.loadend = false;
-      that.$set(that, "reply", []);
-      that.getProductReplyList();
+    changeType (index) {
+      this.currentActive = index;
+      this.page = 1;
+      this.loadend = false;
+      this.$set(this, "reply", []);
+      this.getProductReplyList();
     }
   }
 };

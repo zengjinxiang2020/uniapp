@@ -20,6 +20,16 @@ import cookie from '@/utils/store/cookie'
 const fly = new Fly()
 fly.config.baseURL = VUE_APP_API_URL
 
+// 小程序请求域名
+// #ifdef MP-WEIXIN
+fly.config.baseURL = 'http://itxzz.51vip.biz/api'
+// #endif
+
+// #ifdef APP-PLUS
+// app端
+fly.config.baseURL = 'http://itxzz.51vip.biz/api'
+// #endif
+
 fly.interceptors.response.use(
   response => {
     // console.log(response)
@@ -27,9 +37,10 @@ fly.interceptors.response.use(
     return response
   },
   error => {
+	console.log(error)
     if (error.toString() == 'Error: Network Error') {
       console.log('————————')
-      console.log('发送请求失败', error)
+      console.log('请求失败', error)
       console.log('————————')
       handleLoginFailure()
       return Promise.reject({ msg: '未登录', toLogin: true })
@@ -123,9 +134,9 @@ const request = ['post', 'put', 'patch'].reduce((request, method) => {
     return baseRequest(Object.assign({ url, data, method }, defaultOpt, options))
   }
   return request
-}, {})
+}, {});
 
-;['get', 'delete', 'head'].forEach(method => {
+['get', 'delete', 'head'].forEach(method => {
   /**
    *
    * @param url string 接口地址

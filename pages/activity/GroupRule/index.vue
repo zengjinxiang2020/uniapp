@@ -7,11 +7,11 @@
         <view class="tui-price__box">
           <view class="tui-goods-price">
             <view class="tui-size-24">￥</view>
-            <view class="tui-price-large">{{ storeCombination.price.split('.')[0] }}</view>
-            <view class="tui-size-24">.{{ storeCombination.price.split('.')[1] }}</view>
+            <view class="tui-price-large">{{ storeCombination.price.split('.')[0] || 0 }}</view>
+            <view class="tui-size-24">.{{ storeCombination.price.split('.')[1] || 0 }}</view>
             <!-- <text>已拼2020件</text> -->
           </view>
-          <view class="tui-price-tag">{{ storeCombination.people }}人团</view>
+          <view class="tui-price-tag">{{ storeCombination.people || 0 }}人团</view>
         </view>
       </view>
     </view>
@@ -96,15 +96,14 @@ export default {
       }
     },
   },
-  mounted: function() {
-    var that = this
+  mounted() {
     let url = handleQrCode()
     if (url) {
-      that.pinkId = url.pinkId
+      this.pinkId = url.pinkId
     } else {
-      that.pinkId = that.$yroute.query.id
+      this.pinkId = this.$yroute.query.id
     }
-    that.getCombinationPink()
+    this.getCombinationPink()
   },
   methods: {
     pay: function() {

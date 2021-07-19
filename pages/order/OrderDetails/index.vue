@@ -4,7 +4,7 @@
     <view class="header bg-color-red acea-row row-middle" :class="refundOrder ? 'on' : ''">
       <view class="data" :class="refundOrder ? 'on' : ''">
         <view class="state">{{ orderInfo._status._msg }}</view>
-        <view>{{ orderInfo.createTime }}</view>
+        <view>{{ orderInfo.createTime ||  '' }}</view>
       </view>
     </view>
     <template v-if="!refundOrder">
@@ -24,14 +24,18 @@
                 : 'icon-yuandianxiao',
               status.type >= 0 ? 'font-color-red' : ''
             ]"></view>
-          <view class="line" :class="{ 'bg-color-red': status.type > 0 && status.type != 9 }"></view>
+          <view class="line" :class="{ 
+			  'bg-color-red': status.type > 0 && status.type != 9 
+		  }"></view>
           <view class="iconfont" :class="[
               status.type === 1 ? 'icon-webicon318' : 'icon-yuandianxiao',
               status.type >= 1 && status.type != 6 && status.type != 9
                 ? 'font-color-red'
                 : ''
             ]"></view>
-          <view class="line" :class="{'bg-color-red':status.type > 1 && status.type != 6 && status.type != 9}"
+          <view class="line" :class="{
+			  'bg-color-red':status.type > 1 && status.type != 6 && status.type != 9
+			}"
             v-if="orderInfo.shippingType === 1"></view>
           <view class="iconfont"
             :class="[status.type === 2 ? 'icon-webicon318' : 'icon-yuandianxiao',status.type >= 2 && status.type != 6 && status.type != 9? 'font-color-red': '']"
@@ -47,8 +51,7 @@
                 : ''
             ]"></view>
           <view class="line" :class="{
-              'bg-color-red':
-                status.type > 3 && status.type != 6 && status.type != 9
+              'bg-color-red': status.type > 3 && status.type != 6 && status.type != 9
             }"></view>
           <view class="iconfont" :class="[
               status.type == 4 ? 'icon-webicon318' : 'icon-yuandianxiao',
@@ -105,8 +108,9 @@
         <div class="name">
           {{ system_store.name}}
           <span class="phone">{{ system_store.phone }}</span>
-          <span @click="telPhone(system_store.phone)" class="iconfont icon-tonghua font-color-red"
-            :href="'tel:' + system_store.phone"></span>
+          <span @click="telPhone(system_store.phone)"
+			class="iconfont icon-tonghua font-color-red"
+			:href="'tel:' + system_store.phone"></span>
         </div>
         <div>{{ system_store.address }}</div>
       </div>
@@ -119,19 +123,19 @@
       <view class="item acea-row row-between">
         <view>订单编号：</view>
         <view class="conter acea-row row-middle row-right">
-          {{ orderInfo.orderId }}
-            <!-- #ifndef H5 -->
-          <text class="copy copy-data" @click="copyClipboard(orderInfo.orderId)">复制</text>
-          <!-- #endif -->
+          {{ orderInfo.orderId || '' }}
+          <!-- #ifndef H5 -->
+		  <text class="copy copy-data" @click="copyClipboard(orderInfo.orderId)">复制</text>
+		  <!-- #endif -->
         </view>
       </view>
       <view class="item acea-row row-between">
         <view>下单时间：</view>
-        <view class="conter">{{ orderInfo.createTime }}</view>
+        <view class="conter">{{ orderInfo.createTime || '' }}</view>
       </view>
       <view class="item acea-row row-between">
         <view>订单类型：</view>
-        <view class="conter">{{ orderTypeName }}</view>
+        <view class="conter">{{ orderTypeName || '' }}</view>
       </view>
       <view class="item acea-row row-between">
         <view>支付状态：</view>
@@ -139,11 +143,11 @@
       </view>
       <view class="item acea-row row-between">
         <view>支付方式：</view>
-        <view class="conter">{{ orderInfo._status._payType }}</view>
+        <view class="conter">{{ orderInfo._status._payType || '' }}</view>
       </view>
       <view class="item acea-row row-between" v-if="orderInfo.mark">
         <view>买家留言：</view>
-        <view class="conter">{{ orderInfo.mark }}</view>
+        <view class="conter">{{ orderInfo.mark || '' }}</view>
       </view>
     </view>
 
@@ -185,42 +189,42 @@
     <view class="wrapper" v-if="refundOrder">
       <view class="item acea-row row-between">
         <view>收货人：</view>
-        <view class="conter">{{ orderInfo.realName }}</view>
+        <view class="conter">{{ orderInfo.realName || '' }}</view>
       </view>
       <view class="item acea-row row-between">
         <view>联系电话：</view>
-        <view class="conter">{{ orderInfo.userPhone }}</view>
+        <view class="conter">{{ orderInfo.userPhone || '' }}</view>
       </view>
       <view class="item acea-row row-between">
         <view>收货地址：</view>
-        <view class="conter">{{ orderInfo.userAddress }}</view>
+        <view class="conter">{{ orderInfo.userAddress || '' }}</view>
       </view>
     </view>
     <view class="wrapper">
       <view class="item acea-row row-between" v-if="!isIntegral">
         <view>支付金额：</view>
-        <view class="conter">￥{{ orderInfo.totalPrice }}</view>
+        <view class="conter">￥{{ orderInfo.totalPrice || 0 }}</view>
       </view>
       <view class="item acea-row row-between" v-if="isIntegral">
         <view>支付积分：</view>
-        <view class="conter">{{ orderInfo.payIntegral }}积分</view>
+        <view class="conter">{{ orderInfo.payIntegral || 0 }}积分</view>
       </view>
       <view class="item acea-row row-between" v-if="orderInfo.couponPrice > 0">
         <view>优惠券抵扣：</view>
-        <view class="conter">-￥{{ orderInfo.couponPrice }}</view>
+        <view class="conter">-￥{{ orderInfo.couponPrice ||0 }}</view>
       </view>
       <view class="item acea-row row-between" v-if="orderInfo.useIntegral > 0">
         <view>积分抵扣：</view>
-        <view class="conter">-￥{{ orderInfo.deductionPrice }}</view>
+        <view class="conter">-￥{{ orderInfo.deductionPrice || 0 }}</view>
       </view>
       <view class="item acea-row row-between" v-if="orderInfo.payPostage > 0">
         <view>运费：</view>
-        <view class="conter">￥{{ orderInfo.payPostage }}</view>
+        <view class="conter">￥{{ orderInfo.payPostage || 0 }}</view>
       </view>
       <view class="actualPay acea-row row-right">
         实付款：
-        <text class="money font-color-red" v-if="!isIntegral">￥{{ orderInfo.payPrice }}</text>
-        <text class="money font-color-red" v-if="isIntegral">{{ orderInfo.payIntegral }}积分</text>
+        <text class="money font-color-red" v-if="!isIntegral">￥{{ orderInfo.payPrice || 0 }}</text>
+        <text class="money font-color-red" v-if="isIntegral">{{ orderInfo.payIntegral || 0 }}积分</text>
       </view>
     </view>
     <view style="height:100rpx;" v-if="!refundOrder && offlineStatus"></view>
@@ -494,7 +498,6 @@
       },
       async toPay(type) {
         var that = this;
-        console.log(type, "支付方式");
         await payOrderHandle(this.orderInfo.orderId, type, that.from);
         that.getDetail();
       },

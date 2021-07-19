@@ -39,7 +39,8 @@
       <view class="item acea-row row-between-wrapper">
         <view>手机号</view>
         <view class="input">
-          <input type="text" v-if="userInfo.phone" v-model="userInfo.phone" />
+			<!-- <input type="text" v-model="userInfo.phone" placeholder="未绑定"/> -->
+          <input type="text" v-if="userInfo.phone" v-model="userInfo.phone" placeholder="未绑定"/>
           <input type="text" v-else value="未绑定" disabled class="id" />
         </view>
       </view>
@@ -156,7 +157,6 @@ export default {
     },
     chooseImage() {
       chooseImage((img) => {
-        console.log(img);
         this.avatar = img;
       });
     },
