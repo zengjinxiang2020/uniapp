@@ -1,9 +1,12 @@
 <template>
   <view class="ChangePassword">
-    <view class="phone">
+    <!-- <view class="phone">
       当前手机号:
       <input type="text" v-model="phone" disabled />
-    </view>
+    </view> -->
+	<view class="title">
+		通过手机号来修改密码：
+	</view>
     <view class="list">
       <view class="item">
         <input type="password" placeholder="设置新密码" v-model="password" />
@@ -19,12 +22,7 @@
     <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
   </view>
 </template>
-<style scoped lang="less">
-.ChangePassword .phone input {
-  width: 2 * 100rpx;
-  text-align: center;
-}
-</style>
+
 <script>
 // import { mapGetters } from "vuex";
 import sendVerifyCode from '@/mixins/SendVerifyCode'
@@ -133,3 +131,14 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="less">
+.ChangePassword {
+	.list{
+		width: 100%;
+		padding: 0 10%;
+		background-color: #FFFFFF;
+		.code{}
+	}
+}
+</style>

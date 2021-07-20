@@ -354,7 +354,6 @@ export const handleGetUserInfo = () => {
     console.log('获取用户信息')
     store.dispatch('setUserInfo', res.data)
     console.log('获取用户信息后跳转回显的页面')
-
     let redirect = cookie.get('redirect').replace(/\ /g, '')
     if (redirect) {
       reLaunch({
