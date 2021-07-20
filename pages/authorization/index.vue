@@ -149,7 +149,7 @@ export default {
 				// uni登录
 				uni.login({
 					provider: provider,
-					success: async function(loginRes) {
+					success: async loginRes => {
 						console.log(loginRes)
 						let code = loginRes.code // 获取开发code
 						cookie.set('wxLoginCode', loginRes.code)

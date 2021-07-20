@@ -238,6 +238,7 @@
             });
           });
       },
+	  // 获取验证码
       async code() {
         var that = this;
         const {
