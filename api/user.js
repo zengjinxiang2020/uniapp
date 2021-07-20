@@ -63,7 +63,7 @@ export function register(data) {
  */
 export function registerReset(data) {
   return request.post('/register/reset', data, {
-    login: false,
+    login: true,
   })
 }
 

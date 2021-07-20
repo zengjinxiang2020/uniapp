@@ -9,7 +9,7 @@
       <view class="list" :hidden="current !== 0">
         <form @submit.prevent="submit">
           <view class="item getPhoneCode">
-            <view class="acea-row row-between-wrapper">
+            <view class="phoneInput acea-row row-between-wrapper">
               <input type="text" placeholder="输入手机号码"
 			  v-model="account" required/>
             </view>
@@ -34,7 +34,7 @@
         </view>
 		<view class="item">
 		  <view class="acea-row row-between-wrapper">
-		    <input type="text" placeholder="输入密码" v-model="password" />
+		    <input type="password" placeholder="输入密码" v-model="password" />
 		  </view>
 		</view>
         <!-- <view class="item">
@@ -134,8 +134,8 @@
     mixins: [sendVerifyCode],
     data: function () {
       return {
-        // navList: ["手机号登录", "密码登录"],
-		navList: ["手机号登录",],
+        navList: ["手机号登录", "密码登录"],
+		// navList: ["手机号登录",],
         current: 0,
         account: "",
         password: "",
@@ -145,7 +145,7 @@
         type: "login",
 		timer: null,
 		clock: 60,
-		clockText: '获取验证码'
+		clockText: '验证码'
       };
     },
     methods: {
@@ -174,25 +174,33 @@
 			} catch (e) {
 			  return validatorDefaultCatch(e);
 			}
-			loginMobile({
+			const res = await loginMobile({
 				account: that.account,
 				captcha: that.captcha,
 				spread: cookie.get("spread")
 			})
-			.then(res => {
-				var data = res.data;
-				that.$store.commit("login", data.token, dayjs(data.expires_time));
-				that.$store.dispatch('userInfo', true)
+			if (res.status === 200) {
+				this.$store.commit("login", res.data.token, dayjs(res.data.expires_time));
 				handleGetUserInfo();
-			})
-			.catch(err => {
-				console.log(err)
+			} else {
 				uni.showToast({
-				  title: err.msg || err.response.data.msg || err.response.data.message,
-				  icon: "none",
-				  duration: 2000
+					title: res.msg || res.response.data.msg || err.response.data.message,
+					icon: "none",
+					duration: 2000
 				});
-			});
+			}
+			// .then(res => {
+			// 	that.$store.commit("login", res.data.token, dayjs(res.data.expires_time));
+			// 	handleGetUserInfo();
+			// })
+			// .catch(err => {
+			// 	console.log(err)
+			// 	uni.showToast({
+			// 	  title: err.msg || err.response.data.msg || err.response.data.message,
+			// 	  icon: "none",
+			// 	  duration: 2000
+			// 	});
+			// });
 		},
 		async register() {
 			var that = this;
@@ -357,32 +365,21 @@
 			  return validatorDefaultCatch(e);
 			}
 			// 账号密码登录
-			login({
+			const res = await login({
 				username: account,
 				password,
 				spread: cookie.get("spread")
 			})
-			.then(({
-				data
-			}) => {
-				this.$store.commit("login", data.token, dayjs(data.expires_time));
+			if (res.status === 200) {
+				this.$store.commit("login", res.data.token, dayjs(res.data.expires_time));
 				handleGetUserInfo();
-				// let replace=this.$yroute.query.replace
-				// if(replace){
-
-				// }
-				// this.$yrouter.replace({
-				// 	path: this.$yroute.query.replace || '/pages/home/index'
-				// });
-			})
-			.catch(err => {
-				console.log(err);
+			} else {
 				uni.showToast({
-				  title: err.msg || err.response.data.msg || err.response.data.message,
-				  icon: "none",
-				  duration: 2000
+					title: res.msg || res.response.data.msg || err.response.data.message,
+					icon: "none",
+					duration: 2000
 				});
-			});
+			}
 		}
     }
   };
@@ -398,10 +395,16 @@
 .getPhoneCode{
 	display: flex;
 	justify-content: space-between;
+	.phoneInput{
+		width: 70%;
+	}
 	.phoneCode{
+		width: 30%;
+		text-align: center;
 		color: #FFFFFF;
 		background-color: #f35749;
 		padding: 12rpx;
+		font-size: 28rpx;
 		border-radius: 30rpx;
 	}
 }

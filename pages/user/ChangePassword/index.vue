@@ -16,7 +16,7 @@
       </view>
       <view class="item acea-row row-between-wrapper">
         <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
-        <button class="code font-color-red" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">{{ text }}</button>
+        <button class="code" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">{{ text }}</button>
       </view>
     </view>
     <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
@@ -82,13 +82,24 @@ export default {
         password: that.password,
       })
         .then(res => {
-          uni.showToast({
-            title: res.msg,
-            icon: 'none',
-            duration: 2000,
-          })
-
-          // that.$yrouter.push({ path: "/pages/user/Login/index" });
+			uni.showToast({
+				title: res.msg,
+				icon: 'none',
+				duration: 2000,
+			})
+			this.$yrouter.replace({
+			  path: "/pages/user/Login/index",
+			  query: {},
+			});
+			// getLogout()
+		 //    .then((res) => {
+		 //      this.$store.commit("logout");
+		 //      this.$yrouter.replace({
+		 //        path: "/pages/user/Login/index",
+		 //        query: {},
+		 //      });
+		 //    })
+		 //    .catch((err) => {});
         })
         .catch(res => {
           uni.showToast({
@@ -134,11 +145,24 @@ export default {
 
 <style scoped lang="less">
 .ChangePassword {
+	.title{
+		margin: 10rpx;
+		line-height: 80rpx;
+	}
 	.list{
 		width: 100%;
+		margin: 0;
 		padding: 0 10%;
 		background-color: #FFFFFF;
-		.code{}
+		.code{
+			width: 30%;
+			text-align: center;
+			color: #FFFFFF;
+			background-color: #f35749;
+			padding: 12rpx;
+			font-size: 28rpx;
+			border-radius: 30rpx;
+		}
 	}
 }
 </style>
