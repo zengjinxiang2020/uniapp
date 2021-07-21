@@ -131,7 +131,7 @@
         "setting" : {
             "urlCheck" : true,
             "postcss" : true,
-            "minified" : false
+            "minified" : true
         },
         "usingComponents" : true,
         "permission" : {

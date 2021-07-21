@@ -64,7 +64,7 @@
               <text class="iconfont icon-jiantou"></text>
             </text>
           </view>
-          <view class="orderState acea-row row-middle">
+          <view class="orderState acea-row row-middle" v-if="userInfo.orderStatusNum !== undefined || userInfo.orderStatusNum !== null">
             <view @click="goMyOrder(0)" class="item">
               <view class="pictrue">
                 <image :src="`${$VUE_APP_RESOURCES_URL}/images/dfk.png`" />
@@ -336,7 +336,7 @@ export default {
     },
 	// 获取用户信息
     MenuUser() {
-      getMenuUser()
+		getMenuUser()
         .then(res => {
           uni.hideLoading()
           this.MyMenus = res.data.routine_my_menus

@@ -1,10 +1,17 @@
 <template>
   <view class="poster-poster" v-if="status === false">
     <view class="tip">
-      <text class="iconfont icon-shuoming"></text>提示：长按图片保存至手机相册
+		<!-- #ifndef H5 -->
+		 <text class="iconfont icon-shuoming"></text>提示：长按图片保存至手机相册
+		 <!-- #endif -->
     </view>
     <view class="poster">
-		<image :src="image" mode="widthFix" @longtap="longtap" show-menu-by-longpress />
+		<!-- #ifndef APP-PLUS -->
+		<image :src="image" mode="widthFix" show-menu-by-longpress />
+		<!-- #endif -->
+		<!-- #ifdef APP-PLUS -->
+		<image :src="image" mode="widthFix" @longtap="longtap"/>
+		<!-- #endif -->
     </view>
   </view>
 </template>
@@ -22,7 +29,8 @@
       return {
         status: true,
         id: 0,
-        image: ""
+        image: "",
+		img: 'https://img-blog.csdnimg.cn/20190626120443986.png'
       };
     },
     mounted () {
@@ -84,8 +92,29 @@
 				});
 			  });
 		},
-		// 长按保存图片
-		longtap () {}
+		// app端长按保存
+		longtap () {
+			// 先下载图片
+			uni.downloadFile({
+				url: this.img,
+				success: (res) => {
+				  // 获取到图片本地地址后再保存图片到相册（因为此方法不支持远程地址）
+				  uni.saveImageToPhotosAlbum({
+					filePath: res.tempFilePath,
+					success: () => {
+					  uni.showToast({
+						title: "保存成功！",
+					  });
+					},
+					fail: () => {
+					  uni.showToast({
+						title: "保存失败",
+					  });
+					},
+				  });
+				},
+			});
+	    }
     }
   };
 </script>

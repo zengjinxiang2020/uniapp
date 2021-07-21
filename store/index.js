@@ -29,6 +29,7 @@ const vuexStore = new Vuex.Store({
   },
   mutations: {
     login(state, token, expires_time) {
+	  console.log('设置token')
       state.token = token
       cookie.set(loginKey, token, expires_time)
     },
