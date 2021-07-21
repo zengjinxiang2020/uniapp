@@ -4,7 +4,7 @@
       <text class="iconfont icon-shuoming"></text>提示：长按图片保存至手机相册
     </view>
     <view class="poster">
-      <image :src="image" mode="widthFix" show-menu-by-longpress />
+		<image :src="image" mode="widthFix" @longtap="longtap" show-menu-by-longpress />
     </view>
   </view>
 </template>
@@ -36,54 +36,56 @@
       }
     },
     methods: {
-      // 砍价海报
-      getBargainPoster: function () {
-        var that = this;
-        let from = this.$deviceType
-        if (from == 'weixin' || this.$deviceType == 'weixinh5') {
-          from = 'uniappH5'
-        }
-        getBargainPoster({
-            bargainId: that.id,
-            from
-          })
-          .then(res => {
-            that.image = res.data.url;
-            that.status = false;
-          })
-          .catch(res => {
-            uni.showToast({
-              title: res.msg,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      },
-      // 拼团海报
-      getCombinationPoster: function () {
-        var that = this;
-        console.log(this.$deviceType)
-        let from = this.$deviceType
-        if (from == 'weixin' || this.$deviceType == 'weixinh5') {
-          from = 'uniappH5'
-        }
-        console.log(from)
-        getCombinationPoster({
-            id: that.id,
-            from
-          })
-          .then(res => {
-            that.image = res.data.url;
-            that.status = false;
-          })
-          .catch(res => {
-            uni.showToast({
-              title: res.msg,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      }
+		// 砍价海报
+		getBargainPoster: function () {
+			var that = this;
+			let from = this.$deviceType
+			if (from == 'weixin' || this.$deviceType == 'weixinh5') {
+			  from = 'uniappH5'
+			}
+			getBargainPoster({
+				bargainId: that.id,
+				from
+			})
+			.then(res => {
+				that.image = res.data.url;
+				that.status = false;
+			})
+			.catch(res => {
+				uni.showToast({
+				  title: res.msg,
+				  icon: "none",
+				  duration: 2000
+				});
+			});
+		},
+		// 拼团海报
+		getCombinationPoster: function () {
+			var that = this;
+			console.log(this.$deviceType)
+			let from = this.$deviceType
+			if (from == 'weixin' || this.$deviceType == 'weixinh5') {
+			  from = 'uniappH5'
+			}
+			console.log(from)
+			getCombinationPoster({
+				id: that.id,
+				from
+			  })
+			  .then(res => {
+				that.image = res.data.url;
+				that.status = false;
+			  })
+			  .catch(res => {
+				uni.showToast({
+				  title: res.msg,
+				  icon: "none",
+				  duration: 2000
+				});
+			  });
+		},
+		// 长按保存图片
+		longtap () {}
     }
   };
 </script>
