@@ -69,7 +69,8 @@ export default {
     },
     goOrderDetails(order) {
       this.$yrouter.push({
-        path: "/pages/order/OrderDetails/index",
+        // path: "/pages/order/OrderReturnDetail/index",
+		path: "/pages/order/OrderDetails/index",
         query: { id: order.orderId }
       });
     },

@@ -297,6 +297,12 @@
         "navigationBarTitleText": "订单详情"
       }
     },
+	{
+		"path" : "pages/order/OrderReturnDetail/index",
+		"style": {
+			"navigationBarTitleText": "售后详情"
+		}
+	},
     {
       "path": "pages/order/OrderSubmission/index",
       "style": {
@@ -423,7 +429,7 @@
         "navigationBarTitleText": "直播列表"
       }
     }
-  ],
+    ],
   "easycom": {
     "autoscan": true,
     "custom": {
