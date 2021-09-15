@@ -314,7 +314,6 @@ export default {
 								iv: res.iv,
 								code: loginRes.code, // 开发code
 							}).then(res => {
-								console.log(res === 200)
 								if (res.status === 200) {
 									this.userInfo.avatar = res.data.avatar
 									this.userInfo.nickname = res.data.nickname

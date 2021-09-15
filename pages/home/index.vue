@@ -315,43 +315,44 @@ export default {
     startQr: function() {
       uni.scanCode({
         success: res => {
-          let option = handleUrlParam(res.result)
-          switch (option.pageType) {
-            case 'good':
-              // 跳转商品详情
-              this.$yrouter.push({
-                path: '/pages/shop/GoodsCon/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            case 'group':
-              // 跳转团购
-              this.$yrouter.push({
-                path: '/pages/activity/GroupRule/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            case 'dargain':
-              // 跳转砍价
-              this.$yrouter.push({
-                path: '/pages/activity/DargainDetails/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            default:
-              // 跳转分销
-              this.$yrouter.push({
-                path: '/pages/Loading/index',
-                query: {},
-              })
-              break
-          }
+			let option = handleUrlParam(res.result)
+			console.log(option)
+			switch (option.pageType) {
+				case 'good':
+				  // 跳转商品详情
+				  this.$yrouter.push({
+					path: '/pages/shop/GoodsCon/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				case 'group':
+				  // 跳转团购
+				  this.$yrouter.push({
+					path: '/pages/activity/GroupRule/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				case 'dargain':
+				  // 跳转砍价
+				  this.$yrouter.push({
+					path: '/pages/activity/DargainDetails/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				default:
+				  // 跳转分销
+				  this.$yrouter.push({
+					path: '/pages/Loading/index',
+					query: {},
+				  })
+				break
+			}
         },
       })
     },

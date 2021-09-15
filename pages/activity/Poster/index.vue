@@ -29,8 +29,7 @@
       return {
         status: true,
         id: 0,
-        image: "",
-		img: 'https://img-blog.csdnimg.cn/20190626120443986.png'
+        image: ""
       };
     },
     mounted () {

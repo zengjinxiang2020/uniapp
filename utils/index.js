@@ -524,7 +524,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
   // 是否可以访问
   let isAuth = false
-  console.log('即将跳转', location, parseUrl(location))
+  // console.log('即将跳转', location, parseUrl(location))
 
   // 从 location 中获取当前url，location typeof string || object
   let path = ''

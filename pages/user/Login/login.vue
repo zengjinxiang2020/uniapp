@@ -145,199 +145,196 @@
       };
     },
     methods: {
-      async loginMobile() {
-        var that = this;
-        const {
-          account,
-          captcha
-        } = that;
-        try {
-          await that
-            .$validator({
-              account: [
-                required(required.message("手机号码")),
-                chs_phone(chs_phone.message())
-              ],
-              captcha: [
-                required(required.message("验证码")),
-                alpha_num(alpha_num.message("验证码"))
-              ]
-            })
-            .validate({
-              account,
-              captcha
-            });
-        } catch (e) {
-          return validatorDefaultCatch(e);
-        }
-        loginMobile({
-            phone: that.account,
-            captcha: that.captcha,
-            spread: cookie.get("spread")
-          })
-          .then(res => {
-            var data = res.data;
-            that.$store.commit("login", data.token, dayjs(data.expires_time));
-            handleGetUserInfo();
-          })
-          .catch(err => {
-            uni.showToast({
-              title: err.msg || err.response.data.msg || err.response.data.message,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      },
-      async register() {
-        var that = this;
-        const {
-          account,
-          captcha,
-          password
-        } = that;
-        try {
-          await that
-            .$validator({
-              account: [
-                required(required.message("手机号码")),
-                chs_phone(chs_phone.message())
-              ],
-              captcha: [
-                required(required.message("验证码")),
-                alpha_num(alpha_num.message("验证码"))
-              ],
-              password: [
-                required(required.message("密码")),
-                attrs.range([6, 16], attrs.range.message("密码")),
-                alpha_num(alpha_num.message("密码"))
-              ]
-            })
-            .validate({
-              account,
-              captcha,
-              password
-            });
-        } catch (e) {
-          return validatorDefaultCatch(e);
-        }
-        register({
-            account: that.account,
-            captcha: that.captcha,
-            password: that.password,
-            inviteCode: that.inviteCode,
-            spread: cookie.get("spread")
-          })
-          .then(res => {
-            uni.showToast({
-              title: res.msg,
-              icon: "success",
-              duration: 2000
-            });
-            that.formItem = 1;
-          })
-          .catch(err => {
-            uni.showToast({
-              title: err.msg || err.response.data.msg || err.response.data.message,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      },
-      async code() {
-        var that = this;
-        const {
-          account
-        } = that;
-        try {
-          await that
-            .$validator({
-              account: [
-                required(required.message("手机号码")),
-                chs_phone(chs_phone.message())
-              ]
-            })
-            .validate({
-              account
-            });
-        } catch (e) {
-          return validatorDefaultCatch(e);
-        }
-        if (that.formItem == 2) that.type = "register";
-        await registerVerify({
-            phone: that.account,
-            type: that.type
-          })
-          .then(res => {
-            uni.showToast({
-              title: res.msg,
-              icon: "success",
-              duration: 2000
-            });
-            that.sendCode();
-          })
-          .catch(err => {
-            uni.showToast({
-              title: err.msg || err.response.data.msg || err.response.data.message,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      },
-      navTap: function (index) {
-        this.current = index;
-      },
-      async submit() {
-        const {
-          account,
-          password
-        } = this;
-        try {
-          await this.$validator({
-            account: [
-              required(required.message("账号")),
-              attrs.range([5, 16], attrs.range.message("账号")),
-              alpha_num(alpha_num.message("账号"))
-            ],
-            password: [
-              required(required.message("密码")),
-              attrs.range([6, 16], attrs.range.message("密码")),
-              alpha_num(alpha_num.message("密码"))
-            ]
-          }).validate({
-            account,
-            password
-          });
-        } catch (e) {
-          return validatorDefaultCatch(e);
-        }
+		async loginMobile() {
+			var that = this;
+			const {
+			  account,
+			  captcha
+			} = that;
+			try {
+			  await that
+				.$validator({
+				  account: [
+					required(required.message("手机号码")),
+					chs_phone(chs_phone.message())
+				  ],
+				  captcha: [
+					required(required.message("验证码")),
+					alpha_num(alpha_num.message("验证码"))
+				  ]
+				})
+				.validate({
+				  account,
+				  captcha
+				});
+			} catch (e) {
+			  return validatorDefaultCatch(e);
+			}
+			loginMobile({
+				phone: that.account,
+				captcha: that.captcha,
+				spread: cookie.get("spread")
+			  })
+			  .then(res => {
+				var data = res.data;
+				that.$store.commit("login", data.token, dayjs(data.expires_time));
+				handleGetUserInfo();
+			  })
+			  .catch(err => {
+				uni.showToast({
+				  title: err.msg || err.response.data.msg || err.response.data.message,
+				  icon: "none",
+				  duration: 2000
+				});
+			  });
+		},
+		async register() {
+			var that = this;
+			const {
+			  account,
+			  captcha,
+			  password
+			} = that;
+			try {
+			  await that
+				.$validator({
+				  account: [
+					required(required.message("手机号码")),
+					chs_phone(chs_phone.message())
+				  ],
+				  captcha: [
+					required(required.message("验证码")),
+					alpha_num(alpha_num.message("验证码"))
+				  ],
+				  password: [
+					required(required.message("密码")),
+					attrs.range([6, 16], attrs.range.message("密码")),
+					alpha_num(alpha_num.message("密码"))
+				  ]
+				})
+				.validate({
+				  account,
+				  captcha,
+				  password
+				});
+			} catch (e) {
+			  return validatorDefaultCatch(e);
+			}
+			register({
+				account: that.account,
+				captcha: that.captcha,
+				password: that.password,
+				inviteCode: that.inviteCode,
+				spread: cookie.get("spread")
+			  })
+			  .then(res => {
+				uni.showToast({
+				  title: res.msg,
+				  icon: "success",
+				  duration: 2000
+				});
+				that.formItem = 1;
+			  })
+			  .catch(err => {
+				uni.showToast({
+				  title: err.msg || err.response.data.msg || err.response.data.message,
+				  icon: "none",
+				  duration: 2000
+				});
+			  });
+		},
+		async code() {
+			var that = this;
+			const {
+			  account
+			} = that;
+			try {
+			  await that
+				.$validator({
+				  account: [
+					required(required.message("手机号码")),
+					chs_phone(chs_phone.message())
+				  ]
+				})
+				.validate({
+				  account
+				});
+			} catch (e) {
+			  return validatorDefaultCatch(e);
+			}
+			if (that.formItem == 2) that.type = "register";
+			await registerVerify({
+				phone: that.account,
+				type: that.type
+			  })
+			  .then(res => {
+				uni.showToast({
+				  title: res.msg,
+				  icon: "success",
+				  duration: 2000
+				});
+				that.sendCode();
+			  })
+			  .catch(err => {
+				uni.showToast({
+				  title: err.msg || err.response.data.msg || err.response.data.message,
+				  icon: "none",
+				  duration: 2000
+				});
+			  });
+		},
+		navTap: function (index) {
+			this.current = index;
+		},
+		async submit() {
+			const {
+			  account,
+			  password
+			} = this;
+			try {
+			  await this.$validator({
+				account: [
+				  required(required.message("账号")),
+				  attrs.range([5, 16], attrs.range.message("账号")),
+				  alpha_num(alpha_num.message("账号"))
+				],
+				password: [
+				  required(required.message("密码")),
+				  attrs.range([6, 16], attrs.range.message("密码")),
+				  alpha_num(alpha_num.message("密码"))
+				]
+			  }).validate({
+				account,
+				password
+			  });
+			} catch (e) {
+			  return validatorDefaultCatch(e);
+			}
+			login({
+				username: account,
+				password,
+				spread: cookie.get("spread")
+			})
+			.then(({ data }) => {
+				this.$store.commit("login", data.token, dayjs(data.expires_time));
+				handleGetUserInfo();
+				// let replace=this.$yroute.query.replace
+				// if(replace){
 
-        login({
-            username: account,
-            password,
-            spread: cookie.get("spread")
-          })
-          .then(({
-            data
-          }) => {
-            this.$store.commit("login", data.token, dayjs(data.expires_time));
-            handleGetUserInfo();
-            // let replace=this.$yroute.query.replace
-            // if(replace){
-
-            // }
-            // this.$yrouter.replace({
-            // 	path: this.$yroute.query.replace || '/pages/home/index'
-            // });
-          })
-          .catch(err => {
-            console.log(err);
-            uni.showToast({
-              title: err.msg || err.response.data.msg || err.response.data.message,
-              icon: "none",
-              duration: 2000
-            });
-          });
-      }
+				// }
+				// this.$yrouter.replace({
+				// 	path: this.$yroute.query.replace || '/pages/home/index'
+				// });
+			})
+			.catch(err => {
+				console.log(err);
+				uni.showToast({
+				  title: err.msg || err.response.data.msg || err.response.data.message,
+				  icon: "none",
+				  duration: 2000
+				});
+			});
+		}
     }
   };
 </script>

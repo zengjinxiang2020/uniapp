@@ -1,45 +1,75 @@
 <template>
 	<view class="apply-return">
-		<view class="goodsStyle acea-row row-between" v-for="cart in orderInfo.cartInfo" :key="cart.id">
-			<view class="pictrue">
-				<image :src="cart.productInfo.image" class="image" />
-			</view>
-			<view class="text acea-row row-between">
-				<view class="name line2">{{ cart.productInfo.storeName }}</view>
-				<view class="money">
-					<view>
-						￥{{
-            cart.productInfo.attrInfo
-            ? cart.productInfo.attrInfo.price
-            : cart.productInfo.price
-            }}
+		<!-- 售后提交 -->
+		<view class="container" v-if="selected">
+			<view class="goodsStyle acea-row row-between"
+				v-for="cart in orderInfo.cartInfo"
+				:key="cart.id"
+			>
+				<view class="pictrue">
+					<image :src="cart.productInfo.image" class="image" />
+				</view>
+				<view class="text acea-row row-between">
+					<view class="name line2">{{ cart.productInfo.storeName }}</view>
+					<view class="money">
+						<view>
+							￥{{
+				cart.productInfo.attrInfo
+				? cart.productInfo.attrInfo.price
+				: cart.productInfo.price
+				}}
+						</view>
+						<view class="num">x{{ cart.cartNum }}</view>
 					</view>
-					<view class="num">x{{ cart.cartNum }}</view>
 				</view>
 			</view>
-		</view>
-		<view class="list">
-			<view class="item acea-row row-between-wrapper">
-				<view>退货件数</view>
-				<view class="num">{{ orderInfo.totalNum }}</view>
-			</view>
-			<view class="item acea-row row-between-wrapper">
-				<view>退款金额</view>
-				<view class="num">￥{{ orderInfo.payPrice }}</view>
-			</view>
-			<picker :value="reason" :range="reasonList" @change="changeReason">
+			<view class="list">
 				<view class="item acea-row row-between-wrapper">
-					<view>退款原因</view>
-					<view class="num">{{reason}}</view>
-					<text class="iconfont icon-jiantou"></text>
+					<view>退货件数</view>
+					<view class="num">{{ orderInfo.totalNum }}</view>
 				</view>
-			</picker>
-			<view class="item textarea acea-row row-between">
-				<view>备注说明</view>
-				<textarea placeholder="填写备注信息，100字以内" class="num" v-model="refund_reason_wap_explain"></textarea>
+				<view class="item acea-row row-between-wrapper">
+					<view>退款金额</view>
+					<view class="num">￥{{ orderInfo.payPrice }}</view>
+				</view>
+				<picker :value="reason" :range="reasonList" @change="changeReason">
+					<view class="item acea-row row-between-wrapper">
+						<view>退款原因</view>
+						<view class="num">{{reason}}</view>
+						<text class="iconfont icon-jiantou"></text>
+					</view>
+				</picker>
+				<view class="item textarea acea-row row-between">
+					<view>备注说明</view>
+					<textarea placeholder="填写备注信息，100字以内" class="num" v-model="refund_reason_wap_explain"></textarea>
+				</view>
+			</view>
+			<view class="returnBnt bg-color-red" @click="submit">申请退款</view>
+		</view>
+		<!-- 选择商品 -->
+		<view class="selectProduct">
+			<view class="goodsStyle acea-row row-between"
+				v-for="cart in orderInfo.cartInfo"
+				:key="cart.id"
+			>
+				<view class="pictrue">
+					<image :src="cart.productInfo.image" class="image" />
+				</view>
+				<view class="text acea-row row-between">
+					<view class="name line2">{{ cart.productInfo.storeName }}</view>
+					<view class="money">
+						<view>
+							￥{{
+							cart.productInfo.attrInfo
+							? cart.productInfo.attrInfo.price
+							: cart.productInfo.price
+							}}
+						</view>
+						<view class="num">x{{ cart.cartNum }}</view>
+					</view>
+				</view>
 			</view>
 		</view>
-		<view class="returnBnt bg-color-red" @click="submit">申请退款</view>
 	</view>
 </template>
 
@@ -68,12 +98,19 @@
 					Authorization: "Bearer " + this.$store.state.token
 				},
 				id: 0,
+				selected: true,
 				orderInfo: {},
+				rebackList: [],
 				reasonList: [],
 				reason: "",
 				refund_reason_wap_explain: "",
 				refund_reason_wap_img: []
 			};
+		},
+		mounted() {
+			this.id = this.$yroute.query.id || 0;
+			this.getOrderDetail();
+			this.getRefundReason();
 		},
 		methods: {
 			changeReason(e) {
@@ -143,11 +180,6 @@
 						});
 					});
 			}
-		},
-		mounted() {
-			this.id = this.$yroute.query.id || 0;
-			this.getOrderDetail();
-			this.getRefundReason();
 		}
 	};
 </script>

@@ -239,12 +239,20 @@
       <!--  -->
       <template v-if="orderInfo.shippingType == 1 && status.type == 2">
         <view class="bnt default"
-          @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})">查看物流</view>
+          @click="$yrouter.push({
+			  path: '/pages/order/Logistics/index',
+			  query:{
+				  id:orderInfo.orderId
+			  }
+		  })"
+		>查看物流</view>
+		<view class="bnt default" @click="goGoodsReturn(orderInfo)">申请退款</view>
         <view class="bnt bg-color-red" @click="takeOrder">确认收货</view>
       </template>
       <template v-if="orderInfo.shippingType == 1 && status.type == 3 && orderInfo.deliveryType == 'express'">
         <view class="bnt default"
           @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})">查看物流</view>
+		  <view class="bnt default" @click="goGoodsReturn(orderInfo)">申请退款</view>
       </template>
       <template v-if="orderInfo.shippingType == 1 && status.type == 4">
         <view class="bnt cancel" @click="delOrder">删除订单</view>
@@ -256,10 +264,20 @@
         <view class="bnt bg-color-red" @click="goGroupRule(orderInfo)">查看拼团</view>
       </template>
     </view>
-    <Payment v-model="pay" :types="payType" @checked="toPay" :balance="userInfo.nowMoney"></Payment>
+    <Payment
+		v-model="pay"
+		:types="payType"
+		@checked="toPay"
+		:balance="userInfo.nowMoney"
+	></Payment>
     <view class="geoPage" v-if="mapShow">
-      <iframe width="100%" height="100%" frameborder="0" scrolling="no"
-        :src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' + system_store.latitude + ',' +system_store.longitude +'&referer=' +mapKey"></iframe>
+      <iframe
+		width="100%"
+		height="100%"
+		frameborder="0"
+		scrolling="no"
+		:src="'https://apis.map.qq.com/uri/v1/geocoder?coord=' + system_store.latitude + ',' +system_store.longitude +'&referer=' +mapKey"
+		></iframe>
     </view>
   </view>
 </template>
@@ -329,6 +347,7 @@
     },
     methods: {
       copyClipboard,
+	  // 申请退款
       goGoodsReturn(orderInfo) {
         this.$yrouter.push({
           path: "/pages/order/GoodsReturn/index",

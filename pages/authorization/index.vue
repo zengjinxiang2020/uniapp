@@ -11,6 +11,8 @@
 			class="cu-btn author-btn"
 			open-type="getPhoneNumber"
 			@getphonenumber="phoneLogin">微信手机号一键登录</button>
+		<!-- <button class="cu-btn author-btn" v-if="canIUseGetUserProfile" @tap="getUserInfoProfile">授权并查看</button>
+		<button class="cu-btn author-btn" v-else @getuserinfo="getUserInfoBtn" open-type="getUserInfo">授权并查看</button> -->
         <button class="cu-btn close-btn" @tap="back">暂不登录</button>
       </view>
     </view>
@@ -35,11 +37,14 @@ import dayjs from 'dayjs'
 import cookie from '@/utils/store/cookie'
 import store from '@/store'
 
+// 公众号登录
+import { auth } from '@/libs/wechat.js'
+
 export default {
   data() {
     return {
       authorize: false,
-      canIUseGetUserProfile: false,
+      canIUseGetUserProfile: false
     }
   },
   computed: {
