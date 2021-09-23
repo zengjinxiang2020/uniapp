@@ -154,6 +154,7 @@ export default {
 			serviceType: null,
 			// 选中售后商品
 			selectProduct: [],
+			productParamList: [],
 			totalNum: 0,
 			totalMoney: 0,
 			isAllSelect: false
@@ -237,7 +238,11 @@ export default {
 		chooseType (val) {
 			this.selectProduct = this.selectProduct.map(item => {
 				if (item.checked) {
-					this.totalMoney += parseFloat(item.costPrice)
+					this.productParamList.push({
+						productId: item.productId
+					})
+					console.log(item.costPrice)
+					this.totalMoney += parseFloat(item.truePrice)
 					this.totalNum += 1
 					return item
 				}
@@ -255,16 +260,13 @@ export default {
 				});
 				return
 			}
-			// this.listquery.productParamList.push({
-			// 	productId: item.productId
-			// })
 			submitAfterSealsOrder({
 				orderCode: this.orderInfo.orderId,
 				serviceType: this.serviceType,
 				reasonForApplication: this.reason,
 				applicationInstructions: refund_reason_wap_explain,
 				applicationDescriptionPicture: this.refund_reason_wap_img.join(","),
-				productParamList: []
+				productParamList: this.productParamList
 			}).then(res => {
 				if (res.status === 200) {
 					uni.showToast({

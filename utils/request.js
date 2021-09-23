@@ -22,12 +22,12 @@ fly.config.baseURL = VUE_APP_API_URL
 
 // 小程序测试请求域名
 // #ifdef MP-WEIXIN
-fly.config.baseURL = 'http://347i13244b.zicp.vip/api'
+fly.config.baseURL = 'http://29e25012l6.qicp.vip/api'
 // #endif
 
 // #ifdef APP-PLUS
 // app端
-fly.config.baseURL = 'http://347i13244b.zicp.vip/api'
+fly.config.baseURL = 'http://29e25012l6.qicp.vip/api'
 // #endif
 
 fly.interceptors.response.use(
