@@ -20,7 +20,7 @@ import cookie from '@/utils/store/cookie'
 const fly = new Fly()
 fly.config.baseURL = VUE_APP_API_URL
 
-// 小程序请求域名
+// 小程序测试请求域名
 // #ifdef MP-WEIXIN
 fly.config.baseURL = 'http://347i13244b.zicp.vip/api'
 // #endif

@@ -100,7 +100,10 @@
         <view class="name">
           {{ orderInfo.realName }}
           <text class="phone">{{ orderInfo.userPhone }}</text>
-          <text @click="telPhone(orderInfo.userPhone)" class="iconfont icon-tonghua font-color-red"></text>
+          <text
+			  @click="telPhone(orderInfo.userPhone)"
+			  class="iconfont icon-tonghua font-color-red"
+		  ></text>
         </view>
         <view>{{ orderInfo.userAddress }}</view>
       </view>
@@ -118,7 +121,11 @@
         <image :src="`${$VUE_APP_RESOURCES_URL}/images/line.jpg`" />
       </view>
     </template>
-    <OrderGoods :evaluate="status.type || 0" :isIntegral="isIntegral" :cartInfo="orderInfo.cartInfo || []"></OrderGoods>
+    <OrderGoods
+		:evaluate="status.type || 0"
+		:isIntegral="isIntegral"
+		:cartInfo="orderInfo.cartInfo || []"
+	></OrderGoods>
     <view class="wrapper">
       <view class="item acea-row row-between">
         <view>订单编号：</view>
@@ -233,8 +240,8 @@
         <view class="bnt cancel" @click="cancelOrder">取消订单</view>
         <view class="bnt bg-color-red" @click="pay = true">立即付款</view>
       </template>
-      <template v-if="status.type == 1">
-        <view class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请退款</view>
+      <template v-if="orderInfo.refundStatus === 0 && orderInfo.paid === 1">
+        <view class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请售后</view>
       </template>
       <!--  -->
       <template v-if="orderInfo.shippingType == 1 && status.type == 2">
