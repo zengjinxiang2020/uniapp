@@ -30,35 +30,35 @@ export function getAfterSalesDeatail(key) {
 
 // 查询订单
 export function getAfterSealsDetail (key, id) {
-  return request.get(`/api/store/detail/${key}/${id}`)
+  return request.get(`/store/detail/${key}/${id}`)
 }
 
 // 搜索
 export function searchAfterSealsDetail (key) {
-  return request.get(`/api/store/detail/${key}`)
+  return request.get(`/store/detail/${key}`)
 }
 
 // 撤销售后订单
 export function rebackAfterSeals (key, id) {
-  return request.get(`/api/revoke/revoke/${key}/${id}`)
+  return request.get(`/revoke/${key}/${id}`)
 }
 
 // 获取物流信息
 export function getExpressData () {
-  return request.get('/api/yxExpress')
+  return request.get('/yxExpress')
   
 }
 
 // 添加快递单号
 export function addExpressData (params) {
-  return request.post('/api/addLogisticsInformation', params, {
+  return request.post('/addLogisticsInformation?' + `code=${params.code}&name=${params.name}&postalCode=${params.postalCode}&orderCode=${params.orderCode}&`, '', {
 	  login: true
   })
 }
 
 // 删除售后订单
 export function deleteAfterSeals (params) {
-  return request.delete('/api/deleteAfterSalesOrder', params, {
+  return request.delete('/deleteAfterSalesOrder', params, {
 	  login: true
   })
 }

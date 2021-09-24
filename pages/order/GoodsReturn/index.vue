@@ -48,8 +48,14 @@
 					></textarea>
 				</view>
 			</view>
-			<view v-if="serviceType === 0" class="returnBnt bg-color-red" @click="submit">申请退款</view>
-			<view v-if="serviceType === 1" class="returnBnt bg-color-red" @click="submit">申请退货</view>
+			<view v-if="serviceType === 0"
+				class="returnBnt bg-color-red"
+				@click="submit"
+			>申请退款</view>
+			<view v-if="serviceType === 1"
+				class="returnBnt bg-color-red"
+				@click="submit"
+			>申请退货</view>
 		</view>
 		<!-- 选择商品 -->
 		<view class="selectProduct" v-else>

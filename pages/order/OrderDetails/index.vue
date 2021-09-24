@@ -253,13 +253,11 @@
 			  }
 		  })"
 		>查看物流</view>
-		<view class="bnt default" @click="goGoodsReturn(orderInfo)">申请退款</view>
         <view class="bnt bg-color-red" @click="takeOrder">确认收货</view>
       </template>
       <template v-if="orderInfo.shippingType == 1 && status.type == 3 && orderInfo.deliveryType == 'express'">
         <view class="bnt default"
           @click="$yrouter.push({ path: '/pages/order/Logistics/index' ,query:{id:orderInfo.orderId }})">查看物流</view>
-		  <view class="bnt default" @click="goGoodsReturn(orderInfo)">申请退款</view>
       </template>
       <template v-if="orderInfo.shippingType == 1 && status.type == 4">
         <view class="bnt cancel" @click="delOrder">删除订单</view>

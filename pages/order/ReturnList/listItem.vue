@@ -33,7 +33,18 @@
 		</view>
 		<view class="money">
 			<view class="status">
-				<view>审核中</view>
+				<view v-if="item.salesState === 0">
+					<view v-if="item.state === 0">商家处理中</view>
+					<view v-if="item.state === 1">售后中</view>
+					<view v-if="item.state === 2">等待商家收货</view>
+					<view v-if="item.state === 3">已完成</view>
+				</view>
+				<view v-if="item.salesState === 1">
+					已撤销
+				</view>
+				<view v-if="item.salesState === 2">
+					商家拒绝
+				</view>
 			</view>
 			<view class="refundMoney">
 				退款：<view class="red">
@@ -52,6 +63,9 @@
 </template>
 
 <script>
+import {
+	deleteAfterSeals
+} from '@/api/aftersales.js'
 export default {
 	props: {
 		item: {
@@ -69,9 +83,13 @@ export default {
 		},
 		// 跳转售后详情
 		toDetail (item) {
+			console.log(item)
 			this.$yrouter.push({
-			  path: "/pages/order/OrderReturnDetail/index",
-			  query: { id: item.orderId }
+				path: "/pages/order/OrderReturnDetail/index",
+				query: {
+					key: item.orderCode,
+					id: item.id
+				}
 			});
 		}
 	}

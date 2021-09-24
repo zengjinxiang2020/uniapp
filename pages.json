@@ -327,6 +327,12 @@
         "navigationBarTitleText": "我的售后"
       }
     },
+	{
+	  "path": "pages/order/submitExpress/index",
+	  "style": {
+	    "navigationBarTitleText": "售后物流填写"
+	  }
+	},
     {
       "path": "pages/orderAdmin/OrderIndex/index",
       "style": {
