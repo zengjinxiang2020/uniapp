@@ -80,7 +80,7 @@
 					v-if="orderDetail.salesState === 0"
 					@click="cancelReq"
 				>撤销申请</view>
-				<!-- <view class="btns redBtn" @click="editReq">修改申请</view>
+<!-- <view class="btns redBtn" @click="editReq">修改申请</view>-->
 			</view>
 		</view>
 		<!-- 退款信息 -->
