@@ -403,12 +403,12 @@ export function wxappBindingPhone(data) {
   return request.post('wxapp/binding', data)
 }
 
-/** 
- * 小程序上传用户头像
+/**
+ * 小程序授权
  */
 export function wxappGetUserInfo (data) {
-	// return request.post('/wxapp/loginAuth', data)
-	return request.get('/wechat/auth', data)
+	return request.post('/wxapp/loginAuth', data)
+	//return request.get('/wechat/auth', data)
 }
 
 /*
