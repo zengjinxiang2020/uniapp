@@ -166,7 +166,7 @@
     "devServer": {
       "disableHostCheck": true,
       "proxy": {
-        "/api": {
+        "^/api": {
           "target": "https://wxapi.yixiang.co",
           "changeOrigin": true,
           "secure": true,
