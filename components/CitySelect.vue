@@ -169,6 +169,7 @@ export default {
       }
       if (index == 1) {
         this.cityActive = null
+        this.districtActive = null
       }
       if (index == 2) {
         this.districtActive = null
