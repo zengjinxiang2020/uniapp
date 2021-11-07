@@ -60,9 +60,14 @@ function baseRequest(options) {
 
   // 合并传参过来的 headers
   // 如果接口需要登录，携带 token 去请求
+console.log(options)
 
   options.headers = {
     ...options.headers,
+	// hahah: 'Bearer2 ',
+  }
+  if(options.method=='post'){
+	  options.headers.hahah='Bearer2 '
   }
 
   if (options.login === true) {

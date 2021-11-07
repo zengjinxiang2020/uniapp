@@ -86,7 +86,6 @@ export default {
     const s = '',
       id = 0,
       title = ''
-
     return {
       hostProduct: [],
       productList: [],
@@ -127,8 +126,7 @@ export default {
         })
       }
     },
-    $yroute(to) {
-    },
+    $yroute(to) {},
   },
   mounted: function() {
     const { s = '', id = 0, title = '', isIntegral = false } = this.$yroute.query
@@ -143,8 +141,7 @@ export default {
     this.recommendLoading = true
     !this.loading && this.getProductList()
   },
-  onHide() {
-  },
+  onHide() {},
   methods: {
     changeRecommendLoading(recommendLoading) {
       this.recommendLoading = recommendLoading
@@ -173,6 +170,10 @@ export default {
       })
     },
     getProductList() {
+      if (this.loading) {
+        return
+      }
+      this.loading = true
       var that = this
       this.setWhere()
       const { s = '', id = 0, title = '' } = this.$yroute.query
@@ -211,26 +212,30 @@ export default {
     },
     //点击事件处理
     set_where: function(index) {
+      const { s = '', id = 0, title = '', isIntegral = false } = this.$yroute.query
+
       let that = this
       switch (index) {
         case 0:
-          return that.$yrouter.push({
-            path: '/pages/shop/GoodsClass/index',
-          })
+          this.where.keyword = ''
+          break
         case 1:
           if (that.price === 0) that.price = 1
           else if (that.price === 1) that.price = 2
           else if (that.price === 2) that.price = 0
           that.stock = 0
+          this.where.keyword = s
           break
         case 2:
           if (that.stock === 0) that.stock = 1
           else if (that.stock === 1) that.stock = 2
           else if (that.stock === 2) that.stock = 0
           that.price = 0
+          this.where.keyword = s
           break
         case 3:
           that.nows = !that.nows
+          this.where.keyword = s
           break
         default:
           break
