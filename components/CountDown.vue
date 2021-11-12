@@ -42,8 +42,9 @@ export default {
       default: true,
     },
   },
-  data: function() {
+  data() {
     return {
+	  timeInterval: null,
       time: this.datatime,
       day: '00',
       hour: '00',
@@ -51,7 +52,7 @@ export default {
       second: '00',
     }
   },
-  created: function() {
+  created() {
     this.show_time()
   },
   watch: {
@@ -61,10 +62,11 @@ export default {
       this.show_time()
     },
   },
-  mounted: function() {},
+  mounted() {
+  },
   methods: {
-    show_time: function() {
-      let that = this
+    show_time() {
+	console.log(this.datatime)
       if (this.time.toString().length == 13) {
         // 毫秒级
         console.log('毫秒')
@@ -77,41 +79,43 @@ export default {
         console.log('时间')
         this.time = Date.parse(this.time) / 1000
       }
-
-      function runTime() {
-        //时间函数
-        let intDiff = that.time - Date.parse(new Date()) / 1000 //获取数据中的时间戳的时间差；
-        let day = 0,
-          hour = 0,
-          minute = 0,
-          second = 0
-        if (intDiff > 0) {
-          //转换时间
-          if (that.isDay === true) {
-            day = Math.floor(intDiff / (60 * 60 * 24))
-          } else {
-            day = 0
-          }
-          hour = Math.floor(intDiff / (60 * 60)) - day * 24
-          minute = Math.floor(intDiff / 60) - day * 24 * 60 - hour * 60
-          second = Math.floor(intDiff) - day * 24 * 60 * 60 - hour * 60 * 60 - minute * 60
-          if (hour <= 9) hour = '0' + hour
-          if (minute <= 9) minute = '0' + minute
-          if (second <= 9) second = '0' + second
-          that.day = day
-          that.hour = hour
-          that.minute = minute
-          that.second = second
-        } else {
-          that.day = '00'
-          that.hour = '00'
-          that.minute = '00'
-          that.second = '00'
-        }
-      }
-      runTime()
-      this.timeInterval = setInterval(runTime, 1000)
+	  this.runTime()
+      this.timeInterval = setInterval(this.runTime, 1000)
     },
+	runTime() {
+		//时间函数
+		let intDiff = this.time - Date.parse(new Date()) / 1000 //获取数据中的时间戳的时间差
+		let day = 0,
+		hour = 0,
+		minute = 0,
+		second = 0
+		if (intDiff > 0) {
+		//转换时间
+		if (this.isDay === true) {
+		  day = Math.floor(intDiff / (60 * 60 * 24))
+		} else {
+		  day = 0
+		}
+		hour = Math.floor(intDiff / (60 * 60)) - day * 24
+		minute = Math.floor(intDiff / 60) - day * 24 * 60 - hour * 60
+		second = Math.floor(intDiff) - day * 24 * 60 * 60 - hour * 60 * 60 - minute * 60
+		if (hour <= 9) hour = '0' + hour
+		if (minute <= 9) minute = '0' + minute
+		if (second <= 9) second = '0' + second
+			this.day = day
+			this.hour = hour
+			this.minute = minute
+			this.second = second
+		} else {
+			this.day = '00'
+			this.hour = '00'
+			this.minute = '00'
+			this.second = '00'
+		}
+	}
   },
+  destroyed() {
+  	clearTimeout(this.timeInterval)
+  }
 }
 </script>

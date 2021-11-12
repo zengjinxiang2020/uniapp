@@ -38,8 +38,8 @@
             <text class="num" v-text="bargainHelpCount.remainingPrice"></text>
           </view>
           <view class="acea-row row-middle">
-            <view class="successNum" v-text="'原价' + goodsDetail.price"></view>
-            <view class="successNum" v-text="'已有' + bargainSumCount + '人砍价成功'"></view>
+            <view class="successNum" v-text="`原价:${goodsDetail.price || 0}`"></view>
+            <view class="successNum" v-text="`已有${bargainSumCount || 0}人砍价成功`"></view>
           </view>
         </view>
       </view>
@@ -51,9 +51,9 @@
 
       <!-- 砍价进度条下的金额 -->
       <view class="balance acea-row row-between-wrapper">
-        <view v-text="'已砍' + bargainHelpCount.alreadyPrice + '元'"></view>
+        <view v-text="`已砍${bargainHelpCount.alreadyPrice || 0}元`"></view>
         <view v-if="bargainHelpCount.price === 0">砍价成功</view>
-        <view v-else v-text="'还剩' + bargainHelpCount.price + '元'"></view>
+        <view v-else v-text="`还剩${bargainHelpCount.price || 0}元`"></view>
       </view>
 
       <!-- 砍价成功：-->

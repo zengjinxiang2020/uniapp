@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 // import MpvueRouterPatch from 'mpvue-router-patch'
 // Vue.use(MpvueRouterPatch)
-import { wxappAuth, getUserInfo } from '@/api/user'
+import { wxappAuth, getUserInfo, wxappBindingPhone } from '@/api/user'
 import store from '@/store'
 import dayjs from 'dayjs'
 import cookie from '@/utils/store/cookie'
@@ -164,7 +164,7 @@ export const getProvider = service => {
       },
     })
   }).catch(error => {
-    console.log(error)
+    console.log('167',error)
   })
 }
 
@@ -196,7 +196,7 @@ export const login = loginInfo => {
         auth(code)
           .then(() => {
             let redirect = cookie.get('redirect').replace(/\ /g, '')
-            console.log(redirect)
+            console.log('199',redirect)
             if (redirect) {
               redirect = redirect.split('/pages')[1]
               if (!redirect) {
@@ -286,9 +286,8 @@ export const login = loginInfo => {
                         reject('获取用户信息失败')
                       })
                   })
-                  .catch(error => {
+                  .catch(error => { // 登录接口调用失败
                     console.log(error)
-                    console.log('登录接口调用失败')
                     reject('登录接口调用失败')
                   })
               } else {
@@ -299,18 +298,17 @@ export const login = loginInfo => {
               uni.getUserInfo({
                 provider: provider,
                 success: function(user) {
-                  console.log(user)
                   console.log('获取用户信息成功')
                   console.log('开始调用登录接口')
                   wxappAuth({
+					// phone: user.phone
                     encryptedData: user.encryptedData,
                     iv: user.iv,
                     code: code,
                     spread: cookie.get('spread'),
                   })
                     .then(({ data }) => {
-                      console.log('登录接口调用成功')
-                      console.log('开始处理登录信息保存，并获取用户详情')
+                      console.log('登录成功,开始处理登录信息保存，并获取用户详情')
                       uni.hideLoading()
                       store.commit('login', data.token, dayjs(data.expires_time))
                       store.dispatch('userInfo', true)
@@ -356,7 +354,6 @@ export const handleGetUserInfo = () => {
     console.log('获取用户信息')
     store.dispatch('setUserInfo', res.data)
     console.log('获取用户信息后跳转回显的页面')
-
     let redirect = cookie.get('redirect').replace(/\ /g, '')
     if (redirect) {
       reLaunch({
@@ -527,7 +524,7 @@ export const handleLoginStatus = (location, complete, fail, success) => {
 
   // 是否可以访问
   let isAuth = false
-  console.log('即将跳转', location, parseUrl(location))
+  // console.log('即将跳转', location, parseUrl(location))
 
   // 从 location 中获取当前url，location typeof string || object
   let path = ''

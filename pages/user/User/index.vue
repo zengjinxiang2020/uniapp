@@ -1,7 +1,11 @@
 <template>
   <view class="user">
     <view v-if="$store.getters.token || userInfo.uid">
-      <view class="header bg-color-red acea-row row-between-wrapper">
+	<view class="getUserBaseData header bg-color-red acea-row row-between-wrapper" v-if="!userInfo.avatar && !userInfo.nickname">
+			<button class="userDataBtn" v-if="canIUseGetUserProfile" @tap="getUserInfoProfile">授权并查看用户信息</button>
+			<button class="userDataBtn" v-else @getuserinfo="getUserInfo" open-type="getUserInfo">授权并查看用户信息</button>
+	</view>
+	<view class="header bg-color-red acea-row row-between-wrapper" v-else>
         <view class="picTxt acea-row row-between-wrapper">
           <view class="pictrue">
             <image :src="userInfo.avatar" />
@@ -19,15 +23,15 @@
               <text class="iconfont icon-bianji1"></text>
             </view>
             <!-- #ifdef MP-WEIXIN -->
-            <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="binding" v-else>
+            <!-- <button open-type="getPhoneNumber" @getphonenumber="getPhoneNumber" class="binding" v-else>
               <text>绑定手机号</text>
-            </button>
+            </button> -->
             <!-- #endif -->
 
             <!-- #ifndef MP-WEIXIN -->
-            <button class="binding" @click="goBindPhone()" v-else>
+            <!-- <button class="binding" @click="goBindPhone()" v-else>
               <text>绑定手机号</text>
-            </button>
+            </button> -->
             <!-- #endif -->
           </view>
         </view>
@@ -60,7 +64,7 @@
               <text class="iconfont icon-jiantou"></text>
             </text>
           </view>
-          <view class="orderState acea-row row-middle">
+          <view class="orderState acea-row row-middle" v-if="userInfo.orderStatusNum !== undefined || userInfo.orderStatusNum !== null">
             <view @click="goMyOrder(0)" class="item">
               <view class="pictrue">
                 <image :src="`${$VUE_APP_RESOURCES_URL}/images/dfk.png`" />
@@ -128,11 +132,11 @@
 </template>
 <script>
 import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
-import { getUserInfo, getMenuUser, bindingPhone, wxappBindingPhone } from '@/api/user'
-import { isWeixin, VUE_APP_RESOURCES_URL } from '@/utils'
-import cookie from '@/utils/store/cookie'
+import { getUserInfo, getMenuUser, wxappAuth, bindingPhone, wxappBindingPhone, wxappGetUserInfo } from '@/api/user'
+import { isWeixin, VUE_APP_RESOURCES_URL, parseQuery, getProvider } from '@/utils'
 import SwitchWindow from '@/components/SwitchWindow'
 import Authorization from '@/pages/authorization/index'
+import cookie from '@/utils/store/cookie'
 
 const NAME = 'User'
 
@@ -145,14 +149,23 @@ export default {
   props: {},
   data: function() {
     return {
-      MyMenus: [],
-      switchActive: false,
-      isWeixin: false,
+		canIUseGetUserProfile: false,
+		MyMenus: [],
+		switchActive: false,
+		isWeixin: false,
     }
   },
   computed: mapGetters(['userInfo']),
+  onLoad() {
+    if (wx.getUserProfile) {
+      this.canIUseGetUserProfile = true
+    }
+  },
   methods: {
     ...mapMutations(['updateAuthorizationPage']),
+	toLogin() {
+	  this.$yrouter.push('/pages/user/Login/index')
+	},
     goReturnList() {
       this.$yrouter.push('/pages/order/ReturnList/index')
     },
@@ -165,9 +178,7 @@ export default {
       })
     },
     goBindPhone() {
-      this.$yrouter.push({
-        path: '/pages/user/BindingPhone/index',
-      })
+      this.$yrouter.push('/pages/user/BindingPhone/index')
     },
     goUserCoupon() {
       this.$yrouter.push('/pages/user/coupon/UserCoupon/index')
@@ -179,45 +190,41 @@ export default {
       this.$yrouter.push('/pages/user/promotion/UserPromotion/index')
     },
     goUserAccount() {
-      this.$yrouter.push({
-        path: '/pages/user/UserAccount/index',
-      })
+      this.$yrouter.push('/pages/user/UserAccount/index')
     },
     goPersonalData() {
       this.$yrouter.push('/pages/user/PersonalData/index')
     },
-    getPhoneNumber: function(e) {
-      let thit = this
-      console.log(e)
-      // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
-      if (e.mp.detail.errMsg == 'getPhoneNumber:ok') {
-        uni.showLoading({
-          title: '绑定中',
-        })
-        wxappBindingPhone({
-          encryptedData: e.mp.detail.encryptedData,
-          iv: e.mp.detail.iv,
-        })
-          .then(res => {
-            // this.User();
-            thit.$store.dispatch('userInfo', true)
-            uni.hideLoading()
-            uni.showToast({
-              title: res.msg,
-              icon: 'success',
-              duration: 2000,
-            })
-          })
-          .catch(error => {
-            uni.hideLoading()
-            thit.$store.dispatch('userInfo', true)
-            console.log(error)
-            uni.showToast({
-              title: error.msg || error.response.data.msg || error.response.data.message,
-              icon: 'none',
-              duration: 2000,
-            })
-          })
+    getPhoneNumber (e) {
+		// 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
+		if (e.mp.detail.errMsg == 'getPhoneNumber:ok') {
+			uni.showLoading({
+			  title: '绑定中',
+			})
+			wxappBindingPhone({
+			  encryptedData: e.mp.detail.encryptedData,
+			  iv: e.mp.detail.iv,
+			})
+			.then(res => {
+				// this.User();
+				this.$store.dispatch('userInfo', true)
+				uni.hideLoading()
+				uni.showToast({
+				  title: res.msg,
+				  icon: 'success',
+				  duration: 2000,
+				})
+			})
+			.catch(error => {
+				uni.hideLoading()
+				this.$store.dispatch('userInfo', true)
+				console.log(error)
+				uni.showToast({
+				  title: error.msg || error.response.data.msg || error.response.data.message,
+				  icon: 'none',
+				  duration: 2000,
+				})
+			})
         // // 获取当前环境的服务商
         // uni.getProvider({
         //   service: "oauth",
@@ -233,7 +240,7 @@ export default {
         //             })
         //             .then(res => {
         //               // this.User();
-        //               thit.$store.dispatch("userInfo", true);
+        //               this.$store.dispatch("userInfo", true);
         //               uni.hideLoading();
         //               uni.showToast({
         //                 title: res.msg,
@@ -243,7 +250,7 @@ export default {
         //             })
         //             .catch(error => {
         //               uni.hideLoading();
-        //               thit.$store.dispatch("userInfo", true);
+        //               this.$store.dispatch("userInfo", true);
         //               console.log(error);
         //               uni.showToast({
         //                 title: error.msg ||
@@ -264,30 +271,81 @@ export default {
         //     reject("获取环境服务商失败");
         //   }
         // });
-      } else {
+		} else {
+			uni.showToast({
+				title: '已拒绝授权',
+				icon: 'none',
+				duration: 2000,
+			})
+		}
+    },
+    // 获取用户授权，读取头像、昵称
+	getUserInfo(data) {
+      if (data.detail.errMsg == 'getUserInfo:fail auth deny') {
         uni.showToast({
-          title: '已拒绝授权',
+          title: '取消授权',
           icon: 'none',
           duration: 2000,
         })
+        return
       }
     },
-    changeswitch: function(data) {
+	// 申请获取用户信息
+	getUserInfoProfile(data) {
+		wx.getUserProfile({
+			lang: 'zh_CN',
+			desc: '需要获取您的信息用来展示',
+			success: res => {
+				uni.showLoading({
+					title: '正在更新信息...',
+					duration: 2000,
+				})
+				getProvider()
+				.then(provider => { // 环境提供商
+					if (!provider) {
+					  reject()
+					}
+					// 获取开发code
+					uni.login({
+						provider: provider,
+						success: async loginRes => {
+							wxappGetUserInfo({
+								encryptedData: res.encryptedData,
+								iv: res.iv,
+								code: loginRes.code, // 开发code
+							}).then(res => {
+								if (res.status === 200) {
+									this.userInfo.avatar = res.data.avatar
+									this.userInfo.nickname = res.data.nickname
+								} else {
+									uni.showLoading({
+										title: res.msg,
+										duration: 2000,
+									})
+								}
+							})
+						}
+					})
+				})
+			}
+		})
+	},
+	changeswitch(data) {
       this.switchActive = data
     },
-    MenuUser: function() {
-      let that = this
-      getMenuUser()
+	// 获取用户信息
+    MenuUser() {
+		getMenuUser()
         .then(res => {
           uni.hideLoading()
-          that.MyMenus = res.data.routine_my_menus
+          this.MyMenus = res.data.routine_my_menus
         })
         .catch(error => {
           uni.hideLoading()
           console.log(error)
         })
     },
-    goPages: function(index) {
+    goPages(index) {
       let url = this.MyMenus[index].uniapp_url
       if (url === '/pages/user/promotion/UserPromotion/index' && this.userInfo.statu === 1) {
         if (!this.userInfo.isPromoter) {
@@ -322,7 +380,7 @@ export default {
         path: this.MyMenus[index].uniapp_url,
       })
     },
-    goPages2: function() {
+    goPages2() {
       this.$yrouter.push({
         path: '/pages/shop/GoodsList/index',
         query: {
@@ -357,6 +415,19 @@ export default {
 </script>
 
 <style lang="less">
+.getUserBaseData{
+	.userDataBtn{
+		width: 80%;
+		height: 80rpx;
+		background: linear-gradient(to right, #f35447 0%, #ff8e3c 100%);
+		background: -moz-linear-gradient(to right, #f35447 0%, #ff8e3c 100%);
+		border-radius: 40rpx;
+		font-size: 30rpx;
+		font-family: PingFang SC;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 1);
+	}
+}
 .footer-line-height {
   height: 1 * 100rpx;
 }

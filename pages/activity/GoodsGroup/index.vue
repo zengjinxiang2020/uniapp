@@ -9,7 +9,8 @@
           </view>
           <view class="group-box">
             <view class="goods-item" v-for="(groupon, index) in grouponList" :key="groupon.id">
-              <activity-card :cid="groupon.id" :title="groupon.title" :info="groupon.info" :img="groupon.image" :price="groupon.price" :productPrice="groupon.productPrice">
+              <activity-card
+			  :cid="groupon.id" :title="groupon.title" :info="groupon.info" :img="groupon.image" :price="groupon.price" :productPrice="groupon.productPrice">
                 <block slot="tag">
                   <view class="tag" v-if="index < 3">TOP{{ index + 1 }}</view>
                 </block>
@@ -22,7 +23,9 @@
                     <text class="group-num">{{ groupon.people || 0 }}人团</text>
                   </view>
                 </block>
-                <block slot="btn"><button class="cu-btn buy-btn" @tap.stop="jump('/pages/activity/GroupDetails/index', { id: groupon.id })">马上拼</button></block>
+                <block slot="btn">
+					<button class="cu-btn buy-btn"
+				@tap.stop="jump('/pages/activity/GroupDetails/index', { id: groupon.id })">马上拼</button></block>
               </activity-card>
             </view>
           </view>

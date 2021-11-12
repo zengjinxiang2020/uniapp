@@ -3,6 +3,7 @@
     <view class="tui-bg__box">
       <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix" :style="{ opacity: opacity }"></image>
     </view>
+	
     <view class="tui-header__bg">
       <image :src="`${$VUE_APP_RESOURCES_URL}/images/bg_seckill.png`" class="tui-bg__img" mode="widthFix"></image>
       <scroll-view class="tui-time-slot" scroll-x>
@@ -37,7 +38,7 @@
           </view>
           <view class="tui-countdown__box" v-if="item.status == 1 || item.status == 2">
             <text>距离{{ item.status == 1 ? '结束还剩' : '开始还有' }}</text>
-            <count-down :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="item.stop"></count-down>
+            <CountDown :isDay="true" :tipText="'倒计时 '" :dayText="' 天 '" :hourText="' 时 '" :minuteText="' 分 '" :secondText="' 秒'" :datatime="item.stop"></CountDown>
           </view>
         </view>
       </block>
@@ -163,6 +164,7 @@ export default {
       that.status = false
       that.active = index
       that.datatime = that.timeList[that.active].stop
+	  console.log(new Date(that.datatime))
       this.seckillList = []
       that.getSeckillList()
     },
@@ -212,6 +214,9 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
+  /* #ifdef H5 */
+  top: 80rpx;
+  /* #endif */
   z-index: 1;
 }
 
@@ -221,6 +226,9 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
+  /* #ifdef H5 */
+  top: 80rpx;
+  /* #endif */
   z-index: 3;
   overflow: hidden;
 }

@@ -520,5 +520,9 @@
   }
   .shoppingCart{
 	  position: relative;
+	  .list{
+		  margin-top: 150rpx;
+		  padding-top: 15rpx;
+	  }
   }
 </style>

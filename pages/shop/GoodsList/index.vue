@@ -108,7 +108,7 @@ export default {
       nows: false,
       recommendLoading: false,
       target: false,
-      isIntegral: false,
+      isIntegral: false
     }
   },
   watch: {
@@ -189,18 +189,19 @@ export default {
         this.stock = 0
         // this.getProductList();
       }
-      let q = that.where
+      let q = this.where
       let getData = this.isIntegral !== 'true' ? getProducts : getProductsIntegral
       getData(q).then(res => {
-        that.loading = false
-        if (that.target) {
-          that.productList = res.data
+        this.loading = false
+        if (this.target) {
+          this.productList = res.data
+		  this.target = false
         } else {
-          that.productList.push.apply(that.productList, res.data)
+          this.productList.push.apply(this.productList, res.data)
         }
-        that.target = false
-        that.loadend = res.data.length < that.where.limit //判断所有数据是否加载完成；
-        that.where.page = that.where.page + 1
+		console.log(this.target)
+        this.loadend = res.data.length < this.where.limit //判断所有数据是否加载完成；
+        this.where.page = this.where.page + 1
       })
     },
     submitForm: function() {
@@ -248,27 +249,25 @@ export default {
       that.getProductList()
     },
     //设置where条件
-    setWhere: function() {
-      let that = this
-      if (that.price === 0) {
-        that.where.priceOrder = ''
-      } else if (that.price === 1) {
-        that.where.priceOrder = 'asc'
-      } else if (that.price === 2) {
-        that.where.priceOrder = 'desc'
+    setWhere() {
+      if (this.price === 0) {
+        this.where.priceOrder = ''
+      } else if (this.price === 1) {
+        this.where.priceOrder = 'asc'
+      } else if (this.price === 2) {
+        this.where.priceOrder = 'desc'
       }
-      if (that.stock === 0) {
-        that.where.salesOrder = ''
-      } else if (that.stock === 1) {
-        that.where.salesOrder = 'asc'
-      } else if (that.stock === 2) {
-        that.where.salesOrder = 'desc'
+      if (this.stock === 0) {
+        this.where.salesOrder = ''
+      } else if (this.stock === 1) {
+        this.where.salesOrder = 'asc'
+      } else if (this.stock === 2) {
+        this.where.salesOrder = 'desc'
       }
-      that.where.news = that.nows ? '1' : '0'
+      this.where.news = this.nows ? '1' : '0'
     },
-    switchTap: function() {
-      let that = this
-      that.Switch = !that.Switch
+    switchTap() {
+      this.Switch = !this.Switch
     },
   },
 }

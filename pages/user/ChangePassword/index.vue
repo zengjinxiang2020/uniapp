@@ -1,9 +1,12 @@
 <template>
   <view class="ChangePassword">
-    <view class="phone">
+    <!-- <view class="phone">
       当前手机号:
       <input type="text" v-model="phone" disabled />
-    </view>
+    </view> -->
+	<view class="title">
+		通过手机号来修改密码：
+	</view>
     <view class="list">
       <view class="item">
         <input type="password" placeholder="设置新密码" v-model="password" />
@@ -13,18 +16,13 @@
       </view>
       <view class="item acea-row row-between-wrapper">
         <input type="text" placeholder="填写验证码" class="codeIput" v-model="captcha" />
-        <button class="code font-color-red" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">{{ text }}</button>
+        <button class="code" :disabled="disabled" :class="disabled === true ? 'on' : ''" @click="code">{{ text }}</button>
       </view>
     </view>
     <view class="confirmBnt bg-color-red" @click="confirm">确认修改</view>
   </view>
 </template>
-<style scoped lang="less">
-.ChangePassword .phone input {
-  width: 2 * 100rpx;
-  text-align: center;
-}
-</style>
+
 <script>
 // import { mapGetters } from "vuex";
 import sendVerifyCode from '@/mixins/SendVerifyCode'
@@ -84,13 +82,24 @@ export default {
         password: that.password,
       })
         .then(res => {
-          uni.showToast({
-            title: res.msg,
-            icon: 'none',
-            duration: 2000,
-          })
-
-          // that.$yrouter.push({ path: "/pages/user/Login/index" });
+			uni.showToast({
+				title: res.msg,
+				icon: 'none',
+				duration: 2000,
+			})
+			this.$yrouter.replace({
+			  path: "/pages/user/Login/index",
+			  query: {},
+			});
+			// getLogout()
+		 //    .then((res) => {
+		 //      this.$store.commit("logout");
+		 //      this.$yrouter.replace({
+		 //        path: "/pages/user/Login/index",
+		 //        query: {},
+		 //      });
+		 //    })
+		 //    .catch((err) => {});
         })
         .catch(res => {
           uni.showToast({
@@ -133,3 +142,27 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="less">
+.ChangePassword {
+	.title{
+		margin: 10rpx;
+		line-height: 80rpx;
+	}
+	.list{
+		width: 100%;
+		margin: 0;
+		padding: 0 10%;
+		background-color: #FFFFFF;
+		.code{
+			width: 30%;
+			text-align: center;
+			color: #FFFFFF;
+			background-color: #f35749;
+			padding: 12rpx;
+			font-size: 28rpx;
+			border-radius: 30rpx;
+		}
+	}
+}
+</style>

@@ -63,7 +63,7 @@ export function register(data) {
  */
 export function registerReset(data) {
   return request.post('/register/reset', data, {
-    login: false,
+    login: true,
   })
 }
 
@@ -401,6 +401,14 @@ export function bindingPhone(data) {
  * */
 export function wxappBindingPhone(data) {
   return request.post('wxapp/binding', data)
+}
+
+/**
+ * 小程序授权
+ */
+export function wxappGetUserInfo (data) {
+	return request.post('/wxapp/loginAuth', data)
+	//return request.get('/wechat/auth', data)
 }
 
 /*

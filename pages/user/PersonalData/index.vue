@@ -1,49 +1,49 @@
 <template>
   <view class="personal-data">
     <view class="wrapper">
-      <view class="wrapList">
-        <view class="item acea-row row-between-wrapper on">
-          <view class="picTxt acea-row row-between-wrapper">
-            <view class="pictrue" @tap="chooseImage">
-              <div class="pictrue">
-                <img :src="avatar" />
-              </div>
-              <image :src="`${$VUE_APP_RESOURCES_URL}/images/alter.png`" class="alter" />
-            </view>
-            <view class="text">
-              <view class="name line1">{{ userInfo.nickname }}</view>
-              <view class="phone">
-                绑定手机号：
-                <text v-if="userInfo.phone">{{ userInfo.phone }}</text>
-                <text v-else>未绑定</text>
-              </view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </view>
-    <view class="list">
-      <view class="item acea-row row-between-wrapper">
-        <view>昵称</view>
-        <view class="input">
-          <input type="text" v-model="userInfo.nickname" />
-        </view>
-      </view>
-      <view class="item acea-row row-between-wrapper">
-        <view>ID号</view>
-        <view class="input acea-row row-between-wrapper">
-          <input type="text" :value="userInfo.uid" disabled class="id" />
-          <text class="iconfont icon-suozi"></text>
-        </view>
-      </view>
-      <view class="item acea-row row-between-wrapper">
-        <view>手机号</view>
-        <view class="input">
-          <input type="text" v-if="userInfo.phone" v-model="userInfo.phone" />
-          <input type="text" v-else value="未绑定" disabled class="id" />
-        </view>
-      </view>
-      <!-- 
+		<view class="wrapList">
+			<view class="item acea-row row-between-wrapper on">
+				<view class="picTxt acea-row row-between-wrapper">
+					<view class="pictrue" @tap="chooseImage">
+					  <div class="pictrue">
+						<img :src="avatar" />
+					  </div>
+					  <image :src="`${$VUE_APP_RESOURCES_URL}/images/alter.png`" class="alter" />
+					</view>
+					<view class="text">
+					  <view class="name line1">{{ userInfo.nickname }}</view>
+					  <view class="phone">
+						绑定手机号：
+						<text v-if="userInfo.phone">{{ userInfo.phone }}</text>
+						<text v-else>未绑定</text>
+					  </view>
+					</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="list">
+		<view class="item acea-row row-between-wrapper">
+			<view>昵称</view>
+			<view class="input">
+			  <input type="text" v-model="userInfo.nickname" />
+			</view>
+		</view>
+		<view class="item acea-row row-between-wrapper">
+			<view>ID号</view>
+			<view class="input acea-row row-between-wrapper">
+			  <input type="text" :value="userInfo.uid" disabled class="id" />
+			  <text class="iconfont icon-suozi"></text>
+			</view>
+		</view>
+		<view class="item acea-row row-between-wrapper">
+			<view>手机号</view>
+			<view class="input">
+				<!-- <input type="text" v-model="userInfo.phone" placeholder="未绑定"/> -->
+			  <input type="text" v-if="userInfo.phone" v-model="userInfo.phone" placeholder="未绑定"/>
+			  <input type="text" v-else value="未绑定" disabled class="id" />
+			</view>
+		</view>
         <view class="item acea-row row-between-wrapper" @click="goChangePassword()">
           <view>密码</view>
           <view class="input acea-row row-between-wrapper">
@@ -51,7 +51,6 @@
             <text class="iconfont icon-suozi"></text>
           </view>
         </view>
-      -->
     </view>
     <view class="modifyBnt bg-color-red" @click="submit">保存修改</view>
     <!-- #ifndef MP-WEIXIN -->
@@ -156,7 +155,6 @@ export default {
     },
     chooseImage() {
       chooseImage((img) => {
-        console.log(img);
         this.avatar = img;
       });
     },

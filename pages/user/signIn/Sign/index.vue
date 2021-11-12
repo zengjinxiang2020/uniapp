@@ -7,9 +7,9 @@
 						<image :src="userInfo.avatar" />
 					</view>
 					<view class="text">
-						<view class="line1">{{ userInfo.nickname }}</view>
+						<view class="line1">{{ userInfo.nickname || '' }}</view>
 						<view class="integral acea-row">
-							<text>积分: {{ userInfo.integral }}</text>
+							<text>积分: {{ userInfo.integral || 0 }}</text>
 						</view>
 					</view>
 				</view>

@@ -19,33 +19,53 @@
         </view>
         <!-- #endif -->
       </view>
-      <Banner v-if="item.type == 'banner'" :detail="item.componentContent.bannerData" @getbgcolor="getbgcolor"></Banner>
-      <uni-notice-bar v-if="item.type == 'noticeBar'" scrollable="true" @click="goRoll(item.componentContent.roll[0])" single="true" :speed="10" showIcon="true" :text="item.componentContent.roll[0].info"></uni-notice-bar>
-      <view class="content_box home_content_box" v-if="item.type == 'menu' && item.componentContent.menus">
+      <Banner v-if="item.type == 'banner'"
+	  :detail="item.componentContent.bannerData"
+	  @getbgcolor="getbgcolor"></Banner>
+      <uni-notice-bar
+	  v-if="item.type == 'noticeBar'"
+	  scrollable="true"
+	  @click="goRoll(item.componentContent.roll[0])"
+	  single="true" :speed="10"
+	  showIcon="true"
+	  :text="item.componentContent.roll[0].info"></uni-notice-bar>
+      <view class="content_box home_content_box"
+		v-if="item.type == 'menu' && item.componentContent.menus">
         <!-- 菜单 -->
         <Menu :list="item.componentContent.menus"></Menu>
       </view>
       <!-- 滚动新闻 -->
       <!-- 广告 -->
-      <Adv v-if="item.type == 'adv' && item.componentContent.detail" :detail="item.componentContent.detail" />
+      <Adv v-if="item.type == 'adv' && item.componentContent.detail"
+	  :detail="item.componentContent.detail" />
       <!-- 热门榜单 -->
-      <HotCommodity v-if="item.type == 'hotCommodity'" :detail="likeInfo"></HotCommodity>
+      <HotCommodity v-if="item.type == 'hotCommodity'"
+	  :detail="likeInfo" />
       <!-- 超值拼团 -->
       <Groupon v-if="item.type == 'groupon'" :detail="combinationList" />
       <!-- 首发新品->秒杀 -->
-      <FirstNewProduct v-if="item.type == 'firstNewProduct'" :detail="firstList"></FirstNewProduct>
+      <FirstNewProduct v-if="item.type == 'firstNewProduct'"
+	  :detail="firstList" />
       <!-- 精品推荐 -->
-      <ProductsRecommended v-if="item.type == 'productsRecommended'" :detail="bastList"></ProductsRecommended>
+      <ProductsRecommended v-if="item.type == 'productsRecommended'"
+	  :detail="bastList" />
       <!-- 促销单品 -->
-      <PromoteProduct v-if="item.type == 'promoteProduct'" :detail="benefit"></PromoteProduct>
+      <PromoteProduct v-if="item.type == 'promoteProduct'"
+	  :detail="benefit" />
       <!-- 直播 -->
       <!-- #ifdef MP-WEIXIN -->
-      <Live v-if="item.type == 'live'" :detail="live"></Live>
+      <Live v-if="item.type == 'live'" :detail="live" />
       <!-- #endif -->
       <!-- 为您推荐 -->
-      <PromotionGood v-if="item.type == 'promotionGood'" :benefit="benefit"></PromotionGood>
-      <Coupon-window :coupon-list="couponList" v-if="showCoupon" @checked="couponClose" @close="couponClose"> </Coupon-window>
+      <PromotionGood v-if="item.type == 'promotionGood'" :benefit="benefit" />
+      <Coupon-window
+	  :coupon-list="couponList"
+	  v-if="showCoupon"
+	  @checked="couponClose" @close="couponClose" />
     </view>
+	<!-- #ifdef H5 -->
+	<view class="bottomSpace" style='line-height:100rpx'>正在使用H5方式浏览</view>
+	<!-- #endif -->
   </view>
 </template>
 <script>
@@ -178,6 +198,7 @@ export default {
         observeParents: true,
       },
       bgImage: '',
+	  // indexTitle: false,
     }
   },
   computed: {
@@ -194,34 +215,40 @@ export default {
       return style
     },
   },
-  onLoad: function() {
+  onLoad() {
     this.getLocation()
-    let that = this
     // uni.showLoading({
     //   title: "加载中",
     // });
     getCanvas()
-      .then(res => {})
+      .then(res => {
+		  console.log('223',res)
+	  })
       .catch(error => {
+		if (!error) {
+		  return
+		}
         this.homeData = JSON.parse(error.data.json)
-        console.log(this.homeData)
-        console.log(222)
+		console.log('225',this.homeData)
       })
     getHomeData().then(res => {
-      that.logoUrl = res.data.logoUrl
-      res.data.banner.map(item => (item.bgcolor = item.color || ''))
-      that.$set(that, 'info', res.data.info)
-      that.$set(that, 'firstList', res.data.firstList)
-      that.$set(that, 'bastList', res.data.bastList)
-      that.$set(that, 'likeInfo', res.data.likeInfo)
-      that.$set(that, 'live', res.data.liveList)
-      that.$set(that, 'lovely', res.data.lovely)
-      that.$set(that, 'benefit', res.data.benefit)
-      that.$set(that, 'couponList', res.data.couponList)
-      that.$set(that, 'combinationList', res.data.combinationList)
+      this.logoUrl = res.data.logoUrl
+      res.data.banner.forEach(item => (item.bgcolor = item.color || ''))
+	  this.info = res.data.info
+	  console.log('239', res.data.info)
+	  console.log('239',this.info)
+      this.$set(this, 'info', res.data.info)
+      this.$set(this, 'firstList', res.data.firstList)
+      this.$set(this, 'bastList', res.data.bastList)
+      this.$set(this, 'likeInfo', res.data.likeInfo)
+      this.$set(this, 'live', res.data.liveList)
+      this.$set(this, 'lovely', res.data.lovely)
+      this.$set(this, 'benefit', res.data.benefit)
+      this.$set(this, 'couponList', res.data.couponList)
+      this.$set(this, 'combinationList', res.data.combinationList)
       uni.hideLoading()
-      that.setOpenShare()
-      // that.doColorThief()
+      this.setOpenShare()
+      // this.doColorThief()
     })
   },
   methods: {
@@ -288,43 +315,44 @@ export default {
     startQr: function() {
       uni.scanCode({
         success: res => {
-          let option = handleUrlParam(res.result)
-          switch (option.pageType) {
-            case 'good':
-              // 跳转商品详情
-              this.$yrouter.push({
-                path: '/pages/shop/GoodsCon/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            case 'group':
-              // 跳转团购
-              this.$yrouter.push({
-                path: '/pages/activity/GroupRule/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            case 'dargain':
-              // 跳转砍价
-              this.$yrouter.push({
-                path: '/pages/activity/DargainDetails/index',
-                query: {
-                  q: res.result,
-                },
-              })
-              break
-            default:
-              // 跳转分销
-              this.$yrouter.push({
-                path: '/pages/Loading/index',
-                query: {},
-              })
-              break
-          }
+			let option = handleUrlParam(res.result)
+			console.log(option)
+			switch (option.pageType) {
+				case 'good':
+				  // 跳转商品详情
+				  this.$yrouter.push({
+					path: '/pages/shop/GoodsCon/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				case 'group':
+				  // 跳转团购
+				  this.$yrouter.push({
+					path: '/pages/activity/GroupRule/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				case 'dargain':
+				  // 跳转砍价
+				  this.$yrouter.push({
+					path: '/pages/activity/DargainDetails/index',
+					query: {
+					  q: res.result,
+					},
+				  })
+				break
+				default:
+				  // 跳转分销
+				  this.$yrouter.push({
+					path: '/pages/Loading/index',
+					query: {},
+				  })
+				break
+			}
         },
       })
     },

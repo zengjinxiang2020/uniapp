@@ -25,7 +25,8 @@
       }
     },
     {
-      "path": "pages/user/RetrievePassword/index",
+      // "path": "pages/user/RetrievePassword/index",
+	  "path": "pages/user/ChangePassword/index",
       "style": {
         "navigationBarTitleText": "重置密码"
       }
@@ -296,6 +297,12 @@
         "navigationBarTitleText": "订单详情"
       }
     },
+	{
+		"path" : "pages/order/OrderReturnDetail/index",
+		"style": {
+			"navigationBarTitleText": "售后详情"
+		}
+	},
     {
       "path": "pages/order/OrderSubmission/index",
       "style": {
@@ -317,9 +324,15 @@
     {
       "path": "pages/order/ReturnList/index",
       "style": {
-        "navigationBarTitleText": "退货列表"
+        "navigationBarTitleText": "我的售后"
       }
     },
+	{
+	  "path": "pages/order/submitExpress/index",
+	  "style": {
+	    "navigationBarTitleText": "售后物流填写"
+	  }
+	},
     {
       "path": "pages/orderAdmin/OrderIndex/index",
       "style": {
@@ -422,7 +435,7 @@
         "navigationBarTitleText": "直播列表"
       }
     }
-  ],
+    ],
   "easycom": {
     "autoscan": true,
     "custom": {
