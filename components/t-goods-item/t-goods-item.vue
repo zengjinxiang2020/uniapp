@@ -25,7 +25,7 @@
           </tui-button> -->
           <view class="grab bg-color-red" v-if="timeList[active].status === 1 && item.stock > 0" @click="goDetail">马上抢</view>
           <view class="grab" v-if="timeList[active].status === 1 && item.stock <= 0">已售磬</view>
-          <view class="grab bg-color-red" v-if="timeList[active].status === 2">即将开始</view>
+          <view class="grab bg-color-red" v-if="timeList[active].status === 2" >即将开始</view>
           <view class="grab bg-color-red" v-if="timeList[active].status === 0" >已结束</view>
         </view>
       </view>
