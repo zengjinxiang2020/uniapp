@@ -77,9 +77,9 @@ console.log(options)
     ...options.headers,
 	// hahah: 'Bearer2 ',
   }
-  if(options.method=='post'){
-	  options.headers.hahah='Bearer2 '
-  }
+  // if(options.method=='post'){
+	//   options.headers.hahah='Bearer2 '
+  // }
 
   if (options.login === true) {
     options.headers = {
