@@ -313,14 +313,14 @@ export default {
 			}
 		},
 		// 申请获取用户信息
-		getUserInfoProfile(data) {
-			  if (isWeixin()) {
-			    let wechatInit = wechat()
-			    if (wechatInit) {
-			      await oAuth()
-			    }
-			  }
-		},
+		async getUserInfoProfile(data) {
+      if (isWeixin()) {
+        let wechatInit = wechat()
+        if (wechatInit) {
+          await oAuth()
+        }
+      }
+    },
 		changeswitch(data) {
 			this.switchActive = data
 		},
