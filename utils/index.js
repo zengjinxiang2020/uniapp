@@ -153,7 +153,7 @@ export const getProvider = service => {
     // 获取当前环境的服务商
     uni.getProvider({
       service: service || 'oauth',
-      success: function(res) {
+      success: function (res) {
         // 此处可以排除h5
         if (res.provider) {
           resolve(res.provider[0])
@@ -164,7 +164,7 @@ export const getProvider = service => {
       },
     })
   }).catch(error => {
-    console.log('167',error)
+    console.log('167', error)
   })
 }
 
@@ -196,7 +196,7 @@ export const login = loginInfo => {
         auth(code)
           .then(() => {
             let redirect = cookie.get('redirect').replace(/\ /g, '')
-            console.log('199',redirect)
+            console.log('199', redirect)
             if (redirect) {
               redirect = redirect.split('/pages')[1]
               if (!redirect) {
@@ -237,7 +237,7 @@ export const login = loginInfo => {
     console.log('————————————————————')
     console.log('获取环境商')
     getProvider()
-      .then(provider => {
+      .then(async provider => {
         console.log('当前的环境商')
         console.log(provider)
         if (!provider) {
@@ -245,9 +245,14 @@ export const login = loginInfo => {
         }
         // 调用登录接口
         console.log('调用登录接口')
+        let authorizeRes = await authorize('userInfo')
+        if (!wx.getUserProfile && !authorizeRes) {
+          reject('用户未授权')
+          return
+        }
         uni.login({
           provider: provider,
-          success: async function(loginRes) {
+          success: async function (loginRes) {
             console.log(loginRes)
             // 微信登录
             console.log('登录接口调用成功')
@@ -255,11 +260,6 @@ export const login = loginInfo => {
             let code = loginRes.code
             cookie.set('wxLoginCode', loginRes.code)
 
-            let authorizeRes = await authorize('userInfo')
-            if (!wx.getUserProfile && !authorizeRes) {
-              reject('用户未授权')
-              return
-            }
             if (wx.getUserProfile) {
               if (loginInfo) {
                 wxappAuth({
@@ -286,7 +286,8 @@ export const login = loginInfo => {
                         reject('获取用户信息失败')
                       })
                   })
-                  .catch(error => { // 登录接口调用失败
+                  .catch(error => {
+                    // 登录接口调用失败
                     console.log(error)
                     reject('登录接口调用失败')
                   })
@@ -297,11 +298,11 @@ export const login = loginInfo => {
             } else {
               uni.getUserInfo({
                 provider: provider,
-                success: function(user) {
+                success: function (user) {
                   console.log('获取用户信息成功')
                   console.log('开始调用登录接口')
                   wxappAuth({
-					// phone: user.phone
+                    // phone: user.phone
                     encryptedData: user.encryptedData,
                     iv: user.iv,
                     code: code,
@@ -723,8 +724,8 @@ export function go(delta) {
 export function back() {
   uni.navigateBack({
     delta: 1,
-    success: function(e) {},
-    fail: function(e) {},
+    success: function (e) {},
+    fail: function (e) {},
   })
 }
 
@@ -791,13 +792,13 @@ const getImageInfo = images => {
     images.map((item, index) => {
       uni.getImageInfo({
         src: item,
-        fail: function(res) {
+        fail: function (res) {
           imageAry[index] = null
           if (imageAry.length == images.length) {
             resolve(imageAry)
           }
         },
-        success: function(res) {
+        success: function (res) {
           imageAry[index] = res
           if (Object.keys(imageAry).length == images.length) {
             resolve(imageAry)
@@ -859,11 +860,11 @@ export const PosterCanvas = (store, successCallBack) => {
         fileType: 'png',
         destWidth: WIDTH,
         destHeight: HEIGHT,
-        success: function(res) {
+        success: function (res) {
           uni.hideLoading()
           successCallBack && successCallBack(res.tempFilePath)
         },
-        fail: function(error) {
+        fail: function (error) {
           console.log(error)
         },
       })

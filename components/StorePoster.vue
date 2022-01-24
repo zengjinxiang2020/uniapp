@@ -49,53 +49,67 @@ export default {
     posterData: Object,
     goodId: String,
   },
-  data: function() {
+  data: function () {
     return {
       canvasStatus: false,
       posterImage: '',
     }
   },
   watch: {
-    posterImageStatus: function() {
+    posterImageStatus: function () {
       var that = this
       if (that.posterImageStatus === true) {
-        that.$nextTick(function() {
+        that.$nextTick(function () {
           that.savePosterPath()
         })
       }
     },
   },
-  mounted: function() {},
+  mounted: function () {},
   methods: {
-    posterImageClose: function() {
+    posterImageClose: function () {
       this.posterImageStatus = false
       this.canvasStatus = false
       this.$emit('setPosterImageStatus')
     },
-    saveImg: function() {
+    saveImg: function () {
       this.downloadFile(this.posterImage)
     },
     downloadFile(url) {
-      uni.downloadFile({
-        url,
-        fail: function(res) {
-          console.log(res)
-
-          uni.showModal({
-            title: '提示',
-            content: '保存失败',
-          })
-        },
-        success: function(res) {
-          console.log(res)
-          uni.showModal({
-            title: '提示',
-            content: '保存成功',
+      uni.authorize({
+        scope: 'scope.writePhotosAlbum',
+        success() {
+          uni.downloadFile({
+            url,
+            fail: function (res) {
+              uni.showModal({
+                title: '提示',
+                content: '保存失败',
+              })
+            },
+            success: function (res) {
+              uni.saveImageToPhotosAlbum({
+                filePath: res.tempFilePath,
+                success: function () {
+                  uni.showModal({
+                    title: '提示',
+                    content: '保存成功',
+                  })
+                },
+                fail: function () {
+                  uni.showModal({
+                    title: '提示',
+                    content: '保存失败',
+                  })
+                },
+              })
+              console.log(res)
+            },
           })
         },
       })
     },
-    savePosterPath: function() {
+    savePosterPath: function () {
       const that = this
 
       uni.showLoading({
