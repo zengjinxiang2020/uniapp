@@ -1,8 +1,8 @@
 <template>
   <view class="user">
     <view v-if="$store.getters.token || userInfo.uid">
-      <view class="getUserBaseData header bg-color-red acea-row row-between-wrapper" v-if="$deviceType === 'routine' && !userInfo.avatar && !userInfo.nickname">
-        <button class="userDataBtn" v-if="weixin" @tap="getUserInfoProfile">授权并查看用户信息</button>
+      <view class="getUserBaseData header bg-color-red acea-row row-between-wrapper" v-if="!userInfo.avatar && !userInfo.nickname">
+        <button class="userDataBtn" v-if="canIUseGetUserProfile" @tap="getUserInfoProfile">授权并查看用户信息</button>
         <button class="userDataBtn" v-else @getuserinfo="getUserInfo" open-type="getUserInfo">授权并查看用户信息</button>
       </view>
       <view class="header bg-color-red acea-row row-between-wrapper" v-else>
@@ -131,277 +131,286 @@
   </view>
 </template>
 <script>
-import {
-	mapState,
-	mapGetters,
-	mapMutations,
-	mapActions
-} from 'vuex'
-import {
-	getUserInfo,
-	getMenuUser,
-	wxappAuth,
-	bindingPhone,
-	wxappBindingPhone,
-	wxappGetUserInfo
-} from '@/api/user'
-import {
-	isWeixin,
-	VUE_APP_RESOURCES_URL,
-	parseQuery,
-	getProvider
-} from '@/utils'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { getUserInfo, getMenuUser, wxappAuth, bindingPhone, wxappBindingPhone, wxappGetUserInfo } from '@/api/user'
+import { isWeixin, VUE_APP_RESOURCES_URL, parseQuery, getProvider } from '@/utils'
 import SwitchWindow from '@/components/SwitchWindow'
 import Authorization from '@/pages/authorization/index'
 import cookie from '@/utils/store/cookie'
 
-import { wechat, oAuth,  } from '@/libs/wechat'
-
 const NAME = 'User'
 
 export default {
-	name: NAME,
-	components: {
-		SwitchWindow,
-		Authorization,
-	},
-	props: {},
-	data: function() {
-		return {
-			weixin: false,
-			MyMenus: [],
-			switchActive: false,
-			isWeixin: false,
-		}
-	},
-	computed: {
-    ...mapGetters(['userInfo']),
-    ...mapState(['$deviceType'])
+  name: NAME,
+  components: {
+    SwitchWindow,
+    Authorization,
   },
-	onLoad() {
-		if (this.$deviceType==='weixin') {
-			this.weixin = true
-		}
-	},
-	methods: {
-		...mapMutations(['updateAuthorizationPage']),
-		toLogin() {
-			this.$yrouter.push('/pages/user/Login/index')
-		},
-		goReturnList() {
-			this.$yrouter.push('/pages/order/ReturnList/index')
-		},
-		goMyOrder(type) {
-			this.$yrouter.push({
-				path: '/pages/order/MyOrder/index',
-				query: {
-					type,
-				},
-			})
-		},
-		goBindPhone() {
-			this.$yrouter.push('/pages/user/BindingPhone/index')
-		},
-		goUserCoupon() {
-			this.$yrouter.push('/pages/user/coupon/UserCoupon/index')
-		},
-		goIntegral() {
-			this.$yrouter.push('/pages/user/signIn/Integral/index')
-		},
-		goUserPromotion() {
-			this.$yrouter.push('/pages/user/promotion/UserPromotion/index')
-		},
-		goUserAccount() {
-			this.$yrouter.push('/pages/user/UserAccount/index')
-		},
-		goPersonalData() {
-			this.$yrouter.push('/pages/user/PersonalData/index')
-		},
-		getPhoneNumber(e) {
-			// 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
-			if (e.mp.detail.errMsg == 'getPhoneNumber:ok') {
-				uni.showLoading({
-					title: '绑定中',
-				})
-				wxappBindingPhone({
-						encryptedData: e.mp.detail.encryptedData,
-						iv: e.mp.detail.iv,
-					})
-					.then(res => {
-						// this.User();
-						this.$store.dispatch('userInfo', true)
-						uni.hideLoading()
-						uni.showToast({
-							title: res.msg,
-							icon: 'success',
-							duration: 2000,
-						})
-					})
-					.catch(error => {
-						uni.hideLoading()
-						this.$store.dispatch('userInfo', true)
-						console.log(error)
-						uni.showToast({
-							title: error.msg || error.response.data.msg || error.response.data.message,
-							icon: 'none',
-							duration: 2000,
-						})
-					})
-				// // 获取当前环境的服务商
-				// uni.getProvider({
-				//   service: "oauth",
-				//   success: function (res) {
-				//     // 此处可以排除h5
-				//     if (res.provider) {
-				//       uni.login({
-				//         success: loginRes => {
-				//           bindingPhone({
-				//               code: loginRes.code,
-				//               encryptedData: e.mp.detail.encryptedData,
-				//               iv: e.mp.detail.iv
-				//             })
-				//             .then(res => {
-				//               // this.User();
-				//               this.$store.dispatch("userInfo", true);
-				//               uni.hideLoading();
-				//               uni.showToast({
-				//                 title: res.msg,
-				//                 icon: "success",
-				//                 duration: 2000
-				//               });
-				//             })
-				//             .catch(error => {
-				//               uni.hideLoading();
-				//               this.$store.dispatch("userInfo", true);
-				//               console.log(error);
-				//               uni.showToast({
-				//                 title: error.msg ||
-				//                   error.response.data.msg ||
-				//                   error.response.data.message,
-				//                 icon: "none",
-				//                 duration: 2000
-				//               });
-				//             });
-				//         },
-				//         fail() {
-				//           reject("绑定失败");
-				//         }
-				//       });
-				//     }
-				//   },
-				//   fail() {
-				//     reject("获取环境服务商失败");
-				//   }
-				// });
-			} else {
-				uni.showToast({
-					title: '已拒绝授权',
-					icon: 'none',
-					duration: 2000,
-				})
-			}
-		},
-		// 获取用户授权，读取头像、昵称
-		getUserInfo(data) {
-			if (data.detail.errMsg == 'getUserInfo:fail auth deny') {
-				uni.showToast({
-					title: '取消授权',
-					icon: 'none',
-					duration: 2000,
-				})
-				return
-			}
-		},
-		// 申请获取用户信息
-		async getUserInfoProfile(data) {
-      if (isWeixin()) {
-        let wechatInit = wechat()
-        if (wechatInit) {
-          await oAuth()
-        }
+  props: {},
+  data: function() {
+    return {
+      canIUseGetUserProfile: false,
+      MyMenus: [],
+      switchActive: false,
+      isWeixin: false,
+    }
+  },
+  computed: mapGetters(['userInfo']),
+  onLoad() {
+    if (wx.getUserProfile) {
+      this.canIUseGetUserProfile = true
+    }
+  },
+  methods: {
+    ...mapMutations(['updateAuthorizationPage']),
+    toLogin() {
+      this.$yrouter.push('/pages/user/Login/index')
+    },
+    goReturnList() {
+      this.$yrouter.push('/pages/order/ReturnList/index')
+    },
+    goMyOrder(type) {
+      this.$yrouter.push({
+        path: '/pages/order/MyOrder/index',
+        query: {
+          type,
+        },
+      })
+    },
+    goBindPhone() {
+      this.$yrouter.push('/pages/user/BindingPhone/index')
+    },
+    goUserCoupon() {
+      this.$yrouter.push('/pages/user/coupon/UserCoupon/index')
+    },
+    goIntegral() {
+      this.$yrouter.push('/pages/user/signIn/Integral/index')
+    },
+    goUserPromotion() {
+      this.$yrouter.push('/pages/user/promotion/UserPromotion/index')
+    },
+    goUserAccount() {
+      this.$yrouter.push('/pages/user/UserAccount/index')
+    },
+    goPersonalData() {
+      this.$yrouter.push('/pages/user/PersonalData/index')
+    },
+    getPhoneNumber(e) {
+      // 判断一下这里是不是小程序 如果是小程序，走获取微信手机号进行绑定
+      if (e.mp.detail.errMsg == 'getPhoneNumber:ok') {
+        uni.showLoading({
+          title: '绑定中',
+        })
+        wxappBindingPhone({
+          encryptedData: e.mp.detail.encryptedData,
+          iv: e.mp.detail.iv,
+        })
+          .then(res => {
+            // this.User();
+            this.$store.dispatch('userInfo', true)
+            uni.hideLoading()
+            uni.showToast({
+              title: res.msg,
+              icon: 'success',
+              duration: 2000,
+            })
+          })
+          .catch(error => {
+            uni.hideLoading()
+            this.$store.dispatch('userInfo', true)
+            console.log(error)
+            uni.showToast({
+              title: error.msg || error.response.data.msg || error.response.data.message,
+              icon: 'none',
+              duration: 2000,
+            })
+          })
+        // // 获取当前环境的服务商
+        // uni.getProvider({
+        //   service: "oauth",
+        //   success: function (res) {
+        //     // 此处可以排除h5
+        //     if (res.provider) {
+        //       uni.login({
+        //         success: loginRes => {
+        //           bindingPhone({
+        //               code: loginRes.code,
+        //               encryptedData: e.mp.detail.encryptedData,
+        //               iv: e.mp.detail.iv
+        //             })
+        //             .then(res => {
+        //               // this.User();
+        //               this.$store.dispatch("userInfo", true);
+        //               uni.hideLoading();
+        //               uni.showToast({
+        //                 title: res.msg,
+        //                 icon: "success",
+        //                 duration: 2000
+        //               });
+        //             })
+        //             .catch(error => {
+        //               uni.hideLoading();
+        //               this.$store.dispatch("userInfo", true);
+        //               console.log(error);
+        //               uni.showToast({
+        //                 title: error.msg ||
+        //                   error.response.data.msg ||
+        //                   error.response.data.message,
+        //                 icon: "none",
+        //                 duration: 2000
+        //               });
+        //             });
+        //         },
+        //         fail() {
+        //           reject("绑定失败");
+        //         }
+        //       });
+        //     }
+        //   },
+        //   fail() {
+        //     reject("获取环境服务商失败");
+        //   }
+        // });
+      } else {
+        uni.showToast({
+          title: '已拒绝授权',
+          icon: 'none',
+          duration: 2000,
+        })
       }
     },
-		changeswitch(data) {
-			this.switchActive = data
-		},
-		// 获取用户信息
-		MenuUser() {
-			getMenuUser()
-				.then(res => {
-					uni.hideLoading()
-					this.MyMenus = res.data.routine_my_menus
-				})
-				.catch(error => {
-					uni.hideLoading()
-					console.log(error)
-				})
-		},
-		goPages(index) {
-			let url = this.MyMenus[index].uniapp_url
-			if (url === '/pages/user/promotion/UserPromotion/index' && this.userInfo.statu === 1) {
-				if (!this.userInfo.isPromoter) {
-					uni.showToast({
-						title: '您还没有推广权限！！',
-						icon: 'none',
-						duration: 2000,
-					})
-					return
-				}
-			}
+    // 获取用户授权，读取头像、昵称
+    getUserInfo(data) {
+      if (data.detail.errMsg == 'getUserInfo:fail auth deny') {
+        uni.showToast({
+          title: '取消授权',
+          icon: 'none',
+          duration: 2000,
+        })
+        return
+      }
+    },
+    // 申请获取用户信息
+    getUserInfoProfile(data) {
+      wx.getUserProfile({
+        lang: 'zh_CN',
+        desc: '需要获取您的信息用来展示',
+        success: res => {
+          uni.showLoading({
+            title: '正在更新信息...',
+            duration: 2000,
+          })
+          getProvider().then(provider => {
+            // 环境提供商
+            if (!provider) {
+              reject()
+            }
+            // 获取开发code
+            uni.login({
+              provider: provider,
+              success: async loginRes => {
+                wxappGetUserInfo({
+                  encryptedData: res.encryptedData,
+                  iv: res.iv,
+                  code: loginRes.code, // 开发code
+                }).then(res => {
+                  if (res.status === 200) {
+                    this.userInfo.avatar = res.data.avatar
+                    this.userInfo.nickname = res.data.nickname
+                  } else {
+                    uni.showLoading({
+                      title: res.msg,
+                      duration: 2000,
+                    })
+                  }
+                })
+              },
+            })
+          })
+        },
+      })
+    },
+    changeswitch(data) {
+      this.switchActive = data
+    },
+    // 获取用户信息
+    MenuUser() {
+      getMenuUser()
+        .then(res => {
+          uni.hideLoading()
+          this.MyMenus = res.data.routine_my_menus
+        })
+        .catch(error => {
+          uni.hideLoading()
+          console.log(error)
+        })
+    },
+    goPages(index) {
+      let url = this.MyMenus[index].uniapp_url
+      if (url === '/pages/user/promotion/UserPromotion/index' && this.userInfo.statu === 1) {
+        if (!this.userInfo.isPromoter) {
+          uni.showToast({
+            title: '您还没有推广权限！！',
+            icon: 'none',
+            duration: 2000,
+          })
+          return
+        }
+      }
 
-			if (url === '/pages/orderAdmin/OrderIndex/index' && !this.userInfo.adminid) {
-				uni.showToast({
-					title: '您还不是管理员！！',
-					icon: 'none',
-					duration: 2000,
-				})
-				return
-			}
-			console.log(this.userInfo)
-			if (url === '/pages/orderAdmin/OrderCancellation/index' && !this.userInfo.checkStatus) {
-				uni.showToast({
-					title: '您没有核销权限,请后台店员设置！！',
-					icon: 'none',
-					duration: 2000,
-				})
-				return
-			}
+      if (url === '/pages/orderAdmin/OrderIndex/index' && !this.userInfo.adminid) {
+        uni.showToast({
+          title: '您还不是管理员！！',
+          icon: 'none',
+          duration: 2000,
+        })
+        return
+      }
+      console.log(this.userInfo)
+      if (url === '/pages/orderAdmin/OrderCancellation/index' && !this.userInfo.checkStatus) {
+        uni.showToast({
+          title: '您没有核销权限,请后台店员设置！！',
+          icon: 'none',
+          duration: 2000,
+        })
+        return
+      }
 
-			this.$yrouter.push({
-				path: this.MyMenus[index].uniapp_url,
-			})
-		},
-		goPages2() {
-			this.$yrouter.push({
-				path: '/pages/shop/GoodsList/index',
-				query: {
-					// id: 0,
-					title: '积分商城',
-					isIntegral: true,
-				},
-			})
-		},
-	},
-	watch: {
-		userInfo() {
-			this.MenuUser()
-		},
-	},
-	onShow() {
-		if (this.$store.getters.token) {
-			//
-			uni.showLoading({
-				title: '加载中',
-			})
-			this.$store.dispatch('getUser', true)
-			this.MenuUser()
-			this.isWeixin = isWeixin()
-		}
-	},
-	onHide() {
-		console.log('离开用户中心')
-		this.updateAuthorizationPage(false)
-	},
+      this.$yrouter.push({
+        path: this.MyMenus[index].uniapp_url,
+      })
+    },
+    goPages2() {
+      this.$yrouter.push({
+        path: '/pages/shop/GoodsList/index',
+        query: {
+          // id: 0,
+          title: '积分商城',
+          isIntegral: true,
+        },
+      })
+    },
+  },
+  watch: {
+    userInfo() {
+      this.MenuUser()
+    },
+  },
+  onShow() {
+    if (this.$store.getters.token) {
+      //
+      uni.showLoading({
+        title: '加载中',
+      })
+      this.$store.dispatch('getUser', true)
+      this.MenuUser()
+      this.isWeixin = isWeixin()
+    }
+  },
+  onHide() {
+    console.log('离开用户中心')
+    this.updateAuthorizationPage(false)
+  },
 }
 </script>
 
@@ -419,7 +428,6 @@ export default {
     color: rgba(255, 255, 255, 1);
   }
 }
-
 .footer-line-height {
   height: 1 * 100rpx;
 }
