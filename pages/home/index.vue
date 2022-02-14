@@ -453,7 +453,7 @@ export default {
 }
 
 .home_content_box {
-  margin-top: -20rpx;
+  // margin-top: -20rpx;
 }
 
 .head_box {
@@ -462,5 +462,10 @@ export default {
 .nav-title {
   margin-left: 20rpx;
   line-height: 40px;
+}
+.index{
+.uni-noticebar{
+  margin-bottom:0;
+}
 }
 </style>

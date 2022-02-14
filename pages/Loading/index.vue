@@ -63,6 +63,11 @@ export default {
       let redirect = cookie.get('redirect').replace(/\ /g, '')
       cookie.remove('redirect')
       if (redirect && redirect.indexOf('/pages') != -1) {
+        uni.showToast({
+          title: '/pages' + redirect.split('/pages')[1],
+          icon: 'none',
+          duration: 2000,
+        })
         this.$yrouter.replace({
           path: '/pages' + redirect.split('/pages')[1],
         })
