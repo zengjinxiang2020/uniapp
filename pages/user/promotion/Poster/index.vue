@@ -23,7 +23,7 @@ export default {
     // swiperSlide
   },
   props: {},
-  data: function() {
+  data: function () {
     return {
       swiperPosters: {
         speed: 1000,
@@ -44,7 +44,7 @@ export default {
       activeIndex: 0,
     }
   },
-  mounted: function() {
+  mounted: function () {
     this.getIndex()
     let that = this
     // this.swiper.on("slideChange", function() {
@@ -57,7 +57,7 @@ export default {
     },
   },
   methods: {
-    getIndex: function() {
+    getIndex: function () {
       let that = this
       getSpreadImg({
         from: this.$deviceType == 'weixin' || this.$deviceType == 'weixinh5' ? 'uniappH5' : this.$deviceType,
@@ -79,64 +79,33 @@ export default {
       this.isDown = true
       var downloadUrl = imgsrc
 
-      // if (!wx.saveImageToPhotosAlbum) {
-      //   uni.showModal({
-      //     title: '提示',
-      //     content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。',
-      //   })
-      //   that.openDialogVisible = true
-
-      //   return
-      // }
-
       that.downloadFile(downloadUrl)
-
-      // 可以通过 uni.getSetting 先查询一下用户是否授权了 "scope.writePhotosAlbum" 这个 scope
-      // uni.getSetting({
-      //   success(res) {
-      //     if (!res.authSetting["scope.writePhotosAlbum"]) {
-      //       that.openDialogVisible = true;
-
-      //       // 接口调用询问
-      //       uni.authorize({
-      //         scope: "scope.writePhotosAlbum",
-      //         success() {
-      //           that.downloadFile(downloadUrl);
-      //         },
-      //         fail() {
-      //           // 用户拒绝了授权
-      //           // 打开设置页面
-      //           uni.openSetting({
-      //             success: function (data) {},
-      //             fail: function (data) {}
-      //           });
-      //         }
-      //       });
-      //     } else {
-      //       that.downloadFile(downloadUrl);
-      //     }
-      //   },
-      //   fail(res) {
-      //     that.openDialogVisible = true;
-      //   }
-      // });
     },
-    saveImg: function() {
+    saveImg: function () {
       this.downloadIamge(this.info[this.activeIndex].wap_poster, 'poster' + this.activeIndex)
     },
     downloadFile(url) {
       uni.downloadFile({
         url,
-        fail: function(res) {
+        fail: function (res) {
           uni.showModal({
             title: '提示',
             content: '保存失败',
           })
         },
-        success: function(res) {
-          uni.showModal({
-            title: '提示',
-            content: '保存成功',
+        success: function (res) {
+          uni.saveImageToPhotosAlbum({
+            filePath: res.tempFilePath,
+            success: () => {
+              uni.showToast({
+                title: '保存成功！',
+              })
+            },
+            fail: () => {
+              uni.showToast({
+                title: '保存失败',
+              })
+            },
           })
         },
       })
