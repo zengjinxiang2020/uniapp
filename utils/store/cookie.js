@@ -1,12 +1,10 @@
-import { trim, isType } from "@/utils";
+import { trim, isType } from '@/utils'
 
-const doc = null;
+const doc = null
+const CACHE_KEY = 'clear_0.0.1'
 // const doc = window.document;
 
 function get(key) {
-  if (!key || !_has(key)) {
-    return '';
-  }
   return uni.getStorageSync(key)
 }
 
@@ -16,29 +14,26 @@ function all() {
 
 function set(key, data, time) {
   if (!key) {
-    return;
+    return
   }
   uni.setStorageSync(key, data)
 }
 
 function remove(key) {
   if (!key || !_has(key)) {
-    return;
+    return
   }
   uni.removeStorageSync(key)
 }
 
 function clearAll() {
-  const res = uni.getStorageInfoSync();
-  res.keys.map((item) => {
-    if (item == 'redirect' || item == 'spread') {
+  const res = uni.getStorageInfoSync()
+  res.keys.map(item => {
+    if (item == 'redirect' || item == 'spread' || item == CACHE_KEY) {
       return
     }
     remove(item)
   })
-  console.log(res)
-  // debugger
-  // uni.clearStorageSync()
 }
 
 function _has(key) {
@@ -58,5 +53,6 @@ export default {
   set,
   remove,
   clearAll,
-  has: _has
-};
+  has: _has,
+  CACHE_KEY,
+}

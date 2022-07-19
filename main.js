@@ -14,7 +14,7 @@ Vue.component('cu-custom', cuCustom)
 Vue.config.productionTip = false
 Vue.config.devtools = process.env.NODE_ENV !== 'production'
 
-Vue.prototype.$validator = function(rule) {
+Vue.prototype.$validator = function (rule) {
   return new schema(rule)
 }
 
@@ -67,11 +67,10 @@ deviceType = 'routine'
 import { wechat, clearAuthStatus, oAuth, auth, toAuth, pay, openAddress, openShareAll, openShareAppMessage, openShareTimeline, wechatEvevt, ready, wxShowLocation } from '@/libs/wechat'
 
 import { isWeixin } from '@/utils'
-const CACHE_KEY = 'clear_0.0.1'
 
-if (!cookie.has(CACHE_KEY)) {
+if (!cookie.has(cookie.CACHE_KEY)) {
   cookie.clearAll()
-  cookie.set(CACHE_KEY, 1)
+  cookie.set(cookie.CACHE_KEY, 1)
 }
 
 var urlSpread = parseQuery()['spread']
