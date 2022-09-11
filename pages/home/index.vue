@@ -4,7 +4,7 @@
       <view class="head_box" v-if="item.type == 'header'" :style="{ background: bgcolor }" :class="{ active: bgcolor }">
         <cu-custom :isBack="true" :bgColor="bgcolor">
           <block slot="backText">
-            <text class="nav-title shopro-selector-rect">{{ item.componentContent.title }}</text>
+            <text class="nav-title shopro-selector-rect "  >{{ item.componentContent.title }}</text>
           </block>
         </cu-custom>
       </view>
@@ -460,7 +460,7 @@ export default {
 }
 
 .nav-title {
-  margin-left: 20rpx;
+  margin-left: 250rpx;
   line-height: 40px;
 }
 .index{

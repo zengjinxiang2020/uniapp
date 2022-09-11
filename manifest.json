@@ -58,14 +58,14 @@
             "sdkConfigs" : {
                 "oauth" : {
                     "weixin" : {
-                        "appid" : "wx7c84ede33062d1e4",
-                        "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
+                        "appid" : "wxcafa33df05b1d685",
+                        "appsecret" : "951bfec36d79336d0bee06cff0490269",
                         "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
                 "payment" : {
                     "weixin" : {
-                        "appid" : "wx7c84ede33062d1e4",
+                        "appid" : "wxcafa33df05b1d685",
                         "UniversalLinks" : "https://yixiang.co/app/"
                     }
                 },
@@ -98,20 +98,20 @@
                     "sdkConfigs" : {
                         "oauth" : {
                             "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
-                                "appsecret" : "c47ef66d3311194da44e60387d5c1abd",
+                                "appid" : "wxcafa33df05b1d685",
+                                "appsecret" : "951bfec36d79336d0bee06cff0490269",
                                 "UniversalLinks" : "https://yixiang.co/app/"
                             }
                         },
                         "payment" : {
                             "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
+                                "appid" : "wxcafa33df05b1d685",
                                 "UniversalLinks" : "https://yixiang.co/app/"
                             }
                         },
                         "share" : {
                             "weixin" : {
-                                "appid" : "wx7c84ede33062d1e4",
+                                "appid" : "wxcafa33df05b1d685",
                                 "UniversalLinks" : "https://yixiang.co/app/"
                             }
                         },
@@ -174,7 +174,7 @@
             },
             "quickapp" : {},
             "mp-weixin" : {
-                "appid" : "wx604d2ea4702620d2",
+                "appid" : "wxcafa33df05b1d685",
                 "setting" : {
                     "urlCheck" : true,
                     "postcss" : true,
@@ -238,7 +238,7 @@
     },
     "quickapp" : {},
     "mp-weixin" : {
-        "appid" : "wx604d2ea4702620d2",
+        "appid" : "wxcafa33df05b1d685",
         "setting" : {
             "urlCheck" : false
         },
