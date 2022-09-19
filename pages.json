@@ -3,7 +3,7 @@
     {
       "path": "pages/Loading/index",
       "style": {
-        "navigationBarTitleText": "yshop商城"
+        "navigationBarTitleText": "威友批发商城"
       }
     },
     {
@@ -40,7 +40,7 @@
     {
       "path": "pages/home/index",
       "style": {
-        "navigationBarTitleText": "yshop商城",
+        "navigationBarTitleText": "威友批发商城",
         "navigationBarTextStyle": "white",
         "navigationStyle": "custom"
       }
