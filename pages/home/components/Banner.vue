@@ -8,8 +8,8 @@
 			</swiper-item>
 		</swiper>
 		<view class="banner-swiper-dots">
-			<text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'" v-for="(dot, index) in detail.length"
-			 :key="index"></text>
+			<text :class="swiperCurrent === index ? 'banner-dot-active' : 'banner-dot'"
+				v-for="(dot, index) in detail.length" :key="index"></text>
 		</view>
 	</view>
 </template>

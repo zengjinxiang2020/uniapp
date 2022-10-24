@@ -175,11 +175,11 @@ export function handleOrderPayResults(data, type, payType) {
 				// 小程序支付
 			case "WECHAT_PAY":
 				weappPay(data.result.jsConfig).finally(() => {
+					subscribeMessage()
 					resolve()
 					goOrderDetails(data.result.orderId, type)
 				}).then(res => {
 					// #ifdef MP-WEIXIN
-					subscribeMessage()
 					// #endif
 				})
 				break;
@@ -200,7 +200,8 @@ export function subscribeMessage() {
   getSubscribeTemplate()
       .then(res => {
         uni.requestSubscribeMessage({
-          tmplIds: res.data,
+          // tmplIds: res.data,
+          tmplIds: ['mgy97C2Salzr3i1I-eH81r7O9BTCrTPgf3PpucSeDKw'],
           success(res) {
             console.log(res)
           },

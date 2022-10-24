@@ -114,10 +114,11 @@
     <view style="height:100rpx;"></view>
     <view class="footer acea-row row-right row-middle">
       <view class="more"></view>
-      <view class="bnt cancel" @click="modify(0)" v-if="types == 0">一键改价</view>
+      <view class="bnt cancel" @click="modify(0)" v-if="types == 0">你干嘛</view>
       <view class="bnt cancel" @click="modify(0)" v-if="types == -1">立即退款</view>
       <view class="bnt cancel" v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0" @click="offlinePay">确认付款</view>
-      <view class="bnt delivery" v-if="title == '未发货' && types == 1" @click="goGoodsDeliver(orderInfo)">去发货</view>
+      <view class="bnt delivery" v-if="title == '未发货' && types == 1" @click="copyOrderInfo(orderInfo)">复制</view>
+	  <view class="bnt delivery" v-if="title == '未发货' && types == 1" @click="goGoodsDeliver(orderInfo)">去发货</view>
       <view class="bnt quick" v-if="title == '待核销' && types == 1" @click="storeCancellation(0)">快速核销</view>
       <view class="bnt delivery" v-if="title == '待核销' && types == 1" @click="storeCancellation(1)">立即核销</view>
     </view>
@@ -174,6 +175,10 @@ export default {
         query: { oid: orderInfo.orderId },
       })
     },
+	copyOrderInfo: function(orderInfo){
+		  let data = orderInfo.userAddress + "," + orderInfo.realName + "," + orderInfo.userPhone
+		  copyClipboard(data)
+	},
     copyClipboard,
     more: function() {
       this.order = !this.order

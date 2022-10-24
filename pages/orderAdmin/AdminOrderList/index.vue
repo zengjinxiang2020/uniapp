@@ -52,22 +52,26 @@
 					</view>
 					<view class="acea-row row-middle">
 						<view class="bnt" @click="modify(item, 0)" v-if="where.status == 0">一键改价</view>
-						<view class="bnt" @click="modify(item, 0)" v-if="where.status == -3 && item.refundStatus === 1">立即退款</view>
-						<view class="bnt cancel" v-if="item.pay_type === 'offline' && item.paid === 0" @click="offlinePay(item)">确认付款</view>
-						<view class="bnt" v-if="where.status == 1 && item._status._title=='未发货'" @click="goGoodsDeliver(item)">去发货</view>
-            <view class="bnt cancel" v-if="item._status._title=='待核销' && where.status == 1" @click="storeCancellation(0,item.verifyCode)">快速核销</view>
-            <view class="bnt" v-if="item._status._title=='待核销' && where.status == 1" @click="storeCancellation(1,item.verifyCode)">立即核销</view>
+						<view class="bnt" @click="modify(item, 0)" v-if="where.status == -3 && item.refundStatus === 1">
+							立即退款</view>
+						<view class="bnt cancel" v-if="item.pay_type === 'offline' && item.paid === 0"
+							@click="offlinePay(item)">确认付款</view>
+						<view class="bnt" :class="{take:item.takeGoods === 2 ? true : false}" v-if="where.status == 1 && item._status._title=='未发货'"
+							@click="changeTakeGoods(item)">{{choiceGoods[item.takeGoods]}}</view>
+						<view class="bnt" v-show="item.takeGoods ===1 || item.takeGoods === 2">{{pickerName}}</view>
+						<!-- <view class="bnt" v-if="where.status == 1 && item._status._title=='未发货'"
+							@click="goGoodsDeliver(item)">去发货</view> -->
+						<view class="bnt cancel" v-if="item._status._title=='待核销' && where.status == 1"
+							@click="storeCancellation(0,item.verifyCode)">快速核销</view>
+						<view class="bnt" v-if="item._status._title=='待核销' && where.status == 1"
+							@click="storeCancellation(1,item.verifyCode)">立即核销</view>
 					</view>
 				</view>
 			</view>
 		</view>
 		<Loading :loaded="loaded" :loading="loading"></Loading>
-		<PriceChange
-		:change="change"
-		:orderInfo="orderInfo"
-		v-on:closechange="changeclose($event)"
-		v-on:savePrice="savePrice"
-		:status="status"></PriceChange>
+		<PriceChange :change="change" :orderInfo="orderInfo" v-on:closechange="changeclose($event)"
+			v-on:savePrice="savePrice" :status="status"></PriceChange>
 	</view>
 </template>
 <script>
@@ -77,11 +81,14 @@
 	import {
 		getAdminOrderList,
 		setAdminOrderPrice,
+		setAdminOrderTakeGoods,
 		setAdminOrderRemark,
 		setOfflinePay,
 		setOrderRefund
 	} from "@/api/admin";
-  import {orderVerific} from "@/api/order";
+	import {
+		orderVerific
+	} from "@/api/order";
 	import {
 		required,
 		num
@@ -107,11 +114,15 @@
 					limit: 5,
 					status: 0
 				},
+				takeGoods: 0,
+				choiceGoods: ["待拿货","备货中","已备货"],
+				pickerName: "",
 				list: [],
 				loaded: false,
 				loading: false,
 				orderInfo: {},
-				status: ""
+				status: "",
+				isTake: false,
 			};
 		},
 		watch: {
@@ -126,7 +137,7 @@
 				this.getIndex();
 			}
 		},
-    onShow: function() {
+		onShow: function() {
 			let that = this;
 			that.where.status = that.$yroute.query.types;
 			that.current = "";
@@ -155,6 +166,36 @@
 			},
 			changeclose: function(msg) {
 				this.change = msg;
+			},
+			changeTakeGoods: function(item) {
+				let that = this;
+				if (item.takeGoods === 0) {
+					uni.showModal({
+						title: '提示',
+						content: '是否已拿货？',
+						success: (res) => {
+							if (res.confirm) { //这里是点击了确定以后
+								item.takeGoods = 1;
+								that.updateChangeGoods(item,1);
+							} else { //这里是点击了取消以后
+							}
+						}
+					});
+				} else if (item.takeGoods === 1) {
+					uni.showModal({
+						title: '提示',
+						content: '是否已备货？',
+						success: (res) => {
+							if (res.confirm) { //这里是点击了确定以后
+								item.takeGoods = 2;
+								that.updateChangeGoods(item,2);
+							} else { //这里是点击了取消以后
+							}
+						}
+					});
+				} else {
+
+				}
 			},
 			async savePrice(opt) {
 				let that = this,
@@ -278,13 +319,39 @@
 				getAdminOrderList(that.where).then(
 					res => {
 						that.loading = false;
-						that.loaded = res.data.length < that.where.limit;
-						that.list.push.apply(that.list, res.data);
+						that.loaded = res.data.list.length < that.where.limit;
+						that.list.push.apply(that.list, res.data.list);
 						that.where.page = that.where.page + 1;
+						that.pickerName = res.data.pickerName;
 					},
 					err => {
 						uni.showToast({
 							title: res.msg,
+							icon: "none",
+							duration: 2000
+						});
+					}
+				);
+			},
+			updateChangeGoods: function(item,takeGoods) {
+				let that = this,
+					data = {};
+				data.orderId = item.orderId;
+				data.takeGoods = takeGoods;
+				setAdminOrderTakeGoods(data).then(
+					function() {
+						that.change = false;
+						uni.showToast({
+							title: "拿货状态修改成功",
+							icon: "success",
+							duration: 2000
+						});
+						that.init();
+					},
+					function() {
+						that.change = false;
+						uni.showToast({
+							title: "拿货状态未修改",
 							icon: "none",
 							duration: 2000
 						});
@@ -310,11 +377,7 @@
 					order_id: item.order_id
 				}).then(
 					res => {
-						uni.showToast({
-							title: res.msg,
-							icon: "none",
-							duration: 2000
-						});
+
 						this.init();
 					},
 					error => {
@@ -326,63 +389,67 @@
 					}
 				);
 			},
-      storeCancellation(index,verifyCode) {
-        const that = this;
-        that.check = true;
-        if (index == 0) {
-          uni.showModal({
-            title: "确定核销订单?",
-            content: "注意:请务必核对核销码的与客户正确性",
-            success(res) {
-              if (res.confirm) {
-                uni.showLoading({
-                  title: "查询中"
-                });
-                orderVerific(verifyCode, 1)
-                    .then(res => {
-                      console.log(res)
-                      uni.hideLoading();
-                      that.iShidden = false;
-                      uni.showToast({
-                        title: res.msg,
-                        icon: 'none',
-                        duration: 1000
-                      });
-                      //最后就是返回上一个页面。
-                      setTimeout(function() {
-                        uni.navigateBack({
-                          delta: 1, // 返回上一级页面。
-                          success: function() {
-                            console.log('成功！')
-                          }
-                        })
-                      }, 1000);
-                    })
-                    .catch((err) => {
-                      console.log(err)
-                      uni.hideLoading();
-                      uni.showToast({
-                        title: err.data.msg,
-                        icon: "none",
-                        duration: 2000
-                      });
-                    });
-              }
-            }
-          });
+			storeCancellation(index, verifyCode) {
+				const that = this;
+				that.check = true;
+				if (index == 0) {
+					uni.showModal({
+						title: "确定核销订单?",
+						content: "注意:请务必核对核销码的与客户正确性",
+						success(res) {
+							if (res.confirm) {
+								uni.showLoading({
+									title: "查询中"
+								});
+								orderVerific(verifyCode, 1)
+									.then(res => {
+										console.log(res)
+										uni.hideLoading();
+										that.iShidden = false;
+										uni.showToast({
+											title: res.msg,
+											icon: 'none',
+											duration: 1000
+										});
+										//最后就是返回上一个页面。
+										setTimeout(function() {
+											uni.navigateBack({
+												delta: 1, // 返回上一级页面。
+												success: function() {
+													console.log('成功！')
+												}
+											})
+										}, 1000);
+									})
+									.catch((err) => {
+										console.log(err)
+										uni.hideLoading();
+										uni.showToast({
+											title: err.data.msg,
+											icon: "none",
+											duration: 2000
+										});
+									});
+							}
+						}
+					});
 
-        } else {
-          that.$yrouter.push({
-            path: '/pages/orderAdmin/OrderCancellation/index'
-          })
-        }
-      }
+				} else {
+					that.$yrouter.push({
+						path: '/pages/orderAdmin/OrderCancellation/index'
+					})
+				}
+			}
 		}
 	};
 </script>
 
 <style lang="less">
-.quick {
-  background: #F25555;
-}
+	.quick {
+		background: #F25555;
+	}
+	/deep/.take {
+		background: orangered;
+	}
+	
 </style>

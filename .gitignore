@@ -16,3 +16,6 @@ unpackage/
 assets/css/style.css
 assets/css/style.css.map
 yarn.lock
+
+unpackage/dist
+

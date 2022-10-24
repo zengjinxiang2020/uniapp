@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import QQMapWX from '../libs/qqmap-wx-jssdk.min.js'	//引入腾讯地图
 
 Vue.use(Vuex)
 const debug = process.env.NODE_ENV !== 'production'
@@ -70,7 +71,7 @@ const vuexStore = new Vuex.Store({
     get_to(state, goName) {
       state.goName = goName
       cookie.set('goName', goName)
-    },
+    }
   },
   actions: {
     getLocation({ state, commit }, force) {

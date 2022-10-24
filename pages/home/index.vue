@@ -251,6 +251,8 @@ export default {
       // this.doColorThief()
     })
   },
+  onReady() {
+  },
   methods: {
     ...mapActions(['getLocation']),
     onShareTimeline: function() {

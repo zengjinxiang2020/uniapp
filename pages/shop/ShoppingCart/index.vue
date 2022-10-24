@@ -41,7 +41,7 @@
               <view class="text">
                 <view class="line1">{{ item.productInfo.storeName }}</view>
                 <view class="infor line1" v-if="item.productInfo.attrInfo">属性：{{ item.productInfo.attrInfo.sku }}</view>
-                <view class="money">￥{{ item.truePrice }}</view>
+                <view class="money">￥{{ item.truePrice * item.cartNum }}</view>
               </view>
               <view class="carnum acea-row row-center-wrapper">
                 <view class="reduce" :class="validList[cartListValidIndex].cartNum <= 1 ? 'on' : ''"

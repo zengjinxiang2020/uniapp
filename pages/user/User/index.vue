@@ -105,7 +105,7 @@
         <view class="myService">
           <view class="serviceList acea-row row-middle">
             <template v-for="(item, MyMenusIndex) in MyMenus">
-              <view class="item" :key="MyMenusIndex" @click="goPages(MyMenusIndex)">
+              <view class="item" v-if="!(item.name ==='商户管理' && userInfo.adminid === 0)" :key="MyMenusIndex" @click="goPages(MyMenusIndex)">
                 <view class="pictrue">
                   <image :src="item.pic" />
                 </view>
