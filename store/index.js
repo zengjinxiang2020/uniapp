@@ -79,6 +79,7 @@ const vuexStore = new Vuex.Store({
         type: 'gcj02',
         success: function(res) {
           console.log(res)
+		  console.log("getLocation")
           commit('setLocation', {
             longitude: res.longitude,
             latitude: res.latitude,

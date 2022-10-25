@@ -77,7 +77,13 @@
 					</view>
 				</view>
 			</view>
-			<view class="item acea-row row-between-wrapper" v-if="shipping_type === 0 || shipping_type === 2">
+			<!-- <view class="item acea-row row-between-wrapper" v-if="shipping_type === 0 || shipping_type === 2">
+				<view>快递费用</view>
+				<view class="discount">
+					{{ orderPrice.payPostage > 0 ? orderPrice.payPostage : '免运费' }}
+				</view>
+			</view> -->
+			<view class="item acea-row row-between-wrapper" v-if="shipping_type === 0">
 				<view>快递费用</view>
 				<view class="discount">
 					{{ orderPrice.payPostage > 0 ? orderPrice.payPostage : '免运费' }}
@@ -280,7 +286,7 @@
 				latitude: null, //纬度
 				fullAddress: null
 			}
-		},	
+		},
 		computed: {
 			...mapGetters(['userInfo', 'storeItems']),
 			calFullAddress: {
@@ -312,11 +318,14 @@
 			let that = this
 			this.$store.dispatch('getUser', true)
 			that.getCartInfo()
-
+			
 			console.log(that.$yroute)
 			if (that.$yroute.query.pinkid !== undefined) {
 				that.pinkId = that.$yroute.query.pinkid
 			}
+			console.log("onLoad")
+			console.log(that.$yroute.query.isIntegral)
+			console.log(that)
 			this.isIntegral = that.$yroute.query.isIntegral == 'true'
 			this.useIntegral = this.isIntegral
 			if (this.isIntegral) {
@@ -326,14 +335,39 @@
 				that.cartid = that.$yroute.query.id
 				console.log(that.cartid)
 			}
-
-			// that.getSetting()
-			that.getLocation()
-
-			// that.findShop()
-			// that.formSubmit()
 		},
 		methods: {
+			distanceToPrice(distance){
+				let price = 6.5		//基础配送费6.5元
+				if(distance > 10000){	//超出配送范围
+					console.log("超出配送范围")
+					return "超出配送范围"
+				}
+				if(distance >= 0 && distance <= 3000){		//0-3公里，0元起，每公里加一元		
+					price += Math.ceil(distance / 1000)
+					return price
+				} else if (distance > 3000 && distance < 4000){
+					//3-4公里，4元
+					price += 4
+					return price
+				} else if (distance >= 4000 && distance < 6000) {
+					//4-5公里 6元
+					price += 6
+					return price
+				}else {
+					//5-21公里，7元起，每公里加2元 
+					price = 7
+					price += (2 * Math.ceil(distance / 1000))
+					return price
+				}
+				//21-100公里，40元起，每公里加两元
+				//重量附加费： 6-10公斤，6元  超过十公斤，10元
+				//特殊时段收费，00:00到06:00 6元     22:00到24:00 3元
+				//临时加价											
+				price += Math.ceil(distance / 1000)
+				console.log(price)
+				return price
+			},
 			getLocation() {
 				var that = this
 				uni.getLocation({
@@ -344,16 +378,17 @@
 						that.latitude = res.latitude
 						console.log('当前位置的经度：' + that.longitude)
 						console.log('当前位置的纬度：' + that.latitude)
-						that.formSubmit()
+						// that.geocoder()
+						that.calculateDistance()
 					},
 					fail: function(res) {
 						console.error("getLocation失败" + res.errMsg)
 					},
 				});
 			},
-			formSubmit() {
+			geocoder() {	//通过地址得到经纬度
 				var that = this
-				var address = '北京市海淀区彩和坊路海淀西大街74号'
+				var address = ''
 				console.log(address)
 				console.log("calFullAddress" + that.calFullAddress)
 				console.log("fullAddress" + that.fullAddress)
@@ -375,7 +410,7 @@
 						console.log('收货地址的纬度：' + that.latitude)
 						console.log("calFullAddress" + that.calFullAddress)
 						console.log("fullAddress" + that.fullAddress)
-						that.findShop()
+						that.calculateDistance()
 						//根据地址解析在地图上标记解析地址位置
 						// that.setData({ // 获取返回结果，放到markers及poi中，并在地图展示
 						// 	markers: [{
@@ -406,13 +441,13 @@
 					}
 				})
 			},
-			findShop() { //拿到商家的地理位置，用到了腾讯地图的api
+			calculateDistance() { //拿到商家的地理位置，用到了腾讯地图的api
 				var that = this
-				console.log("findshop")
 
 				//调用距离计算接口
 				qqmapsdk.calculateDistance({
-					mode: 'driving', //可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
+					mode: 'straight',
+					// mode: 'driving', //可选值：'driving'（驾车）、'walking'（步行），不填默认：'walking',可不填
 					//from参数不填默认当前地址
 					//获取表单提交的经纬度并设置from和to参数（示例为string格式）
 					from: {
@@ -420,8 +455,8 @@
 						longitude: that.longitude, //商家的经度/
 					}, //若起点有数据则采用起点坐标，若为空默认当前地址
 					to: [{
-						latitude: 22.914751, //商家的纬度
-						longitude: 114.083267, //商家的经度
+						latitude: 22.91304, //商家的纬度
+						longitude: 114.071907, //商家的经度
 					}], //终点坐标
 					success: function(res) { //成功后的回调
 						console.log("成功" + res);
@@ -435,6 +470,7 @@
 						// console.log("dis.length" + dis.length);
 						console.log("res.elements.length" + res.result.elements.length);
 						console.log("that.distance" + that.distance);
+						that.distance = that.distanceToPrice(that.distance)
 					},
 					fail: function(res) {
 						console.error("失败" + res.status);
@@ -460,7 +496,7 @@
 				//  _dateRange: "2020-3-30 09:00-09:30"
 				//  timeStamp: 1585530000000
 				// }
-				return date
+				return this.date
 			},
 			showStoreList() {
 				this.$store.commit('get_to', 'orders')
@@ -479,6 +515,10 @@
 				}
 				console.log(this)
 				this.shipping_type = index
+				if (index == 2) {
+					// this.getLocation()
+					this.geocoder()
+				}
 			},
 			changeUseIntegral: function(e) {
 				// this.computedPrice();
@@ -525,6 +565,8 @@
 				}
 				postOrderConfirm(cartIds)
 					.then(res => {
+						console.log("postOrderConfirm")
+						console.log(res)
 						this.offlinePayStatus = res.data.offline_pay_status
 						this.orderGroupInfo = res.data
 						this.deduction = res.data.deduction
@@ -581,10 +623,23 @@
 			changeAddress(addressInfo) {
 				this.addressInfo = addressInfo
 				this.computedPrice()
-				this.getLocation()
+				if (this.shipping_type === 2) {
+					// this.getLocation()
+					this.geocoder()
+				}
 			},
 			createOrder() {
 				subscribeMessage()
+				console.log("超出配送范围，请重新选择收货地址")
+				console.log(typeof(this.distance))
+				if (typeof( this.shipping_type == 2 && this.distance) === "string" ) {
+					uni.showToast({
+						title: '超出配送范围',
+						icon: 'none',
+						duration: 2000,
+					})
+					return
+				}
 				// 送达时间限制
 				if (this.shipping_type === 2) {
 					if (this.date === null) {
@@ -599,6 +654,7 @@
 				if (this.isIntegral) {
 					// 积分支付
 					if (this.userInfo.integral < this.orderPrice.payIntegral) {
+						
 						uni.showToast({
 							title: '积分不足',
 							icon: 'none',

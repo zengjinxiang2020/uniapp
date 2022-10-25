@@ -30,16 +30,23 @@ export default {
   },
   onShow: function() {
     this.map = {
-      latitude: this.$yroute.query.latitude,
-      longitude: this.$yroute.query.longitude
+      // latitude: this.$yroute.query.latitude,
+      // longitude: this.$yroute.query.longitude,
+	  latitude: 22.91304,
+	  longitude: 114.071907
     };
+	console.log("map")
+	console.log(this.map.latitude)
+	console.log(this.map.longitude)
     this.mapConfig = [{
       id: 1,
       width: 50,
       height: 50,
       iconPath: this.$yroute.query.image,
-      latitude: this.$yroute.query.latitude,
-      longitude: this.$yroute.query.longitude,
+      // latitude: this.$yroute.query.latitude,
+      // longitude: this.$yroute.query.longitude,
+	  latitude: 22.91304,
+	  longitude: 114.071907,
       title: this.$yroute.query.name,
       name: this.$yroute.query.name,
       address: this.$yroute.query.detailedAddress
