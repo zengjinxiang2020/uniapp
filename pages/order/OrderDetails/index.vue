@@ -224,7 +224,7 @@
         <view>积分抵扣：</view>
         <view class="conter">-￥{{ orderInfo.deductionPrice || 0 }}</view>
       </view>
-      <view class="item acea-row row-between" v-if="orderInfo.payPostage > 0">
+      <view class="item acea-row row-between" v-if="orderInfo.payPostage > 0 && orderInfo.shippingType == 1">
         <view>运费：</view>
         <view class="conter">￥{{ orderInfo.payPostage || 0 }}</view>
       </view>
@@ -490,6 +490,8 @@
         }
         orderDetail(id)
           .then((res) => {
+			  console.log("orderDetail")
+			  console.log(res)
             this.orderInfo = res.data;
             this.getOrderStatus();
             if (this.orderInfo.combinationId > 0) {

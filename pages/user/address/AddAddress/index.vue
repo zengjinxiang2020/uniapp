@@ -11,6 +11,12 @@
 			</view>
 			<view class="item acea-row row-between-wrapper">
 				<view class="name">所在地区</view>
+				<!-- <view class="picker acea-row row-between-wrapper select-value form-control">
+					  <view class="address">
+						<CitySelect ref="cityselect" :defaultValue="defaultAddress" @callback="result" :items="district"></CitySelect>
+					  </view>
+					  <view class="iconfont icon-dizhi font-color-red"></view>
+				</view> -->
 				<view class="center-input-input" @click="toPosition">
 					<input name="houseAddress" id="houseAddress" v-model="houseAddress" placeholder="点击选择收货地址"
 						placeholder-style="color:#a4a4a4;" type="text" maxlength="100" disabled></input>
@@ -81,6 +87,21 @@ export default {
     },
   },
   methods: {
+	  getCityList: function() {
+	        let that = this
+	        getCity()
+	          .then(res => {
+	            that.district = res.data
+	            that.ready = true
+	          })
+	          .catch(err => {
+	            uni.showToast({
+	              title: err.msg,
+	              icon: 'none',
+	              duration: 2000,
+	            })
+	          })
+	},
 	  
 	toPosition:function(e){
 	    let that = this;
@@ -226,6 +247,19 @@ export default {
     ChangeIsDefault: function() {
       this.userAddress.isDefault = !this.userAddress.isDefault
     },
+	result(values) {
+	      console.log(this)
+	      console.log(values)
+	      this.address = {
+	        province: values.province.name || '',
+	        city: values.city.name || '',
+	        district: values.district.name || '',
+	        city_id: values.city.id,
+	      }
+	      this.addressText = `${this.address.province}${this.address.city}${this.address.district}`
+	      // this.addressText =
+	      //   this.address.province + this.address.city + this.address.district;
+	    },
   },
 }
 </script>

@@ -73,7 +73,7 @@
             </view>
             <view class="addressBox">
               <a class="iconfont icon-dadianhua01 font-color-red phone" @click="telPhone(systemStore.phone)"></a>
-              <view class="addressTxt corlor-yshop">距离{{ systemStore.distance }}千米</view>
+              <view class="addressTxt corlor-yshop">距离{{ systemStore.distance }}米</view>
             </view>
           </view>
         </view>

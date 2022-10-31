@@ -114,7 +114,7 @@
     <view style="height:100rpx;"></view>
     <view class="footer acea-row row-right row-middle">
       <view class="more"></view>
-      <view class="bnt cancel" @click="modify(0)" v-if="types == 0">你干嘛</view>
+      <!-- <view class="bnt cancel" @click="modify(0)" v-if="types == 0">你干嘛</view> -->
       <view class="bnt cancel" @click="modify(0)" v-if="types == -1">立即退款</view>
       <view class="bnt cancel" v-if="orderInfo.pay_type === 'offline' && orderInfo.paid === 0" @click="offlinePay">确认付款</view>
       <view class="bnt delivery" v-if="title == '未发货' && types == 1" @click="copyOrderInfo(orderInfo)">复制</view>
