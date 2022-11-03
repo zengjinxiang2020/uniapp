@@ -96,7 +96,7 @@
           <span class="iconfont icon-weizhi"></span>查看位置
         </div>
       </div>
-      <view class="address" v-if="orderInfo.shippingType === 1">
+      <view class="address" v-if="orderInfo.shippingType === 1 || orderInfo.shippingType === 3">
         <view class="name">
           {{ orderInfo.realName }}
           <text class="phone">{{ orderInfo.userPhone }}</text>
@@ -228,6 +228,10 @@
         <view>运费：</view>
         <view class="conter">￥{{ orderInfo.payPostage || 0 }}</view>
       </view>
+	  <view class="item acea-row row-between" v-if="orderInfo.distribution > 6.5 && orderInfo.shippingType == 3">
+	    <view>同城费用：</view>
+	    <view class="conter">￥{{ orderInfo.distribution || 0 }}</view>
+	  </view>
       <view class="actualPay acea-row row-right">
         实付款：
         <text class="money font-color-red" v-if="!isIntegral">￥{{ orderInfo.payPrice || 0 }}</text>

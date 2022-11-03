@@ -61,25 +61,25 @@ export default {
   },
   data() {
     return {
-      district: [],
-      id: 0,
-      userAddress: { isDefault: 0 },
-      address: {
-		  province: null,
-		  city: null,
-		  district: null
-	  },
-      isWechat: isWeixin(),
-      defaultAddress: {},
-      addressText: '',
-	  houseAddress: ''
+		district: [],
+		id: 0,
+		userAddress: { isDefault: 0 },
+		address: {
+			province: null,
+			city: null,
+			district: null
+		},
+		isWechat: isWeixin(),
+		defaultAddress: {},
+		addressText: '',
+		houseAddress: ''
     }
   },
   mounted: function() {
     let id = this.$yroute.query.id
     this.id = id
     this.getUserAddress()
-    // this.getCityList()
+    this.getCityList()
   },
   watch: {
     addressText(nextModel2) {
@@ -87,20 +87,32 @@ export default {
     },
   },
   methods: {
+		setCityId() {
+	        this.district.map(province => {
+				if (province.n == this.address.province) {
+					province.c.map(city => {
+						if (city.n == this.address.city) {
+							this.address.city_id = city.v
+						}
+					})
+				}
+			}) 
+		},
 	  getCityList: function() {
-	        let that = this
-	        getCity()
-	          .then(res => {
-	            that.district = res.data
-	            that.ready = true
-	          })
-	          .catch(err => {
-	            uni.showToast({
-	              title: err.msg,
-	              icon: 'none',
-	              duration: 2000,
-	            })
-	          })
+			let that = this
+			getCity()
+			  .then(res => {
+				that.district = res.data
+				that.ready = true
+				that.setCityId()
+			  })
+			  .catch(err => {
+				uni.showToast({
+				  title: err.msg,
+				  icon: 'none',
+				  duration: 2000,
+				})
+			})
 	},
 	  
 	toPosition:function(e){
@@ -147,7 +159,7 @@ export default {
 				console.log(res)
 				that.houseAddress = res.address + res.name
 				console.log(that.houseAddress)
-			  
+				this.getCityList()
 			},
 			complete: function (res) {
 				//that.houseAddress = res.address + res.name
@@ -203,6 +215,7 @@ export default {
       }
       try {
         let that = this,
+			
           data = {
             id: that.id,
             real_name: name,
@@ -246,20 +259,7 @@ export default {
     },
     ChangeIsDefault: function() {
       this.userAddress.isDefault = !this.userAddress.isDefault
-    },
-	result(values) {
-	      console.log(this)
-	      console.log(values)
-	      this.address = {
-	        province: values.province.name || '',
-	        city: values.city.name || '',
-	        district: values.district.name || '',
-	        city_id: values.city.id,
-	      }
-	      this.addressText = `${this.address.province}${this.address.city}${this.address.district}`
-	      // this.addressText =
-	      //   this.address.province + this.address.city + this.address.district;
-	    },
+    }
   },
 }
 </script>

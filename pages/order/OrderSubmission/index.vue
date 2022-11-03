@@ -97,7 +97,7 @@
 				</view>
 			</view>
 			<view class="item acea-row row-between-wrapper" v-if="shipping_type === 2">
-				<view>配送价格</view>
+				<view>同城费用</view>
 				<view class="discount">
 					{{orderPrice.distribution}}
 				</view>
