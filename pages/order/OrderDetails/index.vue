@@ -209,7 +209,7 @@
     </view>
     <view class="wrapper">
       <view class="item acea-row row-between" v-if="!isIntegral">
-        <view>支付金额：</view>
+        <view>商品价格：</view>
         <view class="conter">￥{{ orderInfo.totalPrice || 0 }}</view>
       </view>
       <view class="item acea-row row-between" v-if="isIntegral">
@@ -244,9 +244,9 @@
         <view class="bnt cancel" @click="cancelOrder">取消订单</view>
         <view class="bnt bg-color-red" @click="pay = true">立即付款</view>
       </template>
-      <template v-if="orderInfo.refundStatus === 0 && orderInfo.paid === 1">
+      <!-- <template v-if="orderInfo.refundStatus === 0 && orderInfo.paid === 1">
         <view class="bnt cancel" @click="goGoodsReturn(orderInfo)">申请售后</view>
-      </template>
+      </template> -->
       <!--  -->
       <template v-if="orderInfo.shippingType == 1 && status.type == 2">
         <view class="bnt default"

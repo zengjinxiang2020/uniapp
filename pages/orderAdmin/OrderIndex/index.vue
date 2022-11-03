@@ -18,10 +18,10 @@
         <view class="num">{{ census.orderCount.evaluatedCount }}</view>
         <view>待评价</view>
       </view>
-      <view class="item" @click="goAdminOrderList(4)">
+      <!-- <view class="item" @click="goAdminOrderList(4)">
         <view class="num">{{ census.orderCount.refundCount }}</view>
         <view>退款</view>
-      </view>
+      </view> -->
     </view>
     <view class="wrapper">
       <view class="title">

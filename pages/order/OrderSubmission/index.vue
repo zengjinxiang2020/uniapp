@@ -4,10 +4,10 @@
 			<view class="nav acea-row">
 				<view class="item font-color-red" :class="shipping_type === 0 ? 'on' : 'on2'" @click="addressType(0)"
 					v-if="systemStore"></view>
-				<view class="item font-color-red" :class="shipping_type === 1 ? 'on' : 'on2'" @click="addressType(1)"
+				<view class="item font-color-red"  :class="shipping_type === 1 ? 'on' : 'on2'" @click="addressType(1)"
 					v-if="systemStore && !isIntegral"></view>
 				<view class="item font-color-red" :class="shipping_type === 2 ? 'on' : 'on2'" @click="addressType(2)"
-					v-if="systemStore"></view>
+					v-if="systemStore && !isIntegral"></view>
 			</view>
 			<view class="address acea-row row-between-wrapper" v-if="shipping_type === 0||shipping_type === 2 "
 				@click="addressTap">
@@ -90,7 +90,7 @@
 					{{ orderPrice.payPostage > 0 ? orderPrice.payPostage : '免运费' }}
 				</view>
 			</view> -->
-			<view class="item acea-row row-between-wrapper" v-if="shipping_type === 0">
+			<view class="item acea-row row-between-wrapper" v-if="shipping_type === 0 && !isIntegral">
 				<view>快递费用</view>
 				<view class="discount">
 					{{ orderPrice.payPostage > 0 ? orderPrice.payPostage : '免运费' }}
@@ -181,7 +181,7 @@
 				<view class="discount">￥{{ orderPrice.payPostage }}</view>
 			</view>
 			<view class="item acea-row row-between-wrapper"
-				v-if="orderPrice.distribution > 6.5 && !isIntegral && shipping_type == 2">
+				v-if="!isIntegral && shipping_type == 2">
 				<view>配送费：</view>
 				<view class="discount">￥{{ orderPrice.distribution }}</view>
 			</view>

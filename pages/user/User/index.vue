@@ -93,13 +93,13 @@
               </view>
               <text>待评价</text>
             </view>
-            <view @click="goReturnList()" class="item">
+            <!-- <view @click="goReturnList()" class="item">
               <view class="pictrue">
                 <image :src="`${$VUE_APP_RESOURCES_URL}/images/sh.png`" />
                 <text class="order-status-num" v-if="userInfo.orderStatusNum.refundCount > 0">{{ userInfo.orderStatusNum.refundCount }}</text>
               </view>
               <text>售后/退款</text>
-            </view>
+            </view> -->
           </view>
         </view>
         <view class="myService">

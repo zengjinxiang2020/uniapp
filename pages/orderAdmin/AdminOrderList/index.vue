@@ -6,7 +6,7 @@
 			<view class="item" :class="where.status == 2 ? 'on' : ''" @click="changeStatus(2)">待收货</view>
 			<view class="item" :class="where.status == 3 ? 'on' : ''" @click="changeStatus(3)">待评价</view>
 			<view class="item" :class="where.status == 4 ? 'on' : ''" @click="changeStatus(4)">已完成</view>
-			<view class="item" :class="where.status == -3 ? 'on' : ''" @click="changeStatus(-3)">退款</view>
+			<!-- <view class="item" :class="where.status == -3 ? 'on' : ''" @click="changeStatus(-3)">退款</view> -->
 		</view>
 		<view class="list">
 			<view class="item" v-for="(item, listIndex) in list" :key="listIndex">
